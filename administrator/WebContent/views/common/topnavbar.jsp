@@ -5,6 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	#topNav_logo:hover{
+		cursor: pointer;	
+	}
+</style>
+<script type="text/javascript">
+	$(function(){
+		
+		$("#topNav_logo").click(function(){
+			location.href = "<%= request.getContextPath() %>"; 
+		})		
+		
+	})
+
+</script>
 </head>
 <body>
 <div class="topbar">
@@ -12,12 +27,9 @@
 			<!-- LOGO -->
 			<div class="topbar-left">
 				<div class="">
-					<a href="<%= request.getContextPath() %>" class="logo"> <img
-						src="<%=request.getContextPath()%>/resources/main/images/11.png"
-						alt="logo" class="logo-lg"> <img
-						src="<%=request.getContextPath()%>/resources/assets/images/logo_sm.png"
-						alt="logo" class="logo-sm hidden">
-					</a>
+					 <img src="<%=request.getContextPath()%>/resources/main/images/11.png" alt="logo" class="logo-lg" style="width: 100%; height: 100%;"
+					 id="topNav_logo" > 
+					
 				</div>
 			</div>
 
