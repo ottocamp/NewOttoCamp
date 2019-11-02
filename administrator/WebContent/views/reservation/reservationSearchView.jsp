@@ -20,6 +20,11 @@
 
         <link rel="shortcut icon" href="<%= request.getContextPath() %>/resources/assets/images/favicon.ico">
         
+          <!-- ION Slider -->
+        <link href="<%= request.getContextPath() %>/resources/assets/plugins/ion-rangeslider/ion.rangeSlider.css" rel="stylesheet" type="text/css"/>
+        <link href="<%= request.getContextPath() %>/resources/assets/plugins/ion-rangeslider/ion.rangeSlider.skinModern.css" rel="stylesheet" type="text/css"/>
+        
+        
          <!-- DataTables -->
         <link href="<%= request.getContextPath() %>/resources/assets/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
         <link href="<%= request.getContextPath() %>/resources/assets/plugins/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -41,7 +46,22 @@
 		 <!-- Sweet Alert -->
         <link href="<%= request.getContextPath() %>/resources/assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 		
+		<style type="text/css">
 		
+		#rDetail:hover{
+		cursor: pointer;
+		text-decoration: underline;
+		
+		}
+		
+		#detailDiv{
+		display: none;
+		}
+		
+		
+		</style>
+		
+				
 </head>
 <body>
 
@@ -64,11 +84,21 @@
 
                     <div class="container">
                     
-      
+      					<div class="row">
+      					 <div class="col-sm-12">
+      					 <h4 class="m-t-0 header-title">예약 검색 옵션 </h4>
+      					 </div>
+      					
+      					</div>
+      					
                         <div class="row">
-                            <div class="col-sm-12">
+                       
+                        <form method="post" action="<%= request.getContextPath() %>/newReservation.li" onsubmit="return validate();">
+                            <div class="col-lg-6">
                                 <div class="card-box">
-                            		<form method="post" action="<%= request.getContextPath() %>/newReservation.li" onsubmit="return validate();">
+                                
+                                <span style="font-weight: bold;">기본검색옵션</span><span style="float: right;" id="rDetail">상세검색</span>
+                                <hr style="margin-top: 10px;">
                             		<div class="checkbox checkbox-inline checkbox-circle">
                                                 <input type="checkbox" id="payment" name="progress" value="1">
                                                 <label for="payment"> 결제완료 </label>
@@ -85,14 +115,28 @@
                                          <input type="checkbox" id="complete" name="progress" value="4">
                                          <label for="complete"> 이용완료 </label>
                                      </div>
-                            		<br><br>
-                            		시작일자 : <input type="date" style="height: 34px;" id="startDay">
-                            		종료일자 : <input type="date" style="height: 34px;" id="endDay">
-                            		
-                            		
-                            		</form>
+                                     <div class="checkbox checkbox-inline checkbox-circle">
+                                         <input type="checkbox" id="pAll" name="" value="4">
+                                         <label for="pAll"> 전체선택 </label>
+                                     </div>
+                            		<br><hr>
+                            		시작일자  &nbsp;: &nbsp;<input type="date" style="height: 34px;" id="startDay">&nbsp;&nbsp;
+                            		종료일자  &nbsp;: &nbsp;<input type="date" style="height: 34px;" id="endDay">
+                            		<hr>
+                            		결제금액 &nbsp;: &nbsp;<input type="text" placeholder="최소" style="width: 144.34px; height: 34px;">&nbsp; ~ &nbsp;<input type="text" placeholder="최대" style="width: 144.34; height: 34px;">
+                                    <button type="button" class="btn btn-primary" onclick="searchSales();" style="vertical-align: 0;">검색</button> 
+                                        
                                 </div>
                             </div>
+                            
+                            <div class="col-lg-6" id="detailDiv">
+                                <div class="card-box">
+                                
+                                
+                                
+                                
+                                </div></div>
+                            </form>
                         </div>
 
 
@@ -118,7 +162,32 @@
 		<script type="text/javascript">
 		
 		
+		document.getElementById('endDay').value = new Date().toISOString().substring(0, 10);
 		
+		$(function(){
+			
+			$("#pAll").change(function(){
+		        if($(this).is(":checked")){
+		        	 $("input[name=progress]").prop("checked",true);
+		        }else{
+		        	$("input[name=progress]").prop("checked",false);
+		        }
+		    });
+			
+			$("#rDetail").click(function(){
+				
+				 if($("#detailDiv").css("display") == "none"){   
+				        jQuery('#detailDiv').css("display", "block");   
+				    } else {  
+				        jQuery('#detailDiv').css("display", "none");   
+				    }
+
+				
+			})
+			
+		});
+		
+
 		
 		</script>
 
@@ -158,7 +227,8 @@
         <script src="<%= request.getContextPath() %>/resources/assets/js/jquery.app.js"></script>
 
 		
-		
+
+
 
 </body>
 </html>

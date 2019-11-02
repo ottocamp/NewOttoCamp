@@ -35,9 +35,9 @@
 
 			<!-- LOGO -->
 			<div class="topbar-left">
-				<div class="">
-					 <img src="<%=request.getContextPath()%>/resources/main/images/11.png" alt="logo" class="logo-lg" style="width: 100%; height: 100%;"
-					 id="topNav_logo" > 
+				<div class="" style="">
+					 <img src="<%=request.getContextPath()%>/resources/main/images/11.png" alt="logo" class="logo-lg" 
+					 style="width: 100%; height: 100%; margin-left: 25px;" id="topNav_logo" > 
 					
 				</div>
 			</div>
