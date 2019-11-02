@@ -54,6 +54,12 @@
                                 <li>
                                     <a href="javascript: void(0);" aria-expanded="true"><i class="ti-pencil-alt"></i> 리뷰 및 메모</span></a>
                                 </li>
+                                <li>
+                                    <a href="<%= request.getContextPath() %>/checkFavorite?code=<%= 10 %>" aria-expanded="true"><i class="ti-pencil-alt"></i> 즐찾 추가 테스트10</span></a>
+                                </li>
+                                <li>                  <!--  -->
+                                    <a href="<%= request.getContextPath() %>/checkFavorite?code=<%= 9 %>" aria-expanded="true"><i class="ti-pencil-alt"></i> 즐찾 추가 테스트9</span></a>
+                                </li>
 
      
                             </ul>
