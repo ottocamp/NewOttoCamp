@@ -3,7 +3,7 @@
 <%
 	
 	User loginUser = (User)session.getAttribute("loginUser");
-
+	
 %>    
     
 <!DOCTYPE html>

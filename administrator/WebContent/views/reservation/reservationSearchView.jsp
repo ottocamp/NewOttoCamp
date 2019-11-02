@@ -1,30 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, reservation.model.vo.*, java.text.DecimalFormat"%>
 <%
-	ArrayList<Reservation> rList = (ArrayList<Reservation>)request.getAttribute("rList");
-	DecimalFormat formatter = new DecimalFormat("##,###,###");
-	String msg = (String)session.getAttribute("msg");
-	
-	for(Reservation re : rList){
-		
-		switch(re.getReStatus()){
-		
-		case "1" : re.setReStatus("결제완료"); break;
-		case "2" : re.setReStatus("예약완료"); break;
-		case "3" : re.setReStatus("예약취소"); break;
-		case "4" : re.setReStatus("이용완료"); break;
-		
-		
-		}
-		
-	}
 	
 %>      
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>예약 관리 페이지</title>
+		<title>예약 관리 검색페이지</title>
 		<!-- jqury cdn -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		
@@ -36,6 +19,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
         <link rel="shortcut icon" href="<%= request.getContextPath() %>/resources/assets/images/favicon.ico">
+        
+          <!-- ION Slider -->
+        <link href="<%= request.getContextPath() %>/resources/assets/plugins/ion-rangeslider/ion.rangeSlider.css" rel="stylesheet" type="text/css"/>
+        <link href="<%= request.getContextPath() %>/resources/assets/plugins/ion-rangeslider/ion.rangeSlider.skinModern.css" rel="stylesheet" type="text/css"/>
+        
         
          <!-- DataTables -->
         <link href="<%= request.getContextPath() %>/resources/assets/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
@@ -58,24 +46,22 @@
 		 <!-- Sweet Alert -->
         <link href="<%= request.getContextPath() %>/resources/assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 		
-		<script>
-		var msg = "<%= msg %>";
-		$(function(){
-		if(msg != "null"){
-			
-			$("#sa-success").click();
-			<% session.removeAttribute("msg"); %>
-		}
-		});
+		<style type="text/css">
 		
-	</script>
-
-	<style type="text/css">
-		#sa-success{
-			display:none;
+		#rDetail:hover{
+		cursor: pointer;
+		text-decoration: underline;
+		
 		}
-	</style>
-
+		
+		#detailDiv{
+		display: none;
+		}
+		
+		
+		</style>
+		
+				
 </head>
 <body>
 
@@ -98,77 +84,59 @@
 
                     <div class="container">
                     
-                    
-                    
-                    
-                    
+      					<div class="row">
+      					 <div class="col-sm-12">
+      					 <h4 class="m-t-0 header-title">예약 검색 옵션 </h4>
+      					 </div>
+      					
+      					</div>
+      					
                         <div class="row">
-							<div class="col-sm-12">
-							
-								<h4 class="m-t-0 header-title">예약 관리 메뉴</h4>
-
-                                <div class="table-responsive m-b-20">
-                                    <h5><b>전체 예약 정보</b></h5>
-                                    <p class="text-muted font-13 m-b-30">
-                                        현재 오또캠핑을 통해서 예약된 모든 사항들이 표시됩니다.
-                 <br>결제완료는 예약자가 금액을 지불하고 사업장의 승인을 기다리는 상태, 예약완료는 사업자가 예약을 승인한 상태
-                 <br>예약취소는 예약이 취소된 상태, 이용완료는 캠핑장 이용이 모두 완료되어 환불이 불가능한 상태입니다.     
-                                    </p>
-
-                                    <table id="datatable" class="table table-striped table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>결제일시</th>
-                                            <th>예약번호</th>
-                                            <th>회원이름</th>
-                                            <th>연락처</th>
-                                            <th>예약일자</th>
-                                            <th>결제금액</th>
-                                            <th>처리상태</th>
-                                            <th>승인</th>
-                                        </tr>
-                                        </thead>
-
-                                        <tbody>
-                                        <% for(Reservation re : rList){ %>
-											<tr id="usergrade">
-												<td><%= re.getRePayDate() %></td>
-												<td><%= re.getReNo() %></td>
-												<td><%= re.getReName() %></td>
-												<td><%= re.getRePhone() %></td>
-												<td><%= re.getReDate() %></td>
-												<td><%= formatter.format(re.getReCost()) %></td>
-												<td><%= re.getReStatus() %></td>
-												<td><%if(re.getReStatus().equals("예약완료")) {%>
-													<button type="button" class="btn btn-primary btn-xs" onclick="delete1(this);">취소하기</button>
-												<%}else{ %>
-													취소불가
-												<%} %>												
-												</td>	
-											</tr>
-										<%} %>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                
-                                
-							</div>
-						</div>
-                        <!--end row -->
-
-
-                        <div class="row">
+                       
+                        <form method="post" action="<%= request.getContextPath() %>/newReservation.li" onsubmit="return validate();">
                             <div class="col-lg-6">
-                                 <button class="btn btn-default waves-effect waves-light btn-sm" id="sa-success" >Click me</button>
-                            </div> <!-- end col -->
-
-                        </div> <!-- end row -->
-
-
-                        <div class="row">
-                            <div class="col-sm-12">
+                                <div class="card-box">
                                 
+                                <span style="font-weight: bold;">기본검색옵션</span><span style="float: right;" id="rDetail">상세검색</span>
+                                <hr style="margin-top: 10px;">
+                            		<div class="checkbox checkbox-inline checkbox-circle">
+                                                <input type="checkbox" id="payment" name="progress" value="1">
+                                                <label for="payment"> 결제완료 </label>
+                                            </div>
+                                     <div class="checkbox checkbox-inline checkbox-circle">
+                                         <input type="checkbox" id="onreservation" name="progress" value="2">
+                                         <label for="onreservation"> 예약완료 </label>
+                                    	 </div>
+                                     <div class="checkbox checkbox-inline checkbox-circle">
+                                         <input type="checkbox" id="offreservation" name="progress" value="3">
+                                         <label for="offreservation"> 예약취소 </label>
+                                     	</div>
+                                     <div class="checkbox checkbox-inline checkbox-circle">
+                                         <input type="checkbox" id="complete" name="progress" value="4">
+                                         <label for="complete"> 이용완료 </label>
+                                     </div>
+                                     <div class="checkbox checkbox-inline checkbox-circle">
+                                         <input type="checkbox" id="pAll" name="" value="4">
+                                         <label for="pAll"> 전체선택 </label>
+                                     </div>
+                            		<br><hr>
+                            		시작일자  &nbsp;: &nbsp;<input type="date" style="height: 34px;" id="startDay">&nbsp;&nbsp;
+                            		종료일자  &nbsp;: &nbsp;<input type="date" style="height: 34px;" id="endDay">
+                            		<hr>
+                            		결제금액 &nbsp;: &nbsp;<input type="text" placeholder="최소" style="width: 144.34px; height: 34px;">&nbsp; ~ &nbsp;<input type="text" placeholder="최대" style="width: 144.34; height: 34px;">
+                                    <button type="button" class="btn btn-primary" onclick="searchSales();" style="vertical-align: 0;">검색</button> 
+                                        
+                                </div>
                             </div>
+                            
+                            <div class="col-lg-6" id="detailDiv">
+                                <div class="card-box">
+                                
+                                
+                                
+                                
+                                </div></div>
+                            </form>
                         </div>
 
 
@@ -193,27 +161,33 @@
 
 		<script type="text/javascript">
 		
-		function delete1(value){
-			
-			var reNo = $(value).parent().parent().children().eq(1).text()
-			
-			var msg = "전체내역";
-			
-			location.href = "<%= request.getContextPath() %>/delete.re?reNo="+reNo + "," + msg;
-		}
 		
+		document.getElementById('endDay').value = new Date().toISOString().substring(0, 10);
 		
-		
-		<%-- $(function(){
-			$("#deletebtn").click(function(){
+		$(function(){
+			
+			$("#pAll").change(function(){
+		        if($(this).is(":checked")){
+		        	 $("input[name=progress]").prop("checked",true);
+		        }else{
+		        	$("input[name=progress]").prop("checked",false);
+		        }
+		    });
+			
+			$("#rDetail").click(function(){
 				
-				var reNo = $(this).parent().parent().children().eq(1).text();
+				 if($("#detailDiv").css("display") == "none"){   
+				        jQuery('#detailDiv').css("display", "block");   
+				    } else {  
+				        jQuery('#detailDiv').css("display", "none");   
+				    }
+
 				
-				location.href = "<%= request.getContextPath() %>/delete.re?reNo="+reNo;
-								
-			});
-		}); --%>
+			})
+			
+		});
 		
+
 		
 		</script>
 
@@ -253,7 +227,8 @@
         <script src="<%= request.getContextPath() %>/resources/assets/js/jquery.app.js"></script>
 
 		
-		
+
+
 
 </body>
 </html>
