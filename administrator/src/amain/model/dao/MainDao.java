@@ -1,4 +1,4 @@
-package main.model.dao;
+package amain.model.dao;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import grade.model.dao.GradeDao;
-import main.model.vo.MainAccumJoin;
-import main.model.vo.MainBoardIndex;
-import main.model.vo.MainIndexBar;
-import main.model.vo.MainJoinCount;
+import amain.model.vo.MainAccumJoin;
+import amain.model.vo.MainBoardIndex;
+import amain.model.vo.MainIndexBar;
+import amain.model.vo.MainJoinCount;
 import static common.JDBCTemplate.*;
 
 public class MainDao {

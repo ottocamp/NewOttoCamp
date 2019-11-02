@@ -1,4 +1,4 @@
-package main.controller;
+package amain.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.model.service.MainService;
-import main.model.vo.MainAccumJoin;
-import main.model.vo.MainBoardIndex;
-import main.model.vo.MainIndexBar;
-import main.model.vo.MainJoinCount;
+import amain.model.service.MainService;
+import amain.model.vo.MainAccumJoin;
+import amain.model.vo.MainBoardIndex;
+import amain.model.vo.MainIndexBar;
+import amain.model.vo.MainJoinCount;
 
 /**
  * Servlet implementation class MainListServlet

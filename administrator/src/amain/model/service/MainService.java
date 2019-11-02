@@ -1,4 +1,4 @@
-package main.model.service;
+package amain.model.service;
 
 import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.getConnection;
@@ -6,11 +6,11 @@ import static common.JDBCTemplate.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import main.model.dao.MainDao;
-import main.model.vo.MainAccumJoin;
-import main.model.vo.MainBoardIndex;
-import main.model.vo.MainIndexBar;
-import main.model.vo.MainJoinCount;
+import amain.model.dao.MainDao;
+import amain.model.vo.MainAccumJoin;
+import amain.model.vo.MainBoardIndex;
+import amain.model.vo.MainIndexBar;
+import amain.model.vo.MainJoinCount;
 
 public class MainService {
 
