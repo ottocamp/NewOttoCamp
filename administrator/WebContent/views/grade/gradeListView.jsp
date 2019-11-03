@@ -3,20 +3,82 @@
 <%
 	ArrayList<UserGrade> uList = (ArrayList<UserGrade>)request.getAttribute("uList");
 	DecimalFormat formatter = new DecimalFormat("##,###,###");
-	String msg = (String)session.getAttribute("msg");
+	
+	ArrayList<UserGradeIndex> uiList = new ArrayList<UserGradeIndex>();
+	
 	
 	for(UserGrade ug : uList){
 		
 		switch(ug.getGuserGrade()){
 		
-		case "A" : ug.setGuserGrade("VIP"); break;
-		case "B" : ug.setGuserGrade("GOLD"); break;
-		case "C" : ug.setGuserGrade("SILVER"); break;
-		case "D" : ug.setGuserGrade("BRONZE"); break;
+		case "A" : ug.setGuserGrade("MVP"); break;
+		case "B" : ug.setGuserGrade("VIP"); break;
+		case "C" : ug.setGuserGrade("FAMILY"); break;
+		case "D" : ug.setGuserGrade("WELCOME"); break;
 		
 		}
 		
+		if(ug.getGsumCost() < 300000){
+			
+			if(!ug.getGuserGrade().equalsIgnoreCase("D")){
+				
+				uiList.add(new UserGradeIndex(ug.getGuserNo(), 
+											ug.getGuserName(),
+											ug.getGuserGrade(),
+											"D",
+											ug.getGsumCost()));
+			}
+			
+			
+		}else if(ug.getGsumCost() < 500000){
+			
+		if(!ug.getGuserGrade().equalsIgnoreCase("C")){
+				
+				uiList.add(new UserGradeIndex(ug.getGuserNo(), 
+											ug.getGuserName(),
+											ug.getGuserGrade(),
+											"C",
+											ug.getGsumCost()));
+			}
+			
+		}else if(ug.getGsumCost() < 1000000){
+			
+		if(!ug.getGuserGrade().equalsIgnoreCase("B")){
+				
+				uiList.add(new UserGradeIndex(ug.getGuserNo(), 
+											ug.getGuserName(),
+											ug.getGuserGrade(),
+											"B",
+											ug.getGsumCost()));
+			}
+			
+		}else{
+			
+		if(!ug.getGuserGrade().equalsIgnoreCase("A")){
+				
+				uiList.add(new UserGradeIndex(ug.getGuserNo(), 
+											ug.getGuserName(),
+											ug.getGuserGrade(),
+											"A",
+											ug.getGsumCost()));
+			}
+		}
+
 	}
+	
+	for(UserGradeIndex ui : uiList){
+		
+		switch(ui.getGafterGrade()){
+		
+		case "A" : ui.setGafterGrade("MVP"); break;
+		case "B" : ui.setGafterGrade("VIP"); break;
+		case "C" : ui.setGafterGrade("FAMILY"); break;
+		case "D" : ui.setGafterGrade("WELCOME"); break;
+		
+		}
+	
+	}
+	
 	
 %>
 <!DOCTYPE html>
@@ -70,14 +132,7 @@
 		</style>
 		
 	<script>
-	var msg = "<%= msg %>";
-	$(function(){
-		if(msg != "null"){
-			
-			$("#sa-success").click();
-			<% session.removeAttribute("msg"); %>
-		}
-	});
+	
 
 	</script>
 
@@ -103,17 +158,67 @@
                 <div id="page-right-content">
 
                     <div class="container">
+                    
+                    <form action="<%= request.getContextPath() %>/gradeSearch.li" method="post" onsubmit="return validate();">
+                    <div class="row">
+							<div class="col-sm-12">
+							<h4 class="m-t-0 header-title">회원등급관리메뉴 
+							<button  class="btn btn-default" id="gall"  style="">전체선택</button>
+							<button class="btn btn-default" style="float: right;">검색하기</button>
+							<button class="btn btn-default " data-toggle="modal" data-target="#myModal" style="float: right;" type="button">탐색하기</button></h4>
+								<div class="card-box widget-inline" style="clear: both;">
+									<div class="row">
+										<div class="col-lg-3 col-sm-6" >
+											<div class="widget-inline-box text-center">
+												<h3 class="m-t-10"><i class="text mdi mdi-access-point-network"></i> <b data-plugin="counterup">WELCOME</b></h3>
+												<p class="text-muted"><div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="welcome" name="grade" value="D">
+                                                <label for="welcome">신규회원</label>
+                                            </div></p>
+											</div>
+										</div>
+
+										<div class="col-lg-3 col-sm-6">
+											<div class="widget-inline-box text-center">
+												<h3 class="m-t-10 text-custom"><i class="text-custom mdi mdi-airplay"></i> <b data-plugin="counterup">FAMILY</b></h3>
+												<p class="text-muted"><div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="family" name="grade" value="C">
+                                                <label for="family">30만원이상</label>
+                                            </div></p>
+											</div>
+										</div>
+
+										<div class="col-lg-3 col-sm-6">
+											<div class="widget-inline-box text-center">
+												<h3 class="m-t-10 text-info"><i class="text-info mdi mdi-black-mesa"></i> <b data-plugin="counterup">VIP</b></h3>
+												<p class="text-muted"><div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="vip" name="grade" value="B">
+                                                <label for="vip">50만원이상</label>
+                                            </div></p>
+											</div>
+										</div>
+
+										<div class="col-lg-3 col-sm-6">
+											<div class="widget-inline-box text-center b-0">
+												<h3 class="m-t-10 text-danger"><i class="text-danger mdi mdi-cellphone-link"></i> <b data-plugin="counterup">MVP</b></h3>
+												<p class="text-muted"><div class="checkbox checkbox-inline">
+                                                <input type="checkbox" id="mvp" name="grade" value="A">
+                                                <label for="mvp">100만원이상</label>
+                                            </div></p>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						</form>
+                    
                         <div class="row">
                             <div class="col-sm-12">
-                                <h4 class="m-t-0 header-title">회원 등급 관리 메뉴</h4>
-
+                                
                                 <div class="table-responsive m-b-20">
-                                    <h5><b>전체 회원 등급 정보</b></h5>
-                                    <p class="text-muted font-13 m-b-30">
-                                        오또캠핑사이트에 가입 된 회원 중 최종 결제를 한번이상 실행한 모든 회원의 정보가 표시됩니다. 회원등급을 업데이트 하시려면 해당 회원을 클릭하세요.
-                 <br>BRONZE는 초기값, SILVER는 30만원이상, GOLD는 50만원이상, VIP는 100만원이상 결제한 회원입니다.     
-                                    </p>
-
+                                  
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
                                         <tr>
@@ -135,20 +240,20 @@
 												<td><%= ug.getGemail() %></td>
 												<td><%= ug.getGuserName() %></td>
 					
-												<% if(ug.getGuserGrade().equals("BRONZE")){ %>
-												<td style="color: #c49349;"><%= ug.getGuserGrade() %></td>
+												<% if(ug.getGuserGrade().equals("WELCOME")){ %>
+												<td ><%= ug.getGuserGrade() %></td>
 												<%} %>
-												<% if(ug.getGuserGrade().equals("SILVER")){ %>
-												<td style="color: #8c8c8c;"><%= ug.getGuserGrade() %></td>
-												<%} %>
-												<% if(ug.getGuserGrade().equals("GOLD")){ %>
-												<td style="color: #fed902;"><%= ug.getGuserGrade() %></td>
+												<% if(ug.getGuserGrade().equals("FAMILY")){ %>
+												<td class="text-custom"><%= ug.getGuserGrade() %></td>
 												<%} %>
 												<% if(ug.getGuserGrade().equals("VIP")){ %>
-												<td style="color: #3771b0;"><%= ug.getGuserGrade() %></td>
+												<td class="text-info"><%= ug.getGuserGrade() %></td>
+												<%} %>
+												<% if(ug.getGuserGrade().equals("MVP")){ %>
+												<td class="text-danger"><%= ug.getGuserGrade() %></td>
 												<%} %>
 							
-												<td><%= ug.getGjoinDate().substring(0,4) %>/<%= ug.getGjoinDate().substring(4,6) %>/<%= ug.getGjoinDate().substring(6) %></td>
+												<td><%= ug.getGjoinDate().substring(0,2) %>/<%= ug.getGjoinDate().substring(3,5) %>/<%= ug.getGjoinDate().substring(6) %></td>
 												<td><%= formatter.format(ug.getGsumCost()) %></td>
 												<td><button type="button" class="btn btn-primary btn-xs" onclick="update(this);">등급변경</button></td>
 											</tr>
@@ -163,7 +268,74 @@
 
                         <div class="row">
                             <div class="col-lg-6">
-                                 <button class="btn btn-default waves-effect waves-light btn-sm" id="sa-success" >Click me</button>
+                            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    <h4>탐색된 회원의 정보</h4>
+                                                    <p>탐색 회원 수 : <%= uiList.size() %>명</p>
+                                                
+                                                </div>
+                                                <div class="modal-body">
+                                                     <h4 class="modal-title" id="myModalLabel"></h4>
+                                                   
+                                                     <table class="table table table-hover m-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>이름</th>
+                                                        <th>변경전 등급</th>
+                                                        <th>변경후 등급</th>
+                                                      	<th>결제금액</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                	<% for(UserGradeIndex ui : uiList){ %>
+                                                	<tr>
+                                                		<th scope="row"><%= ui.getGuserName() %></th>
+                                                		
+                                                		<% if(ui.getGbeforeGrade().equals("WELCOME")){ %>
+												<td ><%= ui.getGbeforeGrade() %></td>
+												<%} %>
+												<% if(ui.getGbeforeGrade().equals("FAMILY")){ %>
+												<td class="text-custom"><%= ui.getGbeforeGrade() %></td>
+												<%} %>
+												<% if(ui.getGbeforeGrade().equals("VIP")){ %>
+												<td class="text-info"><%= ui.getGbeforeGrade() %></td>
+												<%} %>
+												<% if(ui.getGbeforeGrade().equals("MVP")){ %>
+												<td class="text-danger"><%= ui.getGbeforeGrade() %></td>
+												<%} %>
+                                                		
+                    
+                                                			<% if(ui.getGafterGrade().equals("WELCOME")){ %>
+												<td ><%= ui.getGafterGrade() %></td>
+												<%} %>
+												<% if(ui.getGafterGrade().equals("FAMILY")){ %>
+												<td class="text-custom"><%= ui.getGafterGrade() %></td>
+												<%} %>
+												<% if(ui.getGafterGrade().equals("VIP")){ %>
+												<td class="text-info"><%= ui.getGafterGrade() %></td>
+												<%} %>
+												<% if(ui.getGafterGrade().equals("MVP")){ %>
+												<td class="text-danger"><%= ui.getGafterGrade() %></td>
+												<%} %>
+                                                		
+                                                		
+                                                		<td><%= formatter.format(ui.getGsumCost()) %>원</td>
+                                                	</tr>
+                                                	<%} %>
+        
+                                                </tbody>
+                                            </table>
+                                                </div>
+                                                <div class="modal-footer">
+                                                	<button type="button" class="btn btn-primary" id="updateBtn">변경하기</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
                             </div> <!-- end col -->
 
                            
@@ -172,7 +344,7 @@
 
                         <div class="row">
                             <div class="col-sm-12">
-                              
+                             
                             </div>
                         </div>
 
@@ -202,20 +374,20 @@
 	
 		function update(value){
 					
-			var grade = prompt("변경하려는 등급을 입력하세요(브론즈,실버,골드,VIP)"); 
+			var grade = prompt("변경하려는 등급을 입력하세요(welcome,family,vip,mvp)"); 
 				
 				if(grade == ""){				
 					alert("등급을 입력해주세요"	);
 					return;
 				}			
 			
-			if(grade == 'd' || grade == '브론즈' || grade == 'BRONZE' || grade == 'bronze'){			
+			if(grade == 'd' || grade == '웰컴' || grade == 'welcome' || grade == 'WELCOME'){			
 				grade = 'D';
-			}else if(grade == 'c' || grade == '실버' || grade == 'SILVER' || grade == 'silver'){			
+			}else if(grade == 'c' || grade == '패밀리' || grade == 'family' || grade == 'FAMILY'){			
 				grade = 'C';
-			}else if(grade == 'b' || grade == '골드' || grade == 'GOLD' || grade == 'gold'){			
+			}else if(grade == 'b' || grade == '브이아이피' || grade == 'VIP' || grade == 'vip'){			
 				grade = 'B';
-			}else if(grade == 'a' || grade == '브이아이피' || grade == 'VIP' || grade == 'vip'){			
+			}else if(grade == 'a' || grade == '엠브이피' || grade == 'MVP' || grade == 'mvp'){			
 				grade = 'A';
 			}else{
 				alert("올바른 등급을 입력하세요");
@@ -223,16 +395,71 @@
 			}
 			
 
-				var userNo = $(value).parent().parent().children().eq(0).text() + ",";
+				var userNo = $(value).parent().parent().children().eq(0).text() + "," + grade;
 				
-				location.href="<%= request.getContextPath() %>/grade.up?userNo=" + userNo + grade;
+				$.ajax({
+					url : "<%= request.getContextPath() %>/grade.up",
+					type : "post",
+					data : {userNo:userNo},
+					success : function(data){
+						if(data == "fail"){
+							alert("실패하였습니다.")
+							
+						}else{
+							alert("성공하였습니다.");
+							location.reload();
+						}
+	
+					},
+					error: function(){
+						console.log('서버 통신 안됨');
+					}
+					
+					
+				});
+				
+				
+				
+				<%-- location.href="<%= request.getContextPath() %>/grade.up?userNo=" + userNo + grade; --%>
 				
 				
 			};
 			
+	function validate(){
 		
-	
-	
+		if(!$("input:checkbox[name='grade']").is(":checked")){
+			
+			alert('등급을 선택해주세요');
+			return false;
+		}
+		
+		
+	}
+		
+	$(function(){
+		
+		$("#gall").click(function(){
+		  
+			if($("input:checkbox[name='grade']").eq(0).is(":checked") && $("input:checkbox[name='grade']").eq(1).is(":checked")
+					&& $("input:checkbox[name='grade']").eq(2).is(":checked") && $("input:checkbox[name='grade']").eq(3).is(":checked")){
+				
+			    $("input:checkbox[name='grade']").prop("checked",false);
+			}else{
+			    $("input:checkbox[name='grade']").prop("checked",true);
+			}
+
+	    });
+		
+		$("#updateBtn").click(function(){
+			
+			<% request.getSession().setAttribute("uiList", uiList); %>
+			location.href = "<%= request.getContextPath() %>/GradeListUpdate.li";
+			
+			
+		});
+
+			
+	})
 	
 	
 	</script>

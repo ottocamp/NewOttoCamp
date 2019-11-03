@@ -1,7 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, reservation.model.vo.*, java.text.DecimalFormat"%>
 <%
-
+	ArrayList<Reservation> sList = (ArrayList<Reservation>)request.getAttribute("sList");
+	ArrayList<ReservationCount> cList = (ArrayList<ReservationCount>)request.getAttribute("cList");
+	DecimalFormat formatter = new DecimalFormat("##,###,###");
+	String msg = (String)session.getAttribute("msg");
+	
+	String startDay = (String)request.getAttribute("startDay");
+	String endDay = (String)request.getAttribute("endDay");
+	String rMin = (String)request.getAttribute("rMin");
+	String rMax = (String)request.getAttribute("rMax");
+	String nArr = (String)request.getAttribute("nArr");
+	
+	for(Reservation re : sList){
+		
+		switch(re.getReStatus()){
+		
+		case "1" : re.setReStatus("결제완료"); break;
+		case "2" : re.setReStatus("예약완료"); break;
+		case "3" : re.setReStatus("예약취소"); break;
+		case "4" : re.setReStatus("이용완료"); break;
+		default : break;
+		}	
+	}
+	
+	String[] checkInterest = new String[4];
+	
+	if(nArr != null){
+		String[] interests = nArr.split(",");
+		
+		for(int i = 0; i < interests.length; i++){
+			switch(interests[i]){
+			case "1" : checkInterest[0] = "checked"; break;
+			case "2" : checkInterest[1] = "checked"; break;
+			case "3" : checkInterest[2] = "checked"; break;
+			case "4" : checkInterest[3] = "checked"; break;
+ 			}
+		}
+		
+	}
+	
 	
 	
 %>   
@@ -55,12 +93,7 @@
 		text-decoration: underline;
 		
 		}
-		
-		#detailDiv{
-		display: none;
-		}
-		
-		
+			
 		</style>
 		
 				
@@ -99,7 +132,7 @@
                             <div class="col-lg-6">
                                 <div class="card-box">
                                 
-                                <span style="font-weight: bold;">기본검색옵션</span><span style="float: right;" id="rDetail">상세검색</span>
+                                <span style="font-weight: bold;">기본검색옵션</span><span style="float: right;" id="rDetail"></span>
                                 <hr style="margin-top: 10px;">
                             		<div class="checkbox checkbox-inline checkbox-circle">
                                                 <input type="checkbox" id="payment" name="progress" value="1">
@@ -131,14 +164,133 @@
                                 </div>
                             </div>
                             
-                            <div class="col-lg-6" id="detailDiv">
-                                <div class="card-box">
-                         
-                                
-                                
-                                </div></div>
+                            <div class="col-lg-6">
+                                           <div class="card-box widget-inline">
+									<div class="row">
+										<div class="col-lg-6 col-sm-6">
+											<div class="widget-inline-box text-center">
+												<h3><i class="text-primary mdi mdi-check-circle-outline"></i> <b data-plugin="counterup" id="first">0건</b></h3>
+												<p class="text-muted">결제완료</p>
+											</div>
+										</div>
+
+										<div class="col-lg-6 col-sm-6">
+											<div class="widget-inline-box text-center">
+												<h3><i class="text-custom mdi mdi-calendar-check"></i> <b data-plugin="counterup" id="second">0건</b></h3>
+												<p class="text-muted">예약완료</p>
+											</div>
+										</div>
+
+										<div class="col-lg-6 col-sm-6">
+											<div class="widget-inline-box text-center">
+												<h3><i class="text-danger mdi mdi-delete-forever"></i> <b data-plugin="counterup" id="third">0건</b></h3>
+												<p class="text-muted">예약취소</p>
+											</div>
+										</div>
+
+										<div class="col-lg-6 col-sm-6">
+											<div class="widget-inline-box text-center b-0">
+												<h3><i class="text-info mdi mdi-black-mesa"></i> <b data-plugin="counterup" id="four">0건</b></h3>
+												<p class="text-muted">이용완료</p>
+											</div>
+										</div>
+
+									</div>
+								</div>
+                                        </div>
                             </form>
                         </div>
+
+					<div class="row">
+							<div class="col-sm-12">
+							 <div class="card-box">
+							 <div class="checkbox checkbox-inline checkbox-circle ">
+                                              <input type="checkbox" id="payment" name="" value="1" disabled="disabled"  <%= checkInterest[0] %>>
+                                                <label for=""> 결제완료 </label>
+                                            </div>
+                                     <div class="checkbox checkbox-inline checkbox-circle ">
+                                         <input type="checkbox" id="onreservation" name="" value="2" disabled="disabled"  <%= checkInterest[1] %>>
+                                         <label for=""> 예약완료 </label>
+                                    	 </div>
+                                     <div class="checkbox checkbox-inline checkbox-circle ">
+                                         <input type="checkbox" id="offreservation" name="" value="3" disabled="disabled"  <%= checkInterest[2] %>>
+                                         <label for=""> 예약취소 </label>
+                                     	</div>
+                                     <div class="checkbox checkbox-inline checkbox-circle ">
+                                         <input type="checkbox" id="complete" name="" value="4" disabled="disabled"  <%= checkInterest[3] %>>
+                                         <label for=""> 이용완료 </label>
+                                     </div>
+                                 	&nbsp;&nbsp;
+                                 	<div class="checkbox checkbox-inline checkbox-circle " >
+                                         <input type="checkbox" id="complete" name="" value="4" checked disabled="disabled">
+                                         <label for="">날짜 : <%= startDay %>부터 <%= endDay %> </label>
+                                     </div>
+                                     &nbsp;&nbsp;
+                                     <div class="checkbox checkbox-inline checkbox-circle ">
+                                         <input type="checkbox" id="complete" name="" value="4" checked disabled="disabled">
+                                         <label for="">금액 : <%= rMin %>원 ~ <%= rMax %>원</label>
+                                     </div>
+                                 
+
+                                 
+                             
+								<hr>
+                                <div class="table-responsive m-b-20">
+                                    
+
+                                    <table id="datatable" class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>결제일시</th>
+                                            <th>예약번호</th>
+                                            <th>회원이름</th>
+                                            <th>연락처</th>
+                                            <th>예약일자</th>
+                                            <th>결제금액</th>
+                                            <th>처리상태</th>
+                                            <th>승인</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <% for(Reservation re : sList){ %>
+											<tr id="usergrade">
+												<td><%= re.getRePayDate() %></td>
+												<td><%= re.getReNo() %></td>
+												<td><%= re.getReName() %></td>
+												<td><%= re.getRePhone() %></td>
+												<td><%= re.getReDate() %></td>
+												<td><%= formatter.format(re.getReCost()) %></td>
+												
+												<% if(re.getReStatus().equals("결제완료")) {%>
+												<td class="text-primary"><%= re.getReStatus() %></td>
+												<%}else if(re.getReStatus().equals("예약완료")) {%>
+												<td class="text-custom"><%= re.getReStatus() %></td>
+												<%}else if(re.getReStatus().equals("예약취소")) {%>
+												<td class="text-danger"><%= re.getReStatus() %></td>
+												<%}else{ %>
+												<td class="text-info"><%= re.getReStatus() %></td>
+												<%} %>
+												
+												<td><%if(re.getReStatus().equals("예약완료")) {%>
+													<button type="button" class="btn btn-primary btn-xs" onclick="delete1(this);">취소하기</button>
+												<%}else{ %>
+													취소불가
+												<%} %>												
+												</td>	
+											</tr>
+										<%} %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                </div>
+							</div>
+						</div>
+
+
+
+
 
 
                     </div>
@@ -250,10 +402,71 @@
 			}
   
 			
+			
+			
+			
 		}
 		
-	
+	function delete1(value){
+			
+		var reNo = $(value).parent().parent().children().eq(1).text()
 		
+			if(confirm("정말로 취소하시겠습니까?")){
+				
+				$.ajax({
+					url : "<%= request.getContextPath() %>/delete.re",
+					type : "post",
+					data : {reNo:reNo},
+					success : function(data){
+						if(data == "fail"){
+							alert("실패하였습니다.")
+							
+						}else{
+							alert("성공하였습니다.");
+							location.reload();
+						}
+	
+					},
+					error: function(){
+						console.log('서버 통신 안됨');
+					}
+					
+					
+				});
+				
+				
+				
+			}
+			
+			
+			
+		}
+	
+	
+	<%for(ReservationCount rc : cList){ %>
+	
+		if(<%= rc.getrReStatus() %> == 1){
+			
+			$("#first").html('');
+			$("#first").text('<%= rc.getrCount() %>건');
+						
+		}else if(<%= rc.getrReStatus() %> == 2){
+			
+			$("#second").html('');
+			$("#second").text('<%= rc.getrCount() %>건');
+			
+		}else if(<%= rc.getrReStatus() %> == 3){
+			
+			$("#third").html('');
+			$("#third").text('<%= rc.getrCount() %>건');
+		}else{
+			$("#four").html('');
+			$("#four").text('<%= rc.getrCount() %>건');
+		}
+
+	
+	<%} %>
+	
 		</script>
 
 
