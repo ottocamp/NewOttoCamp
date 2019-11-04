@@ -3,6 +3,7 @@ package board.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,11 +73,14 @@ public class BoardListServlet extends HttpServlet {
 
 		
 		request.setAttribute("pi", pi);
-		request.setAttribute("blist", blist);
+		request.setAttribute("bTag", bTag);
+		request.setAttribute("blist", blist);	
 		
-		request.getRequestDispatcher("/views/board/boardListView.jsp").forward(request, response);
 		
+		RequestDispatcher view = request.getRequestDispatcher("/views/board/boardListView.jsp");
 		
+		view.forward(request, response);
+				
 	}
 
 	/**

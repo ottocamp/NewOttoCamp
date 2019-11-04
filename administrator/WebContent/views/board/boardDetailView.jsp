@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.model.vo.*, java.text.SimpleDateFormat"%>
+    pageEncoding="UTF-8" import="board.model.vo.*, java.util.ArrayList"%>
 
 <%
 	Board b = (Board)request.getAttribute("b");
+	ArrayList<Comment> cList = (ArrayList<Comment>)request.getAttribute("cList");
+
 	String title = b.getbTitle();
+	String nextTitle = (String)request.getAttribute("nextTitle");
+	String preTitle = (String)request.getAttribute("preTitle");
+	
 	int bTag = b.getbTag();
 	int bNo = b.getbNo();
 	int userNo = b.getUserNo();
@@ -28,6 +33,8 @@
 		title = "[충청] " + b.getbTitle();
 		break;
 	}
+
+	String msg = (String)session.getAttribute("msg");
 %>
 
 
@@ -39,6 +46,19 @@
 <title>Insert title here</title>
 		<!-- jqury cdn -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+		<script>
+			var msg = "<%= msg %>";
+			
+			$(function(){
+				if(msg != "null") {
+					alert(msg);
+					<% session.removeAttribute("msg"); %>
+				}
+			})
+			
+		</script>
+		
 	
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
@@ -583,10 +603,10 @@
                                 <div id="listDiv">
                                         <ul>
                                             <li>
-                                                <a href="<%= request.getContextPath() %>/detail.bo?b_no=<%= bNo + 1 %>"><i class=" ti-angle-up"> ajax로 처리할 것</i></a>
+                                                <span><i class="ti-angle-up">  <%= nextTitle %></i></span>
                                             </li>
                                             <li>
-                                                <a href="<%= request.getContextPath() %>/detail.bo?b_no=<%= bNo - 1 %>"><i class="ti-angle-down"> ajax로 처리할 것</i></a>
+                                                <span><i class="ti-angle-down">  <%= preTitle %></i></span>
                                             </li>
                                         </ul>
                                 </div>
@@ -599,6 +619,13 @@
 									  삭제
 									</button>
 									
+                                    <% }else { %>
+                                    	
+                                    
+                                    
+                                    
+                                    
+                                    
                                     <% } %>
                                 </div>
                                 
@@ -617,7 +644,7 @@
 						        </button>
 						      </div>
 						      
-						      <form method="post" action="<%= request.getContextPath() %>/pwdCheck.bo">
+						      <form method="post" action="<%= request.getContextPath() %>/pwdCheck.bo" onsubmit="return checkPwd();">
 							      <div class="modal-body">
 							            <label for="exampleFormControlInput1">게시글을 삭제합니다.</label>
     									<input type="password" class="form-control" name="pwd" id="exampleFormControlInput1" placeholder="임시 비밀번호를 입력하세요">
@@ -635,54 +662,44 @@
 						  </div>
 						</div>
 						
-	
-                        <hr>
 
-                        <div class="commentArea">
-                            <table>
-                                <tr class="commentTr">
-                                    <td class="userName">
-                                        <div class="user_wrapper fontBorder">
-                                            User01<sub>(비회원)</sub>
-                                        </div>
-                                    </td>
-                                    <td class="commentContent">
-                                        <div class="text_wrapper">
-                                            <span class="contentText">설산에서 날카로우나 못하다 찾아다녀도, 
-                                                봄바람이다. 이상을 청춘 열매를 철환하였는가? 기쁘며, 갑 들어 그들은 봄날의 끓는다.</span>
-                                        </div>
-                                    </td>
-                                    <td class="btns">
-                                            <button class="cancelBtn fontBorder" type="reset">삭제</button>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table>
-                                <tr class="commentTr">
-                                    <td class="userName">
-                                        <div class="user_wrapper fontBorder">
-                                            User02<sub>(비회원)</sub>
-                                        </div>
-                                    </td>
-                                    <td class="commentContent">
-                                        <div class="text_wrapper">
-                                            <span class="contentText">무성할 옥 패, 하늘에는 겨울이 이국 말 봅니다. 
-                                                내 청춘이 시와 하늘에는 까닭입니다. 내일 불러 이름과, 계십니다. 소녀들의 이런 한 별 언덕 된 거외다. 
-                                                하나의 하나에 잠, 묻힌 있습니다. 별 위에도 가을 까닭입니다. 내 계집애들의 아이들의 별 많은 피어나듯이 가득 봅니다. 
-                                                이름을 피어나듯이 멀듯이, 가을로 듯합니다. 무성할 계집애들의 동경과 속의 애기 소학교 풀이 거외다. 계집애들의 이런 별을 봅니다.</span>
-                                        </div>
-                                    </td>
-                                    <td class="btns">
-                                            <button class="cancelBtn fontBorder" type="reset">삭제</button>
-                                    </td>
-                                </tr>
-                            </table>
+                        <div class="commentArea" id="commentArea">
+                        	<% if(!cList.isEmpty()) { %>
+                        		<hr>
+                        		
+                        		<% for(Comment c : cList) { %>
+                        		
+	                            <table id="commentTable">
+	                                <tr class="commentTr">
+	                                    <td class="userName">
+	                                        <div class="user_wrapper fontBorder">
+	                                            <%= c.getcWriter() %>
+	                                            <% if(c.getUserNo() == 9999) { %>
+	                                            	<sub>(비회원)</sub>
+	                                            <% } %>
+	                                        </div>
+	                                    </td>
+	                                    <td class="commentContent">
+	                                        <div class="text_wrapper">
+	                                            <span class="contentText"><%= c.getcContent() %>
+												</span>
+	                                        </div>
+	                                    </td>
+	                                    <td class="btns">
+	                                            <button class="cancelBtn fontBorder" type="reset">삭제</button>
+	                                    </td>
+	                                </tr>
+	                            </table>
+	                            
+                        		<% } %>
+                        	<% } %>
+                        
                         </div>
 
                         <hr>
 
                         <div id="insert_wrapper">
-                            <form id="commentInsertArea">
+                            <div id="commentInsertArea">
                                 <div id="memberInfo">
                                     <div id="memberIdPwd">
                                         <input type="text" id="memberId" placeholder="임시 Id">
@@ -698,9 +715,9 @@
                                     <textarea id="commentContent" style="resize: none"></textarea>
                                 </div>
                                 <div class="btnArea btns">
-                                    <button class="submitBtn fontBorder" type="submit">등록하기</button>
+                                    <button class="submitBtn fontBorder" id="commentInsertBtn" type="button">등록하기</button>
                                 </div>
-                            </form>     
+                            </div>     
                         </div> 
 
 
@@ -723,20 +740,124 @@
             <!-- end .page-contentbar -->
         </div>
         
-        <script>
-	        $(function(){	   
-	        	$("tr td:nth-of-type(2)").click(function(){
-	        		var bNo = $(this).parent().children("input").val();
-	        		
-	        		console.log("bNo : " + bNo);
-	        		
-	        		location.href="<%= request.getContextPath() %>/detail.bo?b_no=" + bNo;
-	        	});
-	        	
-	        });
-        </script>
-
-
+		
+		<script>
+			function checkPwd(){
+				var pwd = $("#exampleFormControlInput1").val();
+				
+				if(pwd == ""){
+					alert("비밀번호를 입력하세요")
+					
+					return false;
+				}else{
+					return true;
+				}
+				
+			}	
+			
+			$(function(){
+				
+				
+				$("i[class='ti-angle-up']").parent().mouseover(function(){
+					$(this).css({"color":"purple", "cursor":"pointer"});
+				}).mouseout(function(){
+					$(this).css("color", "gray");
+				}).click(function(){	
+					var bNo = <%= bNo %>;
+					var bTag = <%= bTag %>;
+					
+					$.ajax({
+						url : "nextNo.bo",
+						data : {bNo:bNo, bTag:bTag},
+						type : "post",
+						success : function(data){
+							if(data == 0) {
+								alert("첫 게시글입니다");
+							}else {
+								location.href="<%= request.getContextPath() %>/detail.bo?b_no=" + data;
+							}
+							
+						},
+						error : function(){
+							console.log("통신 실패");
+						}
+					});
+				});
+				
+				
+				
+				
+				$("i[class='ti-angle-down']").parent().mouseover(function(){
+					$(this).css({"color":"purple", "cursor":"pointer"});
+				}).mouseout(function(){
+					$(this).css("color", "gray");
+				}).click(function(){	
+					var bNo = <%= bNo %>;
+					var bTag = <%= bTag %>;
+					
+					$.ajax({
+						url : "preNo.bo",
+						data : {bNo:bNo, bTag:bTag},
+						type : "post",
+						success : function(data){
+							if(data == 0) {
+								alert("마지막 게시글입니다");
+							}else {
+								location.href="<%= request.getContextPath() %>/detail.bo?b_no=" + data;
+							}
+			
+							
+							
+						},
+						error : function(){
+							console.log("통신 실패");
+						}
+					});
+				});
+				
+				
+				
+				
+				$("#commentInsertBtn").click(function(){
+					var dispoId = $("#memberId").val();
+					var dispoPwd = $("#memberPwd").val();
+					var commentContent = $("#commentContent").val();
+					var bNo = <%= bNo %>;
+					
+					$.ajax({
+						url : "insertComment.bo",
+						data : {dispoId:dispoId, dispoPwd:dispoPwd, commentContent:commentContent, bNo:bNo},
+						type : "post",
+						dataType : "json",
+						success : function(data){
+							$commentTable = $("#commentTable");
+							$commentArea = $("#commentArea");
+							$commentArea.html("");
+							
+			
+							
+							$("#memberId").val("");
+							$("#memberPwd").val("");
+							$("#commentContent").val("");
+							
+						},
+						error : function(){
+							console.log("통신 실패");
+						}
+						
+						
+					});
+					
+					
+				});
+				
+				
+			});
+			
+			
+            
+		</script>
+	
 
         <!-- js placed at the end of the document so the pages load faster -->
         <script src="<%= request.getContextPath() %>/resources/assets/js/jquery-2.1.4.min.js"></script>

@@ -1,15 +1,19 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 import board.model.vo.Board;
+import board.model.vo.Comment;
+import user.model.vo.User;
 
 /**
  * Servlet implementation class BoardDetailServlet
@@ -31,13 +35,50 @@ public class BoardDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bNo = Integer.parseInt(request.getParameter("b_no"));
+		User u = (User)request.getSession().getAttribute("loginUser");
 		
-		Board b = new BoardService().detailList(bNo);
+		Board b = null;
 		
-		String path = "";
+		boolean flag = false;
+		Cookie[] cookies = request.getCookies();
+		
+//		if(cookies != null) {
+//			for(Cookie c : cookies) {
+//				if(c.getName().equals(cookieName)) {
+//					flag = true;
+//				}
+//			}
+//				
+//			if(!flag) {
+//				
+//				
+//				b = new BoardService().detailList(bNo);				
+//				Cookie c1 = new Cookie(cookieName, String.valueOf(cookieName));
+//				
+//				c1.setMaxAge(60*60*24*1);
+//				response.addCookie(c1);
+//			}else {
+//				b = new BoardService().detailListNoCount(bNo);
+//			}
+//			
+//		}
+		
+		b = new BoardService().detailListNoCount(bNo);
+		
+		ArrayList<Comment> cList = new BoardService().getCommentList(bNo);
+		
+		String path = "";		
 		
 		if(b != null) {
+			int bTag = b.getbTag();
+			String nextTitle = new BoardService().getNextTitle(bNo, bTag);
+			String preTitle = new BoardService().getPreTitle(bNo, bTag);
+
+			
 			request.setAttribute("b", b);
+			request.setAttribute("cList", cList);
+			request.setAttribute("nextTitle", nextTitle);
+			request.setAttribute("preTitle", preTitle);
 			path = "/views/board/boardDetailView.jsp";
 		}else {
 			request.setAttribute("msg", "게시글 조회에 실패하였습니다");

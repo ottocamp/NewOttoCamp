@@ -40,7 +40,8 @@ public class BoardPwdCheckServlet extends HttpServlet {
 			request.setAttribute("bTag", bTag);
 			request.getRequestDispatcher("/delete.bo").forward(request, response);
 		}else {
-			response.sendRedirect(request.getContextPath() + "/list.bo?b_tag=" + bTag);
+			request.getSession().setAttribute("msg", "잘못된 비밀번호입니다");
+			response.sendRedirect(request.getContextPath() + "/detail.bo?b_no=" + bNo);
 		}
 		
 	}

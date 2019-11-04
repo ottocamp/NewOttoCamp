@@ -55,4 +55,28 @@ public class FavoriteService {
 
 	}
 
+	public int campInsert(int uno, int code) {
+		Connection conn = getConnection();
+		
+		int result = new FavoriteDao().campInsert(conn,uno,code);
+		
+		if(result > 0) {
+			commit(conn);			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		
+		return result;
+	}
+
+	public static ArrayList<Integer> selectCode(int uno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Integer> codeList = new FavoriteDao().selectCode(conn,uno);
+		
+		return codeList;
+	}
+
 }

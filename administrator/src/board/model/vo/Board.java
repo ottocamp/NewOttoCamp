@@ -13,6 +13,7 @@ public class Board {
 	private int bRegion;
 	private String status;
 	private String bWriter;
+	private String pwd;
 	private int userNo;
 	
 	
@@ -22,7 +23,7 @@ public class Board {
 
 
 	public Board(int bNo, String bTitle, String bContent, Date updateDate, int bTag, int bCount, int bRegion,
-			String status, String bWriter, int userNo) {
+			String status, String bWriter, String pwd, int userNo) {
 		super();
 		this.bNo = bNo;
 		this.bTitle = bTitle;
@@ -33,6 +34,7 @@ public class Board {
 		this.bRegion = bRegion;
 		this.status = status;
 		this.bWriter = bWriter;
+		this.pwd = pwd;
 		this.userNo = userNo;
 	}
 
@@ -127,6 +129,16 @@ public class Board {
 	}
 
 
+	public String getPwd() {
+		return pwd;
+	}
+
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+
+
 	public int getUserNo() {
 		return userNo;
 	}
@@ -141,13 +153,8 @@ public class Board {
 	public String toString() {
 		return "Board [bNo=" + bNo + ", bTitle=" + bTitle + ", bContent=" + bContent + ", updateDate=" + updateDate
 				+ ", bTag=" + bTag + ", bCount=" + bCount + ", bRegion=" + bRegion + ", status=" + status + ", bWriter="
-				+ bWriter + ", userNo=" + userNo + "]";
+				+ bWriter + ", pwd=" + pwd + ", userNo=" + userNo + "]";
 	}
-
-
-
-
-
 
 
 
