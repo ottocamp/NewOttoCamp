@@ -249,7 +249,7 @@ to {
 }
 </style>
 </head>
-<body cz-shortcut-listen="true">
+<body>
 
 	<div id="page-wrapper">
 

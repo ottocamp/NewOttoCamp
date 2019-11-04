@@ -74,5 +74,23 @@ public class CampService {
 		
 		return result;
 	}
+	
+	// 캠핑장 정보 등록 insert 서비스
+		public int insertCamp(CampInfo c) {
+			Connection conn = getConnection();
+			
+			int result = new CampDao().insertCamp(conn, c);
+			
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+			
+			close(conn);
+			
+			return result;
+		}
+		
 
 }

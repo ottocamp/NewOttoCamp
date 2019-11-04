@@ -152,7 +152,7 @@
                     <div class="row">
 							<div class="col-sm-12">
 							<h4 class="m-t-0 header-title">회원등급관리메뉴 
-							<button  class="btn btn-default" id="gall"  style="" type="button">전체선택</button>
+							<button class="btn btn-default" id="gall"  style="" type="button">전체선택</button>
 							<button class="btn btn-default" style="float: right;">검색하기</button>
 							<button class="btn btn-default " data-toggle="modal" data-target="#myModal" style="float: right;" type="button">탐색하기</button></h4>
 								<div class="card-box widget-inline" style="clear: both;">
@@ -333,7 +333,7 @@
 
                         <div class="row">
                             <div class="col-sm-12">
-                             
+                            
                             </div>
                         </div>
 

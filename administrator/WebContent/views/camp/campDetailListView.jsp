@@ -68,6 +68,9 @@
 		background-color: #f9f9f9;
 		}
 	</style>
+	
+	
+	
 
 </head>
 <body>
@@ -91,6 +94,7 @@
 				
 				<div class="row">
                           <div class="col-sm-12">
+                          <i class="fa fa-american-sign-language-interpreting"></i>
                               <h4 class="header-title m-t-0 m-b-20">승인된 사업장 정보</h4>
                           </div>
                       </div>
@@ -131,19 +135,20 @@
                                         </p>
                                         
                                         <div>
+                                        
 										<input type="hidden" value="<%= ca.getcCode() %>">
                                         <button type="button" class="btn btn-default btn-sm m-t-10" onclick="detail(this);">자세히 보기</button>
 										</div>
 										
                                         <ul class="social-links list-inline m-t-30">
                                             <li>
-                                                <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                                                <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="mdi mdi-facebook"></i></a>
                                             </li>
                                             <li>
-                                                <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
+                                                <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="mdi mdi-twitter"></i></i></a>
                                             </li>
                                             <li>
-                                                <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-skype"></i></a>
+                                                <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="mdi mdi-skype"></i></a>
                                             </li>
                                         </ul>
 
@@ -318,10 +323,7 @@
 			}
 		
 		<%} %>
-		
-		
-		
-		
+
 		
 		
 		$("#modal").click();
@@ -330,8 +332,9 @@
 	
 	</script>
 
-	<!-- js placed at the end of the document so the pages load faster -->
-	<script
+		<!-- js placed at the end of the document so the pages load faster -->
+	
+<script
 		src="<%=request.getContextPath()%>/resources/assets/js/jquery-2.1.4.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/resources/assets/js/bootstrap.min.js"></script>

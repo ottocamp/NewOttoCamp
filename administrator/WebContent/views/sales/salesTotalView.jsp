@@ -31,6 +31,19 @@
 		<!-- Custom styles for this template -->
 		<link href="<%=request.getContextPath()%>/resources/assets/css/style.css" rel="stylesheet">
 		
+		<script type="text/javascript">
+		
+		window.onload = function(){
+			
+			$("#two19").click();
+			
+			
+		}
+		
+		
+		</script>
+		
+		
 </head>
 <body>
 
@@ -58,7 +71,7 @@
 							<div class="btn-group">
                                         <button type="button" class="btn btn-default" onclick="Sales(this);">2017</button>
                                         <button type="button" class="btn btn-default" onclick="Sales(this);">2018</button>
-                                        <button type="button" class="btn btn-default" onclick="Sales(this);">2019</button>
+                                        <button type="button" class="btn btn-default" onclick="Sales(this);" id="two19">2019</button>
                                         <!-- <button type="button" class="btn btn-default" onclick="etcSales();">기타</button> -->
                                         &nbsp;&nbsp;<p style="display: none;">시작 일자 : </p><input type="date" style="height: 34px; display: none;" id="startDay">
                                         &nbsp;&nbsp;<p style="display: none;">종료 일자 : </p><input type="date" style="height: 34px; display: none;" id="endDay">                                       
@@ -113,9 +126,7 @@
 			
 	}
 	
-	
-	
-	
+
 	</script>
 	
 	<!-- js placed at the end of the document so the pages load faster -->

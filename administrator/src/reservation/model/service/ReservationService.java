@@ -81,4 +81,14 @@ public class ReservationService {
 		return cList;
 	}
 
+	public ArrayList<Reservation> SelectCampList(int uNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Reservation> rList = new ReservationDao().SelectCampList(conn,uNo);
+		
+		close(conn);
+		
+		return rList;
+	}
+
 }

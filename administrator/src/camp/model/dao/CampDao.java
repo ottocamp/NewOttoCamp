@@ -51,7 +51,7 @@ public class CampDao {
 										rset.getString(4),
 										rset.getString(5),
 										rset.getInt(6),
-										rset.getDate(7),
+										rset.getString(7),
 										rset.getString(8),
 										rset.getString(9),
 										rset.getString(10),
@@ -158,7 +158,7 @@ public class CampDao {
 										rset.getString(4),
 										rset.getString(5),
 										rset.getInt(6),
-										rset.getDate(7),
+										rset.getString(7),
 										rset.getString(8),
 										rset.getString(9),
 										rset.getString(10),
@@ -207,6 +207,42 @@ public class CampDao {
 		return result;
 	}
 
+	
+	public int insertCamp(Connection conn, CampInfo c) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCamp");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, c.getcName());
+			pstmt.setString(2, c.getcAddress());
+			pstmt.setString(3, c.getcPhone());
+			pstmt.setString(4, c.getcUrl());
+			pstmt.setInt(5, c.getcTheme());
+			pstmt.setString(6, c.getcAvailableDate());
+			pstmt.setString(7, c.getcPosting());
+			pstmt.setString(8, c.getcRefundment());
+			pstmt.setString(9, c.getcEtc());
+			pstmt.setString(10, c.getcOperName());
+			pstmt.setString(11, c.getcOperNO());
+			pstmt.setString(12, c.getcOption());
+			pstmt.setInt(13, c.getcUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
 	
 
 	

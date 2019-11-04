@@ -17,6 +17,8 @@ public class Attachment implements Serializable{
 	private int cCode; // 캠핑장 코드
 	private int cType; // 사진 타입
 	
+	public Attachment() {}
+	
 	public Attachment(int fId, String originName, String changeName, String filePath, Date uploadDate, int cCode,
 			int cType) {
 		super();
