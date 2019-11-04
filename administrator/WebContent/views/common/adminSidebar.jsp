@@ -27,7 +27,7 @@
 									class="ti-home"></i> 관리자 메인 </a></li>
 
 									
-							<li><a href="<%=request.getContextPath()%>/views/reservation/reservationSearchView.jsp"><i
+							<li><a href="<%=request.getContextPath()%>/latestList.li"><i
 									class="mdi mdi-calendar-clock"></i> 예약관리 </a></li>		
 
 							

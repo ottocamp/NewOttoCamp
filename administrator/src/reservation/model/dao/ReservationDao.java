@@ -1,22 +1,19 @@
 package reservation.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Array;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
-import static common.JDBCTemplate.*;
-
-import grade.model.dao.GradeDao;
 
 import reservation.model.vo.Reservation;
 import reservation.model.vo.ReservationCount;
-import user.model.vo.User;
 
 public class ReservationDao {
 	private Properties prop = new Properties();
@@ -311,6 +308,81 @@ public class ReservationDao {
 		
 
 		return rList;
+	}
+
+
+	public ArrayList<Reservation> SelectLatestList(Connection conn) {
+	
+		Statement stmt = null;
+		ArrayList<Reservation> sList = new ArrayList<Reservation>();
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("SelectLatestList");
+		
+		try {
+			stmt = conn.createStatement();
+					
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				
+				Reservation re = new Reservation(rset.getInt("RE_NO"),
+						rset.getDate("PAYMENT_DATE"),
+						rset.getString("USER_NAME"),
+						rset.getString("PHONE"),
+						rset.getString("RE_DATE"),
+						rset.getInt("RE_COST"),
+						rset.getInt("RE_STATUS") + "",
+						rset.getString("CAMP_NAME"));
+
+				sList.add(re);
+							
+			}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+				
+		return sList;
+	}
+
+
+	public ArrayList<ReservationCount> SelectLatestCount(Connection conn) {
+		
+		Statement stmt = null;
+		ArrayList<ReservationCount> cList = new ArrayList<ReservationCount>();
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("SelectLatestCount");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				
+				ReservationCount re = new ReservationCount(rset.getInt(1),
+															rset.getInt(2));
+
+				cList.add(re);
+							
+			}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return cList;
 	}
 
 	

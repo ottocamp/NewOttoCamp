@@ -3,7 +3,7 @@
 <%
 	ArrayList<Reservation> sList = (ArrayList<Reservation>)request.getAttribute("sList");
 	ArrayList<ReservationCount> cList = (ArrayList<ReservationCount>)request.getAttribute("cList");
-	DecimalFormat formatter = new DecimalFormat("##,###,###");
+	DecimalFormat formatter = new DecimalFormat("###,###,###,###");
 	String msg = (String)session.getAttribute("msg");
 	
 	String startDay = (String)request.getAttribute("startDay");
@@ -228,7 +228,7 @@
                                      &nbsp;&nbsp;
                                      <div class="checkbox checkbox-inline checkbox-circle ">
                                          <input type="checkbox" id="complete" name="" value="4" checked disabled="disabled">
-                                         <label for="">금액 : <%= rMin %>원 ~ <%= rMax %>원</label>
+                                         <label for="">금액 : <%= rMin %>원 ~ <%= formatter.format(Integer.parseInt(rMax)) %>원</label>
                                      </div>
                                  
 

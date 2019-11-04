@@ -94,7 +94,7 @@
 				
 				<div class="row">
                           <div class="col-sm-12">
-                          <i class="fa fa-american-sign-language-interpreting"></i>
+                         
                               <h4 class="header-title m-t-0 m-b-20">승인된 사업장 정보</h4>
                           </div>
                       </div>

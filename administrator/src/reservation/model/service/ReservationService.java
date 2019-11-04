@@ -91,4 +91,26 @@ public class ReservationService {
 		return rList;
 	}
 
+	
+	public ArrayList<Reservation> SelectLatestList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Reservation> sList = new ReservationDao().SelectLatestList(conn);
+		
+		close(conn);
+		
+		return sList;
+	}
+
+	public ArrayList<ReservationCount> SelectLatestCount() {
+	
+		Connection conn = getConnection();
+		
+		ArrayList<ReservationCount> cList = new ReservationDao().SelectLatestCount(conn);
+		
+		close(conn);
+		
+		return cList;
+	}
+
 }

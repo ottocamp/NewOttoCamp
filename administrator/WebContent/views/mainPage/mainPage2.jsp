@@ -110,7 +110,7 @@
 														<a href="<%=request.getContextPath()%>/main.li">관리자페이지</a>
 														<ul class="sub-menu">
 															<li class="menu-item">
-																<a href="<%=request.getContextPath()%>/views/reservation/reservationSearchView.jsp">예약관리</a>
+																<a href="<%=request.getContextPath()%>/latestList.li">예약관리</a>
 															</li>
 															<li class="menu-item">
 																<a href="<%=request.getContextPath()%>/userGrade.li">회원등급관리</a>
