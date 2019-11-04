@@ -129,7 +129,7 @@
                         <div class="row">
                        
                         <form method="post" action="<%= request.getContextPath() %>/newReservation.li" onsubmit="return validate();">
-                            <div class="col-lg-6">
+                            <div class="col-lg-6" align="center">
                                 <div class="card-box">
                                 
                                 <span style="font-weight: bold;">기본검색옵션</span><span style="float: right;" id="rDetail"></span>

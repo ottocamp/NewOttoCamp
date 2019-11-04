@@ -12,7 +12,7 @@ public class CampInfo implements Serializable{
 	private String cPhone; // 전화번호
 	private String cUrl; // 홈페이지주소
 	private int cTheme; // 테마코드
-	private Date cAvailableDate; // 예약시작가능일자
+	private String cAvailableDate; // 예약시작가능일자
 	private String cPosting; // 포스팅제휴여부
 	private String cRefundment; // 환불규정
 	private String cEtc; // 기타
@@ -22,8 +22,10 @@ public class CampInfo implements Serializable{
 	private String cOption; // 시설현황
 	private int cUserNo; // 회원번호 
 	
+	public CampInfo() {}
+	
 	public CampInfo(int cCode, String cName, String cAddress, String cPhone, String cUrl, int cTheme,
-			Date cAvailableDate, String cPosting, String cRefundment, String cEtc, String cOperName, String cOperNO,
+			String cAvailableDate, String cPosting, String cRefundment, String cEtc, String cOperName, String cOperNO,
 			String cPermit, String cOption, int cUserNo) {
 		super();
 		this.cCode = cCode;
@@ -42,6 +44,31 @@ public class CampInfo implements Serializable{
 		this.cOption = cOption;
 		this.cUserNo = cUserNo;
 	}
+	
+
+	public CampInfo(String cName, String cAddress, String cPhone, String cUrl, int cTheme, String cAvailableDate,
+			String cPosting, String cRefundment, String cEtc, String cOperName, String cOperNO, String cOption,
+			int cUserNo) {
+		super();
+		this.cName = cName;
+		this.cAddress = cAddress;
+		this.cPhone = cPhone;
+		this.cUrl = cUrl;
+		this.cTheme = cTheme;
+		this.cAvailableDate = cAvailableDate;
+		this.cPosting = cPosting;
+		this.cRefundment = cRefundment;
+		this.cEtc = cEtc;
+		this.cOperName = cOperName;
+		this.cOperNO = cOperNO;
+		this.cOption = cOption;
+		this.cUserNo = cUserNo;
+	}
+
+
+
+
+
 
 	public int getcCode() {
 		return cCode;
@@ -91,11 +118,11 @@ public class CampInfo implements Serializable{
 		this.cTheme = cTheme;
 	}
 
-	public Date getcAvailableDate() {
+	public String getcAvailableDate() {
 		return cAvailableDate;
 	}
 
-	public void setcAvailableDate(Date cAvailableDate) {
+	public void setcAvailableDate(String cAvailableDate) {
 		this.cAvailableDate = cAvailableDate;
 	}
 
