@@ -196,7 +196,7 @@
                 /* border: 1px solid purple;  */
             }
 
-            table{
+            #commentTable{
                 width: 100%;
                 margin: 20px 0;
                 border: 1px solid rgba(128, 128, 128, 0.671);
@@ -343,6 +343,11 @@
 
                 padding: 15px;
                 /* margin: 10px; */
+            }
+            
+            .color-drakBlue{
+            	color: darkBlue;
+            	border: 1px solid rgb(197, 197, 243);
             }
 
 
@@ -597,7 +602,7 @@
                         <div id="controll-wrapper">
                             <div id="controllArea">
                                 <div id="btnDiv" class="fontBorder btns">
-                                    <button id="toMainBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=<%= bTag %>'">목록으로</button>
+                                    <button class="btn btn-primary" id="toMainBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=<%= bTag %>'">목록으로</button>
                                 </div>
 
                                 <div id="listDiv">
@@ -615,10 +620,9 @@
                                 	<% if(userNo == 9999) { %>
                                 	
 									<!-- Button trigger modal -->
-									<button type="button" class="btn btn-primary fontBorder" data-toggle="modal" data-target="#exampleModal">
+									<button type="button" class="btn btn-primary fontBorder " data-toggle="modal" data-target="#deleteBoardModal">
 									  삭제
-									</button>
-									
+									</button>						
                                     <% }else { %>
                                     	
                                     
@@ -634,7 +638,7 @@
 						
 						
 						<!-- Modal -->
-						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="deleteBoardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content">
 						      <div class="modal-header">
@@ -644,34 +648,36 @@
 						        </button>
 						      </div>
 						      
-						      <form method="post" action="<%= request.getContextPath() %>/pwdCheck.bo" onsubmit="return checkPwd();">
+						      <form method="post" action="<%= request.getContextPath() %>/pwdCheck.bo" onsubmit="return checkBoardPwd();">
 							      <div class="modal-body">
-							            <label for="exampleFormControlInput1">게시글을 삭제합니다.</label>
-    									<input type="password" class="form-control" name="pwd" id="exampleFormControlInput1" placeholder="임시 비밀번호를 입력하세요">
+							            <label for="boardPwd">게시글을 삭제합니다.</label>
+    									<input type="password" class="form-control" name="pwd" id="boardPwd" placeholder="임시 비밀번호를 입력하세요">
     									
 							            <input type="hidden" name="bNo" value="<%= bNo %>">
 							            <input type="hidden" name="bTag" value="<%= bTag %>">
 							      </div>
 							      <div class="modal-footer">
 							        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-							        <button type="input" class="btn btn-primary">삭제하기</button>
+							        <button type="submit" class="btn btn-primary">삭제하기</button>
 							      </div>
 						      </form>
 						      
 						    </div>
 						  </div>
 						</div>
-						
+						<!-- Modal End-->	
+						<hr>				
+
 
                         <div class="commentArea" id="commentArea">
+                        		
                         	<% if(!cList.isEmpty()) { %>
-                        		<hr>
                         		
                         		<% for(Comment c : cList) { %>
                         		
 	                            <table id="commentTable">
 	                                <tr class="commentTr">
-	                                    <td class="userName">
+	                                    <td class="userName">	                                
 	                                        <div class="user_wrapper fontBorder">
 	                                            <%= c.getcWriter() %>
 	                                            <% if(c.getUserNo() == 9999) { %>
@@ -686,15 +692,58 @@
 	                                        </div>
 	                                    </td>
 	                                    <td class="btns">
-	                                            <button class="cancelBtn fontBorder" type="reset">삭제</button>
+		                                	<% if(c.getUserNo() == 9999) { %>
+		                                	
+											<!-- Button trigger modal -->
+											<button type="button" class="btn btn-secondary fontBorder deleteCommentBtn" data-toggle="modal" data-target="#deleteCommentModel">											
+    											<input type="hidden" name="cNo" value="<%= c.getcNo() %>">
+											  	삭제
+											</button>
+											
+		                                    <% }else { %>
+		                                    	
+		                                    
+		                                    
+		                                    
+		                                    
+		                                    
+		                                    <% } %>
 	                                    </td>
 	                                </tr>
 	                            </table>
+                        	
 	                            
                         		<% } %>
                         	<% } %>
-                        
                         </div>
+						
+						<!-- Modal -->
+						<div class="modal fade" id="deleteCommentModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">댓글 삭제</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      
+						      <form method="post" action="<%= request.getContextPath() %>/pwdCheck.co" onsubmit="return checkCommentPwd();">
+							      <div class="modal-body">
+							            <label for="commentPwd">댓글을 삭제합니다.</label>
+    									<input type="password" class="form-control" name="pwd" id="commentPwd" placeholder="임시 비밀번호를 입력하세요">
+    									<input type="hidden" name="cNo">
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+							        <button type="submit" class="btn btn-primary">삭제하기</button>
+							      </div>
+						      </form>
+						      
+						    </div>
+						  </div>
+						</div>
+						<!-- Modal End-->	
 
                         <hr>
 
@@ -715,7 +764,7 @@
                                     <textarea id="commentContent" style="resize: none"></textarea>
                                 </div>
                                 <div class="btnArea btns">
-                                    <button class="submitBtn fontBorder" id="commentInsertBtn" type="button">등록하기</button>
+                                    <button class="btn btn-primary submitBtn fontBorder" id="commentInsertBtn" type="button">등록하기</button>
                                 </div>
                             </div>     
                         </div> 
@@ -742,8 +791,9 @@
         
 		
 		<script>
-			function checkPwd(){
-				var pwd = $("#exampleFormControlInput1").val();
+
+			function checkBoardPwd(){
+				var pwd = $("#boardPwd").val();
 				
 				if(pwd == ""){
 					alert("비밀번호를 입력하세요")
@@ -754,9 +804,23 @@
 				}
 				
 			}	
-			
-			$(function(){
+
+			function checkCommentPwd(){
+				var pwd = $("#commentPwd").val();
 				
+				if(pwd == ""){
+					alert("비밀번호를 입력하세요")
+					
+					return false;
+				}else{
+					return true;
+				}
+				
+			}		
+		
+		
+		
+			$(function(){						
 				
 				$("i[class='ti-angle-up']").parent().mouseover(function(){
 					$(this).css({"color":"purple", "cursor":"pointer"});
@@ -830,9 +894,59 @@
 						type : "post",
 						dataType : "json",
 						success : function(data){
-							$commentTable = $("#commentTable");
 							$commentArea = $("#commentArea");
-							$commentArea.html("");
+							$commentArea.text("");
+							
+							for(var key in data) {
+								var $input = $("<input>").attr("type", "hidden").attr("id", "userNoInput").val(data[key].userNo);
+								var $table = $("<table>").attr("id", "commentTable");
+								$table.append($input);
+								
+								var $tr = $("<tr>").addClass("commentTr");
+								
+								var $nameTd = $("<td>").addClass("userName");
+								var $nameDiv = $("<div>").addClass("user_wrapper fontBorder").text(data[key].cWriter);
+
+								if(data[key].userNo == 9999) {
+									var $sub = $("<sub>").text("(비회원)");
+									
+									$nameDiv.append($sub);
+								}
+								
+								$nameTd.append($nameDiv);
+								
+								
+								
+								var $contentTd = $("<td>").addClass("commentContent");
+								var $contentDiv = $("<div>").addClass("text_wrapper");
+								var $contentSpan = $("<span>").addClass("contextText").text(data[key].cContent);
+								
+								$contentDiv.append($contentSpan);
+								$contentTd.append($contentDiv);
+								
+								
+								
+								var $btnTd = $("<td>").addClass("btns");
+								
+								if(data[key].userNo == 9999){
+									var $button = $("<button>").addClass("btn btn-secondary fontBorder").text("삭제").attr({"type" : "button", "data-toggle" : "modal", "data-target" : "#deleteCommentModel"});
+									
+									$btnTd.append($button);
+									
+								}
+								
+								
+								
+								$tr.append($nameTd);
+								$tr.append($contentTd);
+								$tr.append($btnTd);
+								
+								$table.append($tr);
+								$commentArea.append($table);	
+								console.log("작동중");
+							}	
+							
+							
 							
 			
 							
@@ -851,6 +965,8 @@
 					
 				});
 				
+				
+					
 				
 			});
 			
