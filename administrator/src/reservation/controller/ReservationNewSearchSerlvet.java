@@ -63,6 +63,7 @@ public class ReservationNewSearchSerlvet extends HttpServlet {
 		request.setAttribute("rMax", rMax + "");
 		request.setAttribute("nArr", nArr);
 		
+	
 		request.getRequestDispatcher("views/reservation/reservationSearchResult.jsp").forward(request, response);
 		
 		

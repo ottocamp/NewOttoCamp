@@ -53,6 +53,7 @@ public class GradeListUpdateServlet extends HttpServlet {
 		int result = new GradeService().updateListGrade(uiList);
 		
 		if(result > 0) {
+			request.getSession().setAttribute("msg", "등급변경에 성공하였습니다.");
 			response.sendRedirect("userGrade.li");
 		}else {
 			request.setAttribute("msg", "회원등급 업데이트에 실패하였습니다.");

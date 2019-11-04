@@ -66,7 +66,7 @@
 
 	}
 	
-	
+	String msg = (String)session.getAttribute("msg");
 	
 	
 %>
@@ -118,20 +118,30 @@
 			display:none;
 		}
 		
+		#gwelcome, #gfamily, #gvip, #gmvp:hover{
+			cursor: pointer;
+		}
+		
 		</style>
 		
 	<script>
-	
-
+		var msg = "<%= msg %>";
+		$(function(){
+		if(msg != "null"){
+			
+			$("#sa-success").click();
+			<% session.removeAttribute("msg"); %>
+		}
+		});
+		
 	</script>
-
 
 
 </head>
 <body>
 
 <div id="page-wrapper">
-
+			<button class="btn btn-default waves-effect waves-light btn-sm" id="sa-success" >Click me</button>
             <!-- Top Bar Start -->
             <%@ include file="../common/topnavbar.jsp" %>
             <!-- Top Bar End -->
@@ -151,13 +161,16 @@
                     <form action="<%= request.getContextPath() %>/gradeSearch.li" method="post" onsubmit="return validate();">
                     <div class="row">
 							<div class="col-sm-12">
-							<h4 class="m-t-0 header-title">회원등급관리메뉴 
-							<button class="btn btn-default" id="gall"  style="" type="button">전체선택</button>
-							<button class="btn btn-default" style="float: right;">검색하기</button>
-							<button class="btn btn-default " data-toggle="modal" data-target="#myModal" style="float: right;" type="button">탐색하기</button></h4>
+							<h4 class="m-t-0 header-title">회원등급관리메뉴 <div class="btn-group" style="">
+                                        <button type="button" class="btn btn-default" id="gall">전체선택</button>
+                                        <button  class="btn btn-default">검색하기</button>
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">탐색하기</button>
+                                    </div>
+							
+							</h4>
 								<div class="card-box widget-inline" style="clear: both;">
 									<div class="row">
-										<div class="col-lg-3 col-sm-6" >
+										<div class="col-lg-3 col-sm-6" id="gwelcome" >
 											<div class="widget-inline-box text-center">
 												<h3 class="m-t-10"><i class="text mdi mdi-access-point-network"></i> <b data-plugin="counterup">WELCOME</b></h3>
 												<p class="text-muted"><div class="checkbox checkbox-inline">
@@ -167,7 +180,7 @@
 											</div>
 										</div>
 
-										<div class="col-lg-3 col-sm-6">
+										<div class="col-lg-3 col-sm-6" id="gfamily">
 											<div class="widget-inline-box text-center">
 												<h3 class="m-t-10 text-custom"><i class="text-custom mdi mdi-airplay"></i> <b data-plugin="counterup">FAMILY</b></h3>
 												<p class="text-muted"><div class="checkbox checkbox-inline">
@@ -178,7 +191,7 @@
 										</div>
 
 										<div class="col-lg-3 col-sm-6">
-											<div class="widget-inline-box text-center">
+											<div class="widget-inline-box text-center" id="gvip">
 												<h3 class="m-t-10 text-info"><i class="text-info mdi mdi-black-mesa"></i> <b data-plugin="counterup">VIP</b></h3>
 												<p class="text-muted"><div class="checkbox checkbox-inline">
                                                 <input type="checkbox" id="vip" name="grade" value="B">
@@ -188,7 +201,7 @@
 										</div>
 
 										<div class="col-lg-3 col-sm-6">
-											<div class="widget-inline-box text-center b-0">
+											<div class="widget-inline-box text-center b-0" id="gmvp">
 												<h3 class="m-t-10 text-danger"><i class="text-danger mdi mdi-cellphone-link"></i> <b data-plugin="counterup">MVP</b></h3>
 												<p class="text-muted"><div class="checkbox checkbox-inline">
                                                 <input type="checkbox" id="mvp" name="grade" value="A">
@@ -370,13 +383,13 @@
 					return;
 				}			
 			
-			if(grade == 'd' || grade == '웰컴' || grade == 'welcome' || grade == 'WELCOME'){			
+			if(grade == 'd' || grade == 'D'|| grade == '웰컴' || grade == 'welcome' || grade == 'WELCOME'){			
 				grade = 'D';
-			}else if(grade == 'c' || grade == '패밀리' || grade == 'family' || grade == 'FAMILY'){			
+			}else if(grade == 'c'|| grade == 'C' || grade == '패밀리' || grade == 'family' || grade == 'FAMILY'){			
 				grade = 'C';
-			}else if(grade == 'b' || grade == '브이아이피' || grade == 'VIP' || grade == 'vip'){			
+			}else if(grade == 'b' || grade == 'B' || grade == '브이아이피' || grade == 'VIP' || grade == 'vip'){			
 				grade = 'B';
-			}else if(grade == 'a' || grade == '엠브이피' || grade == 'MVP' || grade == 'mvp'){			
+			}else if(grade == 'a' || grade == 'A' || grade == '엠브이피' || grade == 'MVP' || grade == 'mvp'){			
 				grade = 'A';
 			}else{
 				alert("올바른 등급을 입력하세요");
@@ -446,8 +459,48 @@
 			
 			
 		});
-
+		
+		$("#gwelcome").click(function(){
 			
+			if($("input:checkbox[name='grade']").eq(0).is(":checked")){
+				$("input:checkbox[name='grade']").eq(0).prop("checked",false);
+			}else{
+				$("input:checkbox[name='grade']").eq(0).prop("checked",true);
+			}	
+		});
+		
+		$("#gfamily").click(function(){
+			
+			if($("input:checkbox[name='grade']").eq(1).is(":checked")){
+				$("input:checkbox[name='grade']").eq(1).prop("checked",false);
+			}else{
+				$("input:checkbox[name='grade']").eq(1).prop("checked",true);
+			}	
+		});
+		
+		$("#gvip").click(function(){
+			
+			if($("input:checkbox[name='grade']").eq(2).is(":checked")){
+				$("input:checkbox[name='grade']").eq(2).prop("checked",false);
+			}else{
+				$("input:checkbox[name='grade']").eq(2).prop("checked",true);
+			}	
+		});
+		
+		$("#gmvp").click(function(){
+	
+			if($("input:checkbox[name='grade']").eq(3).is(":checked")){
+				$("input:checkbox[name='grade']").eq(3).prop("checked",false);
+			}else{
+				$("input:checkbox[name='grade']").eq(3).prop("checked",true);
+			}	
+		});
+		
+		
+		
+		
+		
+		
 	})
 	
 	

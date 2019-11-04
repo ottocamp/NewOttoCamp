@@ -107,23 +107,20 @@
 													</li>
 													</ul>	
 													<li class="menu-item menu-item-has-children" id="adminMenu" hidden>
-														<a href="#">관리자페이지</a>
+														<a href="<%=request.getContextPath()%>/main.li">관리자페이지</a>
 														<ul class="sub-menu">
 															<li class="menu-item">
-																<a href="">매출내역</a>
+																<a href="<%=request.getContextPath()%>/views/reservation/reservationSearchView.jsp">예약관리</a>
 															</li>
 															<li class="menu-item">
-																<a href="">회원등급관리</a>
+																<a href="<%=request.getContextPath()%>/userGrade.li">회원등급관리</a>
 															</li>
 															<li class="menu-item">
-																<a href="">문의내역관리</a>
+																<a href="<%= request.getContextPath() %>/views/sales/salesTotalView.jsp">매출내역확인</a>
 															</li>
 															<li class="menu-item">
-																<a href="">게시물/댓글관리</a>
-															</li>	
-															<li class="menu-item">
-																<a href="">예약관리</a>
-															</li>	
+																<a href="<%=request.getContextPath()%>/campList.cl">사업장관리</a>
+															</li>		
 																</ul>
 															<li class="menu-item menu-item-has-children" id="businessMenu" hidden>
 																<a href="#">사업자관리페이지</a>

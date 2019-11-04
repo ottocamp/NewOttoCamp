@@ -242,7 +242,7 @@
 				<div class="row">
                             <div class="col-md-4">
                                 <div class="card-box">
-                                	<i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on right"></i>
+                                	<i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="이익률은 순이익/매출액입니다."></i>
                                 	<h4 class="m-t-0 text-dark">월 평균 이익률</h4>
                                 	<h2 class="text-primary text-center m-b-30 m-t-30"><span data-plugin="counterup">15%</span></h2>
                                 	<p class="text-muted m-b-0">년간 이익률 :15.0%</p>
@@ -251,7 +251,7 @@
 
                             <div class="col-md-4">
                                 <div class="card-box">
-                                	<i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on right"></i>
+                                	<i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="수익은 매출액에서 *0.15를 한 금액입니다."></i>
                                 	<h4 class="m-t-0 text-dark">월 평균 수익</h4>
                                 	<h2 class="text-success text-center m-b-30 m-t-30"><span data-plugin="counterup"><%= formatter.format(Math.round((sysList.get(0).getsCost()*0.15)/12)) %>원</span></h2>
                                 	<p class="m-b-0 text-muted">년간 총 수익: <%= formatter.format(Math.round((sysList.get(0).getsCost()*0.15))) %>원</p>
@@ -260,7 +260,7 @@
 
                             <div class="col-md-4">
                                 <div class="card-box">
-                                	<i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on right"></i>
+                                	<i class="fa fa-info-circle text-muted pull-right inform" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="월 평균 이용건수는 총이용건수/12입니다."></i>
                                 	<h4 class="m-t-0 text-dark">월 평균 이용건수</h4>
                                 	<h2 class="text-pink text-center m-b-30 m-t-30"><span data-plugin="counterup"><%= Math.round(sysList.get(0).getsCount()/12) %>건</span></h2>
                                 	<p class="m-b-0 text-muted">총 이용 건수 : <%= sysList.get(0).getsCount() %> </p>
