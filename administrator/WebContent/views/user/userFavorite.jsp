@@ -91,7 +91,7 @@
 				
 				<div class="row">
                           <div class="col-sm-12">
-                              <h4 class="header-title m-t-0 m-b-20">나의 관심 캠핑장</h4>
+                              <h4 class="header-title m-t-0 m-b-20"><%= loginUser.getUserName() %>님의 관심 캠핑장</h4>
                           </div>
                       </div>
 				
