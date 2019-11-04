@@ -6,6 +6,7 @@ import static common.JDBCTemplate.*;
 
 import reservation.model.dao.ReservationDao;
 import reservation.model.vo.Reservation;
+import reservation.model.vo.ReservationCount;
 
 public class ReservationService {
 
@@ -54,6 +55,30 @@ public class ReservationService {
 		close(conn);
 		
 		return rList;
+	}
+
+	public ArrayList<Reservation> SelectSearchList(int[] reArr, String startDay, String endDay, long rMin,long rMax) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Reservation> sList = new ReservationDao().SelectSearchList(conn, reArr,  startDay,  endDay,  rMin, rMax);
+		
+		close(conn);
+		
+		return sList;
+	
+	}
+
+	public ArrayList<ReservationCount> SelectSearchCount(int[] reArr, String startDay, String endDay, long rMin,
+			long rMax) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<ReservationCount> cList = new ReservationDao().SelectSearchCount(conn, reArr,  startDay,  endDay,  rMin, rMax);
+		
+		close(conn);
+		
+		return cList;
 	}
 
 }

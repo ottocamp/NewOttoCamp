@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import grade.model.dao.GradeDao;
 import grade.model.vo.UserGrade;
+import grade.model.vo.UserGradeIndex;
+
 import static common.JDBCTemplate.*;
 
 public class GradeService {
@@ -23,6 +25,34 @@ public class GradeService {
 		Connection conn = getConnection();
 
 		int result = new GradeDao().updateGrade(conn, userNo, grade);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public ArrayList<UserGrade> SelectSearchGrade(String[] indexArr) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<UserGrade> sList = new GradeDao().SelectSearchGrade(conn,indexArr);
+		
+		close(conn);
+		
+		return sList;
+	}
+
+	public int updateListGrade(ArrayList<UserGradeIndex> uiList) {
+		
+		Connection conn = getConnection();
+
+		int result = new GradeDao().updateListGrade(conn, uiList);
 		
 		if(result > 0) {
 			commit(conn);

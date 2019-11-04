@@ -27,15 +27,8 @@
 									class="ti-home"></i> 관리자 메인 </a></li>
 
 									
-							<li><a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-calendar-clock"></i> 예약관리 <span class="fa arrow"></span></a>
-								<ul class="nav-second-level nav collapse" aria-expanded="false">
-									<li><a href="<%=request.getContextPath()%>/views/reservation/reservationSearchView.jsp">새로운 예약관리</a></li>
-									<li><a href="<%=request.getContextPath()%>/reservationAvail.li">예약 취소하기</a></li>
-									<li><a href="<%=request.getContextPath()%>/reservationDelete.li">예약 취소내역보기</a></li>
-									<li><a href="<%=request.getContextPath()%>/reservation.li">전체 예약내역보기</a></li>
-
-								</ul></li>
-									
+							<li><a href="<%=request.getContextPath()%>/views/reservation/reservationSearchView.jsp"><i
+									class="mdi mdi-calendar-clock"></i> 예약관리 </a></li>		
 
 							
 

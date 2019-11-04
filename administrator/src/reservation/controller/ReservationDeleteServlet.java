@@ -1,6 +1,7 @@
 package reservation.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -32,15 +33,23 @@ public class ReservationDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String index = request.getParameter("reNo");
 			
-		int reNo = Integer.parseInt(index.split(",")[0]);
-		String msg = index.split(",")[1];
+		int reNo = Integer.parseInt(request.getParameter("reNo"));
 		
-		System.out.println(msg);
 		int result = new ReservationService().deleteReservation(reNo);
 		
+		
+		PrintWriter out = response.getWriter();
+		
 		if(result > 0) {
+			out.print("success");
+		}else {
+			out.print("fail");
+		}
+		
+		
+		
+		/*if(result > 0) {
 			
 			request.getSession().setAttribute("msg", "회원예약사항 취소에 성공하였습니다.");	
 			
@@ -56,7 +65,7 @@ public class ReservationDeleteServlet extends HttpServlet {
 		}else {
 			request.setAttribute("msg", "예약 삭제에 실패하였습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		}*/
 		
 		
 		
