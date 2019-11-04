@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="user.model.vo.*"%>
 <%
 	
 
-%>    
+%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,9 +45,7 @@
             <div class="page-contentbar">
 
                 <!--left navigation start-->
-				
 				<%@ include file="../common/userSidebar.jsp" %>
-	
                 <!--left navigation end-->
 
                 <!-- START PAGE CONTENT -->

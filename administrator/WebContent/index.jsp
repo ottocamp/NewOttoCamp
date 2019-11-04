@@ -8,6 +8,6 @@
 </head>
 <body>
 	<%@ include file="views/mainPage/mainPage.jsp" %>	
-	<!-- sdsdfff -->
+	
 </body>
 </html>

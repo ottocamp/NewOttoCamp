@@ -40,7 +40,7 @@ public class FavoriteCheckServlet extends HttpServlet {
 		ArrayList<Integer> codeList = FavoriteService.selectCode(uno);
 
 		request.setAttribute("codeList", codeList);
-		request.getRequestDispatcher("views/user/usertest"+code+".jsp").forward(request, response);
+		request.getRequestDispatcher("views/user/detail"+code+".jsp").forward(request, response);
 
 		
 	}
