@@ -16,6 +16,7 @@ import grade.model.dao.GradeDao;
 
 import reservation.model.vo.Reservation;
 import reservation.model.vo.ReservationCount;
+import user.model.vo.User;
 
 public class ReservationDao {
 	private Properties prop = new Properties();
@@ -267,6 +268,49 @@ public class ReservationDao {
 		
 		
 		return cList;
+	}
+
+
+	public ArrayList<Reservation> SelectCampList(Connection conn, int uNo) {
+		PreparedStatement pstmt = null;
+		ArrayList<Reservation> rList = new ArrayList<Reservation>();
+//		User loginUser = getSession().getAttribute("loginUser");
+//	     int userNo = loginUser.getUserNo();
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCampReservation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, uNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Reservation re = new Reservation(rset.getInt("RE_NO"),
+												rset.getDate("PAYMENT_DATE"),
+												rset.getString("USER_NAME"),
+												rset.getString("PHONE"),
+												rset.getString("RE_DATE"),
+												rset.getInt("RE_COST"),
+												rset.getInt("RE_STATUS") + "",
+												rset.getString("CAMP_NAME"));
+				
+				rList.add(re);
+				
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+
+		return rList;
 	}
 
 	

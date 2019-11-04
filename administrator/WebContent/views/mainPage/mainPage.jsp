@@ -50,7 +50,10 @@
             <div class="menu_main_wrap logo_left with_text">
                <div class="menu_content_wrap clearfix">
                   <div class="logo">
-                     <a href="<%=request.getContextPath() %>/views/mainPage/mainPage.jsp"></a>
+
+
+                     <a href="<%= request.getContextPath() %>/views/mainPage/mainPage.jsp">
+
                         <img src="<%= request.getContextPath() %>/resources/main/images/11.png" width="200px" height="80px">
                      </a>
                   </div>
@@ -105,13 +108,13 @@
                                         <a href="#">사업자관리페이지</a>
                                         <ul class="sub-menu">
                                            <li class="menu-item">
-                                              <a href="">예약내역</a>
+                                              <a href="<%=request.getContextPath()%>/reservation.ca">예약내역</a>
                                            </li>
                                            <li class="menu-item">
                                               <a href="">매출내역</a>
                                            </li>
                                            <li class="menu-item">
-                                              <a href="">정보등록/수정</a>
+                                              <a href="<%=request.getContextPath()%>/views/camp/campInsertView.jsp">정보등록/수정</a>
                                            </li>
                                            <li class="menu-item">
                                               <a href="">문의답변</a>
@@ -121,19 +124,16 @@
                                        <a href="<%=request.getContextPath()%>/main.li">관리자페이지</a>
                                        <ul class="sub-menu">
                                           <li class="menu-item">
-                                             <a href="">매출내역</a>
+                                             <a href="<%=request.getContextPath()%>/views/reservation/reservationSearchView.jsp">예약관리</a>
                                           </li>
                                           <li class="menu-item">
-                                             <a href="">회원등급관리</a>
+                                             <a href="<%=request.getContextPath()%>/userGrade.li">회원등급관리</a>
                                           </li>
                                           <li class="menu-item">
-                                             <a href="">문의내역관리</a>
+                                             <a href="<%= request.getContextPath() %>/views/sales/salesTotalView.jsp">매출내역확인</a>
                                           </li>
                                           <li class="menu-item">
-                                             <a href="">게시물/댓글관리</a>
-                                          </li>   
-                                          <li class="menu-item">
-                                             <a href="">예약관리</a>
+                                             <a href="<%=request.getContextPath()%>/campList.cl">사업장관리</a>
                                           </li>   
                                              </ul>
                                         <li class="menu-item menu-item-has-children" id="loginMenu" hidden>
