@@ -15,7 +15,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		
         <meta charset="utf-8" />
-        <title>SimpleAdmin - Responsive Admin Dashboard Template</title>
+        <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -50,7 +50,10 @@
             <div class="menu_main_wrap logo_left with_text">
                <div class="menu_content_wrap clearfix">
                   <div class="logo">
+
+
                      <a href="<%= request.getContextPath() %>/views/mainPage/mainPage.jsp">
+
                         <img src="<%= request.getContextPath() %>/resources/main/images/11.png" width="200px" height="80px">
                      </a>
                   </div>
@@ -219,7 +222,7 @@
                               
                                  <select id="destinations" class="destinations" name="criteria">
                                     <option value="" disabled selected>도착지</option>
-                                    <option value="경기도">경기도</option>
+                                    <option value="경기도">서울,경기도</option>
                                     <option value="강원도">강원도</option>
                                     <option value="충청도">충청도</option>
                                     <option value="전라도">전라도</option>
@@ -246,7 +249,7 @@
                                  
                                  <div class="sc_contact_form_button">
 									
-									<button>검색하기</button>
+									<button><a href="<%= request.getContextPath() %>/views/mainPage/mainPage2.jsp">검색하기</a></button>
 									
                                  
 								 <div class="result sc_infobox"></div>

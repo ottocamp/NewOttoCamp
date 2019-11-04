@@ -230,7 +230,8 @@ button.sc_button_size_large,
 	font-size:20px;
 	padding: 19px 36px;
     line-height: 30px;
-    text-transform: uppercase;
+	text-transform: uppercase;
+	margin-bottom: 50px;
 }
 
 .sc_button.sc_button_style_border.sc_button_iconed:before {

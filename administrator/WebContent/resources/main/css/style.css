@@ -3,17 +3,6 @@
 @import url(http://fonts.googleapis.com/css?family=Cabin:100,100italic,300,300italic,400,400italic,700,700italic&subset=latin,latin-ext,cyrillic,cyrillic-ext);
 @import url(http://fonts.googleapis.com/css?family=Julius+Sans+One:100,100italic,300,300italic,400,400italic,700,700italic&subset=latin,latin-ext,cyrillic,cyrillic-ext);
 
-/*
-Theme Name: Solaris HTML
-Theme URI: http://solaris-html.themerex.net/
-Description: Solaris - Multipurpose and Multiskin Responsive HTML theme
-Author: themerex
-Author URI: http://themerex.net/
-Version: 1.0
-License: GNU General Public License
-License URI: license.txt
-Tags: light, responsive-layout, flexible-header, accessibility-ready, custom-background, custom-colors, custom-menu, featured-image-header, featured-images, full-width-template, post-formats, theme-options, threaded-comments, translation-ready
-*/
 
 
 /* TABLE OF CONTENTS:
@@ -114,6 +103,8 @@ ol, ul {
 a {
 	text-decoration:none;
 	background:transparent;
+	font-size: 20px;
+
 }
 a,
 a:hover,
@@ -1183,7 +1174,7 @@ section.no_padding_lr > .container{
 	z-index:10000;
 }
 
-/* Main menu slider
+Main menu slider
 .menu_main_wrap .menu_main_nav > li#blob {
 	position: absolute;
 	top: 0;
@@ -1196,14 +1187,14 @@ section.no_padding_lr > .container{
 	-webkit-box-shadow: none;
 	-moz-box-shadow:    none;
 	box-shadow:         none;
-} */
+}
 
 
 /* Menu positions */
 
 .menu_content_wrap {
 	max-width: 1900px;
-	height: 250px;
+	height: 280px;
     margin: 0 auto;
     padding: 0 100px;
 }
@@ -1563,15 +1554,15 @@ header .cart > .cart_button:after {
     -o-transition: all 0.4s;
     transition: all 0.4s;
 }
-.login_wrap .popup_link:hover:after,
+/* .login_wrap .popup_link:hover:after,
 header .cart > .cart_button:hover:after {
     top: -100%;
 }
 .login_wrap .popup_link:hover:after,
-header .cart > .cart_button:hover:after {
+header .cart > .cart_button:hover:after { */
     
-background: transparent;
-}
+/* background: transparent;
+} */
 
 /* User account */
 .user-popUp.account_wrap {
@@ -2419,10 +2410,11 @@ blockquote.sc_quote.style_2:before {
 }
 .isotope_item .tags_info,
 .isotope_item .tags_info a {
-    color: #bac0c3;
-    font-size: 14px;
+    color:black;
+    font-size: 20x;
     line-height: 18px;
-    text-transform: uppercase;
+	text-transform: uppercase;
+	text-align:right;
 }
 
 
@@ -2624,7 +2616,7 @@ blockquote.sc_quote.style_2:before {
 }
 .isotope_wrap .isotope_item .post_title {
 	margin-top:0;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 400;
     line-height: 34px;
     margin-bottom: 4px;
