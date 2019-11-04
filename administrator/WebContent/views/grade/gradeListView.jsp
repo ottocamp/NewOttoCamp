@@ -20,64 +20,53 @@
 		
 		if(ug.getGsumCost() < 300000){
 			
-			if(!ug.getGuserGrade().equalsIgnoreCase("D")){
+			if(!ug.getGuserGrade().equalsIgnoreCase("WELCOME")){
 				
 				uiList.add(new UserGradeIndex(ug.getGuserNo(), 
 											ug.getGuserName(),
 											ug.getGuserGrade(),
-											"D",
+											"WELCOME",
 											ug.getGsumCost()));
 			}
 			
 			
 		}else if(ug.getGsumCost() < 500000){
 			
-		if(!ug.getGuserGrade().equalsIgnoreCase("C")){
+		if(!ug.getGuserGrade().equalsIgnoreCase("FAMILY")){
 				
 				uiList.add(new UserGradeIndex(ug.getGuserNo(), 
 											ug.getGuserName(),
 											ug.getGuserGrade(),
-											"C",
+											"FAMILY",
 											ug.getGsumCost()));
 			}
 			
 		}else if(ug.getGsumCost() < 1000000){
 			
-		if(!ug.getGuserGrade().equalsIgnoreCase("B")){
+		if(!ug.getGuserGrade().equalsIgnoreCase("VIP")){
 				
 				uiList.add(new UserGradeIndex(ug.getGuserNo(), 
 											ug.getGuserName(),
 											ug.getGuserGrade(),
-											"B",
+											"VIP",
 											ug.getGsumCost()));
 			}
 			
 		}else{
 			
-		if(!ug.getGuserGrade().equalsIgnoreCase("A")){
+		if(!ug.getGuserGrade().equalsIgnoreCase("MVP")){
 				
 				uiList.add(new UserGradeIndex(ug.getGuserNo(), 
 											ug.getGuserName(),
 											ug.getGuserGrade(),
-											"A",
+											"MVP",
 											ug.getGsumCost()));
 			}
 		}
 
 	}
 	
-	for(UserGradeIndex ui : uiList){
-		
-		switch(ui.getGafterGrade()){
-		
-		case "A" : ui.setGafterGrade("MVP"); break;
-		case "B" : ui.setGafterGrade("VIP"); break;
-		case "C" : ui.setGafterGrade("FAMILY"); break;
-		case "D" : ui.setGafterGrade("WELCOME"); break;
-		
-		}
 	
-	}
 	
 	
 %>
@@ -163,7 +152,7 @@
                     <div class="row">
 							<div class="col-sm-12">
 							<h4 class="m-t-0 header-title">회원등급관리메뉴 
-							<button  class="btn btn-default" id="gall"  style="">전체선택</button>
+							<button  class="btn btn-default" id="gall"  style="" type="button">전체선택</button>
 							<button class="btn btn-default" style="float: right;">검색하기</button>
 							<button class="btn btn-default " data-toggle="modal" data-target="#myModal" style="float: right;" type="button">탐색하기</button></h4>
 								<div class="card-box widget-inline" style="clear: both;">

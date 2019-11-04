@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="user.model.vo.*"%>
 <%
-	
+	User loginUser = (User)session.getAttribute("loginUser");
 %>
     
 <!DOCTYPE html>
@@ -58,8 +58,9 @@
 
 						<!-- Top nav left menu -->
 						<ul class="nav navbar-nav hidden-sm hidden-xs top-navbar-items" style="float: right; margin-right: 79px;">
-							<li><a href="#" >게시판</a></li>
+							<li><a href="<%= request.getContextPath() %>/list.bo?b_tag=0" >게시판</a></li>
 							<li><a href="#">Q & A</a></li>
+							<% if(loginUser != null){ %>
 							<li class="dropdown top-menu-item-xs">
                                     <a href="" class="dropdown-toggle menu-right-item profile" data-toggle="dropdown" aria-expanded="false"><img src="<%= request.getContextPath() %>/resources/top_nav/images/m_iconM.png" alt="user-img" class="img-circle"> </a>
                                     <ul class="dropdown-menu">
@@ -69,7 +70,10 @@
                                         <li class="divider"></li>
                                         <li><a href="<%= request.getContextPath() %>/logout.user"><i class="ti-power-off m-r-10"></i> 로그아웃</a></li>
                                     </ul>
-                                </li>      
+                                </li>    
+                            <%}else{ %>
+                            <li><a href="<%= request.getContextPath() %>/views/user/login.jsp" >로그인</a></li>
+                               <%} %>
 						</ul>
 
 						<!-- Top nav Right menu -->

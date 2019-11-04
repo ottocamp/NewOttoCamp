@@ -154,4 +154,78 @@ public class FavoriteDao {
 		
 	}
 
+
+
+
+
+
+
+	public int campInsert(Connection conn, int uno, int code) {
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("favoriteInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, code);
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+
+		
+		return result;
+	}
+
+
+
+
+
+
+
+	public ArrayList<Integer> selectCode(Connection conn, int uno) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		ArrayList<Integer> codeList = new ArrayList<Integer>();
+		
+		String sql = prop.getProperty("selectCode");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, uno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				int code = rset.getInt(1);
+				
+				codeList.add(code);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return codeList;
+	}
+
 }
