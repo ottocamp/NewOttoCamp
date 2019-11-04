@@ -12,6 +12,7 @@
 	
 	
 	
+
 %>	
 <!DOCTYPE html>
 <html>
@@ -116,15 +117,18 @@
 keyframes fadeInOpacity { 0%{
 	opacity: 0
 }
+
 to {
 	opacity: 1
 }
+
 }
 :hover>*>.fbvd--wrapper {
 	animation-name: fadeInOpacity;
 	animation-duration: .3s;
 	opacity: 1
 }
+
 .fbvd--wrapper {
 	position: absolute;
 	top: 10px;
@@ -134,6 +138,7 @@ to {
 	margin: 0;
 	z-index: 5
 }
+
 .fbvd--wrapper a {
 	background:
 		url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZmlsbD0iIzRiNGY1NiIgZD0iTTggMTUuNWw3LjUtNy41aC00LjV2LThoLTZ2OGgtNC41eiI+PC9wYXRoPjwvc3ZnPg==)
@@ -152,17 +157,21 @@ to {
 	border: 1px solid #e7e7e7;
 	background-size: 13px
 }
+
 .fbvd--wrapper a:last-child {
 	margin-right: 0
 }
+
 .fbvd--wrapper a:hover {
 	text-decoration: none
 }
+
 .fbvd--wrapper a:focus {
 	box-shadow: 0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px
 		rgba(0, 0, 0, .15);
 	outline: none
 }
+
 .fbvd--wrapper b {
 	font-size: 13px;
 	position: relative;
@@ -176,15 +185,18 @@ to {
 keyframes fadeInOpacity { 0%{
 	opacity: 0
 }
+
 to {
 	opacity: 1
 }
+
 }
 :hover>*>.fbvd--wrapper {
 	animation-name: fadeInOpacity;
 	animation-duration: .3s;
 	opacity: 1
 }
+
 .fbvd--wrapper {
 	position: absolute;
 	top: 10px;
@@ -194,6 +206,7 @@ to {
 	margin: 0;
 	z-index: 5
 }
+
 .fbvd--wrapper a {
 	background:
 		url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZmlsbD0iIzRiNGY1NiIgZD0iTTggMTUuNWw3LjUtNy41aC00LjV2LThoLTZ2OGgtNC41eiI+PC9wYXRoPjwvc3ZnPg==)
@@ -212,17 +225,21 @@ to {
 	border: 1px solid #e7e7e7;
 	background-size: 13px
 }
+
 .fbvd--wrapper a:last-child {
 	margin-right: 0
 }
+
 .fbvd--wrapper a:hover {
 	text-decoration: none
 }
+
 .fbvd--wrapper a:focus {
 	box-shadow: 0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px
 		rgba(0, 0, 0, .15);
 	outline: none
 }
+
 .fbvd--wrapper b {
 	font-size: 13px;
 	position: relative;
@@ -232,7 +249,7 @@ to {
 }
 </style>
 </head>
-<body>
+<body cz-shortcut-listen="true">
 
 	<div id="page-wrapper">
 
@@ -358,6 +375,7 @@ to {
                                             					success: function(data){
                                             						
                                             						if(data=="success"){
+
                                                                     	alert("해외 로그인 접속 허용");
                                                                     	$("#ld2").text("해외 로그인 허용 중 ").css("color","red");
                                             							
@@ -372,6 +390,7 @@ to {
                                             				});
                                                         	
  	
+
                                                         }
                                                     	
                                                     	
@@ -398,6 +417,7 @@ to {
                                                 	   $("#ipr").text(region).css("color","green");
                                                 	   $("#ipip").text(ip).css("color","green");
                                                 	   
+
                                           			  }, 500);
                                                     
                                                     
@@ -667,10 +687,8 @@ to {
 
 
 	<!-- js placed at the end of the document so the pages load faster -->
-	<script
-		src="<%= request.getContextPath() %>/resources/assets/js/jquery-2.1.4.min.js"></script>
-	<script
-		src="<%= request.getContextPath() %>/resources/assets/js/bootstrap.min.js"></script>
+
+
 
 	<script
 		src="<%= request.getContextPath() %>/resources/assets/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js"></script>
@@ -691,19 +709,31 @@ to {
 		src="<%= request.getContextPath() %>/resources/assets/plugins/timepicker/bootstrap-timepicker.js"></script>
 	<script
 		src="<%= request.getContextPath() %>/resources/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-	<script
-		src="<%= request.getContextPath() %>/resources/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-	<script
-		src="<%= request.getContextPath() %>/resources/assets/plugins/clockpicker/js/bootstrap-clockpicker.min.js"></script>
+
+
 	<script
 		src="<%= request.getContextPath() %>/resources/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
 	<script
 		src="<%= request.getContextPath() %>/resources/assets/plugins/summernote/summernote.min.js"></script>
 
 	<!-- form advanced init js -->
-	<script
-		src="<%= request.getContextPath() %>/resources/assets/pages/jquery.form-advanced.init.js"></script>
 
+
+	<!-- App Js -->
+	<script
+		src="<%= request.getContextPath() %>/resources/	assets/js/jquery.app.js"></script>
+
+	<script type="text/javascript">
+            $(document).ready(function() {
+                $('.form-validation').parsley();
+                $('.summernote').summernote({
+                    height: 350,                 // set editor height
+                    minHeight: null,             // set minimum height of editor
+                    maxHeight: null,             // set maximum height of editor
+                    focus: false                 // set focus to editable area after initializing summernote
+                });
+            });
+     </script>
 
 
 </body>
