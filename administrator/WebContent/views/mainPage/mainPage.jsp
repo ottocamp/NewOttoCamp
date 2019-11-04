@@ -249,7 +249,7 @@
                                  
                                  <div class="sc_contact_form_button">
 									
-									<button><a href="<%= request.getContextPath() %>/views/mainPage/mainPage2.jsp">검색하기</a></button>
+									<button type="button" onclick="main2();"><a href="<%= request.getContextPath() %>/views/mainPage/mainPage2.jsp">검색하기</a></button>
 									
                                  
 								 <div class="result sc_infobox"></div>
@@ -262,6 +262,18 @@
 				</div>
    
    <a href="#" class="scroll_to_top icon-up" title="Scroll to top"></a>
+   
+   <script type="text/javascript">
+   
+   function main2(){
+	   
+	   location.href = "<%= request.getContextPath() %>/views/mainPage/mainPage2.jsp"
+	   
+   }
+   
+   </script>
+   
+   
 
    <script type='text/javascript' src='<%= request.getContextPath() %>/resources/main/js/vendor/jquery-1.11.3.min.js'></script>
    <script type='text/javascript' src='<%= request.getContextPath() %>/resources/main/js/vendor/jquery-migrate.min.js'></script>

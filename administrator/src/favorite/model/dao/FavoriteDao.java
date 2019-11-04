@@ -60,7 +60,7 @@ public class FavoriteDao {
 										rset.getString(4),
 										rset.getString(5),
 										rset.getInt(6),
-										rset.getDate(7),
+										rset.getString(7),
 										rset.getString(8),
 										rset.getString(9),
 										rset.getString(10),

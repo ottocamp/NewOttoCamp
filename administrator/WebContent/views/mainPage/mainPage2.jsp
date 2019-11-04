@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="user.model.vo.*"%>
+    
+<%
+	
+	User loginUser = (User)session.getAttribute("loginUser");
+	
+%>        
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +61,7 @@
 						<a href="#" class="menu_main_responsive_button icon-menu-1"></a>
 						<nav role="navigation" class="menu_main_nav_area">
 								<ul id="menu_main" class="menu_main_nav">
-									<li class="menu-item menu-item-has-children">
+									<li class="menu-item menu-item-has-children" id="boardMenu" >
 										<a href="#">게시판</a>
 										<ul class="sub-menu">
 											<li class="menu-item">
@@ -72,7 +79,7 @@
 									
 										</ul>
 									</li>
-									<li class="menu-item menu-item-has-children">
+									<li class="menu-item menu-item-has-children" id="qnaMenu" >
 										<a href="#">Q&A</a>
 										<ul class="sub-menu">
 											<li class="menu-item">
@@ -83,7 +90,7 @@
 											</li>
 											</ul>
 	
-											<li class="menu-item menu-item-has-children">
+											<li class="menu-item menu-item-has-children" id="userMenu" hidden>
 												<a href="#">마이페이지</a>
 												<ul class="sub-menu">
 													<li class="menu-item">
@@ -99,7 +106,7 @@
 														<a href="">리뷰및메모</a>
 													</li>
 													</ul>	
-													<li class="menu-item menu-item-has-children">
+													<li class="menu-item menu-item-has-children" id="adminMenu" hidden>
 														<a href="#">관리자페이지</a>
 														<ul class="sub-menu">
 															<li class="menu-item">
@@ -118,7 +125,7 @@
 																<a href="">예약관리</a>
 															</li>	
 																</ul>
-															<li class="menu-item menu-item-has-children">
+															<li class="menu-item menu-item-has-children" id="businessMenu" hidden>
 																<a href="#">사업자관리페이지</a>
 																<ul class="sub-menu">
 																	<li class="menu-item">
@@ -134,7 +141,10 @@
 																		<a href="">문의답변</a>
 																	</li>											
 																	</ul>
-                        
+                        <li class="menu-item menu-item-has-children" id="loginMenu" hidden>
+                                       <a href="<%= request.getContextPath() %>/views/user/login.jsp">로그인</a>
+                                       <li class="menu-item menu-item-has-children" id="logoutMenu"   hidden>
+                                       <a href="<%= request.getContextPath() %>/logout.user" >로그아웃</a>
                         
                                                         </nav>
 
@@ -409,6 +419,30 @@
                 
                                 </div>
                             </div>
+                        
+    <script>
+         							
+         						
+         						
+										<% if(loginUser==null){ %>
+         										$("#loginMenu").show();										
+         								<% }else{ %>
+         										<% if(loginUser.getUserType().equals("U")){ %>	
+         										$("#userMenu").show();	 
+         										$("#logoutMenu").show();	
+         										<% }else if(loginUser.getUserType().equals("A")){ %>
+         										$("#adminMenu").show();	 
+         										$("#logoutMenu").show();
+         										<%  }else if(loginUser.getUserType().equals("B")){%>
+         										$("#businessMenu").show();	 
+         										$("#logoutMenu").show();
+         										
+         										<%  }%>
+         								<%  }%>
+         						</script>                    
+                        
+                        
+                        
                             
                             
    <script type='text/javascript' src='<%= request.getContextPath() %>/resources/main/js/vendor/jquery-1.11.3.min.js'></script>
