@@ -11,6 +11,7 @@ import user.model.dao.UserDao;
 import user.model.vo.IpInfo;
 import user.model.vo.User;
 import user.model.vo.UserPropic;
+import user.model.vo.UserReservation;
 
 
 public class UserService {
@@ -128,17 +129,21 @@ public class UserService {
 		
 		UserPropic userpropic= new UserDao().selectUserPropic(con,uno);
 		
+		close(con);
+		
 		
 		return userpropic;
 	}
 
-	public ArrayList<Reservation> SelectCampList(int uNo) {
+	public ArrayList<UserReservation> SelectCampList(int uNo) {
 		
 		Connection con = getConnection();
 		
-		ArrayList<Reservation> rList = new UserDao().SelectCampList(con,uNo);
+		ArrayList<UserReservation> urList = new UserDao().SelectCampList(con,uNo);
 
-		return rList;
+		close(con);
+		
+		return urList;
 	}
 	
 	

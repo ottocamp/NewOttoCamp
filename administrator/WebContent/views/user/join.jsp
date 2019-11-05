@@ -35,6 +35,26 @@
         <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/flat.min.css"> -->
         <!-- END Stylesheets -->
+        
+        
+        
+        <style>
+        
+        .toIn{
+        	display: inline;
+
+        }
+        .col-12{
+        	margin-bottom: 10px;
+        }
+        
+        
+        </style>
+        
+        
+        
+        
+        
     </head>
     <body>
 
@@ -119,8 +139,8 @@
                                             <div class="form-group row" style="margin-bottom: -5px">
                                                 <div class="col-12">
                                                     <label for="">이름</label>
-                                                    <input type="text" class="form-control" id="signup-userid" name="uname" placeholder="이름을 입력해주세요">
-                                                    <h5 id="namep">&nbsp;</h5>
+                                                    <input type="text" class="form-control" id="signup-userid" name="uname" placeholder="이름은 한글로만2~6자 입력">
+                                                    <p id="namep1" class="toIn">&nbsp;</p><p id="namep2" class="toIn">&nbsp;</p><p id="namep3" class="toIn">&nbsp;</p>
                                                 </div>
                                             </div>
                                             <div class="form-group row" style="margin-bottom: -5px">
@@ -191,31 +211,50 @@
                                 <!-- 가입 유효성 검사 -->
                                 <script>
                         		function joinValidate(){
-                        			if(!(/^[가-힣]{2,4}$/.test($("input[name=uname]").val()))){
-                        				alert('이름은 한글로만2~4자 입력');
+                        			if(!(/^[가-힣]{2,6}$/.test($("input[name=uname]").val()))){
+                        				alert('이름은 한글로만2~6자 입력');
                         				return false;
                         			}
-                        			
-                        			
+
                         			if(!(/^[a-z][a-z\d]{3,11}$/i.test($("input[name=uid]").val()))){
                         				alert('아이디는 영소문자로 시작해서 4~12자 입력(숫자 포함 가능)');
                         				return false;
                         			}
-                        			
-                        			
-                        			
-                        			
-                        			if($("input[name=upwd]").val() != $("input[name=upwd").val()){
+
+                        			if($("input[name=upwd]").val() != $("input[name=upwd2").val()){
                         				alert('비밀번호 불일치');
                         				return false;
                         			}
                         			
 
-                        			
                         			return true;
-                        			
-                        			
                         		}
+                        		
+                        		//인풋태그 밑에 경고 등
+                        		
+                        		$("input[name=uname]").focusout(function(){
+                        			$("#namep1").text("이름은").css("color","green");
+                        			
+                        			if(!(/^[가-힣]+$/.test($("input[name=uname]").val()))){
+                        				$("#namep2").text(" 한글로만 ").css("color","red");
+                        			}else{
+                        				$("#namep2").text(" 한글로만 ").css("color","green");
+                        			}
+                        			
+                        			if($("input[name=uname]").val().length>=2 && $("input[name=uname]").val().length<=6 ){
+                        				$("#namep3").text(" 2~6자 입력 ").css("color","green");
+                        			}else{
+                        				$("#namep3").text(" 2~6자 입력 ").css("color","red");
+                        			}
+                        			
+                        			
+                        			
+                        			
+                        		});
+                        		
+                        		
+                        		
+                        		
                                 
                         		
    

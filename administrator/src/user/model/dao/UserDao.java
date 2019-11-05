@@ -16,6 +16,7 @@ import static common.JDBCTemplate.*;
 import user.model.vo.IpInfo;
 import user.model.vo.User;
 import user.model.vo.UserPropic;
+import user.model.vo.UserReservation;
 
 public class UserDao {
 	
@@ -367,10 +368,11 @@ public class UserDao {
 
 
 
-	public ArrayList<Reservation> SelectCampList(Connection con, int uNo) {
+	public ArrayList<UserReservation> SelectCampList(Connection con, int uNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Reservation> rList = null;
+		ArrayList<UserReservation> urList = new ArrayList<UserReservation>();
+		UserReservation ure = null;
 		
 		String query =  prop.getProperty("SelectCampList");
 		
@@ -380,17 +382,20 @@ public class UserDao {
 			
 			rset = pstmt.executeQuery();
 			
-			while(rset.next()) {
-				Reservation re = new Reservation(rset.getInt("RE_NO"),
-												rset.getDate("PAYMENT_DATE"),
-												rset.getString("USER_NAME"),
-												rset.getString("PHONE"),
-												rset.getString("RE_DATE"),
-												rset.getInt("RE_COST"),
-												rset.getInt("RE_STATUS") + "",
-												rset.getString("CAMP_NAME"));
-				
-				rList.add(re);
+			while(rset.next()){
+								ure = new UserReservation(rset.getInt("RE_NO"),
+														rset.getInt("RP_NO"),	
+														rset.getDate("PAYMENT_DATE"),
+														rset.getString("RE_DATE"),
+														rset.getInt("RE_COST"),
+														""+rset.getInt("RE_STATUS")+"",
+														rset.getString("PAYMENT_TYPE"),
+														rset.getInt("USER_NO"),
+														rset.getInt("CAMP_CODE"),
+														rset.getString("CAMP_NAME")
+														);
+			
+				urList.add(ure);
 				
 			}
 			
@@ -403,9 +408,7 @@ public class UserDao {
 			close(pstmt);
 		}
 		
-
-		
-		return rList;
+		return urList;
 	}
 
 

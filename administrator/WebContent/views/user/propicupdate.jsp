@@ -11,7 +11,7 @@
 	
 	<form action="<%= request.getContextPath() %>/propic.user" method="post" enctype="multipart/form-data">
 	
-	<input type="file" name="upfile">
+	<input type="file" name="upfile" >
 	<input type="text" value="1" hidden="">
 	<button>사진 제출</button>
 	

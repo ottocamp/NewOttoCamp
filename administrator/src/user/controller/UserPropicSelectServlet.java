@@ -18,13 +18,13 @@ import user.model.vo.UserPropic;
  * Servlet implementation class UserPropicSelect
  */
 @WebServlet("/propic.select")
-public class UserPropicSelect extends HttpServlet {
+public class UserPropicSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserPropicSelect() {
+    public UserPropicSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

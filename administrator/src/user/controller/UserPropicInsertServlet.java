@@ -24,13 +24,13 @@ import user.model.vo.UserPropic;
  * Servlet implementation class UserPropic
  */
 @WebServlet("/propic.user")
-public class UserPropicInsert extends HttpServlet {
+public class UserPropicInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserPropicInsert() {
+    public UserPropicInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

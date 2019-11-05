@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, reservation.model.vo.*, java.text.DecimalFormat"%>
+    pageEncoding="UTF-8" import="java.util.*, user.model.vo.*, java.text.DecimalFormat"%>
 <%
-	ArrayList<Reservation> rList = (ArrayList<Reservation>)request.getAttribute("rList");
+	ArrayList<UserReservation> urList = (ArrayList<UserReservation>)request.getAttribute("urList");
 	DecimalFormat formatter = new DecimalFormat("##,###,###");
 	String msg = (String)session.getAttribute("msg");
 	
-	for(Reservation re : rList){
-		
+	for(UserReservation re : urList){
+			
 		switch(re.getReStatus()){
 		
 		case "1" : re.setReStatus("결제완료"); break;
@@ -90,7 +90,7 @@
             <div class="page-contentbar">
 
                 <!--left navigation start-->
-                 <%@ include file="../common/campSidebar.jsp" %>
+                 <%@ include file="../common/userSidebar.jsp" %>
                 <!--left navigation end-->
 
                 <!-- START PAGE CONTENT -->
@@ -118,28 +118,39 @@
                                     <table id="datatable" class="table table-striped table-bordered">
                                         <thead>
                                         <tr>
-                                            <th>결제일시</th>
+                                        <!--         -->
+                                        
+                                        	<th>예약번호</th>
+                                        	<th>캠핑장명</th>
+                                        	<th>예약일자</th>
+                                        	<th>결제일시</th>
+                                        	<th>결제금액</th>
+                                        	<th>결제방식</th>
+                                        	<th>처리상태</th>
+                                        	<th>승인</th>
+                                        
+<!--                                             <th>결제일시</th>
                                             <th>예약번호</th>
                                             <th>회원이름</th>
                                             <th>연락처</th>
                                             <th>예약일자</th>
                                             <th>결제금액</th>
                                             <th>처리상태</th>
-                                            <th>승인</th>
+                                            <th></th> -->
                                         </tr>
                                         </thead>
 
                                         <tbody>
-                                        <% for(Reservation re : rList){ %>
+                                        <% for(UserReservation ure : urList){ %>
 											<tr id="usergrade">
-												<td><%= re.getRePayDate() %></td>
-												<td><%= re.getReNo() %></td>
-												<td><%= re.getReName() %></td>
-												<td><%= re.getRePhone() %></td>
-												<td><%= re.getReDate() %></td>
-												<td><%= formatter.format(re.getReCost()) %></td>
-												<td><%= re.getReStatus() %></td>
-												<td><%if(re.getReStatus().equals("예약완료")) {%>
+												<td><%= ure.getReNo() %></td>
+												<td><%= ure.getCampName() %></td>
+												<td><%= ure.getReDate() %></td>
+												<td><%= ure.getPaymentDate() %></td>
+												<td><%= ure.getReCost() %></td>
+												<td><%= ure.getPamentType() %></td>
+												<td><%= ure.getReStatus() %></td>
+												<td><%if(ure.getReStatus().equals("예약완료")) {%>
 													<button type="button" class="btn btn-primary btn-xs" onclick="delete1(this);">취소하기</button>
 												<%}else{ %>
 													취소불가
@@ -185,7 +196,7 @@
                     </div> <!-- end footer -->
 
                 </div>
-                <!-- End #page-right-content -->
+                <!-- End #page-right-content -->s
 
             </div>
             <!-- end .page-contentbar -->
