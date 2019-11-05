@@ -15,7 +15,7 @@
 <label>제목</label><input type="text" name="subject">
 <label>내용</label><input type="text" name="content">
 <input type="button" value="메일발송" onclick="check()">
-<input type="hidden" name="to" value="znznwkdrns@naver.com"> // 여기에 자신의 이메일 계정
+<input type="hidden" name="to" value="whqotjd@naver.com"> // 여기에 자신의 이메일 계정
 <input type="hidden" name="from" value="whqotjd@naver.com">// 여기에 자신의 이메일 계정
 </form>
 <script> 
