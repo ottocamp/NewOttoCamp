@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import board.model.service.BoardService;
 
 /**
- * Servlet implementation class CommentPwdCheckServlet
+ * Servlet implementation class CommentDeleteServlet
  */
-@WebServlet("/pwdCheck.co")
-public class CommentPwdCheckServlet extends HttpServlet {
+@WebServlet("/delete.co")
+public class CommentDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommentPwdCheckServlet() {
+    public CommentDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +31,20 @@ public class CommentPwdCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		String pwd = (String)request.getParameter("pwd");
 		
-		String checkPwd = new BoardService().checkCommentPwd(cNo);
+		int result = new BoardService().deleteComment(cNo);
+		System.out.println(cNo);
+		System.out.println(bNo);
+		System.out.println(result);
 		
-		if(pwd.equals(checkPwd)) {
-			request.setAttribute("cNo", cNo);
-			request.setAttribute("bNo", bNo);
-			request.getRequestDispatcher("/delete.co").forward(request, response);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("msg", "댓글이 삭제되었습니다");
 		}else {
-			request.getSession().setAttribute("msg", "잘못된 비밀번호입니다");
-			response.sendRedirect(request.getContextPath() + "/detail.bo?b_no=" + bNo);
+			request.getSession().setAttribute("msg", "댓글 삭제에 실패하였습니다");
 		}
 		
+		request.getRequestDispatcher("/detail.bo?b_no=" + bNo).forward(request, response);
 		
 	}
 

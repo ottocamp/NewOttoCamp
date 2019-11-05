@@ -619,7 +619,7 @@ button:hover:after{
 
                 <main class="wrapper9">
                   <div class="element23 grid-box8">
-                  <div class="button1"><div class="btn"><button type="button">예약하기</button></div>
+                  <div class="button1"><div class="btn"><button type="button" onclick="detail();">예약하기</button></div>
                   </div>
                   
 
@@ -643,6 +643,14 @@ button:hover:after{
           
            <script>
                         
+           
+           function detail(){
+        	   
+        	   location.href = "<%= request.getContextPath() %>/views/user/reservationFormView.jsp";
+        	   
+           }
+           
+           
                         $(function(){
                         	
                         	 var code = <%= code %>

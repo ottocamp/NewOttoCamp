@@ -161,7 +161,7 @@
                     <form action="<%= request.getContextPath() %>/gradeSearch.li" method="post" onsubmit="return validate();">
                     <div class="row">
 							<div class="col-sm-12">
-							<h4 class="m-t-0 header-title">회원등급관리메뉴 <div class="btn-group" style="padding-left: 670px;">
+							<h4 class="m-t-0 header-title">회원등급관리메뉴 <div class="btn-group" style="padding-left: 1000px;">
                                         <button type="button" class="btn btn-default" id="gall">전체선택</button>
                                         <button  class="btn btn-default">검색하기</button>
                                         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">탐색하기</button>
