@@ -184,6 +184,35 @@ public class BoardService {
 		return result;
 	}
 
+	public String checkCommentPwd(int cNo) {
+		Connection conn = getConnection();
+		
+		String checkPwd = new BoardDao().checkCommentPwd(conn, cNo);
+		
+		close(conn);
+		
+		
+		return checkPwd;
+	}
+
+	public int deleteComment(int cNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteComment(conn, cNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+
 
 
 }

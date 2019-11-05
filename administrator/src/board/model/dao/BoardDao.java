@@ -433,5 +433,56 @@ public class BoardDao {
 		return result;
 	}
 
+	public String checkCommentPwd(Connection conn, int cNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String checkPwd = "";
+		
+		String sql = prop.getProperty("commentPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				checkPwd = rset.getString("dispo_pwd");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return checkPwd;
+	}
+
+	public int deleteComment(Connection conn, int cNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("deleteComment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cNo);
+			
+			result = pstmt.executeUpdate();			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 }

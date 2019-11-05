@@ -164,7 +164,7 @@
 					<div class="row">
                             <div class="col-sm-12">
                                 <div class="card-box">
-                                    <h4 class="m-t-0">최근 올라온 게시글 <button class="btn btn-default " data-toggle="modal" data-target="#myModal" style="float: right;">게시판으로 가기</button></h4>
+                                    <h4 class="m-t-0">최근 올라온 게시글 <button class="btn btn-default " data-toggle="modal" data-target="#myModal" style="float: right;" onclick="goBoard();">게시판으로 가기</button></h4>
                                     <div class="table-responsive" style="clear: both;">
                                         <table class="table table-hover mails m-0 table table-actions-bar">
                                             <thead>
@@ -255,12 +255,12 @@
 				showInLegend: true,
 				name: "회원가입 수",
 				markerType: "circle",
-				xValueFormatString: "YYYY, MMM, DD",
+				xValueFormatString: "MMM, DD",
 				color: "#F08080",
 				dataPoints: [
 					<% for(MainJoinCount mjc : mjcList) {%>
 					{ x: new Date("20" + <%= (mjc.getmJoinDate()).substring(0,2) %>, 
-					<%= (mjc.getmJoinDate()).substring(3,5) %>, <%= (mjc.getmJoinDate()).substring(6,8) %>), y: <%= mjc.getmCount() %> },
+					<%= (mjc.getmJoinDate()).substring(3,5) %> -1, <%= (mjc.getmJoinDate()).substring(6,8) %>), y: <%= mjc.getmCount() %> },
 					
 					<%} %>
 					
@@ -324,6 +324,12 @@
 		
 		}
 	
+	
+	function goBoard(){
+		
+		location.href = "<%= request.getContextPath() %>/list.bo?b_tag=2";
+		
+	}
 	
 	
 	
