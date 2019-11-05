@@ -24,7 +24,7 @@
                             <!-- User Detail box -->
                             <div class="user-details">
                                 <div class="pull-left">
-                                    <img src="<%= request.getContextPath() %>/resources/assets/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
+                                    <img alt="" class="thumb-md img-circle propicArea" >
                                 </div>
                                 <div class="user-info">
                                     <a href="#"><%= loginUser.getUserName() %>님</a>
@@ -40,7 +40,7 @@
                                 <li><a href="<%= request.getContextPath() %>/views/user/userUpdate.jsp"> <i class="ti-paint-bucket"></i> 개인 정보 수정 </a></li>
 
                                 <li>
-                                    <a href="<%= request.getContextPath() %>/views/user/userUsed.jsp"><i class="ti-paint-bucket"></i> 이용내역</span></a>
+                                    <a href="<%= request.getContextPath() %>/reservation.user"><i class="ti-paint-bucket"></i> 이용내역</span></a>
 
                                 </li>
                                 
@@ -67,7 +67,42 @@
                     </div><!--Scrollbar wrapper-->
                 </aside>
 
-
+				<script>
+				
+				$(function(){
+					
+					$.ajax({
+						url : "<%= request.getContextPath() %>/propic.select",
+						type : "post",
+						success : function(data){	
+							
+							var uno = data.userNo;
+							var oname = data.originName;
+							var cname = data.changeName;
+							
+							$(".propicArea").attr("src","<%= request.getContextPath() %>/resources/userpropic/"+cname+"?after");
+							
+		
+							
+						},
+						error:function(){
+							console.log("ajax 통신 실패");
+						}
+					});
+					
+					
+					
+					
+					
+					
+				});
+				
+				
+				
+				
+				
+				</script>
+	
 
 
 </body>

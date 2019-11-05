@@ -3,11 +3,14 @@ package user.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import reservation.model.vo.Reservation;
+
 import static common.JDBCTemplate.*;
 
 import user.model.dao.UserDao;
 import user.model.vo.IpInfo;
 import user.model.vo.User;
+import user.model.vo.UserPropic;
 
 
 public class UserService {
@@ -102,6 +105,40 @@ public class UserService {
 		close(con);
 		
 		return searchUser;
+	}
+
+	public int insertUserPropic(UserPropic userpropic) {
+		Connection con = getConnection();
+		
+		int result = new UserDao().insertUserPropic(con,userpropic);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		
+		return result;
+	}
+
+	public UserPropic selectUserPropic(int uno) {
+		Connection con = getConnection();
+		
+		UserPropic userpropic= new UserDao().selectUserPropic(con,uno);
+		
+		
+		return userpropic;
+	}
+
+	public ArrayList<Reservation> SelectCampList(int uNo) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<Reservation> rList = new UserDao().SelectCampList(con,uNo);
+
+		return rList;
 	}
 	
 	
