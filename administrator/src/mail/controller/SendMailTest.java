@@ -1,4 +1,4 @@
-package com;
+package mail.controller;
 
 import java.util.Properties;
 

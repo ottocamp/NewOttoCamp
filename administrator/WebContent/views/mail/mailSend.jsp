@@ -6,7 +6,7 @@
 <%@page import="javax.mail.internet.InternetAddress"%>
 <%@page import="javax.mail.internet.MimeMessage"%>
 <%@page import="javax.mail.Session"%>
-<%@page import="com.tide.homepage.mail.SMTPAuthenticatior"%>
+<%@page import="mail.controller.SMTPAuthenticatior"%>
 <%@page import="javax.mail.Authenticator"%>
 <%@page import="java.util.Properties"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -59,8 +59,11 @@ try{
     Address fromAddr = new InternetAddress(from);
     msg.setFrom(fromAddr); 
  
-    Address toAddr = new InternetAddress(to);
-    msg.addRecipient(Message.RecipientType.TO, toAddr); // 받는 사람
+    InternetAddress[] toAddr = new InternetAddress[2];
+    toAddr[0] = new InternetAddress ("whqotjd@naver.com");
+    toAddr[1] = new InternetAddress ("whqotjd@gmail.com");
+
+    msg.setRecipients(Message.RecipientType.TO, toAddr); // 받는 사람
      
     msg.setContent(buffer.toString(), "text/html;charset=UTF-8"); // 내용
     Transport.send(msg); // 전송  

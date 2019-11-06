@@ -56,7 +56,8 @@
 									<li><a href="<%=request.getContextPath()%>/campDetail.li">승인 사업장 보기</a></li>
 								</ul></li>
 
-
+							<li><a href="<%=request.getContextPath()%>/views/mail/MailSendView.jsp"><i
+									class="mdi mdi-account"></i> 광고메일전송 </a></li>
 						</ul>
 					</div>
 				</div>
