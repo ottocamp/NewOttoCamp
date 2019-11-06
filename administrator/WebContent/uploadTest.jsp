@@ -40,6 +40,14 @@
 
 
 
+<div class="button1"><div class="btn"><button type="button" onclick="detail();">예약하기</button></div></div>
+<script type="text/javascript">
+	function detail(){
+		var cNo = 1;
+ 	   location.href = "<%= request.getContextPath() %>/campRe.re?cNo=1";
+ 	   
+    } </script>
+
 
 
 </body>
