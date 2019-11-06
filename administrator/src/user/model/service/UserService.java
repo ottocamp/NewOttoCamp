@@ -3,6 +3,7 @@ package user.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+
 import reservation.model.vo.Reservation;
 
 import static common.JDBCTemplate.*;
@@ -144,6 +145,24 @@ public class UserService {
 		close(con);
 		
 		return urList;
+	}
+
+	public int idCheck(String userId) {
+		Connection conn = getConnection();
+		int result = new UserDao().idCheck(conn, userId);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int emailCheck(String userEmail) {
+		Connection conn = getConnection();
+		int result = new UserDao().emailCheck(conn, userEmail);
+		
+		close(conn);
+		
+		return result;
 	}
 	
 	
