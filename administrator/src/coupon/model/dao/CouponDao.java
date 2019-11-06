@@ -106,4 +106,40 @@ public class CouponDao {
 		return result;
 	}
 
+
+	public int updateCoupon(Connection conn, String cCode, String cName, int cDiscount, String grade, String startDay,
+			String endDay) {
+	
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("updateCoupon");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cName);
+			pstmt.setInt(2, cDiscount);
+			pstmt.setString(3, startDay);
+			pstmt.setString(4, endDay);
+			pstmt.setString(5, grade);
+			pstmt.setString(6, cCode);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+
+		return result;
+	}
+
+
+	
+
 }

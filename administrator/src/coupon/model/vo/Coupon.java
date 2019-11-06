@@ -22,6 +22,7 @@ public class Coupon implements Serializable{
 	private int totalRange; // 전체기간
 	private double Progress; // 진행률
 	
+	
 	public Coupon(String cCode, String cName, int cDiscount, String cStartDay, String cEndDay, String cGrade,
 			String cStatus, int previous, int remaining, int totalRange, double progress) {
 		super();

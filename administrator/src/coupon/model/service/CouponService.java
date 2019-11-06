@@ -38,6 +38,25 @@ public class CouponService {
 		return result;
 	}
 
+	public int updateCounpon(String cCode, String cName, int cDiscount, String grade, String startDay, String endDay) {
+		
+		Connection conn = getConnection();
+		
+		int result = new CouponDao().updateCoupon(conn, cCode, cName, cDiscount, grade, startDay, endDay);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	
+
 	
 
 }
