@@ -1,7 +1,7 @@
 package user.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,20 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import user.model.service.UserService;
-import user.model.vo.IpInfo;
-import user.model.vo.User;
 
 /**
- * Servlet implementation class UserIpInfo
+ * Servlet implementation class UserEmailCheckServlet
  */
-@WebServlet("/ipinfo.user")
-public class UserIpInfo extends HttpServlet {
+@WebServlet("/emailCheck.user")
+public class UserEmailCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserIpInfo() {
+    public UserEmailCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,24 +30,18 @@ public class UserIpInfo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-			User loginUser =  (User)request.getSession().getAttribute("loginUser");
-	
-			int uno = loginUser.getUserNo();
-			
-			ArrayList<IpInfo> ipinfo = new UserService().selectIpInfo(uno);
-			
-			
-			String flag = new UserService().selectFlag(uno);
-	
-			response.setContentType("text/html; charset=utf-8");
-			
-			request.setAttribute("ipinfo", ipinfo);
-			request.setAttribute("flag", flag);
-			request.getRequestDispatcher("views/user/userLoginInfo.jsp").forward(request, response);
-			//
-
-			
+		
+		String userEmail = request.getParameter("userEmail");
+		
+		int result = new UserService().emailCheck(userEmail);
+		
+		PrintWriter out = response.getWriter();
+		
+		if(result>0) {
+			out.print("fail");
+		}else {
+			out.print("success");
+		}
 	}
 
 	/**

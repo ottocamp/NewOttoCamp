@@ -1,25 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en" class="no-focus">
-    <head>
-        <meta charset="utf-8">
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"> -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입 페이지</title>
 
-        <title>Codebase - Bootstrap 4 Admin Template &amp; UI Framework</title>
 
-        <meta name="description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
-        <meta name="author" content="pixelcave">
-        <meta name="robots" content="noindex, nofollow">
 
-        <!-- Open Graph Meta -->
-        <meta property="og:title" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework">
-        <meta property="og:site_name" content="Codebase">
-        <meta property="og:description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="">
-        <meta property="og:image" content="">
+
+		<!-- jqury cdn -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
+        <meta charset="utf-8" />
+        <title>SimpleAdmin - Responsive Admin Dashboard Template</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
         <!-- Icons -->
         <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
@@ -32,42 +30,37 @@
 
         <!-- Fonts and Codebase framework -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,400i,600,700">
-        <link rel="stylesheet" id="css-main" href="<%= request.getContextPath() %>/resources/user/assets/css/codebase.min.css">
+        <link rel="stylesheet" id="css-main" href="<%= request.getContextPath() %>/resources/user/assets/css/codebase.min.css?after">
 
         <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/flat.min.css"> -->
         <!-- END Stylesheets -->
         
-        <style>
         
+        
+        <style>
         
         .toIn{
         	display: inline;
 
         }
-        
         .col-12{
-        	position: static;
-        	margin-bottom: -10px;
+        	margin-bottom: 10px;
         }
         
         #idcheck{
         	position: absolute;
-        	left: 80%;
+        	left: 461px;
         	
         }
         
         #emailcheck{
         	position: absolute;
-        	left: 80%;
+        	left: 460px;
         }
         
         
         </style>
-        
-        
-        
-        
         
         
         
@@ -126,68 +119,75 @@
             <main id="main-container">
 
                 <!-- Page Content -->
-                <div class="bg-image" style="background-image: url('<%= request.getContextPath() %>/resources/user/assets/media/photos/photo34@2x.jpg');">
-                    <div class="row mx-0 bg-earth-op">
-
-                        <div class="hero-static col-md-6 col-xl-4 d-flex align-items-center bg-white" style="width: 10px">
-                            <div class="content content-full">
+                <div class="bg-body-dark bg-pattern" style="background-image: url('assets/media/various/bg-pattern-inverse.png');">
+                    <div class="row mx-0 justify-content-center">
+                        <div class="hero-static col-lg-6 col-xl-4">
+                            <div class="content content-full overflow-hidden">
                                 <!-- Header -->
-                                <div class="px-30 py-10"  align="center">
-                                        <a href="<%= request.getContextPath() %>" class="text-success">
-                                            <span><img src="<%= request.getContextPath() %>/resources/assets/images/logo_dark.png" alt="" height="70" width="150"></span>
-                                        </a>
-                                        <h3>회원 가입</h3>
+                                <div class="py-30 text-center">
+                                    
+                                    <img src="<%= request.getContextPath() %>/resources/assets/images/logo_dark.png?after" style="width: 120px; height: 100px">
+                                    
+                                    <h1 class="h4 font-w700 mt-30 mb-10">회원가입</h1>
+                                    <h2 class="h5 font-w400 text-muted mb-0"></h2>
                                 </div>
                                 <!-- END Header -->
 
                                 <!-- Sign Up Form -->
                                 <!-- jQuery Validation functionality is initialized with .js-validation-signup class in js/pages/op_auth_signup.min.js which was auto compiled from _es6/pages/op_auth_signup.js -->
                                 <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                                 <form class="js-validation-signup" action="<%= request.getContextPath() %>/insert.user" method="post" onsubmit="return joinValidate();">
+                                <form class="js-validation-signup" action="<%= request.getContextPath() %>/insert.user" method="post" onsubmit="return joinValidate();">
                                     <div class="block block-themed block-rounded block-shadow">
+                                        <div class="block-header bg-gd-emerald">
+                                            <h3 class="block-title">양식을 작성해 주세요</h3>
+                                            <div class="block-options">
+                                                <button type="button" class="btn-block-option">
+                                                    <i class="si si-wrench"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                         <div class="block-content">
-                                            <div class="form-group row" >
+                                            <div class="form-group row" style="margin-bottom: -5px">
                                                 <div class="col-12">
                                                     <label for="">이름</label>
                                                     <input type="text" class="form-control" id="signup-userid" name="uname" placeholder="이름은 한글로만2~6자 입력" required="required">
                                                     <p id="namep1" class="toIn">&nbsp;</p><p id="namep2" class="toIn">&nbsp;</p><p id="namep3" class="toIn">&nbsp;</p>
                                                 </div>
                                             </div>
-                                            <div class="form-group row" >
+                                            <div class="form-group row" style="margin-bottom: -5px">
                                                 <div class="col-12">
                                                     <label for="">아이디</label>
                                                     <input type="text" class="form-control" id="signup-username" name="uid" placeholder="아이디는 영소문자로 시작해서 4~12자 입력(숫자 포함 가능)" required>
                                                      <p id="idp1" class="toIn">&nbsp;</p><p id="idp2" class="toIn">&nbsp;</p><p id="idp3" class="toIn">&nbsp;</p><p id="idp4" class="toIn">&nbsp;</p> <button type="button" class="btn btn-secondary btn-sm" id="idcheck" onclick="idCheck();">중복확인</button>
                                                 </div>
                                             </div>
-                                            <div class="form-group row" >
+                                            <div class="form-group row" style="margin-bottom: -5px">
                                                 <div class="col-12">
                                                     <label for="">이메일</label>
                                                     <input type="email" class="form-control" id="signup-email" name="uemail" placeholder="이메일 형식에 맞게 기입해주세요" required>
                                                     <p id="emailp1" class="toIn">&nbsp;</p><p id="emailp2" class="toIn">&nbsp;</p><p id="emailp3" class="toIn">&nbsp;</p><p id="idp4" class="toIn">&nbsp;</p> <button type="button" class="btn btn-secondary btn-sm" id="emailcheck" onclick="emailCheck();">중복확인</button>
                                                 </div>
                                             </div>
-                                            <div class="form-group row" >
+                                            <div class="form-group row" style="margin-bottom: -5px">
                                                 <div class="col-12">
                                                     <label for="">전화번호</label>
                                                     <input type="text" class="form-control" id="signup-phone" name="uphone" placeholder="전화번호는 숫자로만 4~15자 입력" required>
                                                      <p id="phonep1" class="toIn">&nbsp;</p><p id="phonep2" class="toIn">&nbsp;</p><p id="phonep3" class="toIn">&nbsp;</p>                                              </div>
                                             </div>
-                                            <div class="form-group row" >
+                                            <div class="form-group row" style="margin-bottom: -5px">
                                                 <div class="col-12">
                                                     <label for="">비밀번호</label>
                                                     <input type="password" class="form-control" id="signup-password" name="upwd" placeholder="비밀번호는 영문,숫자로 4~15자 입력" required>
                                                      <p id="pwdp1" class="toIn">&nbsp;</p><p id="pwdp2" class="toIn">&nbsp;</p><p id="pwdp3" class="toIn">&nbsp;</p>
                                                 </div>
                                             </div>
-                                            <div class="form-group row" >
+                                            <div class="form-group row" style="margin-bottom: -5px">
                                                 <div class="col-12">
                                                     <label for="">비밀번호 확인</label>
                                                     <input type="password" class="form-control" id="signup-password-confirm" name="upwd2" placeholder="비밀번호 확인" required>
                                                      <p id="pwdp22" class="toIn">&nbsp;</p>
                                                 </div>
                                             </div>
-                                            <input type="text" name="utype" value="U"  hidden>
                                             <div class="form-group row mb-0">
                                                 <div class="col-sm-6 push">
                                                     <div class="custom-control custom-checkbox">
@@ -207,41 +207,19 @@
                                         </div>
                                         <div class="block-content bg-body-light">
                                             <div class="form-group text-center">
-                                                
+                                                <a class="link-effect text-muted mr-10 mb-5 d-inline-block" href="#" data-toggle="modal" data-target="#modal-terms">
                                                     <button type="submit" class="btn btn-alt-success">가입하기</button>
                                                         		
-                                                
+                                                </a>
 
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                                 <!-- END Sign Up Form -->
-                            </div>
-                        </div>
-                                                <div class="hero-static col-md-6 col-xl-8 d-none d-md-flex align-items-md-end">
-                            <div class="p-30 invisible" data-toggle="appear">
-                                <p class="font-size-h3 font-w600 text-white mb-5">
-                                    다양한 회원 혜택을 누리세요
-                                </p>
-                                <p class="font-size-h5 text-white">
-                                    <i class="fa fa-angles-right"></i> 가입시 5천원 쿠폰 증정
-                                </p>
-                                <p class="font-italic text-white-op">
-                                    Copyright 오또캠프 &copy; <span class="js-year-copy"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END Page Content -->
-
-            </main>
-            <!-- END Main Container -->
-        </div>
-        <!-- END Page Container -->
-        
-        <script>
+                                
+                                <!-- 가입 유효성 검사 -->
+                                <script>
                                 
                     			var idcheckFlag = false;
                     			var emailcheckFalg = false;
@@ -448,72 +426,27 @@
                         		
    
                                 </script>
-        
-        
-        
-
-        <!-- Terms Modal -->
-        <div class="modal fade" id="modal-terms" tabindex="-1" role="dialog" aria-labelledby="modal-terms" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-slidedown" role="document">
-                <div class="modal-content">
-                    <div class="block block-themed block-transparent mb-0">
-                        <div class="block-header bg-primary-dark">
-                            <h3 class="block-title">Terms &amp; Conditions</h3>
-                            <div class="block-options">
-                                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
-                                    <i class="si si-close"></i>
-                                </button>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
                             </div>
                         </div>
-                        <div class="block-content">
-                            <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam bibendum ad feugiat magna accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis ante urna molestie vulputate bibendum tempus ante justo arcu erat accumsan adipiscing risus, libero condimentum venenatis sit nisl nisi ultricies sed, fames aliquet consectetur consequat nostra molestie neque nullam scelerisque neque commodo turpis quisque etiam egestas vulputate massa, curabitur tellus massa venenatis congue dolor enim integer luctus, nisi suscipit gravida fames quis vulputate nisi viverra luctus id leo dictum lorem, inceptos nibh orci.</p>
-                            <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam bibendum ad feugiat magna accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis ante urna molestie vulputate bibendum tempus ante justo arcu erat accumsan adipiscing risus, libero condimentum venenatis sit nisl nisi ultricies sed, fames aliquet consectetur consequat nostra molestie neque nullam scelerisque neque commodo turpis quisque etiam egestas vulputate massa, curabitur tellus massa venenatis congue dolor enim integer luctus, nisi suscipit gravida fames quis vulputate nisi viverra luctus id leo dictum lorem, inceptos nibh orci.</p>
-                            <p>Potenti elit lectus augue eget iaculis vitae etiam, ullamcorper etiam bibendum ad feugiat magna accumsan dolor, nibh molestie cras hac ac ad massa, fusce ante convallis ante urna molestie vulputate bibendum tempus ante justo arcu erat accumsan adipiscing risus, libero condimentum venenatis sit nisl nisi ultricies sed, fames aliquet consectetur consequat nostra molestie neque nullam scelerisque neque commodo turpis quisque etiam egestas vulputate massa, curabitur tellus massa venenatis congue dolor enim integer luctus, nisi suscipit gravida fames quis vulputate nisi viverra luctus id leo dictum lorem, inceptos nibh orci.</p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-alt-success" data-dismiss="modal">
-                            <i class="fa fa-check"></i> Perfect
-                        </button>
                     </div>
                 </div>
-            </div>
+                <!-- END Page Content -->
+
+            </main>
+            <!-- END Main Container -->
         </div>
-        <!-- END Terms Modal -->
+        <!-- END Page Container -->
 
 
-        <!--
-            Codebase JS Core
 
-            Vital libraries and plugins used in all pages. You can choose to not include this file if you would like
-            to handle those dependencies through webpack. Please check out assets/_es6/main/bootstrap.js for more info.
-
-            If you like, you could also include them separately directly from the assets/js/core folder in the following
-            order. That can come in handy if you would like to include a few of them (eg jQuery) from a CDN.
-
-            assets/js/core/jquery.min.js
-            assets/js/core/bootstrap.bundle.min.js
-            assets/js/core/simplebar.min.js
-            assets/js/core/jquery-scrollLock.min.js
-            assets/js/core/jquery.appear.min.js
-            assets/js/core/jquery.countTo.min.js
-            assets/js/core/js.cookie.min.js
-        -->
-        <script src="<%= request.getContextPath() %>/resources/user/assets/js/codebase.core.min.js"></script>
-
-        <!--
-            Codebase JS
-
-            Custom functionality including Blocks/Layout API as well as other vital and optional helpers
-            webpack is putting everything together at assets/_es6/main/app.js
-        -->
-        <script src="<%= request.getContextPath() %>/resources/user/assets/js/codebase.app.min.js"></script>
-
-        <!-- Page JS Plugins -->
-        <script src="<%= request.getContextPath() %>/resources/user/assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
-
-        <!-- Page JS Code -->
-        <script src="<%= request.getContextPath() %>/resources/user/assets/js/pages/op_auth_signup.min.js"></script>
     </body>
 </html>

@@ -24,7 +24,7 @@
                             <!-- User Detail box -->
                             <div class="user-details">
                                 <div class="pull-left">
-                                    <img src="<%= request.getContextPath() %>/resources/assets/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
+                                    <img alt="" class="thumb-md img-circle propicArea" >
                                 </div>
                                 <div class="user-info">
                                     <a href="#"><%= loginUser.getUserName() %>님</a>
@@ -35,12 +35,12 @@
 
                             <!-- Left Menu Start -->
                             <ul class="metisMenu nav" id="side-menu">
-                                <li><a href="<%= request.getContextPath() %>/views/user/userMain.jsp"><i class="ti-home"></i> 회원 메인 메뉴 </a></li>
+                                <%-- <li><a href="<%= request.getContextPath() %>/views/user/userMain.jsp"><i class="ti-home"></i> 회원 메인 메뉴 </a></li> --%>
 
                                 <li><a href="<%= request.getContextPath() %>/views/user/userUpdate.jsp"> <i class="ti-paint-bucket"></i> 개인 정보 수정 </a></li>
 
                                 <li>
-                                    <a href="<%= request.getContextPath() %>/views/user/userUsed.jsp"><i class="ti-paint-bucket"></i> 이용내역</span></a>
+                                    <a href="<%= request.getContextPath() %>/reservation.user"><i class="ti-paint-bucket"></i> 이용내역</span></a>
 
                                 </li>
                                 
@@ -48,9 +48,9 @@
 
                                 <li><a href="<%= request.getContextPath() %>/ipinfo.user"><i
 									class="ti-spray"></i> 로그인 관리 </a></li>
-                                
-                               
-
+  								<li><a href="javascript: void(0);"><i
+									class="ti-spray"></i> 쿠폰 관리 </a></li>
+  								
                                 <li>
                                     <a href="javascript: void(0);" aria-expanded="true"><i class="ti-pencil-alt"></i> 리뷰 및 메모</span></a>
                                 </li>
@@ -67,7 +67,44 @@
                     </div><!--Scrollbar wrapper-->
                 </aside>
 
-
+				<script>
+				
+				$(function(){
+					
+					$.ajax({
+						url : "<%= request.getContextPath() %>/propic.select",
+						type : "post",
+						success : function(data){	
+							
+							var uno = data.userNo;
+							var oname = data.originName;
+							var cname = data.changeName;
+							
+							console.log(cname);
+							
+							$(".propicArea").attr("src","<%= request.getContextPath() %>/resources/userpropic/"+cname+"?after");
+							
+		
+							
+						},
+						error:function(){
+							console.log("ajax 통신 실패");
+						}
+					});
+					
+					
+					
+					
+					
+					
+				});
+				
+				
+				
+				
+				
+				</script>
+	
 
 
 </body>

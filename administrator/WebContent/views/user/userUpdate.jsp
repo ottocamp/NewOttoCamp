@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="user.model.vo.*"%>
-<%
-	
 
-%>  
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원 정보 수정</title>
+
+
+
+
+
+
 		<!-- jqury cdn -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		
@@ -64,18 +68,20 @@
                                 <div class="p-0 text-center">
                                     <div class="member-card">
                                         <div class="thumb-xl member-thumb m-b-10 center-block">
-                                            <img src="<%= request.getContextPath() %>/resources/user/images/users/bs.jpg" class="img-circle img-thumbnail" alt="profile-image" width="70px" height="90px">
+                                            <img class="img-circle img-thumbnail propicArea" width="200px" height="300px">
                                
                                         </div>
 
                                         <div class="">
-                                            <h4 class="m-b-5">조배성</h4>
-                                            <p class="text-muted">@대통령</p>
+                                            <h4 class="m-b-5"> <%= loginUser.getUserName() %> </h4>
+                                            <p class="text-muted"></p>
                                         </div>
 
                                         <p class="text-muted m-t-10">
-                                            	내가 가는 길이 곧 길이다
+                                            	
                                         </p>
+                                        
+                                        <button onclick="updatepropic();">사진 업데이트</button>
   
 
                                     </div>
@@ -227,30 +233,25 @@
                                             <form role="form">
                                                 <div class="form-group">
                                                     <label for="FullName">이름</label>
-                                                    <input type="text" value="" id="FullName" class="form-control" readonly>
+                                                    <input type="text" value="<%= loginUser.getUserName() %>" id="FullName" class="form-control" readonly>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="Email">아이디</label>
-                                                    <input type="email" value="" id="Email" class="form-control" readonly>
+                                                    <input type="email" value="<%= loginUser.getUserId() %>" id="Email" class="form-control" readonly>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="Usermail">이메일</label>
-                                                    <input type="email" value="" id="Usermail" class="form-control"> 
+                                                    <input type="email" value="<%= loginUser.getEmail() %>" id="Usermail" class="form-control"> 
                                                     
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="Username">전화번호</label>
-                                                    <input type="email" value="" id="Username" class="form-control">
+                                                    <input type="email" value="<%= loginUser.getPhone() %>" id="Username" class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="Password">비밀번호</label>
-                                                    <input type="password" placeholder="6 - 15 Characters" id="Password" class="form-control">
+                                                    
                                                     <p class="email" style="color: green">&nbsp;</p>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="RePassword">비밀번호 확인</label>
-                                                    <input type="password" placeholder="6 - 15 Characters" id="RePassword" class="form-control">
-                                                    <p class="email" style="color: red">&nbsp;</p>
                                                 </div>
                                                 <button class="btn btn-primary waves-effect waves-light w-md" type="submit">변경하기</button>
                                             </form>
@@ -259,10 +260,32 @@
                                     </div>
                                     <!-- Personal-Information -->
                                     
+                                    <!-- 스크립트 -->
                                     <script>
-                                    	$("#FullName").val("<%=loginUser.getUserName() %>");
-                                    
+                                    	
+                                    	
+                                		function updatepropic(){
+                                			window.open("propicupdate.jsp", "비밀번호 변경 창", "width=500, height=300");
+                                			
+                                		}
+                                		
+                   
                                     </script>
+                                    
+                                    				
+				
+				
+				
+				
+				
+				
+				
+				
+                                    
+                                    
+                                    
+                                    
+                                    
                                     
                                     
                                     
