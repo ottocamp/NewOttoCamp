@@ -644,11 +644,12 @@ button:hover:after{
            <script>
                         
            
-           function detail(){
+       	function detail(){
+        	   location.href = "<%= request.getContextPath() %>/campRe.re";
         	   
-        	   location.href = "<%= request.getContextPath() %>/views/user/reservationFormView.jsp";
-        	   
-           }
+           } 
+           
+ 
            
            
                         $(function(){
