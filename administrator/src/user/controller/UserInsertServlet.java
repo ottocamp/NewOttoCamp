@@ -42,12 +42,14 @@ public class UserInsertServlet extends HttpServlet {
 		String uemail = request.getParameter("uemail");
 		String uphone = request.getParameter("uphone");
 		String upwd = request.getParameter("upwd");
+		String utype = request.getParameter("utype");
 		
 		user.setUserId(uid);
 		user.setUserName(uname);
 		user.setEmail(uemail);
 		user.setPhone(uphone);
 		user.setUserPwd(upwd);
+		user.setUserType(utype);
 		int result = new UserService().userInsert(user); 
 		response.setContentType("text/html; charset=utf-8");
 		

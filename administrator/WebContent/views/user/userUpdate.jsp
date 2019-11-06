@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="user.model.vo.*"%>
-<%
-	
 
-%>  
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원 정보 수정</title>
+
+
+
+
+
+
 		<!-- jqury cdn -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		

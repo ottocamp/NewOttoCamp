@@ -54,6 +54,22 @@
                     <div class="container">
                         <div class="row">
 							<div class="col-sm-12">
+							                           <div class="col-lg-6">
+                                <div class="card-box">
+                                    <h4 class="m-t-0">년 TOP10 회원 <button class="btn btn-default " data-toggle="modal" data-target="#myModal1" style="float: right;">상세보기</button></h4>
+                                    <table class="table table table-hover m-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>회원명</th>
+                                                        <th>매출액</th>
+                                                      	<th>결제건수</th>
+                                                    </tr>
+                                                </thead>
+
+                                            </table>
+                                </div>
+                            </div> <!-- end col -->
 								
 							</div>
 						</div>

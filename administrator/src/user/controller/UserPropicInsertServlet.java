@@ -72,7 +72,8 @@ public class UserPropicInsertServlet extends HttpServlet {
 			
 			if(result > 0) {
 				
-				System.out.println("프로필 사진 등록 성공");
+					request.setAttribute("msg", "사진을 성공적으로 수정하였습니다.");
+					request.getRequestDispatcher("views/user/propicupdate.jsp").forward(request, response);
 				
 			}else {
 				
@@ -80,8 +81,8 @@ public class UserPropicInsertServlet extends HttpServlet {
 					File failedFile = new File(savePath+changeName);
 					failedFile.delete();
 				
-					System.out.println("프로필 사진 등록 실패");
-				
+					request.setAttribute("msg", "사진 등록 실패");
+					request.getRequestDispatcher("views/user/propicupdate.jsp").forward(request, response);
 				
 				
 			}

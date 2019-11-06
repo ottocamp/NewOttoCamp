@@ -129,14 +129,28 @@
                 <div class="bg-image" style="background-image: url('<%= request.getContextPath() %>/resources/user/assets/media/photos/photo34@2x.jpg');">
                     <div class="row mx-0 bg-earth-op">
 
-                        <div class="hero-static col-md-6 col-xl-4 d-flex align-items-center bg-white" style="width: 10px">
+
+                              <div class="hero-static col-md-6 col-xl-8 d-none d-md-flex align-items-md-end">
+                            <div class="p-30 invisible" data-toggle="appear">
+                                <p class="font-size-h3 font-w600 text-white mb-5">
+                                   	 다양한 회원 혜택을 누리세요
+                                </p>
+                                <p class="font-size-h5 text-white">
+                                    <i class="fa fa-angles-right"></i> 당신의 캠핑장을 널리 알리세요
+                                </p>
+                                <p class="font-italic text-white-op">
+                                    Copyright 오또캠프 &copy; <span class="js-year-copy"></span>
+                                </p>
+                            </div>
+                        </div>
+                                                <div class="hero-static col-md-6 col-xl-4 d-flex align-items-center bg-white" style="width: 10px">
                             <div class="content content-full">
                                 <!-- Header -->
                                 <div class="px-30 py-10"  align="center">
                                         <a href="<%= request.getContextPath() %>" class="text-success">
                                             <span><img src="<%= request.getContextPath() %>/resources/assets/images/logo_dark.png" alt="" height="70" width="150"></span>
                                         </a>
-                                        <h3>회원 가입</h3>
+                                        <h3>사업자 회원 가입</h3>
                                 </div>
                                 <!-- END Header -->
 
@@ -186,8 +200,8 @@
                                                     <input type="password" class="form-control" id="signup-password-confirm" name="upwd2" placeholder="비밀번호 확인" required>
                                                      <p id="pwdp22" class="toIn">&nbsp;</p>
                                                 </div>
+                                                <input type="text" name="utype" value="B"  hidden>
                                             </div>
-                                            <input type="text" name="utype" value="U"  hidden>
                                             <div class="form-group row mb-0">
                                                 <div class="col-sm-6 push">
                                                     <div class="custom-control custom-checkbox">
@@ -217,19 +231,6 @@
                                     </div>
                                 </form>
                                 <!-- END Sign Up Form -->
-                            </div>
-                        </div>
-                                                <div class="hero-static col-md-6 col-xl-8 d-none d-md-flex align-items-md-end">
-                            <div class="p-30 invisible" data-toggle="appear">
-                                <p class="font-size-h3 font-w600 text-white mb-5">
-                                    다양한 회원 혜택을 누리세요
-                                </p>
-                                <p class="font-size-h5 text-white">
-                                    <i class="fa fa-angles-right"></i> 가입시 5천원 쿠폰 증정
-                                </p>
-                                <p class="font-italic text-white-op">
-                                    Copyright 오또캠프 &copy; <span class="js-year-copy"></span>
-                                </p>
                             </div>
                         </div>
                     </div>

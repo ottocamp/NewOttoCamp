@@ -123,7 +123,7 @@
                                         	<th>예약번호</th>
                                         	<th>캠핑장명</th>
                                         	<th>예약일자</th>
-                                        	<th>결제일시</th>
+                                        	<th id="ilsi">결제일시</th>
                                         	<th>결제금액</th>
                                         	<th>결제방식</th>
                                         	<th>처리상태</th>
@@ -150,7 +150,7 @@
 												<td><%= ure.getReCost() %></td>
 												<td><%= ure.getPamentType() %></td>
 												<td><%= ure.getReStatus() %></td>
-												<td><%if(ure.getReStatus().equals("예약완료")) {%>
+												<td><%if(ure.getReStatus().equals("예약완료") || ure.getReStatus().equals("결제완료") ) {%>
 													<button type="button" class="btn btn-primary btn-xs" onclick="delete1(this);">취소하기</button>
 												<%}else{ %>
 													취소불가
@@ -213,17 +213,14 @@
 			location.href = "<%= request.getContextPath() %>/delete.re?reNo="+reNo + "," + msg;
 		}
 		
+		$(function(){
+			$("#ilsi").click();
+			$("#ilsi").click();
+			
+			
+		});
 		
 		
-		<%-- $(function(){
-			$("#deletebtn").click(function(){
-				
-				var reNo = $(this).parent().parent().children().eq(1).text();
-				
-				location.href = "<%= request.getContextPath() %>/delete.re?reNo="+reNo;
-								
-			});
-		}); --%>
 		
 		
 		</script>

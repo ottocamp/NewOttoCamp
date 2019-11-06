@@ -95,10 +95,10 @@
                                         <div class="form-group m-b-30">
                                             <div class="col-xs-12">
                                                 <div class="checkbox checkbox-primary">
-                                                    <input id="checkbox5" type="checkbox">
+<!--                                                     <input id="checkbox5" type="checkbox">
                                                     <label for="checkbox5">
                                                         Remember me
-                                                    </label>
+                                                    </label> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -193,7 +193,10 @@
 
                             <div class="row m-t-50">
                                 <div class="col-sm-12 text-center">
-                                    <a href="<%= request.getContextPath() %>/views/user/join.	jsp" class="text-dark m-l-5">회원가입</a></p>
+                                    <a href="<%= request.getContextPath() %>/views/user/join.jsp" class="text-dark m-l-5">회원가입</a></p>
+                                </div>
+                                <div class="col-sm-12 text-center">
+                                    <a href="<%= request.getContextPath() %>/views/user/joinBusiness.jsp" class="text-dark m-l-5">사업자 회원가입</a></p>
                                 </div>
                             </div>
 

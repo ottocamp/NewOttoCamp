@@ -89,7 +89,7 @@
                               </ul>
 
                               <li class="menu-item menu-item-has-children" id="userMenu" hidden>
-                                 <a href="<%= request.getContextPath() %>/views/user/userMain.jsp">마이페이지</a>
+                                 <a href="<%= request.getContextPath() %>/views/user/userUpdate.jsp">마이페이지</a>
                                  <ul class="sub-menu">
                                     <li class="menu-item">
                                        <a href="">개인정보수정</a>
