@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, user.model.vo.*, java.text.DecimalFormat"%>
 <%
-	
 	ArrayList<User> UserList = (ArrayList<User>)request.getAttribute("UserList");
+	String[] mailList = new String[UserList.size()];
+	
+	for(int i = 0; i < UserList.size(); i++){		
+		mailList[i] = UserList.get(i).getEmail();
+	}
+
+	session.setAttribute("mailList", mailList);
 	
 %>   
 <!DOCTYPE html>
@@ -201,7 +207,7 @@
                             </form>
                         </div>
 						
-						<form method="get" action="mailSend.jsp" onsubmit="return validate2();">
+						<form method="get" action="views/mail/mailSend.jsp" onsubmit="return validate2();">
 						<div class="row">
                             <div class="col-sm-12">
                             <h4 class="header-title m-t-0">메일내용작성란 <button class="btn btn-default" style="margin-left: 1000px;">제출하기</button></h4>
@@ -209,13 +215,10 @@
                                 <div class="p-20 m-b-20">
                                 
                                 
-									<input type="text" class="form-control" placeholder="제목을 입력하세요" id="mTitle">
+									<input type="text" class="form-control" placeholder="제목을 입력하세요" id="mTitle" name="mTitle">
 									<hr>
-									<div class="summernote">
-										
-                                        
-									</div>
-									
+									<textarea class="summernote" id="sumtext" name="sumtext"></textarea> 
+
 									
 								</div>
 								</div>
@@ -407,12 +410,18 @@
 				return false;
 			}
 			
-			var text1 = $(".note-editable panel-body").text();
+			if($("#sumtext").val().trim() == ""){
+				
+				
+				alert("내용을 입력하세요");
+				
+				return false;
+			}
 			
-			console.log(text1);
+		
+		
 			
 			
-			return false;
 		}
 		
 	

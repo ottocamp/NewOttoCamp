@@ -57,7 +57,10 @@
 								</ul></li>
 
 							<li><a href="<%=request.getContextPath()%>/views/mail/MailSendView.jsp"><i
-									class="mdi mdi-account"></i> 광고메일전송 </a></li>
+									class="mdi mdi-email-outline"></i> 광고메일전송 </a></li>
+							<li><a href="<%=request.getContextPath()%>/couponList.li"><i
+									class=" mdi mdi-language-c"></i> 쿠폰관리하기 </a></li>			
+						
 						</ul>
 					</div>
 				</div>

@@ -13,14 +13,10 @@
 <%
 request.setCharacterEncoding("utf-8");
   
-String company  = request.getParameter("company");
-String name = request.getParameter("name");
-String from = request.getParameter("from");
-String to = request.getParameter("to"); 
-String email = request.getParameter("email");
-String number = request.getParameter("number");
-String subject = request.getParameter("subject");
-String content = request.getParameter("content");
+
+String from = "whqotjd@naver.com";
+String mTitle = request.getParameter("mTitle");
+String sumtext = request.getParameter("sumtext");
   
 Properties p = new Properties(); // 정보를 담을 객체
   
@@ -41,34 +37,31 @@ try{
     ses.setDebug(true);
     MimeMessage msg = new MimeMessage(ses); // 메일의 내용을 담을 객체 
  
-    msg.setSubject(subject); //  제목
+    msg.setSubject(mTitle); //  제목
  
     StringBuffer buffer = new StringBuffer();
-    buffer.append("업체명 : ");
-    buffer.append(company+"<br>");
-    buffer.append("담당자 : ");
-    buffer.append(name+"<br>");   
-    buffer.append("연락처 : ");
-    buffer.append(number+"<br>");
-    buffer.append("이메일 : ");
-    buffer.append(email+"<br>");   
-    buffer.append("제목 : ");
-    buffer.append(subject+"<br>");
-    buffer.append("내용 : ");
-    buffer.append(content+"<br>");
+    buffer.append(sumtext+"<br>");
     Address fromAddr = new InternetAddress(from);
     msg.setFrom(fromAddr); 
  
-    InternetAddress[] toAddr = new InternetAddress[2];
-    toAddr[0] = new InternetAddress ("whqotjd@naver.com");
-    toAddr[1] = new InternetAddress ("whqotjd@gmail.com");
-
+    String[] mailList = (String[])session.getAttribute("mailList");
+    InternetAddress[] toAddr = new InternetAddress[mailList.length];
+    for(int i = 0; i < mailList.length; i++){
+    	toAddr[i] = new InternetAddress (mailList[i]);   	
+    }
+  
     msg.setRecipients(Message.RecipientType.TO, toAddr); // 받는 사람
      
     msg.setContent(buffer.toString(), "text/html;charset=UTF-8"); // 내용
     Transport.send(msg); // 전송  
- 
+    
+    request.getSession().setAttribute("msg", "메일보내기에 성공하였습니다.");
+ 	request.getRequestDispatcher("MailSendView.jsp").forward(request, response);
+ 	
 } catch(Exception e){
+	request.setAttribute("msg", "메일보내기에 실패하였습니다.");
+	request.getRequestDispatcher("../common/errorPage.jsp");
+	
     e.printStackTrace();
     return;
 }

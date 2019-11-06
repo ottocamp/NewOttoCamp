@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, user.model.vo.*, java.text.DecimalFormat"%>
 <%
-	
+	String msg = (String)session.getAttribute("msg");
 %>   
 <!DOCTYPE html>
 <html>
@@ -58,8 +58,19 @@
 		display: none;
 		}
 		
-		
 		</style>
+		
+	<script>
+		var msg = "<%= msg %>";
+		$(function(){
+		if(msg != "null"){
+			
+			alert(msg);
+			<% session.removeAttribute("msg"); %>
+		}
+		});
+		
+	</script>
 		
 				
 </head>
@@ -86,7 +97,7 @@
                     
       					<div class="row">
       					 <div class="col-sm-12">
-      					 <h4 class="m-t-0 header-title">메일 보내기 메누 </h4>
+      					 <h4 class="m-t-0 header-title">메일 보내기 메뉴 </h4>
       					 </div>
       					
       					</div>
