@@ -15,6 +15,12 @@ import camp.model.vo.ReservationCamp;
 public class CampRefoDao {
 
 	private Properties prop = new Properties();
+	
+	public CampRefoDao() {
+		
+		// 안에서 다른것을 옮겨 넣을것,.
+		
+	}
 
 	public ReservationCamp datailPageSend(Connection conn, int cNo) {
 		System.out.println("2");
