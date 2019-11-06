@@ -80,7 +80,7 @@
 							var oname = data.originName;
 							var cname = data.changeName;
 							
-							console.log(cname);
+							
 							
 							$(".propicArea").attr("src","<%= request.getContextPath() %>/resources/userpropic/"+cname+"?after");
 							

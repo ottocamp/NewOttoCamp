@@ -3,7 +3,8 @@ package user.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-
+import coupon.model.dao.CouponDao;
+import coupon.model.vo.Coupon;
 import reservation.model.vo.Reservation;
 
 import static common.JDBCTemplate.*;
@@ -163,6 +164,16 @@ public class UserService {
 		close(conn);
 		
 		return result;
+	}
+
+	public ArrayList<Coupon> selectCouponList(int uno) {
+		Connection conn = getConnection();
+		
+		ArrayList<Coupon> ucList = new UserDao().selectCouponList(conn,uno);
+		
+		close(conn);
+		
+		return ucList;
 	}
 	
 	

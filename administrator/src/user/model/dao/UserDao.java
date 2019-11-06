@@ -6,9 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import coupon.model.vo.Coupon;
 import reservation.model.vo.Reservation;
 
 import static common.JDBCTemplate.*;
@@ -478,6 +480,52 @@ public class UserDao {
 		
 		
 		return result;
+	}
+
+
+
+
+	public ArrayList<Coupon> selectCouponList(Connection conn, int uno) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Coupon> ucList = new ArrayList<Coupon>();
+		
+		String sql = prop.getProperty("selectCouponList");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				
+				ucList.add(new Coupon(rset.getString(1),
+									rset.getString(2),
+									rset.getInt(3),
+									rset.getString(4),
+									rset.getString(5),
+									rset.getString(6),
+									rset.getString(7),
+									rset.getInt(8),
+									rset.getInt(9),
+									rset.getInt(10),
+									rset.getDouble(11)));
+				
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+
+		
+		return ucList;
 	}
 
 

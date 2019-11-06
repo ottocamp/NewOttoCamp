@@ -80,9 +80,8 @@
                                         <p class="text-muted m-t-10">
                                             	
                                         </p>
-                                        
-                                        <button onclick="updatepropic();">사진 업데이트</button>
   
+  										<button type="button" class="btn btn-custom btn-rounded" onclick="updatepropic();">사진 업데이트</button>
 
                                     </div>
 
@@ -94,59 +93,41 @@
                         <div class="m-t-30">
                             
                             <div class="tab-content">
-                                <div class="tab-pane" id="home-b1">
+                                <div class="tab-pane active" id="home-b1">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <!-- Personal-Information -->
                                             <div class="panel panel-default panel-fill">
                                                 <div class="panel-heading">
-                                                    <h3 class="panel-title">Personal Information</h3>
+                                                    <h3 class="panel-title">개인정보</h3>
                                                 </div>
                                                 <div class="panel-body">
                                                     <div class="m-b-20">
                                                         <strong>이름</strong>
                                                         <br>
-                                                        <p class="text-muted">Johnathan Deo</p>
+                                                        <p class="text-muted"> <%= loginUser.getUserName() %> </p>
                                                     </div>
                                                     <div class="m-b-20">
-                                                        <strong>Mobile</strong>
+                                                        <strong>전화번호</strong>&nbsp; <button type="button" class="btn btn-info btn-xs" onclick="updatephone();">수정</button>
                                                         <br>
-                                                        <p class="text-muted">(123) 123 1234</p>
+                                                        <p class="text-muted"><%= loginUser.getPhone() %></p>
                                                     </div>
                                                     <div class="m-b-20">
-                                                        <strong>Email</strong>
+                                                        <strong>Email</strong>&nbsp; <button type="button" class="btn btn-info btn-xs" onclick="updateemail();">수정</button>
                                                         <br>
-                                                        <p class="text-muted">johnath@domain.com</p>
+                                                        <p class="text-muted"><%= loginUser.getEmail() %></p>
                                                     </div>
-                                                    <div class="about-info-p m-b-0">
-                                                        <strong>Location</strong>
+                                                    <div class="m-b-20">
+                                                        
                                                         <br>
-                                                        <p class="text-muted">USA</p>
+                                                        <button type="button" class="btn btn-dark btn-rounded" onclick="updatepwd();">비밀번호 변경</button>
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                             <!-- Personal-Information -->
 
-                                            <!-- Social -->
-                                            <div class="panel panel-default panel-fill">
-                                                <div class="panel-heading">
-                                                    <h3 class="panel-title">Social</h3>
-                                                </div>
-                                                <div class="panel-body">
-                                                    <ul class="social-links list-inline m-b-0">
-                                                        <li>
-                                                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-skype"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <!-- Social -->
+                                        
                                         </div>
 
 
@@ -154,67 +135,34 @@
                                             <!-- Personal-Information -->
                                             <div class="panel panel-default panel-fill">
                                                 <div class="panel-heading">
-                                                    <h3 class="panel-title">Biography</h3>
+                                                    <h3 class="panel-title">실적</h3>
                                                 </div>
                                                 <div class="panel-body">
-                                                    <h5 class="header-title text-uppercase">About</h5>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                        industry. Lorem Ipsum has been the industry's standard dummy
-                                                        text ever since the 1500s, when an unknown printer took a galley
-                                                        of type and scrambled it to make a type specimen book. It has
-                                                        survived not only five centuries, but also the leap into
-                                                        electronic typesetting, remaining essentially unchanged.</p>
-
-                                                    <p><strong>But also the leap into electronic typesetting, remaining
-                                                        essentially unchanged.</strong></p>
-
-                                                    <p>It was popularised in the 1960s with the release of Letraset
-                                                        sheets containing Lorem Ipsum passages, and more recently with
-                                                        desktop publishing software like Aldus PageMaker including
-                                                        versions of Lorem Ipsum.</p>
-
-                                                    <div class="">
-
-                                                        <h5 class="header-title text-uppercase m-t-30 m-b-20">Skills</h5>
-
-                                                        <div class="m-b-15">
-                                                            <h5>Angular Js <span class="pull-right">60%</span></h5>
-                                                            <div class="progress">
-                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                                                    <span class="sr-only">60% Complete</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="m-b-15">
-                                                            <h5>Javascript <span class="pull-right">90%</span></h5>
-                                                            <div class="progress">
-                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
-                                                                    <span class="sr-only">90% Complete</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="m-b-15">
-                                                            <h5>Wordpress <span class="pull-right">80%</span></h5>
-                                                            <div class="progress">
-                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                                                    <span class="sr-only">80% Complete</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="m-b-0">
-                                                            <h5>HTML5 &amp; CSS3 <span class="pull-right">95%</span>
-                                                            </h5>
-                                                            <div class="progress m-b-0">
-                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%">
-                                                                    <span class="sr-only">95% Complete</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
+                                                     		<div class="col-md-4">		
+                                <div class="card-box">
+                          
+                                	<h4 class="m-t-0 text-dark">등급</h4>
+                                	<h2 class="text-pink text-center m-b-30 m-t-30"><span data-plugin="counterup" id="grade"></span></h2>	
+                                </div>
+                          		 </div>                
+                                <div class="col-md-4">		
+                                <div class="card-box">
+                          
+                                	<h4 class="m-t-0 text-dark">총 이용건수</h4>
+                                	<h2 class="text-pink text-center m-b-30 m-t-30"><span data-plugin="counterup">683</span></h2>	
+                                </div>
+                          		 </div>               
+								<div class="col-md-4">
+                                <div class="card-box">
+                                	<h4 class="m-t-0 text-dark">총 이용금액</h4>
+                                	<h2 class="text-primary text-center m-b-30 m-t-30"><span data-plugin="counterup">31570</span>원</h2>
+                                	
+                                </div>
+                                </div>
+     
+      
+                          		  
+                            </div>
                                                 </div>
                                             </div>
                                             <!-- Personal-Information -->
@@ -223,43 +171,10 @@
 
                                     </div>
                                 </div>
-                                <div class="tab-pane active" id="profile-b1">
-                                    <!-- Personal-Information -->
-                                    <div class="panel panel-default panel-fill">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">정보 수정</h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <form role="form">
-                                                <div class="form-group">
-                                                    <label for="FullName">이름</label>
-                                                    <input type="text" value="<%= loginUser.getUserName() %>" id="FullName" class="form-control" readonly>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="Email">아이디</label>
-                                                    <input type="email" value="<%= loginUser.getUserId() %>" id="Email" class="form-control" readonly>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="Usermail">이메일</label>
-                                                    <input type="email" value="<%= loginUser.getEmail() %>" id="Usermail" class="form-control"> 
-                                                    
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="Username">전화번호</label>
-                                                    <input type="email" value="<%= loginUser.getPhone() %>" id="Username" class="form-control">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="Password">비밀번호</label>
-                                                    
-                                                    <p class="email" style="color: green">&nbsp;</p>
-                                                </div>
-                                                <button class="btn btn-primary waves-effect waves-light w-md" type="submit">변경하기</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                    <!-- Personal-Information -->
-                                    
+                        </div>
+                    </div>
+                    <!-- end container -->
+                    
                                     <!-- 스크립트 -->
                                     <script>
                                     	
@@ -269,32 +184,68 @@
                                 			
                                 		}
                                 		
+                                		function updatephone(){
+                                			window.open("propicupdate.jsp", "비밀번호 변경 창", "width=500, height=300");
+                                			
+                                		}
+                                		
+                                		function updateemail(){
+                                			window.open("propicupdate.jsp", "비밀번호 변경 창", "width=500, height=300");
+                                			
+                                		}
+                                		
+                                		function updatepwd(){
+                                			window.open("propicupdate.jsp", "비밀번호 변경 창", "width=500, height=300");
+                                			
+                                		}
+                                		
+                                		
+                                		
+                                		
+                                		//온 로드 되면서!!!!!!!!
+                                		$(function(){
+                                			
+                                			
+                                			
+                                			if("<%= loginUser.getGrade() %>" == "D"){
+                                				$("#grade").text("SILVER");
+                                			}else if("<%= loginUser.getGrade() %>" == "C"){
+                                				$("#grade").text("GOLD");
+                                			}else if("<%= loginUser.getGrade() %>" == "B"){
+                                				$("#grade").text("VIP");
+                                			}else if("<%= loginUser.getGrade() %>" == "A"){
+                                				$("#grade").text("VVIP");
+                                			}
+                                			
+                                			
+                                			
+                                			
+                                			
+                                			
+                                			
+                                			
+                                			
+                                		});
+                                		
+                                		
+                                		
+                                		
+                                		
+                                		
+                                		
+                                		
+                                		
+                                		
+                                		
+                                		
+                                		
                    
                                     </script>
-                                    
-                                    				
-				
-				
-				
-				
-				
-				
-				
-				
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end container -->
+                    
+                    
+                    
+                    
+                    
 
                     <div class="footer">
                         <div class="pull-right hidden-xs">
