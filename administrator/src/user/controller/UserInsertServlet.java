@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import user.model.service.UserService;
+import user.model.vo.RandomCode;
 import user.model.vo.User;
 
 /**
@@ -54,11 +55,27 @@ public class UserInsertServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		if(result>0) {
-			request.setAttribute("joinMsg", "가입성공");
-			request.getRequestDispatcher("views/user/login.jsp").forward(request, response);
+			
+			//가입 성공시 상태를 R(ready로 하고)
+			//JOINCODE 테이블에 랜덤코드를 넣자
+			
+			//10개 대문자를 생성해서 아이디와 넣음
+			String rcode = new RandomCode().RandomCode(10);
+			new UserService().insertJoincode(uid,rcode);
+			
+			//이메일 발송을 하는 JSP(jsp로 가면 자동으로 메일 발송)
+			//uid , uemail, rcode를 보냄
+			request.setAttribute("uid", uid);
+			request.setAttribute("uemail", uemail);
+			request.setAttribute("rcode", rcode);
+			request.getRequestDispatcher("views/joinmail/mailSend.jsp").forward(request, response);
+			
+			
+/*			request.setAttribute("msg", "가입성공");
+			request.getRequestDispatcher("views/user/login.jsp").forward(request, response);*/
 
 		}else {
-			request.setAttribute("joinMsg", "가입실패");
+			request.setAttribute("msg", "가입실패");
 			request.getRequestDispatcher("views/user/login.jsp").forward(request, response);
 		}
 		

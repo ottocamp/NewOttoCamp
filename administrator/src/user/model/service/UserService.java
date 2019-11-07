@@ -268,6 +268,20 @@ public class UserService {
 		
 		return result;
 	}
+
+	public void insertJoincode(String uid, String rcode) {
+		Connection con = getConnection();
+		
+		int result = new UserDao().insertJoincode(con, uid,rcode);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+	}
 	
 	
 	

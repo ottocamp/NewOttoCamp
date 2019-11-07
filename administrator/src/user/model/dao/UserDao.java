@@ -708,6 +708,34 @@ public class UserDao {
 
 
 
+	public int insertJoincode(Connection con, String uid, String rcode) {
+		PreparedStatement pstmt =null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertJoincode");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, uid);
+			pstmt.setString(2, rcode);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+
+
 
 
 }

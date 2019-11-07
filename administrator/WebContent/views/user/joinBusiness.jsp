@@ -163,28 +163,28 @@
                                             <div class="form-group row" >
                                                 <div class="col-12">
                                                     <label for="">이름</label>
-                                                    <input type="text" class="form-control" id="signup-userid" name="uname" placeholder="이름은 한글로만2~6자 입력" required="required">
+                                                    <input type="text" class="form-control" id="signup-userid" name="uname" placeholder="이름은 한글로만2~6자 입력" required="required" autocomplete="off">
                                                     <p id="namep1" class="toIn">&nbsp;</p><p id="namep2" class="toIn">&nbsp;</p><p id="namep3" class="toIn">&nbsp;</p>
                                                 </div>
                                             </div>
                                             <div class="form-group row" >
                                                 <div class="col-12">
                                                     <label for="">아이디</label>
-                                                    <input type="text" class="form-control" id="signup-username" name="uid" placeholder="아이디는 영소문자로 시작해서 4~12자 입력(숫자 포함 가능)" required>
+                                                    <input type="text" class="form-control" id="signup-username" name="uid" placeholder="아이디는 영소문자로 시작해서 4~12자 입력(숫자 포함 가능)" required autocomplete="off">
                                                      <p id="idp1" class="toIn">&nbsp;</p><p id="idp2" class="toIn">&nbsp;</p><p id="idp3" class="toIn">&nbsp;</p><p id="idp4" class="toIn">&nbsp;</p> <button type="button" class="btn btn-secondary btn-sm" id="idcheck" onclick="idCheck();">중복확인</button>
                                                 </div>
                                             </div>
                                             <div class="form-group row" >
                                                 <div class="col-12">
                                                     <label for="">이메일</label>
-                                                    <input type="email" class="form-control" id="signup-email" name="uemail" placeholder="이메일 형식에 맞게 기입해주세요" required>
+                                                    <input type="email" class="form-control" id="signup-email" name="uemail" placeholder="이메일 형식에 맞게 기입해주세요" required autocomplete="off">
                                                     <p id="emailp1" class="toIn">&nbsp;</p><p id="emailp2" class="toIn">&nbsp;</p><p id="emailp3" class="toIn">&nbsp;</p><p id="idp4" class="toIn">&nbsp;</p> <button type="button" class="btn btn-secondary btn-sm" id="emailcheck" onclick="emailCheck();">중복확인</button>
                                                 </div>
                                             </div>
                                             <div class="form-group row" >
                                                 <div class="col-12">
                                                     <label for="">전화번호</label>
-                                                    <input type="text" class="form-control" id="signup-phone" name="uphone" placeholder="전화번호는 숫자로만 4~15자 입력" required>
+                                                    <input type="text" class="form-control" id="signup-phone" name="uphone" placeholder="전화번호는 숫자로만 4~15자 입력" required autocomplete="off">
                                                      <p id="phonep1" class="toIn">&nbsp;</p><p id="phonep2" class="toIn">&nbsp;</p><p id="phonep3" class="toIn">&nbsp;</p>                                              </div>
                                             </div>
                                             <div class="form-group row" >
