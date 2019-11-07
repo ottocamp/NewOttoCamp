@@ -195,7 +195,7 @@
                                                     </div>
                                                     <div class="tab-pane" id="messages-b2">
                                                     <% for(Coupon c : cList){ %>
-                           		<% if(c.getProgress() < 20.00 && c.getProgress() > 0.00){ %>
+                           		<% if(c.getProgress() <= 20.0 && c.getProgress() >= 0.00){ %>
                                 <div class="card-box" style="width: 32.1%; display: inline-block; margin: 10px 10px 10px 0px;">
                                  <input type="hidden" value="<%= c.getcCode() %>"> 
                                      <button class="btn btn-sm btn-default pull-right" onclick="update(this);">자세히</button>
@@ -283,6 +283,7 @@
                                                  
                                                 </div>
                                                 <div class="modal-footer">
+                                                	
                                                		<button type="submit" class="btn btn-primary ">제출하기</button>
                                                     <button type="button" class="btn btn-default " data-dismiss="modal">닫기</button>
                                                 </div>
@@ -336,6 +337,7 @@
                                                  
                                                 </div>
                                                 <div class="modal-footer">
+                                                	<button type="button" class="btn btn-danger" onclick="deleteBtn();">삭제하기</button>
                                                		<button type="submit" class="btn btn-primary ">수정하기</button>
                                                     <button type="button" class="btn btn-default " data-dismiss="modal">닫기</button>
                                                 </div>
@@ -365,13 +367,24 @@
 
 		<script type="text/javascript">
 		
-		document.getElementById('endDay').value = new Date().toISOString().substring(0, 10);
+		document.getElementById('startDay').value = new Date().toISOString().substring(0, 10);
 		
 		
 		window.onload = function(){
 
 			
 		}
+		
+		function deleteBtn(){
+			
+			var cCode = $("#update_code").text();
+			
+			location.href = "<%= request.getContextPath() %>/couponDelete.cd?cCode="+cCode;
+			
+		}
+		
+		
+		
 		
 		function update(value){
 			

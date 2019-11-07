@@ -57,8 +57,7 @@ public class CouponDao {
 									rset.getInt(10),
 									rset.getDouble(11)));
 				
-				
-				
+		
 			}
 			
 		} catch (SQLException e) {
@@ -89,7 +88,7 @@ public class CouponDao {
 			pstmt.setInt(2, cDiscount);
 			pstmt.setString(3, grade);
 			pstmt.setString(4, startDay);
-			pstmt.setString(5, endDay);
+			pstmt.setString(5, endDay + " 23:59:59");
 			
 			result = pstmt.executeUpdate();
 			
@@ -128,6 +127,32 @@ public class CouponDao {
 			result = pstmt.executeUpdate();
 			
 			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+
+		return result;
+	}
+
+
+	public int deleteCoupon(Connection conn, String cCode) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("deleteCoupon");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, cCode);
+			
+			result = pstmt.executeUpdate();
+					
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

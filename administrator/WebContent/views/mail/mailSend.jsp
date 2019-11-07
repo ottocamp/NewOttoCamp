@@ -17,6 +17,7 @@ request.setCharacterEncoding("utf-8");
 String from = "whqotjd@naver.com";
 String mTitle = request.getParameter("mTitle");
 String sumtext = request.getParameter("sumtext");
+String code = request.getParameter("mcCode");
   
 Properties p = new Properties(); // 정보를 담을 객체
   
@@ -41,6 +42,7 @@ try{
  
     StringBuffer buffer = new StringBuffer();
     buffer.append(sumtext+"<br>");
+    buffer.append("코드번호 : " +code+"<br>");
     Address fromAddr = new InternetAddress(from);
     msg.setFrom(fromAddr); 
  
