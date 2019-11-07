@@ -66,7 +66,7 @@ try{
     Address fromAddr = new InternetAddress("znznwkdrns@naver.com");     //보내는 사람 이메일을 쓴다
 
     msg.setFrom(fromAddr);                                             //보내는 사람 이메일이 열로 와짐
-
+	//
  
 
     Address toAddr = new InternetAddress("znznwkdrns@naver.com");      //받는 사람 이메일을 여기 쓰면 밑으로 감
