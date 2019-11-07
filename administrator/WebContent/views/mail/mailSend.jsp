@@ -42,7 +42,10 @@ try{
  
     StringBuffer buffer = new StringBuffer();
     buffer.append(sumtext+"<br>");
-    buffer.append("코드번호 : " +code+"<br>");
+    buffer.append("<a href='http://localhost:9080/administrator/'><img src='https://i.imgur.com/ORIswqX.png'><a>");
+    if(code != null){
+    buffer.append("<img src='http://localhost:9080/administrator/resources/mail/"+ code +".png'>");
+    }
     Address fromAddr = new InternetAddress(from);
     msg.setFrom(fromAddr); 
  
