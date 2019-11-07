@@ -132,38 +132,22 @@
 				<%@ include file="../common/boardSidebar.jsp" %>
                 <!--left navigation end-->
 
+
                 <!-- START PAGE CONTENT -->
                 <div id="page-right-content">
 
                     <div class="container">
                             <div id="outer">
-                                <form method="post" action="<%= request.getContextPath() %>/insert.bo">
+                                <form method="post" action="<%= request.getContextPath() %>/insert.no">
                                 	<input type="hidden" name="userNo" value="<%= userNo %>">
                                     <div id="tagArea">
-                                        <label>분류</label>
-                                        <select name="boardTag" >
-                                        	
-                                            <option value="1" selected>정보공유</option>
-                                            <option value="2">잡담</option>
-                                            
-                                        </select>
-                                        &nbsp;&nbsp;
-                                        <label>지역</label>
-                                        <select name="regionTag">
-                                            <option value="0" hidden>---</option>
-                                            <option value="1" selected>서울</option>
-                                            <option value="2">경기도</option>
-                                            <option value="3">강원도</option>
-                                            <option value="4">경상도</option>
-                                            <option value="5">충청도</option>
-                                            <option value="6">전라도</option>
-                                        </select>
+                                        <h4>공지 작성</h4>
                                     </div>
                                     
                                     <hr>
                                     <div id="titleArea">
                                         <label>제목</label>
-                                        <input type="text" name="bTitle" id="bTitle" placeholder="제목을 입력하세요" maxlength="50">
+                                        <input type="text" name="bTitle" id="bTitle" placeholder="공지 제목을 입력하세요" maxlength="50">
                                     </div>
                                     <hr>
                                     <div id="contentArea">
@@ -176,21 +160,8 @@
                                     
                                     <div id="contentfooter">
                                     
-                                    <% if(userNo == 9999) { %>
-                                    
-                                        <div id="memberInfo">
-                                            <input type="text" name="memName" id="memName" placeholder="임시 닉네임을 입력하세요">
-                                            <input type="password" name="memPwd" id="memPwd" placeholder="임시 비밀번호를 입력하세요">
-                                        </div>
-                            
-                                        <p id="goLogin">
-                                               비회원 작성 시, 비밀번호를 분실하면 글을 삭제 할 수 없습니다.&nbsp;&nbsp;
-                                               <a href="<%= request.getContextPath() %>/views/user/login.jsp" style="font-size: 13px;">로그인</a>하러 가기
-                                        </p>
-                                            
-                                    <% } %>
                                         <div id="btnArea" align="center">
-                                            <button id="cancel" type="button" onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=2'">취소하기</button>                        
+                                            <button id="cancel" type="button" onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=0'">취소하기</button>                        
                                             <button id="submit" type="submit" >등록하기</button>
                                         </div>
                                     </div>
@@ -243,24 +214,6 @@
                     focus: false                 // set focus to editable area after initializing summernote
                 });
             });
-            
-
-        	$(changeTag);
-        
-        	$("select[name='boardTag']").change(changeTag);
-        	
-        	function changeTag(){
-        		var tag = $("select[name='boardTag']").children("option:selected").val();
-        		
-        		
-        		if(tag != 1) {
-        			$("select[name='regionTag']").prev().hide();
-        			$("select[name='regionTag']").hide();
-        		}else {
-        			$("select[name='regionTag']").prev().show();
-        			$("select[name='regionTag']").show();
-        		}
-        	}
         </script>
 
 		

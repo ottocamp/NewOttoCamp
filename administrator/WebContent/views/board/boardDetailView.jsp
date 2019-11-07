@@ -6,33 +6,23 @@
 	ArrayList<Comment> cList = (ArrayList<Comment>)request.getAttribute("cList");
 
 	String title = b.getbTitle();
-	String nextTitle = (String)request.getAttribute("nextTitle");
-	String preTitle = (String)request.getAttribute("preTitle");
+	String nextTitle = "다음 게시글이 없습니다";
+	String preTitle = "이전 게시글이 없습니다";
+	
+	if(request.getAttribute("nextTitle") != null) {
+		nextTitle = (String)request.getAttribute("nextTitle");
+	}
+	
+	if(request.getAttribute("preTitle") != null) {
+		preTitle = (String)request.getAttribute("preTitle");
+	}
+	
+	
 	
 	int bTag = b.getbTag();
 	int bNo = b.getbNo();
-	int userNo = b.getUserNo();
-	
-	switch (b.getbRegion()){
-	case 1:
-		title = "[서울] " + b.getbTitle();
-		break;
-	case 2:
-		title = "[경기] " + b.getbTitle();
-		break;
-	case 3:
-		title = "[강원] " + b.getbTitle();
-		break;
-	case 4:
-		title = "[경상] " + b.getbTitle();
-		break;
-	case 5:
-		title = "[전라] " + b.getbTitle();
-		break;
-	case 6:
-		title = "[충청] " + b.getbTitle();
-		break;
-	}
+	int writerNo = b.getUserNo();
+
 
 	String msg = (String)session.getAttribute("msg");
 %>
@@ -93,12 +83,6 @@
                 margin: 20px;
                 padding: 10px;
             }
-
-            .contentText{
-                white-space: pre-line;
-            }
-
-
 
 
             #insert_wrapper{
@@ -162,7 +146,7 @@
                 height: 100%;
             }
 
-            p{
+            p#goLogin{
                 display: inline-block;
                 width: 100%;
                 height: 50%;
@@ -217,10 +201,15 @@
                 text-align: center;
             }
 
-            div[class$="wrapper"]{
+            div[class="page-wrapper"]{
                 padding: 30px;
             }
+            
+         
 
+			.user_wrapper, .text_wrapper{
+				padding: 30px;
+			}
 
             .btns button{
                 width: 80%;
@@ -349,7 +338,16 @@
             	color: darkBlue;
             	border: 1px solid rgb(197, 197, 243);
             }
+            
+            #memberName{
+                padding: 65px 0;
+                word-break: break-all;
+            }
 
+
+            .align-center{
+                text-align: center;
+            }
 
 
         </style>
@@ -360,58 +358,25 @@
 <div id="page-wrapper">
 
             <!-- Top Bar Start -->
-             <%@ include file="../common/topnavbar.jsp" %>
+            <%@ include file="../common/topnavbar.jsp" %>
             <!-- Top Bar End -->
 
-            
-
+			<% 
+				int userNo = 9999;
+				String userType = "";
+				if(loginUser != null) {
+					userNo = loginUser.getUserNo();
+					userType = loginUser.getUserType();					
+				}				
+			%>
 
             <!-- Page content start -->
             <div class="page-contentbar">
 
                 <!--left navigation start-->
-                <aside class="sidebar-navigation">
-                    <div class="scrollbar-wrapper">
-                        <div>
-                            <button type="button" class="button-menu-mobile btn-mobile-view visible-xs visible-sm">
-                                <i class="mdi mdi-close"></i>
-                            </button>
-                            <!-- User Detail box -->
-            <!-- 게시판 메뉴에선 사용하지 않는 div -->
-                            <!-- <div class="user-details">
-                                <div class="pull-left">
-                                    <img src="<%= request.getContextPath() %>/resources/assets/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
-                                </div>
-                                <div class="user-info">
-                                    <a href="#">Stanley Jones</a>
-                                    <p class="text-muted m-0">Administrator</p>
-                                </div>
-                            </div> -->
-                            <!--- End User Detail box -->
-
-                            <!-- Left Menu Start -->
-                            <ul class="metisMenu nav" id="side-menu">
-                                <li><a href="<%= request.getContextPath() %>/list.bo?b_tag=0"><i class="fa fa-wpforms"></i> 공지사항 </a></li>
-
-                                <li>
-                                    <a href="<%= request.getContextPath() %>/list.bo?b_tag=1" aria-expanded="true"><i class="mdi mdi-information"></i> 정보 공유 </a>
-                                    <ul class="nav-second-level nav collapse" aria-expanded="false">
-                                        <li><a href="#">서울</a></li>
-                                        <li><a href="#">경기도</a></li>
-                                        <li><a href="#">강원도</a></li>
-                                        <li><a href="#">경상도</a></li>
-                                        <li><a href="#">전라도</a></li>
-                                        <li><a href="#">충청도</a></li>
-                            
-                                    </ul>
-                                </li>
-
-                                <li><a href="<%= request.getContextPath() %>/list.bo?b_tag=2"><i class="mdi mdi-message-processing"></i> 잡담(자유) </a></li>
-                            </ul>
-                        </div>
-                    </div><!--Scrollbar wrapper-->
-                </aside>
+				<%@ include file="../common/boardSidebar.jsp" %>
                 <!--left navigation end-->
+
 
                 <!-- START PAGE CONTENT -->
                 <div id="page-right-content">
@@ -423,7 +388,7 @@
                             <div id="memInfo" class="left-box fontBorder">
                                 <span>
                                 <%= b.getbWriter() %>
-                                <% if(userNo == 9999) { %>
+                                <% if(writerNo == 9999) { %>
                                 	<sub>(비회원)</sub>
                                 <% } %>
                                 
@@ -458,28 +423,35 @@
                                 </div>
 
                                 <div id="deleteBtn" class="fontBorder">
-                                	<% if(userNo == 9999) { %>
-                                	
-									<!-- Button trigger modal -->
-									<button type="button" class="btn btn-primary fontBorder " data-toggle="modal" data-target="#deleteBoardModal">
-									  삭제
-									</button>						
-                                    <% }else { %>
-                                    	
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    <% } %>
+							
+									<% if(userType.equals("A")) { %>
+									
+									<button type="button" class="btn btn-primary fontBorder "data-toggle="modal" data-target="#deleteBoardModal">
+										삭제
+									</button>
+									
+									<% }else if(writerNo == 9999) { %>
+									
+									<button type="button" class="btn btn-primary fontBorder " data-toggle="modal" data-target="#checkPwdModal">
+										삭제
+									</button>
+									
+									<% }else if(writerNo == userNo) { %>
+									
+									<button type="button" class="btn btn-primary fontBorder "data-toggle="modal" data-target="#deleteBoardModal">
+										삭제
+									</button>
+									
+									<% } %>
+									
                                 </div>
                                 
                             </div>     
                         </div>
 						
 						
-						<!-- Modal -->
-						<div class="modal fade" id="deleteBoardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<!-- check Pwd Modal -->
+						<div class="modal fade" id="checkPwdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content">
 						      <div class="modal-header">
@@ -506,7 +478,39 @@
 						    </div>
 						  </div>
 						</div>
-						<!-- Modal End-->	
+						<!-- Modal End-->
+						
+						
+						<!-- delete Modal -->
+						<div class="modal fade" id="deleteBoardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">게시글을 삭제합니다</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      
+						      
+   						      <form method="post" action="<%= request.getContextPath() %>/delete.bo"">
+							      <div class="modal-body">
+								      정말로 삭제하시겠습니까?
+		    									
+							          <input type="hidden" name="bNo" value="<%= bNo %>">
+							          <input type="hidden" name="bTag" value="<%= bTag %>">
+							      </div>
+							      <div class="modal-footer">
+								      <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+								      <button type="submit" class="btn btn-primary" >삭제하기</button>
+							      </div>
+						      </form>
+						    </div>
+						  </div>
+						</div>
+						<!--  Modal End -->
+						
+							
 						<hr>				
 
 
@@ -532,25 +536,40 @@
 												</span>
 	                                        </div>
 	                                    </td>
-	                                    <td class="btns">
-		                                	<% if(c.getUserNo() == 9999) { %>
-		                                	
-											<!-- Button trigger modal -->
-											<button type="button" class="btn btn-secondary fontBorder deleteCommentBtn" data-toggle="modal" data-target="#deleteCommentModel">											
-    											<input type="hidden" name="cNo" value="<%= c.getcNo() %>">
-							            		<input type="hidden" name="bNo" value="<%= bNo %>">
-											  	삭제
-											</button>
+										<td class="btns">
+											<% if(userType.equals("A")) { %>
 											
-		                                    <% }else { %>
-		                                    	
-		                                    
-		                                    
-		                                    
-		                                    
-		                                    
-		                                    <% } %>
-	                                    </td>
+											<button type="button" class="btn btn-secondary fontBorder deleteCommentBtn" data-toggle="modal" data-target="#deleteCommentModel">
+												삭제 
+												<input type="hidden" name="cNo" value="<%= c.getcNo() %>">
+												<input type="hidden" name="bNo" value="<%= bNo %>">
+											</button> 
+											
+											<% }else if(c.getUserNo() == 9999) { %>
+											
+											<button type="button" class="btn btn-secondary fontBorder deleteCommentBtn" data-toggle="modal" data-target="#commentPwdCheckModal">
+												삭제 
+												<input type="hidden" name="cNo" value="<%= c.getcNo() %>">
+												<input type="hidden" name="bNo" value="<%= bNo %>">
+											</button> 
+											
+											<% }else if(c.getUserNo() == userNo) { %>
+											
+											<button type="button" class="btn btn-secondary fontBorder deleteCommentBtn" data-toggle="modal" data-target="#deleteCommentModel">
+												삭제 
+												<input type="hidden" name="cNo" value="<%= c.getcNo() %>">
+												<input type="hidden" name="bNo" value="<%= bNo %>">
+											</button> 
+											
+											<% }else { %>
+											
+											<button type="button" class="btn btn-outline-light fontBorder" disabled>
+												삭제 
+											</button> 
+											
+											<% } %>
+											
+										</td>
 	                                </tr>
 	                            </table>
                         	
@@ -560,7 +579,7 @@
                         </div>
 						
 						<!-- Modal -->
-						<div class="modal fade" id="deleteCommentModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="commentPwdCheckModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content">
 						      <div class="modal-header">
@@ -571,9 +590,9 @@
 						      </div>
 						      
 						      <form method="post" action="<%= request.getContextPath() %>/pwdCheck.co" onsubmit="return checkCommentPwd();">
-							      <div class="modal-body">
-							            <label for="commentPwd">댓글을 삭제합니다.</label>
-    									<input type="password" class="form-control" name="pwd" id="commentPwd" placeholder="임시 비밀번호를 입력하세요">
+							      <div class="modal-body commentPwd">
+							            <label>댓글을 삭제합니다.</label>
+    									<input type="password" class="form-control" name="pwd" placeholder="임시 비밀번호를 입력하세요">
     									<input type="hidden" name="cNo">
 							            <input type="hidden" name="bNo">
 							      </div>
@@ -586,22 +605,55 @@
 						    </div>
 						  </div>
 						</div>
-						<!-- Modal End-->												               
+						
+						<!-- Modal End-->	
+						
+						
+						<!-- delete Modal -->
+						<div class="modal fade" id="deleteCommentModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">댓글을 삭제합니다</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      
+						      
+   						      <form method="post" action="<%= request.getContextPath() %>/delete.co"">
+							      <div class="modal-body commentPwd">
+							          <label>정말로 삭제하시겠습니까?</label>
+		    									
+									  <input type="hidden" name="cNo">
+						              <input type="hidden" name="bNo">
+							      </div>
+							      <div class="modal-footer">
+								      <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+								      <button type="submit" class="btn btn-primary" >삭제하기</button>
+						      	  </div>
+						      </form>
+						    </div>
+						  </div>
+						</div>
+						<!--  Modal End -->											               
 						
 
                         <hr>
+                        
+                        <% if(userNo == 9999) { %>
 
                         <div id="insert_wrapper">
                             <div id="commentInsertArea">
                                 <div id="memberInfo">
                                     <div id="memberIdPwd">
                                         <input type="text" id="memberId" placeholder="임시 Id">
-                                        <input type="text" id="memberPwd" placeholder="임시 비밀번호">
+                                        <input type="password" id="memberPwd" placeholder="임시 비밀번호">
                                     </div>
-                                    <p>
+                                    <p id="goLogin">
                                         비회원 작성 시, 비밀번호를 분실하면 댓글을 삭제 할 수 없습니다.
                                         <br><br>
-                                        <a href="#" style="font-size: 13px;">로그인</a>하러 가기
+                                        <a href="<%= request.getContextPath() %>/views/user/login.jsp" style="font-size: 13px;">로그인</a>하러 가기
                                     </p>
                                 </div>
                                 <div id="commentContentArea">
@@ -612,10 +664,30 @@
                                 </div>
                             </div>     
                         </div> 
+                        
+                        <% }else { %>
 
+					    <div id="insert_wrapper">
+					        <div id="commentInsertArea">
+					            <div id="memberInfo" class="align-center">
+					                <div id="memberName" class="user_wrapper fontBorder">
+					                    <%= loginUser.getUserName() %>
+					                </div>
+					            </div>
+					            <div id="commentContentArea">
+					                <textarea id="commentContent" style="resize: none"></textarea>
+					            </div>
+					            <div class="btnArea">
+					                <button class="submitBtn fontBorder" id="memberCommentInsertBtn" type="submit">등록하기</button>
+					            </div>
+					        </div>     
+					    </div>  
+                        <% } %>
 
                     </div>
                     <!-- end container -->
+                    
+                   
 
                     <div class="footer">
                         <div class="pull-right hidden-xs">
@@ -650,7 +722,7 @@
 			}	
 
 			function checkCommentPwd(){
-				var pwd = $("#commentPwd").val();
+				var pwd = $(".commentPwd").children("input[name='pwd']").val();
 				
 				if(pwd == ""){
 					alert("비밀번호를 입력하세요")
@@ -662,25 +734,21 @@
 				
 			}		
 
-    		$(".deleteCommentBtn").click(function(){
+			$(document).on('click', '.deleteCommentBtn', function(){ 
     			var cNo = $(this).children("input[name='cNo']").val();
     			var bNo = $(this).children("input[name='bNo']").val();
-    						        			
-    			$("#commentPwd").parent().children("input[name='cNo']").val(cNo);
-    			$("#commentPwd").parent().children("input[name='bNo']").val(bNo);    
+    			
+    			$(".commentPwd").children("input[name='cNo']").val(cNo);
+    			$(".commentPwd").children("input[name='bNo']").val(bNo);
+    			
+    			console.log($(".commentPwd").children("input[name='cNo']").val());			        			
+    			console.log($(".commentPwd").children("input[name='bNo']").val());       
     			
     		});   
 			
 			
 
-        	$(function(){
-        		$("#deleteCommentBtn").click(function(){
-        			var cNo = $(this).children("input").val();
-        			
-        			$("#commentPwd").next().val(cNo);                        			
-        		});                        		
-        	});
-		
+
 		
 			$(function(){		
 				
@@ -698,7 +766,7 @@
 						type : "post",
 						success : function(data){
 							if(data == 0) {
-								alert("첫 게시글입니다");
+								alert("다음 게시글이 없습니다");
 							}else {
 								location.href="<%= request.getContextPath() %>/detail.bo?b_no=" + data;
 							}
@@ -727,7 +795,7 @@
 						type : "post",
 						success : function(data){
 							if(data == 0) {
-								alert("마지막 게시글입니다");
+								alert("이전 게시글이 없습니다");
 							}else {
 								location.href="<%= request.getContextPath() %>/detail.bo?b_no=" + data;
 							}
@@ -740,7 +808,6 @@
 						}
 					});
 				});
-				
 				
 				
 				
@@ -760,10 +827,13 @@
 							$commentArea.text("");
 							
 							for(var key in data) {
+								// <table>선언
 								var $input = $("<input>").attr("type", "hidden").attr("id", "userNoInput").val(data[key].userNo);
 								var $table = $("<table>").attr("id", "commentTable");
 								$table.append($input);
 								
+								
+								// 작성자 명 <tr>선언
 								var $tr = $("<tr>").addClass("commentTr");
 								
 								var $nameTd = $("<td>").addClass("userName");
@@ -778,24 +848,33 @@
 								$nameTd.append($nameDiv);
 								
 								
-								
+								// 댓글내용 <tr>선언
 								var $contentTd = $("<td>").addClass("commentContent");
 								var $contentDiv = $("<div>").addClass("text_wrapper");
-								var $contentSpan = $("<span>").addClass("contextText").text(data[key].cContent);
+								var $contentSpan = $("<span>").addClass("contentText").text(data[key].cContent);
 								
 								$contentDiv.append($contentSpan);
 								$contentTd.append($contentDiv);
 								
 								
-								
+								// 버튼내용 <tr>선언
 								var $btnTd = $("<td>").addClass("btns");
-								
-								if(data[key].userNo == 9999){
-									var $button = $("<button>").addClass("btn btn-secondary fontBorder").text("삭제").attr({"type" : "button", "data-toggle" : "modal", "data-target" : "#deleteCommentModel"});
-									
-									$btnTd.append($button);
-									
+
+								var $button = $("<button>").addClass("btn btn-secondary fontBorder deleteCommentBtn").attr({"type":"button", "data-toggle":"modal"}).text("삭제");
+								var $cNoInput = $("<input>").attr({"type":"hidden", "name":"cNo"}).val(data[key].cNo);;
+								var $bNoInput = $("<input>").attr({"type":"hidden", "name":"bNo"}).val(data[key].bNo);;
+
+								if(<%= userType.equals("A") %>) {
+									$button.attr("data-target", "#deleteCommentModel");	
+								}else if(data[key].userNo == 9999) {
+									$button.attr("data-target", "#commentPwdCheckModal");	
+								}else if(data[key].userNo == <%= userNo %>) {
+									$button.attr("data-target", "#deleteCommentModel");	
 								}
+
+								$button.append($cNoInput);
+								$button.append($bNoInput);
+								$btnTd.append($button);
 								
 								
 								
@@ -807,9 +886,7 @@
 								$commentArea.append($table);
 							}	
 							
-							
-							
-			
+               
 							
 							$("#memberId").val("");
 							$("#memberPwd").val("");
@@ -826,13 +903,95 @@
 					
 				});
 				
-				
+				$("#memberCommentInsertBtn").click(function(){
+					var commentContent = $("#commentContent").val();
+					var bNo = <%= bNo %>;
+					
+					$.ajax({
+						url : "insertMemberComment.bo",
+						data : {commentContent:commentContent, userNo:<%= userNo %>, bNo:bNo},
+						type : "post",
+						dataType : "json",
+						success : function(data){
+							$commentArea = $("#commentArea");
+							$commentArea.text("");
+							
+							for(var key in data) {
+								// <table>선언
+								var $input = $("<input>").attr("type", "hidden").attr("id", "userNoInput").val(data[key].userNo);
+								var $table = $("<table>").attr("id", "commentTable");
+								$table.append($input);
+								
+								
+								// 작성자 명 <tr>선언
+								var $tr = $("<tr>").addClass("commentTr");
+								
+								var $nameTd = $("<td>").addClass("userName");
+								var $nameDiv = $("<div>").addClass("user_wrapper fontBorder").text(data[key].cWriter);
 
-        		$("#deleteCommentBtn").click(function(){
-        			var cNo = $(this).children("input").val();
-        			
-        			$("#commentPwd").next().val(cNo);                        			
-        		});   
+								if(data[key].userNo == 9999) {
+									var $sub = $("<sub>").text("(비회원)");
+									
+									$nameDiv.append($sub);
+								}
+								
+								$nameTd.append($nameDiv);
+								
+								
+								// 댓글내용 <tr>선언
+								var $contentTd = $("<td>").addClass("commentContent");
+								var $contentDiv = $("<div>").addClass("text_wrapper");
+								var $contentSpan = $("<span>").addClass("contentText").text(data[key].cContent);
+								
+								$contentDiv.append($contentSpan);
+								$contentTd.append($contentDiv);
+								
+								
+								// 버튼내용 <tr>선언
+								var $btnTd = $("<td>").addClass("btns");
+
+								var $button = $("<button>").addClass("btn btn-secondary fontBorder deleteCommentBtn").attr({"type":"button", "data-toggle":"modal"}).text("삭제");
+								var $cNoInput = $("<input>").attr({"type":"hidden", "name":"cNo"}).val(data[key].cNo);;
+								var $bNoInput = $("<input>").attr({"type":"hidden", "name":"bNo"}).val(data[key].bNo);;
+
+								if(<%= userType.equals("A") %>) {
+									$button.attr("data-target", "#deleteCommentModel");	
+								}else if(data[key].userNo == 9999) {
+									$button.attr("data-target", "#commentPwdCheckModal");	
+								}else if(data[key].userNo == <%= userNo %>) {
+									$button.attr("data-target", "#deleteCommentModel");	
+								}
+
+								$button.append($cNoInput);
+								$button.append($bNoInput);
+								$btnTd.append($button);
+								
+								
+								
+								$tr.append($nameTd);
+								$tr.append($contentTd);
+								$tr.append($btnTd);
+								
+								$table.append($tr);
+								$commentArea.append($table);
+							}	
+							
+
+							
+							$("#memberId").val("");
+							$("#memberPwd").val("");
+							$("#commentContent").val("");
+							
+						},
+						error : function(){
+							console.log("통신 실패");
+						}
+						
+						
+					});
+					
+				});
+				
 				
 					
 				
