@@ -92,5 +92,50 @@ public class CampService {
 			return result;
 		}
 		
+		
+
+		public ArrayList<CampInfo> selectMainList() {
+			Connection conn = getConnection();
+			
+			ArrayList<CampInfo> cList = new CampDao().selectMainList(conn);
+			
+			close(conn);
+			
+			
+			return cList;
+		}
+		
+
+		public ArrayList<Attachment> selectMainAttachmentList() {
+			Connection conn = getConnection();
+			
+			ArrayList<Attachment> aList = new CampDao().selectMainAttachmentList(conn);
+			
+			close(conn);
+			
+			return aList;
+		}
+
+		public ArrayList<CampInfo> selectLocationList(String newcheckInDate, String location) {
+			Connection conn = getConnection();
+			
+			ArrayList<CampInfo> cList = new CampDao().selectLocationList(conn, newcheckInDate, location);
+			
+			close(conn);
+		
+			return cList;
+		}
+
+		public ArrayList<Attachment> selectLocationAttachmentList(String newcheckInDate, String location) {
+			Connection conn = getConnection();
+			
+			ArrayList<Attachment> aList = new CampDao().selectLocationAttachmentList(conn, newcheckInDate, location);
+			
+			close(conn);
+			
+			return aList;
+		}
+
+		
 
 }
