@@ -6,9 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import coupon.model.vo.Coupon;
 import reservation.model.vo.Reservation;
 
 import static common.JDBCTemplate.*;
@@ -477,6 +479,229 @@ public class UserDao {
 		
 		
 		
+		return result;
+	}
+
+
+
+
+	public ArrayList<Coupon> selectCouponList(Connection conn, int uno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Coupon> ucList = new ArrayList<Coupon>();
+		
+		String sql = prop.getProperty("selectUserCouponList");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, uno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				ucList.add(new Coupon(rset.getString(1),
+									rset.getString(2),
+									rset.getInt(3),
+									rset.getString(4),
+									rset.getString(5),
+									rset.getString(6),
+									rset.getString(7),
+									rset.getInt(8),
+									rset.getInt(9),
+									rset.getInt(10),
+									rset.getDouble(11)));
+	
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return ucList;
+		
+	}
+
+
+
+
+	public int updateUserPwd(Connection con, int uno, String pwd) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		
+		String sql = prop.getProperty("updateUserPwd");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pwd);
+			pstmt.setInt(2, uno);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+
+		
+		return result;
+	}
+
+
+
+
+	public int updateUserPhone(Connection con, int uno, String phone) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		
+		String sql = prop.getProperty("updateUserPhone");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, phone);
+			pstmt.setInt(2, uno);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+
+		
+		return result;
+	
+	}
+
+
+
+
+	public int updateUserEmail(Connection con, int uno, String email) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		
+		String sql = prop.getProperty("updateUserEmail");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setInt(2, uno);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+
+		
+		return result;
+	}
+
+
+
+
+	public int insertCoupon(Connection con, int uno, String inCode) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertCoupon");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, uno);
+			pstmt.setString(2, inCode);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+
+		
+		return result;
+	}
+
+
+
+
+	public ArrayList<Integer> selectTotalInfo(Connection con, int uno) {
+		PreparedStatement pstmt = null;
+		ArrayList<Integer> totalInfo = new ArrayList<Integer>();
+		ResultSet rset= null;
+		
+		String sql = prop.getProperty("selectTotalInfo");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, uno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				totalInfo.add(rset.getInt(1));
+				totalInfo.add(rset.getInt(2));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return totalInfo;
+	}
+
+
+
+
+	public int reservationChange(Connection con, int reNo, int reStatus) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("reservationChange");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, reStatus);
+			pstmt.setInt(2, reNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
 		return result;
 	}
 
