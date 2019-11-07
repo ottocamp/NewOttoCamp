@@ -1,30 +1,26 @@
 package user.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import coupon.model.vo.Coupon;
 import user.model.service.UserService;
 import user.model.vo.User;
 
 /**
- * Servlet implementation class UserCouponListServlet
+ * Servlet implementation class UserCouponInsertServlet
  */
-@WebServlet("/coupon.user")
-public class UserCouponListServlet extends HttpServlet {
+@WebServlet("/insertCoupon.user")
+public class UserCouponInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserCouponListServlet() {
+    public UserCouponInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,13 +33,20 @@ public class UserCouponListServlet extends HttpServlet {
 		User loginUser =  (User)request.getSession().getAttribute("loginUser");
 		int uno = loginUser.getUserNo();
 		
+		String inCode = request.getParameter("inCode");
 		
-		ArrayList<Coupon> ucList = new UserService().selectCouponList(uno);
+		int result = new UserService().insertCoupon(uno,inCode);
 		
-
+		if(result>0) {
+			request.getSession().setAttribute("msg", "쿠폰 추가에 성공 하였습니다");
+			request.getRequestDispatcher("coupon.user").forward(request, response);
+			
+		}else {
+			request.getSession().setAttribute("msg", "쿠폰 추가에 실패 하였습니다");
+			request.getRequestDispatcher("coupon.user").forward(request, response);
+		}
 		
-		request.setAttribute("ucList", ucList);
-		request.getRequestDispatcher("views/user/userCouponList.jsp").forward(request, response);
+		
 	}
 
 	/**

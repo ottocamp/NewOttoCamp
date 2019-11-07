@@ -9,22 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 
-import coupon.model.vo.Coupon;
 import user.model.service.UserService;
 import user.model.vo.User;
 
 /**
- * Servlet implementation class UserCouponListServlet
+ * Servlet implementation class UserRecordLoadServlet
  */
-@WebServlet("/coupon.user")
-public class UserCouponListServlet extends HttpServlet {
+@WebServlet("/recordLoad.user")
+public class UserRecordLoadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserCouponListServlet() {
+    public UserRecordLoadServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,13 +37,17 @@ public class UserCouponListServlet extends HttpServlet {
 		User loginUser =  (User)request.getSession().getAttribute("loginUser");
 		int uno = loginUser.getUserNo();
 		
-		
-		ArrayList<Coupon> ucList = new UserService().selectCouponList(uno);
+		ArrayList<Integer> totalInfo = new UserService().selectTotalInfo(uno);
 		
 
+		int totalNumber = totalInfo.get(0);
+		int totalMoney = totalInfo.get(1);
 		
-		request.setAttribute("ucList", ucList);
-		request.getRequestDispatcher("views/user/userCouponList.jsp").forward(request, response);
+		response.setContentType("application/json; charset=utf-8"); 
+		Gson gson = new Gson();
+		gson.toJson(totalInfo, response.getWriter());
+		
+
 	}
 
 	/**

@@ -175,6 +175,99 @@ public class UserService {
 		
 		return ucList;
 	}
+
+	public int updateUserPwd(int uno, String pwd) {
+		
+		Connection con = getConnection();
+		
+		int result = new UserDao().updateUserPwd(con, uno,pwd);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		
+		return result;
+		
+		
+	}
+
+	public int updateUserPhone(int uno, String phone) {
+		Connection con = getConnection();
+		
+		int result = new UserDao().updateUserPhone(con, uno,phone);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		
+		return result;
+	}
+
+	public int updateUserEmail(int uno, String email) {
+		Connection con = getConnection();
+		
+		int result = new UserDao().updateUserEmail(con, uno,email);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		
+		return result;
+	}
+
+	public int insertCoupon(int uno, String inCode) {
+		Connection con = getConnection();
+		
+		int result = new UserDao().insertCoupon(con, uno,inCode);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		
+		return result;
+	}
+
+	public ArrayList<Integer> selectTotalInfo(int uno) {
+		Connection con = getConnection();
+		
+		ArrayList<Integer> totalInfo = new UserDao().selectTotalInfo(con,uno);
+		
+		close(con);
+		
+		return totalInfo;
+	}
+
+	public int reservationChange(int reNo, int reStatus) {
+		Connection con = getConnection();
+		
+		int result = new UserDao().reservationChange(con, reNo,reStatus);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		
+		return result;
+	}
 	
 	
 	

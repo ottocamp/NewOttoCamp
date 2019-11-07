@@ -149,13 +149,13 @@
                                 <div class="card-box">
                           
                                 	<h4 class="m-t-0 text-dark">총 이용건수</h4>
-                                	<h2 class="text-pink text-center m-b-30 m-t-30"><span data-plugin="counterup">683</span></h2>	
+                                	<h2 class="text-pink text-center m-b-30 m-t-30"><span data-plugin="counterup" id="totalNum">&nbsp;</span></h2>	
                                 </div>
                           		 </div>               
 								<div class="col-md-4">
                                 <div class="card-box">
                                 	<h4 class="m-t-0 text-dark">총 이용금액</h4>
-                                	<h2 class="text-primary text-center m-b-30 m-t-30"><span data-plugin="counterup">31570</span>원</h2>
+                                	<h2 class="text-primary text-center m-b-30 m-t-30"><span data-plugin="counterup" id="totalMoney">&nbsp;</span>원</h2>
                                 	
                                 </div>
                                 </div>
@@ -180,22 +180,22 @@
                                     	
                                     	
                                 		function updatepropic(){
-                                			window.open("propicupdate.jsp", "비밀번호 변경 창", "width=500, height=300");
+                                			window.open("propicupdate.jsp", "프로필 사진 변경 창", "width=500, height=300");
                                 			
                                 		}
                                 		
                                 		function updatephone(){
-                                			window.open("propicupdate.jsp", "비밀번호 변경 창", "width=500, height=300");
+                                			window.open("phoneupdate.jsp", "전화번호 변경 창", "width=500, height=300");
                                 			
                                 		}
                                 		
                                 		function updateemail(){
-                                			window.open("propicupdate.jsp", "비밀번호 변경 창", "width=500, height=300");
+                                			window.open("emailupdate.jsp", "이메일 변경 창", "width=500, height=300");
                                 			
                                 		}
                                 		
                                 		function updatepwd(){
-                                			window.open("propicupdate.jsp", "비밀번호 변경 창", "width=500, height=300");
+                                			window.open("pwdupdate.jsp", "비밀번호 변경 창", "width=500, height=300");
                                 			
                                 		}
                                 		
@@ -205,17 +205,37 @@
                                 		//온 로드 되면서!!!!!!!!
                                 		$(function(){
                                 			
-                                			
-                                			
                                 			if("<%= loginUser.getGrade() %>" == "D"){
-                                				$("#grade").text("SILVER");
+                                				$("#grade").text("WELCOME");
                                 			}else if("<%= loginUser.getGrade() %>" == "C"){
-                                				$("#grade").text("GOLD");
+                                				$("#grade").text("FAMILY");
                                 			}else if("<%= loginUser.getGrade() %>" == "B"){
                                 				$("#grade").text("VIP");
                                 			}else if("<%= loginUser.getGrade() %>" == "A"){
-                                				$("#grade").text("VVIP");
+                                				$("#grade").text("MVP");
                                 			}
+                                			
+                                			
+                                			
+                                			
+                                			//총 금액, 이용건수 온로드 되면서 써놓는 AJAX
+                            				$.ajax({
+                        						url : "<%= request.getContextPath() %>/recordLoad.user",
+                        						type : "post",
+                        						success : function(data){	
+                        							
+                        							var totalNum = data[0];
+                        							var totalMoney = data[1];
+                        							
+                        							$("#totalNum").text(totalNum);
+                        							$("#totalMoney").text(totalMoney);
+                        							
+
+                        						},
+                        						error:function(){
+                        							console.log("ajax 통신 실패");
+                        						}
+                        					});
                                 			
                                 			
                                 			

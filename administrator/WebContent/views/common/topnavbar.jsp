@@ -64,7 +64,7 @@
 							<li class="dropdown top-menu-item-xs">
                                     <a href="" class="dropdown-toggle menu-right-item profile" data-toggle="dropdown" aria-expanded="false"><img src="<%= request.getContextPath() %>/resources/top_nav/images/m_iconM.png" alt="user-img" class="img-circle"> </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0)"><i class="ti-user m-r-10"></i> 나의 정보보기</a></li>
+                                        <li><a href="<%= request.getContextPath() %>/views/user/userUpdate.jsp"><i class="ti-user m-r-10"></i> 나의 정보보기</a></li>
                                         <li><a href="javascript:void(0)"><i class="ti-settings m-r-10"></i> 정보수정</a></li>
                                         <li><a href="javascript:void(0)"><i class="mdi mdi-heart-outline m-r-10"></i> 즐겨찾기</a></li>
                                         <li class="divider"></li>

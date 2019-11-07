@@ -1,30 +1,25 @@
 package user.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import coupon.model.vo.Coupon;
 import user.model.service.UserService;
-import user.model.vo.User;
 
 /**
- * Servlet implementation class UserCouponListServlet
+ * Servlet implementation class UserReservationChangeServlet
  */
-@WebServlet("/coupon.user")
-public class UserCouponListServlet extends HttpServlet {
+@WebServlet("/resChange.user")
+public class UserReservationChangeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserCouponListServlet() {
+    public UserReservationChangeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,16 +29,21 @@ public class UserCouponListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		User loginUser =  (User)request.getSession().getAttribute("loginUser");
-		int uno = loginUser.getUserNo();
+		int reNo = Integer.parseInt(request.getParameter("reNo")); 
+		int reStatus = Integer.parseInt(request.getParameter("reStatus")); 	
+		
+		int result = new UserService().reservationChange(reNo,reStatus);
+		
+		if(result>0) {
+			request.getSession().setAttribute("msg", "업데이트 성공");
+			response.sendRedirect("reservation.user");
+			
+		}else {
+			request.getSession().setAttribute("msg", "업데이트 실패");
+			response.sendRedirect("reservation.user");
+		}
 		
 		
-		ArrayList<Coupon> ucList = new UserService().selectCouponList(uno);
-		
-
-		
-		request.setAttribute("ucList", ucList);
-		request.getRequestDispatcher("views/user/userCouponList.jsp").forward(request, response);
 	}
 
 	/**

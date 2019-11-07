@@ -127,7 +127,7 @@
                                         	<th>결제금액</th>
                                         	<th>결제방식</th>
                                         	<th>처리상태</th>
-                                        	<th>승인</th>
+                                        	<th style="width: 120px">승인</th>
                                         
 <!--                                             <th>결제일시</th>
                                             <th>예약번호</th>
@@ -150,11 +150,14 @@
 												<td><%= ure.getReCost() %></td>
 												<td><%= ure.getPamentType() %></td>
 												<td><%= ure.getReStatus() %></td>
-												<td><%if(ure.getReStatus().equals("예약완료") || ure.getReStatus().equals("결제완료") ) {%>
-													<button type="button" class="btn btn-primary btn-xs" onclick="delete1(this);">취소하기</button>
-												<%}else{ %>
+												<td><%if(ure.getReStatus().equals("결제완료")) {%>
+													<button type="button" class="btn btn-primary btn-xs" onclick="resChange(this,3);">취소하기</button>
+												<%}else if(ure.getReStatus().equals("예약완료")){ %>
+													<button type="button" class="btn btn-primary btn-xs" onclick="resChange(this,4);">사용완료</button>
+													<button type="button" class="btn btn-primary btn-xs" onclick="resChange(this,3);">취소하기</button>
+												<%}else{ %>	
 													취소불가
-												<%} %>												
+												<%} %>											
 												</td>	
 											</tr>
 										<%} %>
@@ -202,15 +205,15 @@
             <!-- end .page-contentbar -->
         </div>
 
-		<script type="text/javascript">
+		<script>
 		
-		function delete1(value){
+		function resChange(value,reStatus){
 			
-			var reNo = $(value).parent().parent().children().eq(1).text()
+			var reNo = $(value).parent().parent().children().eq(0).text();
+			var reStatus = reStatus;
+		
+			location.href = "<%= request.getContextPath() %>/resChange.user?reNo="+reNo+"&reStatus="+reStatus;
 			
-			var msg = "전체내역";
-			
-			location.href = "<%= request.getContextPath() %>/delete.re?reNo="+reNo + "," + msg;
 		}
 		
 		$(function(){

@@ -3,7 +3,7 @@
 <%
 	String msg = (String)session.getAttribute("msg");
 		
-	ArrayList<Coupon> ucList = (ArrayList<Coupon>)request.getAttribute("cList");
+	ArrayList<Coupon> ucList = (ArrayList<Coupon>)request.getAttribute("ucList");
 	DecimalFormat formatter = new DecimalFormat("##,###,###");
 
 %>   
@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-		<title>예약 관리 검색페이지</title>
+		<title>유저 쿠폰 관리 페이지</title>
 		<!-- jqury cdn -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		
@@ -91,7 +91,7 @@
             <div class="page-contentbar">
 
                 <!--left navigation start-->
-                 <%@ include file="../common/adminSidebar.jsp" %>
+                 <%@ include file="../common/userSidebar.jsp" %>
                 <!--left navigation end-->
 
                 <!-- START PAGE CONTENT -->
@@ -101,7 +101,7 @@
                     
       					<div class="row">
       					 <div class="col-sm-12">
-      					 <span style="font-size: 20px; font-weight: bold; line-height: 35px;">쿠폰 정보 </span><button class="btn btn-default " data-toggle="modal" data-target="#myModal" style="float: right;">추가하기</button>
+      					 <span style="font-size: 20px; font-weight: bold; line-height: 35px;">쿠폰 정보 </span><button class="btn btn-default " data-toggle="modal" data-target="#myModal" style="float: right;">쿠폰 추가하기</button>
       					 </div>
       					
       					</div>
@@ -144,7 +144,7 @@
                            		<% if(c.getProgress() < 0.00){ %>
                                 <div class="card-box" style="width: 32.1%; display: inline-block; margin: 10px 10px 10px 0px;">
                                  <input type="hidden" value="<%= c.getcCode() %>"> 
-                                     <button class="btn btn-sm btn-default pull-right" onclick="update(this);">자세히</button>
+                                     <!-- <button class="btn btn-sm btn-default pull-right" onclick="update(this);">자세히</button> -->
                                     <h6 class="text-muted m-t-0 text-uppercase"><%= c.getcStartDay().substring(0, 10) %>부터 <%= c.getcEndDay().substring(0,10) %>까지</h6>
                                     <h2 class="m-b-20"><span><%= c.getcName() %><br><%= formatter.format(c.getcDiscount()) %>원</span></h2> 
                                     <div class="progress progress-sm m-0">
@@ -166,7 +166,7 @@
                            		<% if(c.getProgress() > 0.00){ %>
                                 <div class="card-box" style="width: 32.1%; display: inline-block; margin: 10px 10px 10px 0px;">
                                  <input type="hidden" value="<%= c.getcCode() %>"> 
-                                    <button class="btn btn-sm btn-default pull-right" onclick="update(this);">자세히</button>
+                                    <!-- <button class="btn btn-sm btn-default pull-right" onclick="update(this);">자세히</button> -->
                                     <h6 class="text-muted m-t-0 text-uppercase"><%= c.getcStartDay().substring(0, 10) %>부터 <%= c.getcEndDay().substring(0,10) %>까지</h6>
                                     <h2 class="m-b-20"><span><%= c.getcName() %><br><%= formatter.format(c.getcDiscount()) %>원</span></h2> 
                                     <div class="progress progress-sm m-0">
@@ -198,7 +198,7 @@
                            		<% if(c.getProgress() < 20.00 && c.getProgress() > 0.00){ %>
                                 <div class="card-box" style="width: 32.1%; display: inline-block; margin: 10px 10px 10px 0px;">
                                  <input type="hidden" value="<%= c.getcCode() %>"> 
-                                     <button class="btn btn-sm btn-default pull-right" onclick="update(this);">자세히</button>
+                                     <!-- <button class="btn btn-sm btn-default pull-right" onclick="update(this);">자세히</button> -->
                                     <h6 class="text-muted m-t-0 text-uppercase"><%= c.getcStartDay().substring(0, 10) %>부터 <%= c.getcEndDay().substring(0,10) %>까지</h6>
                                     <h2 class="m-b-20"><span><%= c.getcName() %><br><%= formatter.format(c.getcDiscount()) %>원</span></h2> 
                                     <div class="progress progress-sm m-0">
@@ -217,7 +217,7 @@
                            		
                                 <div class="card-box" style="width: 32.1%; display: inline-block; margin: 10px 10px 10px 0px;">
                                     <input type="hidden" value="<%= c.getcCode() %>"> 
-                                     <button class="btn btn-sm btn-default pull-right" onclick="update(this);">자세히</button>
+                                     <!-- <button class="btn btn-sm btn-default pull-right" onclick="update(this);">자세히</button> -->
                                     <h6 class="text-muted m-t-0 text-uppercase"><%= c.getcStartDay().substring(0, 10) %>부터 <%= c.getcEndDay().substring(0,10) %>까지</h6>
                                     <h2 class="m-b-20"><span><%= c.getcName() %><br><%= formatter.format(c.getcDiscount()) %>원</span></h2> 
                                     <div class="progress progress-sm m-0">
@@ -245,41 +245,16 @@
                                             </div>
                                         </div> <!-- end col -->
                                     </div>
-                       <form method="post" action="<%= request.getContextPath() %>/insertCoupon.ic" onsubmit="return validate();">
+                       <form method="post" action="<%= request.getContextPath() %>/insertCoupon.user" onsubmit="return validate();">
                        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                    <h4>쿠폰 상세내역 작성하기</h4>
+                                                    <h4>쿠폰 추가</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                               	쿠폰 이름 : <input type="text" name="cName" id="cName" class="form-control" style="height: 36px; width: 150px; display: inline-block;">
-                                               	 &nbsp;&nbsp;&nbsp;&nbsp;할인금액 :  <input type="text" name="cDiscount" id="cDiscount" class="form-control" style="height: 36px; width: 150px; display: inline-block;" >
-                                               	<br><hr>
-                                               	회원등급 : <div class="radio radio-inline">
-                                               	&nbsp;&nbsp;
-                                                <input type="radio" id="WELCOME" name="GRADE" value="D" >
-                                                <label for="WELCOME"> WELCOME </label>
-                                            </div>
-                                            <div class="radio radio-inline radio-custom">
-                                         <input type="radio" id="FAMILY" name="GRADE" value="C" >
-                                         <label for="FAMILY" class="text-custom"> FAMILY </label>
-                                    	 </div>
-                                    	 <div class="radio radio-inline radio-info">
-                                         <input type="radio" id="VIP" name="GRADE" value="B" >
-                                         <label for="VIP" class="text-info"> VIP </label>
-                                     	</div>
-                                     	<div class="radio radio-inline radio-danger">
-                                         <input type="radio" id="MVP" name="GRADE" value="A" >
-                                         <label for="MVP" class="text-danger"> MVP </label>
-                                     	</div>
-                                  
-                                     
-                                     	<br><hr>
-                            		시작일자  &nbsp;&nbsp;<input type="date" class="form-control" style="height: 36px; width: 155px; display: inline-block;" id="startDay" name="startDay" >&nbsp;&nbsp;
-                            		부터  &nbsp;&nbsp;<input type="date" class="form-control" style="height: 36px; width: 155px; display: inline-block;" id="endDay" name="endDay">&nbsp;&nbsp;까지  
-                                                   
+                                               	쿠폰 코드 : <input type="text" name="inCode" id="inCode" class="form-control" style="height: 36px; width: 300px; display: inline-block;">         
                                                  
                                                 </div>
                                                 <div class="modal-footer">
@@ -462,58 +437,14 @@
 		
 		function validate(){
 			
-			if($("#cName").val().trim() == ""){
-				alert("쿠폰이름을 작성해주세요");
+			if($("#inCode").val().trim() == ""){
+				alert("쿠폰코드를 작성해주세요");
 				
-				$("#cName").focus();
+				$("#inCode").focus();
 				return false;
 				
 			}
-			
-			if($("#cDiscount").val().trim() == "" || isNaN($("#cDiscount").val()) == true ){
-	        	
-	        	alert("할인금액란을 확인해주세요");
-	        	
-	        	$("#cDiscount").focus();
-	        	
-	        	return false;
-	        }
-			
-
-			if(!($("input:radio[name='GRADE']").is(":checked"))){
-				
-				alert("회원등급을 선택해주세요");
-				return false;	
-			}
-		
-		
-			var startDate = $( "#startDay" ).val(); //2017-12-10
-	        var startDateArr = startDate.split('-');
-	         
-	        var endDate = $( "#endDay" ).val(); //2017-12-09
-	        var endDateArr = endDate.split('-');
-	                 
-	        var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
-	        var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
-	        
-	        if(startDate == ""){
-	        	alert("시작날짜가 비어있습니다.");
-	        	return false;
-	        }
-	        if(endDate == ""){
-	        	alert("종료날짜가 비어있습니다.");
-	        	return false;
-	        }
-	        
-	         
-	        if(startDateCompare.getTime() > endDateCompare.getTime()) {
-	             
-	            alert("시작날짜와 종료날짜를 확인해 주세요.");
-	             
-	            return false;
-	        }
-			
-	        
+			       
 			
 		}
 		

@@ -486,16 +486,16 @@ public class UserDao {
 
 
 	public ArrayList<Coupon> selectCouponList(Connection conn, int uno) {
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Coupon> ucList = new ArrayList<Coupon>();
 		
-		String sql = prop.getProperty("selectCouponList");
-		
+		String sql = prop.getProperty("selectUserCouponList");
 		try {
-			stmt = conn.createStatement();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, uno);
 			
-			rset = stmt.executeQuery(sql);
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				
@@ -510,9 +510,158 @@ public class UserDao {
 									rset.getInt(9),
 									rset.getInt(10),
 									rset.getDouble(11)));
-				
-				
-				
+	
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return ucList;
+		
+	}
+
+
+
+
+	public int updateUserPwd(Connection con, int uno, String pwd) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		
+		String sql = prop.getProperty("updateUserPwd");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pwd);
+			pstmt.setInt(2, uno);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+
+		
+		return result;
+	}
+
+
+
+
+	public int updateUserPhone(Connection con, int uno, String phone) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		
+		String sql = prop.getProperty("updateUserPhone");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, phone);
+			pstmt.setInt(2, uno);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+
+		
+		return result;
+	
+	}
+
+
+
+
+	public int updateUserEmail(Connection con, int uno, String email) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		
+		String sql = prop.getProperty("updateUserEmail");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setInt(2, uno);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+
+		
+		return result;
+	}
+
+
+
+
+	public int insertCoupon(Connection con, int uno, String inCode) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertCoupon");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, uno);
+			pstmt.setString(2, inCode);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+
+		
+		return result;
+	}
+
+
+
+
+	public ArrayList<Integer> selectTotalInfo(Connection con, int uno) {
+		PreparedStatement pstmt = null;
+		ArrayList<Integer> totalInfo = new ArrayList<Integer>();
+		ResultSet rset= null;
+		
+		String sql = prop.getProperty("selectTotalInfo");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, uno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				totalInfo.add(rset.getInt(1));
+				totalInfo.add(rset.getInt(2));
 			}
 			
 		} catch (SQLException e) {
@@ -520,12 +669,40 @@ public class UserDao {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		
-
 		
-		return ucList;
+		
+		
+		return totalInfo;
+	}
+
+
+
+
+	public int reservationChange(Connection con, int reNo, int reStatus) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("reservationChange");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, reStatus);
+			pstmt.setInt(2, reNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 

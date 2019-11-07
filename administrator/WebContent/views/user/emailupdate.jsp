@@ -19,7 +19,7 @@
 		if(msg != "null"){
 			alert(msg);
 		}
-		if(msg=="사진을 성공적으로 수정하였습니다."){
+		if(msg=="이메일을을 성공적으로 수정하였습니다."){
 			opener.parent.location.reload();
 			window.close();
 		}
@@ -28,15 +28,31 @@
 
 </head>
 <body>
-	사진 업데이트
+	전화번호 업데이트
 	
-	<form action="<%= request.getContextPath() %>/propic.user" method="post" enctype="multipart/form-data">
+	<form action="<%= request.getContextPath() %>/updateemail.user" method="post" onsubmit="return validate();">
 	
-	<input type="file" name="upfile" required="required">
-	<input type="text" value="1" hidden="">
-	<button>사진 제출</button>
+	<input type="text" name="email" required="required">
+	<button>이메일 변경</button>
 	
 	</form>
+	
+		<script>
+	
+	function validate(){
+		if(!(/^[0-9a-zA-Z]{1,}@[0-9a-zA-Z]{1,}.[0-9a-zA-Z]{1,}$/.test($("input[name=email]").val()))){
+			alert('이메일 형식에 맞게 작성해주세요');
+			return false;
+		}
+		
+
+		
+			return true;
+		}
+	
+	
+	
+	</script>
 
 </body>
 </html>
