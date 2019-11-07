@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import coupon.model.service.CouponService;
+import coupon.model.vo.Coupon;
 import mail.model.service.MailService;
 import user.model.vo.User;
 
@@ -51,9 +53,12 @@ public class MailListServlet extends HttpServlet {
 		}
 		
 		ArrayList<User> UserList = new MailService().selectMailList(sqlType,sqlGrade,startDay,endDay);
+		ArrayList<Coupon> cList = new CouponService().selectList();
+		
 		
 		request.setAttribute("UserList", UserList);
-	
+		request.setAttribute("cList", cList);
+		
 		request.getRequestDispatcher("views/mail/MailSendFormView.jsp").forward(request, response);
 		
 		
