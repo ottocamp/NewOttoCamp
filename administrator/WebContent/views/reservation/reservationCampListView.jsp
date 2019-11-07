@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, reservation.model.vo.*, java.text.DecimalFormat"%>
+    pageEncoding="UTF-8" import="java.util.*, reservation.model.vo.*, java.text.*"%>
 <%
 	ArrayList<Reservation> rList = (ArrayList<Reservation>)request.getAttribute("rList");
-	DecimalFormat formatter = new DecimalFormat("##,###,###");
+	// DecimalFormat formatter = new DecimalFormat("##,###,###");
 	String msg = (String)session.getAttribute("msg");
 	
 	for(Reservation re : rList){
@@ -126,6 +126,7 @@
                                             <th>결제금액</th>
                                             <th>처리상태</th>
                                             <th>승인</th>
+                                            <th>상세보기</th>
                                         </tr>
                                         </thead>
 
@@ -137,14 +138,17 @@
 												<td><%= re.getReName() %></td>
 												<td><%= re.getRePhone() %></td>
 												<td><%= re.getReDate() %></td>
-												<td><%= formatter.format(re.getReCost()) %></td>
+												<td><%= re.getReCost() %></td>
 												<td><%= re.getReStatus() %></td>
-												<td><%if(re.getReStatus().equals("예약완료")) {%>
-													<button type="button" class="btn btn-primary btn-xs" onclick="delete1(this);">취소하기</button>
+												<td><%if(re.getReStatus().equals("결제완료")) {%>
+													<button type="button" class="btn btn-primary btn-xs" onclick="delete1(this);">승인</button>
 												<%}else{ %>
-													취소불가
+													예약완료
 												<%} %>												
-												</td>	
+												</td>
+												<td>
+													<button type="button" class="btn btn-primary btn-xs" id="detail">상세보기</button>
+												</td>		
 											</tr>
 										<%} %>
                                         </tbody>
@@ -191,31 +195,6 @@
             <!-- end .page-contentbar -->
         </div>
 
-		<script type="text/javascript">
-		
-		function delete1(value){
-			
-			var reNo = $(value).parent().parent().children().eq(1).text()
-			
-			var msg = "전체내역";
-			
-			location.href = "<%= request.getContextPath() %>/delete.re?reNo="+reNo + "," + msg;
-		}
-		
-		
-		
-		<%-- $(function(){
-			$("#deletebtn").click(function(){
-				
-				var reNo = $(this).parent().parent().children().eq(1).text();
-				
-				location.href = "<%= request.getContextPath() %>/delete.re?reNo="+reNo;
-								
-			});
-		}); --%>
-		
-		
-		</script>
 
 
 

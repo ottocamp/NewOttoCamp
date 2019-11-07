@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="user.model.vo.*"%>
+    pageEncoding="UTF-8" import="user.model.vo.*, java.util.*, camp.model.vo.*"%>
     
 <%
 	
 	User loginUser = (User)session.getAttribute("loginUser");
+
+	ArrayList<CampInfo> cList = (ArrayList<CampInfo>)request.getAttribute("cList");
+	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getAttribute("aList");
+	
+	String cTheme = (String)request.getAttribute("cTheme");
+	
+	String msg = (String)session.getAttribute("msg");
+
 	
 %>        
     
@@ -39,6 +47,19 @@
    <style id='themerex-custom-style-inline-css' type='text/css'></style>
    <link rel='stylesheet' href='<%= request.getContextPath() %>/resources/main/css/responsive.css' type='text/css' media='all' />
 
+
+	<script>
+		var msg = "<%= msg %>";
+		$(function(){
+		if(msg != "null"){
+			
+			$("#sa-success").click();
+			<% session.removeAttribute("msg"); %>
+		}
+		});
+		
+	</script>
+	
 </head>
 
 
@@ -159,27 +180,36 @@
                                         <div class="">
                                             <div class="isotope_filters">
                                                 <a href="#" data-filter="*" class="isotope_filters_button active">전체</a>
-                                                <a href="#" data-filter=".flt_138" class="isotope_filters_button">바다</a>
-                                                <a href="#" data-filter=".flt_32" class="isotope_filters_button">강</a>
-                                                <a href="#" data-filter=".flt_36" class="isotope_filters_button">산</a>
-                                                <a href="#" data-filter=".flt_137" class="isotope_filters_button">기타</a>
+                                                <a href="#" data-filter=".flt_3"  class="isotope_filters_button">바다</a>
+                                                <a href="#" data-filter=".flt_2" class="isotope_filters_button">강</a>
+                                                <a href="#" data-filter=".flt_1" class="isotope_filters_button">산</a>
+                                                <a href="#" data-filter=".flt_4" class="isotope_filters_button">기타</a>
                                             </div>
                                             <div class="isotope_wrap masonry" data-columns="3">
-                                                <div class="isotope_item isotope_item_classic isotope_item_classic_3 isotope_column_3 flt_32">
+                                            <% for(CampInfo ca : cList) {%>
+                                            
+                                                <div class="isotope_item isotope_item_classic isotope_item_classic_3 isotope_column_3 flt_<%=ca.getcTheme()%>">
                                                     <article class="post_item post_item_classic post_item_classic_3 post_format_standard odd">
                                                         <div class="post_featured">
                                                             <div class="post_thumb">
-                                                                <img alt="main_jjin" src="<%= request.getContextPath() %>/resources/main/images/005.jpg">
+                                                            
+                                                            <% for(Attachment at : aList) {%>
+                                                            	<% if((at.getcCode() == ca.getcCode()) && at.getcType() == 2){ %>
+                                                                <img alt="main_jjin" src="<%=request.getContextPath()%><%= at.getFilePath() %><%= at.getChangeName() %>">
+                                                                <%} %>
+                                                            <%} %>
                                                                 <div class="hover_wrap">
                                                                     <div class="link_wrap">
-                                                                        <a class="hover_link icon-right-open" href="<%= request.getContextPath() %>/checkFavorite?code=<%= 1 %>">상세보기</a>
+                                                                        <a class="hover_link icon-right-open" href="<%= request.getContextPath() %>/views/mainPage/detail.jsp">상세보기</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        
+                                                        
                                                         <div class="post_content isotope_item_content">
                                                             <h4 class="post_title">
-                                                            <a href="#">제주나라 캠프장</a>
+                                                            <a href="#"><%= ca.getcName() %></a>
                                                             </h4>
                                                             <div class="tags_info">
                                                                 <a href="#">25,000</a>
@@ -190,217 +220,10 @@
                                                         </div>
                                                     </article>
                                                 </div>
-                                                <div class="isotope_item isotope_item_classic isotope_item_classic_3 isotope_column_3 flt_36">
-                                                    <article class="post_item post_item_classic post_item_classic_3 post_format_standard even">
-                                                        <div class="post_featured">
-                                                            <div class="post_thumb">
-                                                                <img alt="산-1"  src="<%= request.getContextPath() %>/resources/main/images/003.jpg">
-                                                                <div class="hover_wrap">
-                                                                    <div class="link_wrap">
-                                                                         <a class="hover_link icon-right-open" href="<%= request.getContextPath() %>/checkFavorite?code=<%= 2 %>">상세보기</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post_content isotope_item_content">
-                                                            <h4 class="post_title">
-                                                            <a href="#">가평 킹 캠프장</a>
-                                                            </h4>
-                                                            <div class="tags_info">
-                                                                <a href="#">30,000</a>
-                                                            </div>
-                                                            <div class="post_descr">
-                                                                <p>경치가 좋은....</p>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div class="isotope_item isotope_item_classic isotope_item_classic_3 isotope_column_3 flt_32">
-                                                    <article class="post_item post_item_classic post_item_classic_3 post_format_standard odd">
-                                                        <div class="post_featured">
-                                                            <div class="post_thumb">
-                                                                <img alt="강-2"  src="<%= request.getContextPath() %>/resources/main/images/007.jpg">
-                                                                <div class="hover_wrap">
-                                                                    <div class="link_wrap">
-                                                                         <a class="hover_link icon-right-open" href="<%= request.getContextPath() %>/checkFavorite?code=<%= 3 %>">상세보기</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post_content isotope_item_content">
-                                                            <h4 class="post_title">
-                                                            <a href="#">수원 캠프장</a>
-                                                            </h4>
-                                                            <div class="tags_info">
-                                                                <a href="#">15,000</a>
-                                                            </div>
-                                                            <div class="post_descr">
-                                                                <p>수심이 깊은...</p>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div class="isotope_item isotope_item_classic isotope_item_classic_3 isotope_column_3 flt_36">
-                                                    <article class="post_item post_item_classic post_item_classic_3 post_format_standard even">
-                                                        <div class="post_featured">
-                                                            <div class="post_thumb">
-                                                                <img alt="산-2" src="<%= request.getContextPath() %>/resources/main/images/004.jpg">
-                                                                <div class="hover_wrap">
-                                                                    <div class="link_wrap">
-                                                                         <a class="hover_link icon-right-open" href="<%= request.getContextPath() %>/checkFavorite?code=<%= 4 %>">상세보기</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post_content isotope_item_content">
-                                                            <h4 class="post_title">
-                                                            <a href="#">여주 캠프장</a>
-                                                            </h4>
-                                                            <div class="tags_info">
-                                                                <a href="#">25,000</a>
-                                                            </div>
-                                                            <div class="post_descr">
-                                                                <p>경치가 좋은...</p>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div class="isotope_item isotope_item_classic isotope_item_classic_3 isotope_column_3 flt_137">
-                                                    <article class="post_item post_item_classic post_item_classic_3 post_format_standard odd">
-                                                        <div class="post_featured">
-                                                            <div class="post_thumb">
-                                                                <img alt="기타-1" src="<%= request.getContextPath() %>/resources/main/images/000.jpg">
-                                                                <div class="hover_wrap">
-                                                                    <div class="link_wrap">
-                                                                         <a class="hover_link icon-right-open" href="<%= request.getContextPath() %>/checkFavorite?code=<%= 5 %>">상세보기</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post_content isotope_item_content">
-                                                            <h4 class="post_title">
-                                                            <a href="#">부산 캠프장</a>
-                                                            </h4>
-                                                            <div class="tags_info">
-                                                                <a href="#">50,000</a>
-                                                            </div>
-                                                            <div class="post_descr">
-                                                                <p>존나더움...</p>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div class="isotope_item isotope_item_classic isotope_item_classic_3 isotope_column_3 flt_138">
-                                                    <article class="post_item post_item_classic post_item_classic_3 post_format_standard even">
-                                                        <div class="post_featured">
-                                                            <div class="post_thumb">
-                                                                <img alt="바다-1"  src="<%= request.getContextPath() %>/resources/main/images/008.jpg">
-                                                                <div class="hover_wrap">
-                                                                    <div class="link_wrap">
-                                                                         <a class="hover_link icon-right-open" href="<%= request.getContextPath() %>/checkFavorite?code=<%= 6 %>">상세보기</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post_content isotope_item_content">
-                                                            <h4 class="post_title">
-                                                            <a href="#">서울 캠프장</a>
-                                                            </h4>
-                                                            <div class="tags_info">
-                                                                <a href="#">10,000</a>
-                                                            </div>
-                                                            <div class="post_descr">
-                                                                <p>빠지면 죽습니다...</p>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div class="isotope_item isotope_item_classic isotope_item_classic_3 isotope_column_3 flt_32">
-                                                    <article class="post_item post_item_classic post_item_classic_3 post_format_standard odd">
-                                                        <div class="post_featured">
-                                                            <div class="post_thumb">
-                                                                <img alt="강-3"  src="<%= request.getContextPath() %>/resources/main/images/001.jpg">
-                                                                <div class="hover_wrap">
-                                                                    <div class="link_wrap">
-                                                                         <a class="hover_link icon-right-open" href="<%= request.getContextPath() %>/checkFavorite?code=<%= 7 %>">상세보기</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post_content isotope_item_content">
-                                                            <h4 class="post_title">
-                                                            <a href="#">용인</a>
-                                                            </h4>
-                                                            <div class="tags_info">
-                                                                <a href="#">40,000</a>
-                                                            </div>
-                                                            <div class="post_descr">
-                                                                <p>수심이 깊은...</p>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div class="isotope_item isotope_item_classic isotope_item_classic_3 isotope_column_3 flt_137">
-                                                    <article class="post_item post_item_classic post_item_classic_3 post_format_gallery even last">
-                                                        <div class="post_featured">
-                                                            <div id="sc_slider_1626763998" class="sc_slider sc_slider_swiper swiper-slider-container sc_slider_controls sc_slider_pagination" data-old-width="1150" data-old-height="647" data-interval="8994">
-                                                                <div class="slides swiper-wrapper">
-                                                                    <div class="swiper-slide">
-                                                                        <img alt="0"  src="<%= request.getContextPath() %>/resources/main/images/000.jpg">
-                                                                    </div>
-                                                                    <div class="swiper-slide">
-                                                                        <img alt="1"  src="<%= request.getContextPath() %>/resources/main/images/001.jpg">
-                                                                    </div>
-                                                                    <div class="swiper-slide">
-                                                                        <img alt="2"  src="<%= request.getContextPath() %>/resources/main/images/002.JPG">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="sc_slider_controls_wrap">
-                                                                    <a class="sc_slider_prev" href="#"></a>
-                                                                    <a class="sc_slider_next" href="#"></a>
-                                                                </div>
-                                                                <div class="sc_slider_pagination_wrap"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post_content isotope_item_content">
-                                                            <h4 class="post_title">
-                                                            <a href="#">인천</a>
-                                                            </h4>
-                                                            <div class="tags_info">
-                                                                <a href="#">25,000</a>
-                                                            </div>
-                                                            <div class="post_descr">
-                                                                <p>모르겠음</p>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div class="isotope_item isotope_item_classic isotope_item_classic_3 isotope_column_3 flt_36">
-                                                    <article class="post_item post_item_classic post_item_classic_3 post_format_standard odd last">
-                                                        <div class="post_featured">
-                                                            <div class="post_thumb">
-                                                                <img alt="산-3"  src="<%= request.getContextPath() %>/resources/main/images/002.JPG">
-                                                                <div class="hover_wrap">
-                                                                    <div class="link_wrap">
-                                                                         <a class="hover_link icon-right-open" href="<%= request.getContextPath() %>/checkFavorite?code=<%= 9 %>">상세보기</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post_content isotope_item_content">
-                                                            <h4 class="post_title">
-                                                            <a href="#">대전</a>
-                                                            </h4>
-                                                            <div class="tags_info">
-                                                                <a href="#">20,000</a>
-                                                            </div>
-                                                            <div class="post_descr">
-                                                                <p>경치가 좋은...</p>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                            </div>
+                                                
+                                                 <%} %>
+                                                 
+                                                 
                                             <div id="viewmore" class="pagination_wrap pagination_viewmore">
                                                 <a href="#" id="viewmore_link" class="sc_button sc_button_style_filled1 sc_button_bg_custom sc_button_size_large theme_button viewmore_button">
                                                     <span class="icon-spin3 animate-spin viewmore_loading">
@@ -418,8 +241,7 @@
                             </div>
                         
     <script>
-         							
-         						
+   			
          						
 										<% if(loginUser==null){ %>
          										$("#loginMenu").show();										

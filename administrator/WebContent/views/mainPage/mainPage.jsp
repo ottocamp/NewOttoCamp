@@ -4,6 +4,7 @@
 	
 	User loginUser = (User)session.getAttribute("loginUser");
 	
+	
 %>    
     
 <!DOCTYPE html>
@@ -200,16 +201,15 @@
                         data-endspeed="300"
 						>
 			
-                        <div class="sc_contact_form sc_contact_form_order aligncenter">
-                           <form data-formtype="order" method="post" action="#">
-							  
+                        <div class="">
+                           <form method="post" action="<%= request.getContextPath() %>/maincamp.li">
 
 							<div class="sc_contact_form_in">
                                    <div class="date_time">
                                     <div class="form_date start">
 										<br><br>
                                        <span class="icon"></span>
-                                       <input placeholder="체크인" class="sc_contact_form_date js__datepicker" type="text" name="date_start">
+                                       <input placeholder="체크인" class="sc_contact_form_date js__datepicker" type="text" name="date_start" >
                                     </div>
                                     <div class="form_date end">
 											<br><br>
@@ -220,36 +220,24 @@
                            
                                 
                               
-                                 <select id="destinations" class="destinations" name="criteria">
+                                 <select id="destinations" class="destinations" name="location">
                                     <option value="" disabled selected>도착지</option>
+                                    <option value="제주도">전체</option>
                                     <option value="경기도">서울,경기도</option>
                                     <option value="강원도">강원도</option>
                                     <option value="충청도">충청도</option>
                                     <option value="전라도">전라도</option>
                                     <option value="경상도">경상도</option>
                                     <option value="제주도">제주도</option>
+                                    
                                        
                                  </select>
                                  <br>
 								 <br>
-								
-                             
-
-                                 <select id="destinations" class="destinations" name="criteria">
-                                    <option value="" disabled selected>옵션</option>
-                                    <option value="산">산</option>
-                                    <option value="강">강</option>
-                                    <option value="바다">바다</option>
-                                    <option value="기타">기타</option>
-                                    
-                                           
-                                 </select>
-                                 <br>
-                                 <br>
                                  
                                  <div class="sc_contact_form_button">
 									
-									<button type="button" onclick="main2();"><a href="<%= request.getContextPath() %>/views/mainPage/mainPage2.jsp">검색하기</a></button>
+									<button type="submit" onclick="main2();">검색하기</button>
 									
                                  
 								 <div class="result sc_infobox"></div>
@@ -266,8 +254,8 @@
    <script type="text/javascript">
    
    function main2(){
-	   
-	   location.href = "<%= request.getContextPath() %>/views/mainPage/mainPage2.jsp"
+	  
+	   location.href = "<%= request.getContextPath() %>/maincamp.li;
 	   
    }
    

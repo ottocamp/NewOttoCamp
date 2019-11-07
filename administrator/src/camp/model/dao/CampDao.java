@@ -243,7 +243,145 @@ public class CampDao {
 		return result;
 		
 	}
+
+
+	public ArrayList<CampInfo> selectMainList(Connection conn) {
+		Statement stmt = null;	
+		ArrayList<CampInfo> cList = new ArrayList<CampInfo>();
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMainList");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				 
+				cList.add(new CampInfo(rset.getInt(1),
+										rset.getString(2),
+										rset.getString(3),
+										rset.getString(4),
+										rset.getString(5),
+										rset.getInt(6),
+										rset.getString(7),
+										rset.getString(8),
+										rset.getString(9),
+										rset.getString(10),
+										rset.getString(11),
+										rset.getString(12),
+										rset.getString(13),
+										rset.getString(14),
+										rset.getInt(15)));
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return cList;
+	}
+
+
+	public ArrayList<Attachment> selectMainAttachmentList(Connection conn) {
+
+		Statement stmt = null;	
+		ArrayList<Attachment> aList = new ArrayList<Attachment>();
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMainAttachmentList");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				
+				Attachment at = new Attachment(rset.getInt(1),
+												  rset.getString(2),
+												  rset.getString(3),
+												  rset.getString(4),
+												  rset.getDate(5),
+												  rset.getInt(6),
+												  rset.getInt(7));
+				
+				aList.add(at);
+			}
 	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+			
+		return aList;
+	}
+
+
+	public ArrayList<CampInfo> selectLocationList(Connection conn, String newcheckInDate, String location) {
+		PreparedStatement pstmt = null;	
+		ArrayList<CampInfo> cList = new ArrayList<CampInfo>();
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLocationList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, newcheckInDate);
+			pstmt.setString(2, location);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return cList;
+	}
+
+
+	public ArrayList<Attachment> selectLocationAttachmentList(Connection conn, String newcheckInDate, String location) {
+		Statement stmt = null;	
+		ArrayList<Attachment> aList = new ArrayList<Attachment>();
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMainAttachmentList");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				
+				Attachment at = new Attachment(rset.getInt(1),
+												  rset.getString(2),
+												  rset.getString(3),
+												  rset.getString(4),
+												  rset.getDate(5),
+												  rset.getInt(6),
+												  rset.getInt(7));
+				
+				aList.add(at);
+			}
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+			
+		return aList;
+	}
+
 
 	
 }
