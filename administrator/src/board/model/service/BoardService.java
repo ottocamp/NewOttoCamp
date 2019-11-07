@@ -167,6 +167,26 @@ public class BoardService {
 		
 		return cList;
 	}
+	
+	
+	public ArrayList<Comment> insertMemberComment(Comment c) {
+		Connection conn = getConnection();
+		ArrayList<Comment> cList = new ArrayList<>();
+		
+		int result = new BoardDao().insertMemberComment(conn, c);
+		
+		if(result > 0) {
+			cList = new BoardDao().getCommentList(conn, c.getbNo());
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return cList;
+	}
+	
 
 	public int insertBoard(Board b) {
 		Connection conn = getConnection();
@@ -183,6 +203,23 @@ public class BoardService {
 		
 		return result;
 	}
+
+	public int insertNotice(Board b) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().insertNotice(conn, b);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 
 	public String checkCommentPwd(int cNo) {
 		Connection conn = getConnection();
@@ -209,6 +246,49 @@ public class BoardService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int searchCount(String tag, String keyWord, int bTag) {
+		Connection conn = getConnection();
+		int listCount = 0;
+		
+
+		listCount = new BoardDao().searchCount(conn, tag, keyWord, bTag);
+		
+		close(conn);
+		
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> searchBoard(String tag, String keyWord, int bTag, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> blist = new BoardDao().searchBoard(conn, tag, keyWord, bTag, currentPage, boardLimit);
+		
+		close(conn);
+		
+		return blist;
+	}
+
+	public int getRegionListCount(int bRegion) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().getRegionListCount(conn, bRegion);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public ArrayList<Board> selectRegionList(int bRegion, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> blist = new BoardDao().selectRegionList(conn, bRegion, currentPage, boardLimit);
+		
+		close(conn);
+		
+		return blist;
 	}
 
 

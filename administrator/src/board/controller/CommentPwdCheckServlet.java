@@ -31,7 +31,7 @@ public class CommentPwdCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		String pwd = (String)request.getParameter("pwd");
+		String pwd = (String)request.getParameter("pwd");		
 		
 		String checkPwd = new BoardService().checkCommentPwd(cNo);
 		

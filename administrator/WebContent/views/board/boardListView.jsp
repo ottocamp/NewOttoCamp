@@ -25,6 +25,18 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+		
+		
+	String keyWord = "";
+	if(request.getAttribute("keyWord") != null) {
+		keyWord = (String)request.getAttribute("keyWord");
+	}
+		
+	String searchTag = "";
+	if(request.getAttribute("tag") != null) {
+		searchTag = (String)request.getAttribute("tag");
+	}
+	
 	
 	String msg = (String)session.getAttribute("msg");
 %>
@@ -243,55 +255,23 @@
 	<div id="page-wrapper">
 
             <!-- Top Bar Start -->
-             <%@ include file="../common/topnavbar.jsp" %>
+            <%@ include file="../common/topnavbar.jsp" %>
             <!-- Top Bar End -->
 
+			<% 
+				int userNo = 9999;
+				String userType = "";
+				if(loginUser != null) {
+					userNo = loginUser.getUserNo();
+					userType = loginUser.getUserType();					
+				}				
+			%>
 
             <!-- Page content start -->
             <div class="page-contentbar">
 
                 <!--left navigation start-->
-                <aside class="sidebar-navigation">
-                    <div class="scrollbar-wrapper">
-                        <div>
-                            <button type="button" class="button-menu-mobile btn-mobile-view visible-xs visible-sm">
-                                <i class="mdi mdi-close"></i>
-                            </button>
-                            <!-- User Detail box -->
-            <!-- 게시판 메뉴에선 사용하지 않는 div -->
-                            <!-- <div class="user-details">
-                                <div class="pull-left">
-                                    <img src="<%= request.getContextPath() %>/resources/assets/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
-                                </div>
-                                <div class="user-info">
-                                    <a href="#">Stanley Jones</a>
-                                    <p class="text-muted m-0">Administrator</p>
-                                </div>
-                            </div> -->
-                            <!--- End User Detail box -->
-
-                            <!-- Left Menu Start -->
-                            <ul class="metisMenu nav" id="side-menu">
-                                <li><a href="<%= request.getContextPath() %>/list.bo?b_tag=0"><i class="fa fa-wpforms"></i> 공지사항 </a></li>
-
-                                <li>
-                                    <a href="<%= request.getContextPath() %>/list.bo?b_tag=1" aria-expanded="true"><i class="mdi mdi-information"></i> 정보 공유 </a>
-                                    <ul class="nav-second-level nav collapse" aria-expanded="false">
-                                        <li><a href="#">서울</a></li>
-                                        <li><a href="#">경기도</a></li>
-                                        <li><a href="#">강원도</a></li>
-                                        <li><a href="#">경상도</a></li>
-                                        <li><a href="#">전라도</a></li>
-                                        <li><a href="#">충청도</a></li>
-                            
-                                    </ul>
-                                </li>
-
-                                <li><a href="<%= request.getContextPath() %>/list.bo?b_tag=2"><i class="mdi mdi-message-processing"></i> 잡담(자유) </a></li>
-                            </ul>
-                        </div>
-                    </div><!--Scrollbar wrapper-->
-                </aside>
+				<%@ include file="../common/boardSidebar.jsp" %>
                 <!--left navigation end-->
 
                 <!-- START PAGE CONTENT -->
@@ -329,37 +309,10 @@
                                     	<% }else { %>
                                         	<% for(Board b : list) { %>
                                         	
-                                        	<% 
-	                                        	String title = b.getbTitle();
-	                                        	
-	                                        	
-	                                        	switch (b.getbRegion()){
-	                                        	case 1:
-	                                        		title = "[서울]  " + b.getbTitle();
-	                                        		break;
-	                                        	case 2:
-	                                        		title = "[경기]  " + b.getbTitle();
-	                                        		break;
-	                                        	case 3:
-	                                        		title = "[강원]  " + b.getbTitle();
-	                                        		break;
-	                                        	case 4:
-	                                        		title = "[경상]  " + b.getbTitle();
-	                                        		break;
-	                                        	case 5:
-	                                        		title = "[전라]  " + b.getbTitle();
-	                                        		break;
-	                                        	case 6:
-	                                        		title = "[충청]  " + b.getbTitle();
-	                                        		break;
-	                                        	}
-                                        	%>
-                                        	
-                                        	
 	                                    	<tr>
 												<input type="hidden" value="<%= b.getbNo() %>">
 	                                            <td><%= tag %></td>
-	                                            <td><%= title %></td>
+	                                            <td><%= b.getbTitle() %></td>
 	                                            <td><%= b.getbWriter() %></td>
 	                                            <td><%= b.getUpdateDate() %></td>
 	                                            <td><%= b.getbCount() %></td>
@@ -373,17 +326,49 @@
 
                             <br>
                             <div class="searchArea">
-                                <form class="searchForm" role="search">
+                                <form class="searchForm" role="search" method="post" action="<%= request.getContextPath() %>/search.bo" onsubmit="return checkKeyword();">
                                     <div id="selectArea">
-                                        <select class="selectTag searchHeight">
-                                            <option id="serachTag" name="serachTag" value="title">제목</option>
-                                            <option id="serachTag" name="serachTag" value="writer">작성자</option>
-                                            <option id="serachTag" name="serachTag" value="date">작성일</option>
-                                            <option id="serachTag" name="serachTag" value="comment">댓글</option>
+                                        <select class="selectTag searchHeight" name="selectTag">
+                                        	<% if(searchTag.equals("")) { %>                                        	
+                                            <option id="searchTag" value="title">제목</option>
+                                            <option id="searchTag" value="writer">작성자</option>
+                                            <option id="searchTag" value="content">내용</option>
+                                            
+                                            <% }else if(searchTag.equals("title")) { %>      
+                                                              	
+                                            <option id="searchTag" value="title" selected>제목</option>
+                                            <option id="searchTag" value="writer">작성자</option>
+                                            <option id="searchTag" value="content">내용</option>
+                                            
+                                            <% }else if(searchTag.equals("writer")) { %>      
+                                                              	
+                                            <option id="searchTag" value="title">제목</option>
+                                            <option id="searchTag" value="writer" selected>작성자</option>
+                                            <option id="searchTag" value="content">내용</option>
+                                            
+                                            <% }else if(searchTag.equals("content")) { %>      
+                                                              	
+                                            <option id="searchTag" value="title">제목</option>
+                                            <option id="searchTag" value="writer">작성자</option>
+                                            <option id="searchTag" value="content" selected>내용</option>
+                                            
+                                            <% } %>
+                                            
+                                            
+                                            
                                         </select>
                                     </div>
                                     <div id="searchText">
-                                        <input type="text" class="searchHeight" placeholder="키워드를 입력하세요">
+                                    	<% if(keyWord.equals("")) { %>
+                                        <input type="text" name="keyWord" class="searchHeight" placeholder="키워드를 입력하세요">
+                                        
+                                    	<% }else { %>
+                                    	
+                                        <input type="text" name="keyWord" class="searchHeight" value="<%= keyWord %>">
+                                    	
+                                    	<% } %>
+                                    
+                                        <input type="hidden" name="bTag" value="<%= bTag %>">
                                     </div>
 
                                     <button class="searchHeight fontBorder boardBtn" type="submit">검색하기</button>
@@ -391,39 +376,77 @@
                             </div>
 
                             <div id="insertBtn" class="fontBorder">
-                            	<% if(bTag != 0) {%>                      
-                                	<button type="button" class="boardBtn insertBtn" onclick="location.href='views/board/boardInsertForm.jsp'">글쓰기</button>
+                            	<% if(bTag != 0) {%>                             	                  
+                                		<button type="button" class="boardBtn insertBtn" onclick="location.href='views/board/boardInsertForm.jsp'">글쓰기</button>                            	                  
+                                <% }else { %>
+                                	<% if(userType.equals("A")) { %>                 
+                                		<button type="button" class="boardBtn insertBtn" onclick="location.href='views/board/noticeInsertForm.jsp'">공지 작성</button>  
+                                	<% } %>
                                 <% } %>
                             </div>
 
                             <br><br>
                             
                             <div class="pagingArea fontBorder">
-                            	<% if(!list.isEmpty()) { %>
-                            
-                                <div id="buttonArea">          
-                                	<% if(currentPage - 1 <= 0)  { %>
-                               			<button class="boardBtn" disabled style="color:gray">이전</button>
-                                	<% }else { %>
-                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=<%= bTag %>&currentPage=<%= currentPage - 1 %>'">이전</button>
-                                	<% } %>  
-                                	
-                                	<% for(int i = startPage; i <= endPage; i++) { %>
-                                		<% if(i == currentPage) { %>
-                                			<button class="boardBtn" disabled style="color:blue"><%= i %></button>
-                                		<% }else { %>
-                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=<%= bTag %>&currentPage=<%= i %>'"><%= i %></button>
-                                		<% } %>                                                           
-                                	<% } %>
-                                      
-                                	<% if(currentPage == maxPage)  { %>
-                                		<button class="boardBtn" disabled style="color:gray">다음</button>
-                                	<% }else { %>
-                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=<%= bTag %>&currentPage=<%= currentPage + 1 %>'">다음</button>
-                                	<% } %>
-                                </div>
+                                
+                                <% if(keyWord.equals("")) { %>
+                                
+	                            	<% if(!list.isEmpty() && listCount > 12) { %>
+	                            
+	                                <div id="buttonArea">          
+	                                	<% if(currentPage - 1 <= 0)  { %>
+	                               			<button class="boardBtn" disabled style="color:gray">이전</button>
+	                                	<% }else { %>
+	                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=<%= bTag %>&currentPage=<%= currentPage - 1 %>'">이전</button>
+	                                	<% } %>  
+	                                	
+	                                	<% for(int i = startPage; i <= endPage; i++) { %>
+	                                		<% if(i == currentPage) { %>
+	                                			<button class="boardBtn" disabled style="color:blue"><%= i %></button>
+	                                		<% }else { %>
+	                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=<%= bTag %>&currentPage=<%= i %>'"><%= i %></button>
+	                                		<% } %>                                                           
+	                                	<% } %>
+	                                      
+	                                	<% if(currentPage == maxPage)  { %>
+	                                		<button class="boardBtn" disabled style="color:gray">다음</button>
+	                                	<% }else { %>
+	                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=<%= bTag %>&currentPage=<%= currentPage + 1 %>'">다음</button>
+	                                	<% } %>
+	                                </div>
+	                                
+	                                <% } %>
+	                                
+                                <% }else { %>
+                                
+	                            	<% if(!list.isEmpty() && listCount > 12) { %>
+	                            
+	                                <div id="buttonArea">          
+	                                	<% if(currentPage - 1 <= 0)  { %>
+	                               			<button class="boardBtn" disabled style="color:gray">이전</button>
+	                                	<% }else { %>
+	                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/search.bo?bTag=<%= bTag %>&currentPage=<%= currentPage - 1 %>&keyWord=<%= keyWord %>&selectTag=<%= searchTag %>'">이전</button>
+	                                	<% } %>  
+	                                	
+	                                	<% for(int i = startPage; i <= endPage; i++) { %>
+	                                		<% if(i == currentPage) { %>
+	                                			<button class="boardBtn" disabled style="color:blue"><%= i %></button>
+	                                		<% }else { %>
+	                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/search.bo?bTag=<%= bTag %>&currentPage=<%= i %>&keyWord=<%= keyWord %>&selectTag=<%= searchTag %>'"><%= i %></button>
+	                                		<% } %>                                                           
+	                                	<% } %>
+	                                      
+	                                	<% if(currentPage == maxPage)  { %>
+	                                		<button class="boardBtn" disabled style="color:gray">다음</button>
+	                                	<% }else { %>
+	                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/search.bo?bTag=<%= bTag %>&currentPage=<%= currentPage + 1 %>&keyWord=<%= keyWord %>&selectTag=<%= searchTag %>'">다음</button>
+	                                	<% } %>
+	                                </div>
+	                                
+	                                <% } %>
                                 
                                 <% } %>
+                                
                             </div>
 
 
@@ -456,6 +479,21 @@
 	        	});
 	        	
 	        });
+	        
+	        
+	        function checkKeyword(){
+	        	var keyword = $("#searchText").children("input").val();
+	        	
+	        	if(keyword == ""){
+					alert("키워드를 입력하세요")
+					
+					return false;
+				}else{
+					return true;
+				}
+	        }
+	        
+	        
         </script>
 
 

@@ -1,17 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, user.model.vo.*, java.text.DecimalFormat, coupon.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.*, user.model.vo.*, java.text.DecimalFormat"%>
 <%
-	ArrayList<User> UserList = (ArrayList<User>)request.getAttribute("UserList");
-	ArrayList<Coupon> cList = (ArrayList<Coupon>)request.getAttribute("cList");
-	DecimalFormat formatter = new DecimalFormat("##,###,###");
-
-	String[] mailList = new String[UserList.size()];
 	
-	for(int i = 0; i < UserList.size(); i++){		
-		mailList[i] = UserList.get(i).getEmail();
-	}
-
-	session.setAttribute("mailList", mailList);
+	ArrayList<User> UserList = (ArrayList<User>)request.getAttribute("UserList");
 	
 %>   
 <!DOCTYPE html>
@@ -30,7 +21,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
        <link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/assets/images/favicon.ico">
-  		<!-- Plugins css-->
+  <!-- Plugins css-->
         <link href="<%=request.getContextPath()%>/resources/assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet" />
         <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/assets/plugins/switchery/switchery.min.css">
         <link href="<%=request.getContextPath()%>/resources/assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
@@ -210,32 +201,27 @@
                             </form>
                         </div>
 						
-						<form method="get" action="views/mail/mailSend.jsp" onsubmit="return validate2();">
+						<form method="get" action="mailSend.jsp" onsubmit="return validate2();">
 						<div class="row">
                             <div class="col-sm-12">
-                            <span style="font-size: 20px; font-weight: bold; line-height: 35px;">메일내용작성란 </span>
-                            <input type="hidden" id="mcCode" name="mcCode">
-                            <button class="btn btn-default pull-right">제출하기</button>
-                            <button type="button" class="btn btn-default " data-toggle="modal" data-target="#myCoupon" style="float: right;">쿠폰선택</button>
-                            <hr style="margin-top: 5px;">
-                            
+                            <h4 class="header-title m-t-0">메일내용작성란 <button class="btn btn-default" style="margin-left: 1000px;">제출하기</button></h4>
                             <div class="card-box">
                                 <div class="p-20 m-b-20">
                                 
                                 
-									<input type="text" class="form-control" placeholder="제목을 입력하세요" id="mTitle" name="mTitle">
+									<input type="text" class="form-control" placeholder="제목을 입력하세요" id="mTitle">
 									<hr>
-									<textarea class="summernote" id="sumtext" name="sumtext"></textarea> 
-
+									<div class="summernote">
+										
+                                        
+									</div>
+									
 									
 								</div>
 								</div>
                             </div>
                         </div>
 						</form>
-						
-						
-						
 						
 					<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -286,58 +272,7 @@
                                             </div><!-- /.modal-content -->
                                         </div><!-- /.modal-dialog -->
                                     </div><!-- /.modal -->
-					
-					<div id="myCoupon" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                    <h4>검색된 전체회원 리스트</h4>
-                                                
-                                                </div>
-                                                <div class="modal-body" style="padding: 20px 0 0 0px">
-                                         
-                                                     <table class="table table table-hover m-0">
-                                                <thead>
-                                                    <tr>
-                                                    	
-                                                        <th>쿠폰이름</th>
-                                                        <th>할인금액</th>
-                                                        <th>시작일</th>
-                                                      	<th>종료일</th>
-                                                      	<th>등급</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                
-     											<% for(Coupon c : cList){ %>
-                                                	<tr>
-                                                	<th scope="row"><div class="radio radio-primary">
-                                                        <input type="radio" name="radio" id="radio3<%= c.getcName() %>" value="<%= c.getcCode() %>">
-                                                        <label for="radio3<%= c.getcName() %>">
-                                                            <%= c.getcName() %>
-                                                        </label>
-                                                    </div></th>
-                                                		<td style="padding: 20px 0px;"><%= formatter.format(c.getcDiscount()) %>원</td>
-                                                		<td style="padding: 20px 0px;"><%= c.getcStartDay().substring(0,10) %></td>
-                                                		<td style="padding: 20px 0px;"><%= c.getcEndDay().substring(0,10) %></td>
-                                                		<td style="padding: 20px 0px;"><%= c.getcGrade() %></td>
-                                                	</tr>
-                                                <%} %>	
 
-                                                </tbody>
-                                            </table>
-                                                </div>
-                                                <div class="modal-footer">
-                                                	<button type="button" class="btn btn-primary " data-dismiss="modal" onclick="selectCoupon();">선택</button>
-                                                    <button type="button" class="btn btn-default " data-dismiss="modal">취소</button>
-                                                </div>
-                                            </div><!-- /.modal-content -->
-                                        </div><!-- /.modal-dialog -->
-                                    </div><!-- /.modal -->
-					
-					
-					
 
                     </div>
                     <!-- end container -->
@@ -368,16 +303,6 @@
 			$("input[name=GRADE]").prop("disabled",true);
 			
 		}
-		
-		function selectCoupon(){
-			
-			var code = $("#myCoupon input[name='radio']:checked").val();
-			
-			$("#mcCode").val(code);
-			
-			
-		}
-		
 		
 		
 		
@@ -482,18 +407,12 @@
 				return false;
 			}
 			
-			if($("#sumtext").val().trim() == ""){
-				
-				
-				alert("내용을 입력하세요");
-				
-				return false;
-			}
+			var text1 = $(".summernote").text();
 			
-		
-		
+			console.log(text1);
 			
 			
+			return false;
 		}
 		
 	

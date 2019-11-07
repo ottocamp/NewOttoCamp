@@ -1,28 +1,26 @@
-package coupon.controller;
+package board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import coupon.model.service.CouponService;
-import coupon.model.vo.Coupon;
+import board.model.service.BoardService;
+import board.model.vo.Board;
 
 /**
- * Servlet implementation class CouponListServlet
+ * Servlet implementation class NoticeInsertServlet
  */
-@WebServlet("/couponList.li")
-public class CouponListServlet extends HttpServlet {
+@WebServlet("/insert.no")
+public class NoticeInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CouponListServlet() {
+    public NoticeInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +30,29 @@ public class CouponListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Coupon> cList = new CouponService().selectList();
+		request.setCharacterEncoding("utf-8");
 		
+		String title = (String)request.getParameter("bTitle");
+		String content = (String)request.getParameter("content");
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+	
 		
-		request.setAttribute("cList", cList);
-		request.getRequestDispatcher("views/coupon/couponListView.jsp").forward(request, response);
+		Board b = new Board();
+		b.setbTitle(title);
+		b.setbContent(content);
+		b.setUserNo(userNo);
+		
+		int result = new BoardService().insertNotice(b);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("msg", "공지가 작성되었습니다");
+		}else {
+			request.getSession().setAttribute("msg", "공지 작성에 실패하였습니다");
+		}
 		
 
+		response.sendRedirect(request.getContextPath() + "/list.bo?b_tag=0");
+		
 	}
 
 	/**

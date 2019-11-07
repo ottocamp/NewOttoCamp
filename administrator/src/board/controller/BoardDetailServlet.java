@@ -36,34 +36,39 @@ public class BoardDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bNo = Integer.parseInt(request.getParameter("b_no"));
 		User u = (User)request.getSession().getAttribute("loginUser");
-		
 		Board b = null;
 		
 		boolean flag = false;
 		Cookie[] cookies = request.getCookies();
 		
-//		if(cookies != null) {
-//			for(Cookie c : cookies) {
-//				if(c.getName().equals(cookieName)) {
-//					flag = true;
-//				}
-//			}
-//				
-//			if(!flag) {
-//				
-//				
-//				b = new BoardService().detailList(bNo);				
-//				Cookie c1 = new Cookie(cookieName, String.valueOf(cookieName));
-//				
-//				c1.setMaxAge(60*60*24*1);
-//				response.addCookie(c1);
-//			}else {
-//				b = new BoardService().detailListNoCount(bNo);
-//			}
-//			
-//		}
+		if(u != null) {
+			String checkName = u.getUserType() + u.getUserNo();
+			String cookieName = bNo + checkName;
+			
+			if(cookies != null) {
+				for(Cookie c : cookies) {
+					if(c.getName().equals(cookieName)) {
+						flag = true;
+					}
+				}
+					
+				if(!flag) {
+					b = new BoardService().detailList(bNo);				
+					Cookie c1 = new Cookie(cookieName, cookieName);
+					
+					c1.setMaxAge(60*60*24*1);
+					response.addCookie(c1);
+				}else {
+					b = new BoardService().detailListNoCount(bNo);
+				}
+				
+			}
+			
+		}else {
+			b = new BoardService().detailListNoCount(bNo);
+		}
 		
-		b = new BoardService().detailListNoCount(bNo);
+		
 		
 		ArrayList<Comment> cList = new BoardService().getCommentList(bNo);
 		

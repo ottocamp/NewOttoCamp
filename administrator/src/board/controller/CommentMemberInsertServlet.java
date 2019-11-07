@@ -1,4 +1,4 @@
-package coupon.controller;
+package board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import coupon.model.service.CouponService;
-import coupon.model.vo.Coupon;
+import com.google.gson.Gson;
+
+import board.model.service.BoardService;
+import board.model.vo.Comment;
 
 /**
- * Servlet implementation class CouponListServlet
+ * Servlet implementation class CommentMemberInsertServlet
  */
-@WebServlet("/couponList.li")
-public class CouponListServlet extends HttpServlet {
+@WebServlet("/insertMemberComment.bo")
+public class CommentMemberInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CouponListServlet() {
+    public CommentMemberInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,14 +33,24 @@ public class CouponListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
-		ArrayList<Coupon> cList = new CouponService().selectList();
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		int bNo = Integer.parseInt(request.getParameter("bNo"));
+		String content = request.getParameter("commentContent");
 		
+		Comment c = new Comment();
+		c.setUserNo(userNo);
+		c.setbNo(bNo);
+		c.setcContent(content);
 		
-		request.setAttribute("cList", cList);
-		request.getRequestDispatcher("views/coupon/couponListView.jsp").forward(request, response);
+		System.out.println("여기!");
 		
+		ArrayList<Comment> cList = new BoardService().insertMemberComment(c);
+		
+		response.setContentType("application/json; charset=UTF-8");
 
+		new Gson().toJson(cList, response.getWriter());
 	}
 
 	/**

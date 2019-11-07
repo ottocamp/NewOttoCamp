@@ -31,13 +31,22 @@ public class BoardInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		int tag = Integer.parseInt(request.getParameter("boardTag"));
-		int region = Integer.parseInt(request.getParameter("regionTag"));
-		String title = (String)request.getParameter("bTitle");
-		String content = (String)request.getParameter("editordata");
+		
+		int tag = Integer.parseInt(request.getParameter("boardTag"));	
+		
+		String title = (String)request.getParameter("bTitle");		
+
+		int region = 0;
+		if(tag == 1) {
+			region = Integer.parseInt(request.getParameter("regionTag"));
+			
+		}
+		
+		String content = (String)request.getParameter("content");
 		String writer = (String)request.getParameter("memName");
 		String pwd = (String)request.getParameter("memPwd");
-		int userNo = Integer.parseInt(request.getParameter("noMem"));
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+	
 		
 		Board b = new Board();
 		b.setbTag(tag);

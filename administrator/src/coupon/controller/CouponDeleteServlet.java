@@ -1,8 +1,6 @@
 package coupon.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import coupon.model.service.CouponService;
-import coupon.model.vo.Coupon;
 
 /**
- * Servlet implementation class CouponListServlet
+ * Servlet implementation class CouponDeleteServlet
  */
-@WebServlet("/couponList.li")
-public class CouponListServlet extends HttpServlet {
+@WebServlet("/couponDelete.cd")
+public class CouponDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CouponListServlet() {
+    public CouponDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,14 +28,21 @@ public class CouponListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		String cCode = request.getParameter("cCode");
 		
-		ArrayList<Coupon> cList = new CouponService().selectList();
+		int result = new CouponService().deleteCoupon(cCode);
+		
+		if(result > 0) {
+			
+			request.getSession().setAttribute("msg", "쿠폰삭제에 성공하였습니다.");
+			response.sendRedirect("couponList.li");		
+		}else {
+			request.setAttribute("msg", "쿠폰삭제에 실패하였습니다");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 		
 		
-		request.setAttribute("cList", cList);
-		request.getRequestDispatcher("views/coupon/couponListView.jsp").forward(request, response);
-		
-
 	}
 
 	/**

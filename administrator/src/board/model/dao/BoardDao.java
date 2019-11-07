@@ -351,11 +351,12 @@ public class BoardDao {
 				c.setReviewScore(rset.getInt("review_score"));
 				c.setCampCode(rset.getInt("camp_code"));
 				c.setUserNo(rset.getInt("comment_writer"));
+				c.setbNo(rset.getInt("b_no"));
 				
 				if(rset.getInt("comment_writer") == 9999) {
 					c.setcWriter(rset.getString("dispo_id"));
 				}else {
-					c.setcWriter("user_name");
+					c.setcWriter(rset.getString("user_name"));
 				}
 				
 				
@@ -399,15 +400,72 @@ public class BoardDao {
 		return result;
 	}
 
+	
+	public int insertMemberComment(Connection conn, Comment c) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertMemberComment");
+				
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, c.getcContent());
+			pstmt.setInt(2, c.getbNo());
+			pstmt.setInt(3, c.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+	
+
 	public int insertBoard(Connection conn, Board b) {
 		PreparedStatement pstmt = null;
 		int result = 0;
+		
+		String title = b.getbTitle();		
+		
+		String region = "";
+		
+		if(!title.equals("")) {
+			
+			switch (b.getbRegion()) {
+			case 1:
+				region = "[서울]";
+				break;
+			case 2:
+				region = "[경기]";
+				break;
+			case 3:
+				region = "[강원]";
+				break;
+			case 4:
+				region = "[경상]";
+				break;
+			case 5:
+				region = "[전라]";
+				break;
+			case 6:region = "[충청]";
+				break;
+			}
+			
+			title = region + title;
+		}
+		
+		
 		
 		String sql = prop.getProperty("insertBoard");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, b.getbTitle());
+			pstmt.setString(1, title);
 			pstmt.setString(2, b.getbContent());
 			pstmt.setInt(3, b.getbTag());
 			pstmt.setInt(4, b.getbRegion());
@@ -415,11 +473,13 @@ public class BoardDao {
 			
 			if(b.getUserNo() == 9999) {
 				pstmt.setString(6, b.getbWriter());
+				pstmt.setString(7, b.getPwd());
 			}else {
 				pstmt.setString(6, "---");
+				pstmt.setString(7, "---");
 			}
 			
-			pstmt.setString(6, b.getPwd());
+			
 			
 			result = pstmt.executeUpdate();
 			
@@ -429,6 +489,30 @@ public class BoardDao {
 		}finally {
 			close(pstmt);
 		}
+		
+		return result;
+	}
+
+	public int insertNotice(Connection conn, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, b.getbTitle());
+			pstmt.setString(2, b.getbContent());
+			pstmt.setInt(3, b.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		
 		return result;
 	}
@@ -483,6 +567,260 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+
+	public int searchCount(Connection conn, String tag, String keyWord, int bTag) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0; 
+		
+		String sql = "";
+		
+			
+		try {
+			if(tag.equals("title")) {
+				sql = prop.getProperty("titleSearchCount");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bTag);
+				pstmt.setString(2, keyWord);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt(1);
+				}
+			
+			}else if(tag.equals("writer")) {
+				sql = prop.getProperty("writerSearchCount");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bTag);
+				pstmt.setString(2, keyWord);
+				pstmt.setString(3, keyWord);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt(1);
+				}
+				
+			}else {
+				sql = prop.getProperty("contentSearchCount");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bTag);
+				pstmt.setString(2, keyWord);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt(1);
+				}
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return listCount;
+	}
+
+	
+	
+
+	
+	
+	public ArrayList<Board> searchBoard(Connection conn, String tag, String keyWord, int bTag, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> blist = new ArrayList<>();
+		
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+		
+		String sql = "";
+		
+		try {		
+			if(tag.equals("title")) {
+				sql = prop.getProperty("titleSearchBoard");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bTag);
+				pstmt.setString(2, keyWord);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Board b = new Board();
+					b.setbNo(rset.getInt("b_no"));
+					b.setbTag(rset.getInt("b_tag"));
+					b.setbTitle(rset.getString("b_title"));
+					b.setUpdateDate(rset.getDate("update_date"));
+					b.setbCount(rset.getInt("b_count"));	
+					b.setbRegion(rset.getInt("b_region"));
+					
+					if(rset.getInt("user_no") == 9999) {
+						b.setbWriter(rset.getString("dispo_id"));
+					}else {
+						b.setbWriter(rset.getString("user_name"));
+					}
+					
+					blist.add(b);
+				}
+				
+			}else if(tag.equals("writer")){
+				sql = prop.getProperty("writerSearchBoard");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bTag);
+				pstmt.setString(2, keyWord);
+				pstmt.setString(3, keyWord);
+				pstmt.setInt(4, startRow);
+				pstmt.setInt(5, endRow);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Board b = new Board();
+					b.setbNo(rset.getInt("b_no"));
+					b.setbTag(rset.getInt("b_tag"));
+					b.setbTitle(rset.getString("b_title"));
+					b.setUpdateDate(rset.getDate("update_date"));
+					b.setbCount(rset.getInt("b_count"));	
+					b.setbRegion(rset.getInt("b_region"));
+					
+					if(rset.getInt("user_no") == 9999) {
+						b.setbWriter(rset.getString("dispo_id"));
+					}else {
+						b.setbWriter(rset.getString("user_name"));
+					}
+					
+					blist.add(b);
+				}
+				
+			}else {
+				sql = prop.getProperty("commentSearchBoard");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bTag);
+				pstmt.setString(2, keyWord);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Board b = new Board();
+					b.setbNo(rset.getInt("b_no"));
+					b.setbTag(rset.getInt("b_tag"));
+					b.setbTitle(rset.getString("b_title"));
+					b.setUpdateDate(rset.getDate("update_date"));
+					b.setbCount(rset.getInt("b_count"));	
+					b.setbRegion(rset.getInt("b_region"));
+					
+					if(rset.getInt("user_no") == 9999) {
+						b.setbWriter(rset.getString("dispo_id"));
+					}else {
+						b.setbWriter(rset.getString("user_name"));
+					}
+					
+					blist.add(b);
+				}
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		
+		return blist;
+	}
+
+	public int getRegionListCount(Connection conn, int bRegion) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("regionListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bRegion);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<Board> selectRegionList(Connection conn, int bRegion, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> blist = new ArrayList<>();
+		
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+		
+		
+		String sql = prop.getProperty("selectRegionList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bRegion);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board b = new Board();
+				b.setbNo(rset.getInt("b_no"));
+				b.setbTag(rset.getInt("b_tag"));
+				b.setbTitle(rset.getString("b_title"));
+				b.setUpdateDate(rset.getDate("update_date"));
+				b.setbCount(rset.getInt("b_count"));	
+				b.setbRegion(rset.getInt("b_region"));
+				
+				if(rset.getInt("user_no") == 9999) {
+					b.setbWriter(rset.getString("dispo_id"));
+				}else {
+					b.setbWriter(rset.getString("user_name"));
+				}
+				
+				blist.add(b);
+			}
+					
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return blist;
+	}
+
 
 
 }

@@ -29,13 +29,11 @@ public class CommentDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		
 		int result = new BoardService().deleteComment(cNo);
-		System.out.println(cNo);
-		System.out.println(bNo);
-		System.out.println(result);
 		
 		
 		if(result > 0) {
