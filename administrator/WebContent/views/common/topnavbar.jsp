@@ -59,7 +59,7 @@
 						<!-- Top nav left menu -->
 						<ul class="nav navbar-nav hidden-sm hidden-xs top-navbar-items" style="float: right; margin-right: 79px;">
 							<li><a href="<%= request.getContextPath() %>/list.bo?b_tag=0" >게시판</a></li>
-							<li><a href="#">Q & A</a></li>
+							<li><a href="<%= request.getContextPath() %>/freqList.qe">Q & A</a></li>
 							<% if(loginUser != null){ %>
 							<li class="dropdown top-menu-item-xs">
                                     <a href="" class="dropdown-toggle menu-right-item profile" data-toggle="dropdown" aria-expanded="false"><img src="<%= request.getContextPath() %>/resources/top_nav/images/m_iconM.png" alt="user-img" class="img-circle"> </a>

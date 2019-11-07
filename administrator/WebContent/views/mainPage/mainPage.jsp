@@ -81,10 +81,13 @@
                            <a href="#">Q&A</a>
                            <ul class="sub-menu">
                               <li class="menu-item">
-                                 <a href="">Q&A작성글</a>
+                                 <a href="<%= request.getContextPath() %>/freqList.qe">자주 묻는 문의</a>
                               </li>
                               <li class="menu-item">
-                                 <a href="">회원문의</a>
+                                 <a href="">내 문의</a>
+                              </li>
+                              <li class="menu-item">
+                                 <a href="">문의하기</a>
                               </li>
                               </ul>
 

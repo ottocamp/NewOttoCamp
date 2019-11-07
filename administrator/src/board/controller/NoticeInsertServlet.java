@@ -1,7 +1,6 @@
 package board.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,18 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import board.model.vo.Board;
 
 /**
- * Servlet implementation class CommentPwdCheckServlet
+ * Servlet implementation class NoticeInsertServlet
  */
-@WebServlet("/pwdCheck.co")
-public class CommentPwdCheckServlet extends HttpServlet {
+@WebServlet("/insert.no")
+public class NoticeInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommentPwdCheckServlet() {
+    public NoticeInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,21 +29,29 @@ public class CommentPwdCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int cNo = Integer.parseInt(request.getParameter("cNo"));
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		String pwd = (String)request.getParameter("pwd");		
 		
-		String checkPwd = new BoardService().checkCommentPwd(cNo);
+		request.setCharacterEncoding("utf-8");
 		
-		if(pwd.equals(checkPwd)) {
-			request.setAttribute("cNo", cNo);
-			request.setAttribute("bNo", bNo);
-			request.getRequestDispatcher("/delete.co").forward(request, response);
+		String title = (String)request.getParameter("bTitle");
+		String content = (String)request.getParameter("content");
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+	
+		
+		Board b = new Board();
+		b.setbTitle(title);
+		b.setbContent(content);
+		b.setUserNo(userNo);
+		
+		int result = new BoardService().insertNotice(b);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("msg", "공지가 작성되었습니다");
 		}else {
-			request.getSession().setAttribute("msg", "잘못된 비밀번호입니다");
-			response.sendRedirect(request.getContextPath() + "/detail.bo?b_no=" + bNo);
+			request.getSession().setAttribute("msg", "공지 작성에 실패하였습니다");
 		}
 		
+
+		response.sendRedirect(request.getContextPath() + "/list.bo?b_tag=0");
 		
 	}
 
