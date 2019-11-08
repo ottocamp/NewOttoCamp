@@ -71,7 +71,6 @@ public class BoardListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
 		ArrayList<Board> blist = boardService.selectList(bTag, currentPage, boardLimit);
 
-		
 		request.setAttribute("pi", pi);
 		request.setAttribute("bTag", bTag);
 		request.setAttribute("blist", blist);	
