@@ -40,7 +40,8 @@ public class SelectLocationServlet extends HttpServlet {
 		System.out.println(location);
 		
 		ArrayList<CampInfo> cList = new CampService().selectLocationList(checkInDate,location);
-		ArrayList<Attachment> aList = new CampService().selectLocationAttachmentList(checkInDate,location);	
+		ArrayList<Attachment> aList = new CampService().selectLocationAttachmentList(checkInDate,location);
+		
 		
 		request.getSession().setAttribute("cList", cList);
 		request.getSession().setAttribute("aList", aList);
