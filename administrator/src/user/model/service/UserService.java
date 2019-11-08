@@ -282,6 +282,38 @@ public class UserService {
 		close(con);
 		
 	}
+
+	public int deleteRcode(String uid, String rcode) {
+		
+		Connection con = getConnection();
+		
+		int result = new UserDao().deleteRcode(con, uid,rcode);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int acceptUser(String uid) {
+		
+		Connection con = getConnection();
+		
+		int result = new UserDao().acceptUser(con, uid);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
 	
 	
 	

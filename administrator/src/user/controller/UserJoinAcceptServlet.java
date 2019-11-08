@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import user.model.service.UserService;
+
 /**
  * Servlet implementation class UserJoinAcceptServlet
  */
@@ -28,9 +30,37 @@ public class UserJoinAcceptServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		System.out.println("일로 와짐");
+		
 		String uid = request.getParameter("uid");
-		System.out.println(uid);
+		String rcode = request.getParameter("rcode");
+		
+		//알코드를 지우고 성공이면 회원 상태를 Y로 바꿔줌
+		int result = new UserService().deleteRcode(uid,rcode);
+		
+		if(result>0) {
+			
+			int result2 = new UserService().acceptUser(uid);
+			
+			if(result2>0) {
+				
+				request.setAttribute("msg", "회원가입 절차가 완료 되었습니다");
+				request.getRequestDispatcher("views/user/login.jsp").forward(request, response);
+				
+			}else {
+				
+				request.setAttribute("msg", "가입 코드 등록 실패(2)");
+				request.getRequestDispatcher("views/user/login.jsp").forward(request, response);
+				
+			}
+			
+		
+		}else {
+			
+			request.setAttribute("msg", "가입 코드 등록 실패");
+			request.getRequestDispatcher("views/user/login.jsp").forward(request, response);
+			
+		}
+		
 		
 	
 		

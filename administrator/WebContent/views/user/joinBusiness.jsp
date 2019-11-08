@@ -184,7 +184,7 @@
                                             <div class="form-group row" >
                                                 <div class="col-12">
                                                     <label for="">전화번호</label>
-                                                    <input type="text" class="form-control" id="signup-phone" name="uphone" placeholder="전화번호는 숫자로만 4~15자 입력" required autocomplete="off">
+                                                    <input type="text" class="form-control" id="signup-phone" name="uphone" placeholder="전화번호는 숫자로만 4~15자 입력" required autocomplete="nope">
                                                      <p id="phonep1" class="toIn">&nbsp;</p><p id="phonep2" class="toIn">&nbsp;</p><p id="phonep3" class="toIn">&nbsp;</p>                                              </div>
                                             </div>
                                             <div class="form-group row" >

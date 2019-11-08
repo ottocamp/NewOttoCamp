@@ -9,18 +9,18 @@
 <%@page import="mail.controller.SMTPAuthenticatior"%>
 <%@page import="javax.mail.Authenticator"%>
 <%@page import="java.util.Properties"%>
+<%@page import="java.net.InetAddress"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
 
 request.setCharacterEncoding("utf-8");
 
-/* 	String uid = (String)request.getAttribute("uid");
+ 	String uid = (String)request.getAttribute("uid");
 	String uemail = (String)request.getAttribute("uemail");
-	String rcode = (String)request.getAttribute("rcode"); */
+	String rcode = (String)request.getAttribute("rcode");
   
-	String uid = "유아이디";
-	String rcode = "알코드";
+
 Properties p = new Properties(); // 정보를 담을 객체
 
   
@@ -55,12 +55,15 @@ try{
     msg.setSubject("오또캠프 가입용 이메일 입니다"); //  제목 
 
  
-
+    
     StringBuffer buffer = new StringBuffer();
-
-    String address ="http://localhost:8800/administrator/UJAS?uid="+uid+"&rcode="+rcode;
-    buffer.append("오또 캠프 가입완료를 하시려면 밑에 링크를 클릭 해주세요");
-    buffer.append("<a href='"+address+"'>호호호</a> ");
+    
+    String ip = InetAddress.getLocalHost().getHostAddress();
+    int port = request.getLocalPort();
+   
+    String address ="http://"+ip+":"+port+"/administrator/UJAS?uid="+uid+"&rcode="+rcode;
+    buffer.append("오또 캠프 가입완료를 하시려면 밑에 '가입완료' 링크를 클릭 해주세요<br><br><br>");
+    buffer.append("<a href='"+address+"'>가입완료</a> ");
     
 
     Address fromAddr = new InternetAddress("whqotjd@naver.com");     //보내는 사람 이메일을 쓴다
@@ -69,7 +72,7 @@ try{
 	
  
 
-    Address toAddr = new InternetAddress("znznwkdrns@naver.com");      //받는 사람 이메일을 여기 쓰면 밑으로 감
+    Address toAddr = new InternetAddress(uemail);      //받는 사람 이메일을 여기 쓰면 밑으로 감
 
     msg.addRecipient(Message.RecipientType.TO, toAddr); // 받는 사람 
 

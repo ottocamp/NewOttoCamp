@@ -31,7 +31,7 @@ public class UserEmailCheckServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userEmail = request.getParameter("userEmail");
+		String userEmail = request.getParameter("userEmail").toLowerCase();
 		
 		int result = new UserService().emailCheck(userEmail);
 		

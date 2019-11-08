@@ -52,7 +52,16 @@ public class UserLoginServlet extends HttpServlet {
 			
 			
 				int uno = loginUser.getUserNo();
-			
+				
+				if(loginUser.getStatus().equalsIgnoreCase("R")) {
+					PrintWriter out = response.getWriter();
+					out.print("ready");		
+					return;
+				}
+				
+				
+
+
 				if(loginUser.getForignYN().equalsIgnoreCase("n") && !ccode.equals("KR")) {
 					
 					int result = new UserService().ipInfo(uno,ip,country,"해외 로그인 차단");
@@ -60,10 +69,8 @@ public class UserLoginServlet extends HttpServlet {
 					out.print("block");
 
 				}else {
-			
-			
-			
-				
+					
+	
 				String flag = new UserService().selectFlag(uno);
 				
 				

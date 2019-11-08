@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.net.InetAddress"%>
+<%
+	InetAddress ip = InetAddress.getLocalHost();
+
+
+
+	System.out.println(ip.getHostAddress());
+
+
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,33 +29,7 @@
 
 	
 
-	<script>
-	function geolocate(ip,type,cityPrecision){
-		  var key = '13c80eb9fa73855b74215247929c45ad670b65f05a6fe8a4e1f79a005de2bc7f';
-		  var api = (cityPrecision) ? "ip-city" : "ip-country";
-		  var domain = 'api.ipinfodb.com';
-		  var version = 'v3';
-		  var url = "http://" + domain + "/" + version + "/" + api + "/?key=" + key + "&ip=" + ip + "&format=" + type + "&callback=?";
-		   
-		  $.getJSON(url, function(data){
-		  alert(data.countryCode);
-		  })
-		}
-		 
-		geolocate("체크할ip","json",false); //체크할아이피,타입(json,xml등),true:도시별 false:국가별
 	
-	</script>
-
-
-
-
-<div class="button1"><div class="btn"><button type="button" onclick="detail();">예약하기</button></div></div>
-<script type="text/javascript">
-	function detail(){
-		var cNo = 1;
- 	   location.href = "<%= request.getContextPath() %>/campRe.re?cNo=1";
- 	   
-    } </script>
 
 
 

@@ -9,7 +9,7 @@ public class RandomCode {
 		String code ="";
 				
 		for(int i=0;i<num;i++) {
-			code+=(char)Math.floor(((Math.random()*26)+60)); 
+			code+=(char)((Math.random()*26)+65); 
 		}
 	
 		return code;

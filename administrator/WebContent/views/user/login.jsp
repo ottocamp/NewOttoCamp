@@ -154,6 +154,8 @@
                                                			alert("그런 회원은 없습니다.");
                                                		}else if(data=="block"){
                                                			alert("외국에서 접근 불가능한 계정입니다.");
+                                               		}else if(data=="ready"){
+                                               			alert("이메일 인증을 하셔야 합니다");
                                                		}
                                                 	
                                                 },

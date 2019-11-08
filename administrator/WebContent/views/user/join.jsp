@@ -170,7 +170,7 @@
                                             <div class="form-group row" >
                                                 <div class="col-12">
                                                     <label for="">전화번호</label>
-                                                    <input type="text" class="form-control" id="signup-phone" name="uphone" placeholder="전화번호는 숫자로만 4~15자 입력" required autocomplete="off">
+                                                    <input type="text" class="form-control" id="signup-phone" name="uphone" placeholder="전화번호는 숫자로만 4~15자 입력required " autocomplete="nope">
                                                      <p id="phonep1" class="toIn">&nbsp;</p><p id="phonep2" class="toIn">&nbsp;</p><p id="phonep3" class="toIn">&nbsp;</p>                                              </div>
                                             </div>
                                             <div class="form-group row" >
@@ -201,7 +201,7 @@
                                                 </a> -->
                                               
                                                     
-                                                    </button>
+                                                  
                                                 </div>
                                             </div>
                                         </div>
@@ -282,78 +282,119 @@
                         		
                         		//이름 밑에 경고 등                       		
                         		$("input[name=uname]").keyup(function(){
-                        			$("#namep1").text("이름은").css("color","green");
                         			
+                        			var nflag2 = false;
+                        			var nflag3 = false;
+                        				   			
                         			if(!(/^[가-힣]+$/.test($("input[name=uname]").val()))){
                         				$("#namep2").text(" 한글로만 ").css("color","red");
                         			}else{
                         				$("#namep2").text(" 한글로만 ").css("color","green");
+                        				nflag2=true;
                         			}
                         			
                         			if($("input[name=uname]").val().length>=2 && $("input[name=uname]").val().length<=6 ){
                         				$("#namep3").text(" 2~6자 입력 ").css("color","green");
+                        				nflag3=true;
                         			}else{
                         				$("#namep3").text(" 2~6자 입력 ").css("color","red");
                         			}
+                        			
+                        			if(nflag2 && nflag3){
+                        				$("#namep1").text("이름은 ").css("color","green");
+                        			}else{
+                        				$("#namep1").text("이름은 ").css("color","red");
+                        			}
+                        			
+                        			
 	
                         		});
                         		
                         		
                         		//아이디 경고등   아이디는 영소문자로 시작해서 4~12자 입력(숫자 포함 가능)
                         		$("input[name=uid]").keyup(function(){
-                        			$("#idp1").text("아이디는").css("color","green");
-                        			$("#idp4").text("(숫자 포함 가능)").css("color","green");
+                        			
+                        			var iflag2 = false;
+                        			var iflag3 = false;
                         			
                         			if(!(/^[a-z]/.test($("input[name=uid]").val()))){
                         				$("#idp2").text(" 영소문자로 시작해서 ").css("color","red");
                         			}else{
                         				$("#idp2").text(" 영소문자로 시작해서 ").css("color","green");
+                        				iflag2=true;
                         			}
                         			
                         			if($("input[name=uid]").val().length>=4 && $("input[name=uid]").val().length<=12 ){
                         				$("#idp3").text(" 4~12자 입력 ").css("color","green");
+                        				iflag3=true;
                         			}else{
                         				$("#idp3").text(" 4~12자 입력 ").css("color","red");
                         			}
                         			
                         			
+                        			
+                        			if(iflag2 && iflag3){
+                        				$("#idp1").text("아이디는").css("color","green");
+                            			$("#idp4").text("(숫자 포함 가능)").css("color","green");
+                        			}else{
+                        				$("#idp1").text("아이디는").css("color","red");
+                            			$("#idp4").text("(숫자 포함 가능)").css("color","red");
+                        			}
 	
                         		});
                         		
                         		//전화번호경고등
                         		$("input[name=uphone]").keyup(function(){
-                        			$("#phonep1").text("전화번호는").css("color","green");
+                        			
+                        			var pflag2 = false;
+                        			var pflag3 = false;
                         			
                         			if(!(/^[0-9]+$/.test($("input[name=uphone]").val()))){
                         				$("#phonep2").text(" 숫자로만 ").css("color","red");
                         			}else{
                         				$("#phonep2").text(" 숫자로만 ").css("color","green");
+                        				var pflag2 = true;
                         			}
                         			
                         			if($("input[name=uphone]").val().length>=4 && $("input[name=uphone]").val().length<=15 ){
                         				$("#phonep3").text(" 4~15자 입력 ").css("color","green");
+                        				var pflag3 = true;
                         			}else{
                         				$("#phonep3").text(" 4~15자 입력 ").css("color","red");
+                        			}
+                        			
+                        			if(pflag2 && pflag3){
+                        			$("#phonep1").text("전화번호는").css("color","green");
+                        			}else{
+                        				$("#phonep1").text("전화번호는").css("color","red");	
                         			}
 	
                         		});
                         		
                         		//비밀번호 경고등
                         		$("input[name=upwd]").keyup(function(){
-                        			$("#pwdp1").text("비밀번호는").css("color","green");
+                        			
+                        			var pwflag2 = false;
+                        			var pwflag3 = false;
                         			
                         			if(!(/^[a-zA-Z0-9]+$/.test($("input[name=upwd]").val()))){
                         				$("#pwdp2").text(" 영문,숫자로 ").css("color","red");
                         			}else{
                         				$("#pwdp2").text(" 영문,숫자로").css("color","green");
+                        				pwflag2=true;
                         			}
                         			
                         			if($("input[name=upwd]").val().length>=4 && $("input[name=upwd]").val().length<=15 ){
                         				$("#pwdp3").text(" 4~15자 입력 ").css("color","green");
+                        				pwflag3=true;
                         			}else{
                         				$("#pwdp3").text(" 4~15자 입력 ").css("color","red");
                         			}
-	
+                        			if(pwflag2 && pwflag3){
+                        			$("#pwdp1").text("비밀번호는").css("color","green");
+                        			}else{
+                        				$("#pwdp1").text("비밀번호는").css("color","red");	
+                        			}
                         		});
                         		
                         		//비밀번호2 경고등
