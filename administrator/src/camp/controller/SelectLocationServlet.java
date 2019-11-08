@@ -41,12 +41,10 @@ public class SelectLocationServlet extends HttpServlet {
 		
 		ArrayList<CampInfo> cList = new CampService().selectLocationList(checkInDate,location);
 		ArrayList<Attachment> aList = new CampService().selectLocationAttachmentList(checkInDate,location);	
-		System.out.println(cList);
-		System.out.println(aList);
 		
-		request.setAttribute("cList", cList);
-		request.setAttribute("aList", aList);
-		
+		request.getSession().setAttribute("cList", cList);
+		request.getSession().setAttribute("aList", aList);
+
 		request.getRequestDispatcher("views/mainPage/mainPage2.jsp").forward(request, response);
 	}
 

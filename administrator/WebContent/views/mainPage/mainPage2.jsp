@@ -5,11 +5,10 @@
 	
 	User loginUser = (User)session.getAttribute("loginUser");
 
-	ArrayList<CampInfo> cList = (ArrayList<CampInfo>)request.getAttribute("cList");
-	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getAttribute("aList");
+	ArrayList<CampInfo> cList = (ArrayList<CampInfo>)request.getSession().getAttribute("cList");
+	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getSession().getAttribute("aList");
 	
 	String cTheme = (String)request.getAttribute("cTheme");
-	
 	String msg = (String)session.getAttribute("msg");
 
 	
@@ -225,7 +224,7 @@
                                                                 <a href="#">25,000</a>
                                                             </div>
                                                             <div class="post_descr">
-                                                                <p>경치가 좋은...</p>
+                                                                <p><%= ca.getcAddress() %></p>
                                                             </div>
                                                         </div>
                                                     </article>

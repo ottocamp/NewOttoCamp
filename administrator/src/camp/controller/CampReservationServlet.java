@@ -32,9 +32,10 @@ public class CampReservationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("0");
+		
 		
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
+		
 		
 		ReservationCamp rc = new CampRefoService().detailPageSend(cNo);
 		
