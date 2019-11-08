@@ -80,7 +80,7 @@
                                         <div class="form-group m-b-20">
                                             <div class="col-xs-12">
                                                 <label for="id" style="color: white;">아이디</label>
-                                                <input class="form-control" name="userId" type="text" id="id1" required="" placeholder="">
+                                                <input class="form-control" name="userId" type="text" id="id1" required="" placeholder="" autocomplete="off">
                                             </div>
                                         </div>
 

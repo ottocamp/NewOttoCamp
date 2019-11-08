@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="user.model.vo.*"%>
+    pageEncoding="UTF-8" import="user.model.vo.* ,  java.text.DecimalFormat"%>
+<%
+
+	DecimalFormat formatter = new DecimalFormat("##,###,###");
+
+%>    
 
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 정보 수정</title>
+<title>나의 정보</title>
 
 
 
@@ -177,25 +182,26 @@
                     
                                     <!-- 스크립트 -->
                                     <script>
+                                    
                                     	
                                     	
                                 		function updatepropic(){
-                                			window.open("propicupdate.jsp", "프로필 사진 변경 창", "width=500, height=300");
+                                			window.open("propicupdate.jsp", "프로필 사진 변경 창", "width=500, height=300,left=700,top=300");
                                 			
                                 		}
                                 		
                                 		function updatephone(){
-                                			window.open("phoneupdate.jsp", "전화번호 변경 창", "width=500, height=300");
+                                			window.open("phoneupdate.jsp", "전화번호 변경 창", "width=500, height=300,left=700,top=300");
                                 			
                                 		}
                                 		
                                 		function updateemail(){
-                                			window.open("emailupdate.jsp", "이메일 변경 창", "width=500, height=300");
+                                			window.open("emailupdate.jsp", "이메일 변경 창", "width=500, height=300,left=700,top=300");
                                 			
                                 		}
                                 		
                                 		function updatepwd(){
-                                			window.open("pwdupdate.jsp", "비밀번호 변경 창", "width=500, height=300");
+                                			window.open("pwdupdate.jsp", "비밀번호 변경 창", "width=500, height=300,left=700,top=300");
                                 			
                                 		}
                                 		
@@ -228,7 +234,7 @@
                         							var totalMoney = data[1];
                         							
                         							$("#totalNum").text(totalNum);
-                        							$("#totalMoney").text(totalMoney);
+                        							$("#totalMoney").html(numberWithCommas(totalMoney));
                         							
 
                         						},
@@ -251,6 +257,11 @@
                                 		
                                 		
                                 		
+                                		function numberWithCommas(x) {
+                                		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                		}
+
+
                                 		
                                 		
                                 		
