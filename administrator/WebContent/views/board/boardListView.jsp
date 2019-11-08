@@ -62,7 +62,6 @@
 		</script>
 		
 		
-        <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -247,6 +246,10 @@
                 font-weight: bolder;
             }
 
+            h2 a{
+                color: gray;
+            }
+
         </style>
 
 </head>
@@ -279,11 +282,11 @@
 
                     <div class="container">                                
 						<% if(bTag == 0) { %>
-                        	<h2 onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=0'">공지사항</h2>
+                        	<h2><a href="<%= request.getContextPath() %>/list.bo?b_tag=0">공지사항</a></h2>
 						<% }else if(bTag == 1) { %>
-                        	<h2 onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=1'">정보공유</h2>
+                        	<h2><a href="<%= request.getContextPath() %>/list.bo?b_tag=1">정보공유</a></h2>
 						<% }else { %>
-                        	<h2 onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=2'">잡담(자유)</h2>
+                        	<h2><a href="<%= request.getContextPath() %>/list.bo?b_tag=2">잡담(자유)</a></h2>
 						<% } %>
 						
 						

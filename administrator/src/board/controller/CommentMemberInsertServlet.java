@@ -42,9 +42,7 @@ public class CommentMemberInsertServlet extends HttpServlet {
 		Comment c = new Comment();
 		c.setUserNo(userNo);
 		c.setbNo(bNo);
-		c.setcContent(content);
-		
-		System.out.println("여기!");
+		c.setcContent(content);		
 		
 		ArrayList<Comment> cList = new BoardService().insertMemberComment(c);
 		
