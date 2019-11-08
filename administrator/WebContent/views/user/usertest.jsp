@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="user.model.vo.*"%>
 <%
-	
+	String tt1 = (String)request.getAttribute("tt1");
+	String tt2 = (String)request.getAttribute("tt2");
 
 %>  
 <!DOCTYPE html>
@@ -9,6 +10,21 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 테스트	</title>
+<script>
+	
+	var tt1 = "<%= tt1 %>";
+	var tt2 = "<%= tt2 %>";
+
+	if(tt1!=null){
+		alert(tt1);
+	}
+	if(tt2!=null){
+		alert(tt2);
+	}
+	
+
+
+</script>
 		<!-- jqury cdn -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		
@@ -72,10 +88,6 @@
                             <!-- Top nav Right menu -->
                             <ul class="nav navbar-nav navbar-right top-navbar-items-right pull-right">
                                 <li class="hidden-xs">
-                                    <form role="search" class="navbar-left app-search pull-left">
-                                         <input type="text" placeholder="Search..." class="form-control">
-                                         <a href=""><i class="fa fa-search"></i></a>
-                                    </form>
                                 </li>
                                 <li class="dropdown top-menu-item-xs">
                                     <a href="#" data-target="#" class="dropdown-toggle menu-right-item" data-toggle="dropdown" aria-expanded="true">
@@ -202,6 +214,7 @@
             <!-- Top Bar End -->
 
 
+
             <!-- Page content start -->
             <div class="page-contentbar">
 
@@ -309,6 +322,12 @@
 
                 <!-- START PAGE CONTENT -->
                 <div id="page-right-content">
+                            <form action=" <%= request.getContextPath() %>/test.t" method="get">
+            	<input type="text" name="t1">
+            	<input type="text" name="t2">
+            	<button>제출</button>
+            	<a href="<%= request.getContextPath() %>/test.t?t1=diiididi&t2=히ggjkkg">해보기</a>
+            </form>
 
                     <div class="container">
                         <div class="row">

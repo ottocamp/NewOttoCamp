@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String joinMsg = (String)request.getAttribute("joinMsg");
-
+	String msg = (String)request.getAttribute("msg");
+	
 %>       
 <!DOCTYPE html>
 <html>
@@ -10,18 +10,17 @@
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script>
-	var joinMsg = "<%= joinMsg %>";
-	
-	$(function(){
-		
-		
-		
-		if(joinMsg != "null"){
-			alert(joinMsg);
+	<script>
+		var msg = "<%= msg %>";
+		$(function(){
+		if(msg != "null"){
+			
+			alert(msg);
+			<%-- <% session.removeAttribute("msg"); %> --%>
 		}
-	});
-</script>
+		});
+		
+	</script>
 		<!-- jqury cdn -->
 		<script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
 		
@@ -155,6 +154,8 @@
                                                			alert("그런 회원은 없습니다.");
                                                		}else if(data=="block"){
                                                			alert("외국에서 접근 불가능한 계정입니다.");
+                                               		}else if(data=="ready"){
+                                               			alert("이메일 인증을 하셔야 합니다");
                                                		}
                                                 	
                                                 },
