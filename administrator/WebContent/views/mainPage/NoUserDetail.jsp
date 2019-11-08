@@ -4,18 +4,6 @@
 <%
 	int code = Integer.parseInt(request.getParameter("code"));
 
-	ArrayList<Integer> codeList = (ArrayList<Integer>)request.getAttribute("codeList");
-	
-	String checkFlag = "";
-	
-	for(int i : codeList){
-	
-	if(i==code){
-		checkFlag="checked";
-	}
-	
-	}
-
 
 %>   
     
@@ -544,7 +532,7 @@ button:hover:after{
 
         <main class="wrapper1">
             <div class="element11 grid-box1">
-              <h1>캠핑장 정보 </h1>
+              <h1>캠핑장 정보 <%= code %></h1>
                His friends loved his new bag.Soon, his bike bag was in great demand.Reich quit his job, and started his own business-Alchemy Goods.
                 At first, he depended on his friends for inner tubes.But business was good, and he quickly ran short of these tubes.
                 He needed a new supply.So he asked local bike stores to send him used inner tubes instead of throwing them away.
@@ -645,8 +633,8 @@ button:hover:after{
                  
                   <main class="wrapper8">
                   <div class="element24 grid-box8">
-                    <div class="container">
-                    <input type="checkbox" <%= checkFlag %> id="fav">
+                    <div class="container" id="test">
+                    <input type="checkbox" id="fav">
                   </div>
             </div>
           </div>
@@ -658,68 +646,18 @@ button:hover:after{
   
                         $(function(){
                         	
-                        	 var code = <%= code %>
-                             
-                             
-                             $("#fav").change(function(){
-                            	 
+                        	$("#fav").change(function(){
+                           	 
                              	if($("#fav").prop("checked")){
-                             		
-                             		
-                             		
-                     				$.ajax({
-                     					url : "<%= request.getContextPath() %>/inOrde.favorite",
-                     					type : "post",
-                     					data : {flag:"I",Code:code},
-                     					success: function(data){
-                     						
-                     						if(data=="success"){
-                     							alert("나의 관심목록에 추가 하였습니다.");
-                     						}else{
-                     							alert("나의 관심목록 추가에 실파 하였습니다.");
-                     						}
-
-                     					},
-                     					error: function(){
-                     						alert("통신 실패")
-                     					}
-                     				});
-                             		
-                             		
-     		
+                             		$(this).prop("checked",false);
+                             		alert("즐겨찾기를 하려면 로그인을 해야합니다.");
+                             		                             		
                              	}else{
                              		
-                             		
-                     				$.ajax({
-                     					url : "<%= request.getContextPath() %>/inOrde.favorite",
-                     					type : "post",
-                     					data : {flag:"D",Code:code},
-                     					success: function(data){
-                     						
-                     						if(data=="success"){
-                     							alert("나의 관심목록에서 삭제하였습니다");
-                     						}else{
-                     							alert("삭제에 실패 하였습니다.");
-                     						}
-
-                     					},
-                     					error: function(){
-                     						alert("통신 실패")
-                     					}
-                     				});
-                             		
-                             		
-                             		
-                             		
                              	}
-                            	 
-                            	 
-                            	 
-                            	 
-                             });
-
+                             	
+                        	})
 	
-                             
  	
                         });
     

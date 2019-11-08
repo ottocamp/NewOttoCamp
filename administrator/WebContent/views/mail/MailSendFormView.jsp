@@ -217,6 +217,7 @@
                             <input type="hidden" id="mcCode" name="mcCode">
                             <button class="btn btn-default pull-right">제출하기</button>
                             <button type="button" class="btn btn-default " data-toggle="modal" data-target="#myCoupon" style="float: right;">쿠폰선택</button>
+                            <span style="float: right; font-size: 20px; font-weight: bold; line-height: 35px; padding-right: 10px;" id="codeview"></span>
                             <hr style="margin-top: 5px;">
                             
                             <div class="card-box">
@@ -372,8 +373,20 @@
 		function selectCoupon(){
 			
 			var code = $("#myCoupon input[name='radio']:checked").val();
+			cName = "";
+			<% for(Coupon c : cList){ %>
+			
+				if(code == '<%= c.getcCode() %>'){
+					cName = '<%= c.getcName() %>';
+					
+				}
+			
+			
+			<%} %>
+			
 			
 			$("#mcCode").val(code);
+			$("#codeview").text(cName + " : 선택됨");
 			
 			
 		}

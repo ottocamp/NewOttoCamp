@@ -4,7 +4,6 @@
 	
 	User loginUser = (User)session.getAttribute("loginUser");
 	
-	
 %>    
     
 <!DOCTYPE html>
@@ -82,18 +81,15 @@
                            <a href="#">Q&A</a>
                            <ul class="sub-menu">
                               <li class="menu-item">
-                                 <a href="<%= request.getContextPath() %>/freqList.qe">자주 묻는 문의</a>
+                                 <a href="">Q&A작성글</a>
                               </li>
                               <li class="menu-item">
-                                 <a href="">내 문의</a>
-                              </li>
-                              <li class="menu-item">
-                                 <a href="">문의하기</a>
+                                 <a href="">회원문의</a>
                               </li>
                               </ul>
 
                               <li class="menu-item menu-item-has-children" id="userMenu" hidden>
-                                 <a href="<%= request.getContextPath() %>/views/user/userUpdate.jsp">마이페이지</a>
+                                 <a href="<%= request.getContextPath() %>/views/user/userMain.jsp">마이페이지</a>
                                  <ul class="sub-menu">
                                     <li class="menu-item">
                                        <a href="">개인정보수정</a>
@@ -188,7 +184,7 @@
                         <img src="<%= request.getContextPath() %>/resources/main/images/3.jpg"  alt="slider_3"  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
                      </li>
                   </ul>
-                  <div class="tp-static-layers" style="">
+                  <div class="tp-static-layers">
                      <div class="tp-caption black tp-fade tp-static-layer"
                         data-x="center" data-hoffset="1"
                         data-y="center" data-voffset="46"
@@ -204,54 +200,60 @@
                         data-endspeed="300"
 						>
 			
-                        <div class="" style="background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 100%;
-    box-sizing: border-box;
-    padding: 55px;
-    width: 686px;
-    height: 686px;">
-                           <form method="post" action="<%= request.getContextPath() %>/location.li" style="background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 100%;
-    overflow: visible;
-    height: 100%;
-    text-align: center;">
+                        <div class="sc_contact_form sc_contact_form_order aligncenter">
+                           <form data-formtype="order" method="post" action="#">
+							  
 
-							
-                                   <div class="date_time" style="padding-top: 160px;">
-                               
-	
-                                       <input placeholder="체크인" class="" type="date" name="date_start" style="width: 30%; background: none; border: 3px solid #ffffff;
-                                      color: #ffffff; font-size: 14px; height: 60px !important; box-sizing: border-box; margin: 0px 6px;" >
-                                    
-                                       <input placeholder="체크아웃" class="" type="date" name="date_end" style="width: 30%; background: none; border: 3px solid #ffffff;
-                                      color: #ffffff; font-size: 14px; height: 60px !important; box-sizing: border-box; margin: 0px 6px;">
-                                 
+							<div class="sc_contact_form_in">
+                                   <div class="date_time">
+                                    <div class="form_date start">
+										<br><br>
+                                       <span class="icon"></span>
+                                       <input placeholder="체크인" class="sc_contact_form_date js__datepicker" type="text" name="date_start">
+                                    </div>
+                                    <div class="form_date end">
+											<br><br>
+                                       <span class="icon"></span>
+                                       <input placeholder="체크아웃" class="sc_contact_form_date js__datepicker" type="text" name="date_end">
+                                    </div>
                                  </div>
                            
-                                <br>
+                                
                               
-                                 <select id="destinations" class="destinations" name="location" style="width: 62.5%; background: none; border: 3px solid #ffffff;
-                                      color: #ffffff; font-size: 14px; height: 60px !important; box-sizing: border-box;">
-                                    <option value="" disabled selected style="color: black">도착지</option>
-                                    <option value="경기도" style="color: black">서울,경기도</option>
-                                    <option value="강원도" style="color: black">강원도</option>
-                                    <option value="충청도" style="color: black">충청도</option>
-                                    <option value="전라도" style="color: black">전라도</option>
-                                    <option value="경상도" style="color: black">경상도</option>
-                                    <option value="제주도" style="color: black">제주도</option>
-                                    
+                                 <select id="destinations" class="destinations" name="criteria">
+                                    <option value="" disabled selected>도착지</option>
+                                    <option value="경기도">서울,경기도</option>
+                                    <option value="강원도">강원도</option>
+                                    <option value="충청도">충청도</option>
+                                    <option value="전라도">전라도</option>
+                                    <option value="경상도">경상도</option>
+                                    <option value="제주도">제주도</option>
                                        
                                  </select>
                                  <br>
 								 <br>
+								
+                             
+
+                                 <select id="destinations" class="destinations" name="criteria">
+                                    <option value="" disabled selected>옵션</option>
+                                    <option value="산">산</option>
+                                    <option value="강">강</option>
+                                    <option value="바다">바다</option>
+                                    <option value="기타">기타</option>
+                                    
+                                           
+                                 </select>
+                                 <br>
+                                 <br>
                                  
-                                 <div class="sc_contact_form_button" style="text-align: center;">
+                                 <div class="sc_contact_form_button">
 									
-									<button type="submit" style="width:30%;">검색하기</button>
+									<button type="button" onclick="main2();"><a href="<%= request.getContextPath() %>/views/mainPage/mainPage2.jsp">검색하기</a></button>
 									
                                  
 								 <div class="result sc_infobox"></div>
-							
+								 <a href="main2-1.html"></a>
                               </div>
                            </form>
                         </div>
@@ -261,7 +263,15 @@
    
    <a href="#" class="scroll_to_top icon-up" title="Scroll to top"></a>
    
-
+   <script type="text/javascript">
+   
+   function main2(){
+	   
+	   location.href = "<%= request.getContextPath() %>/views/mainPage/mainPage2.jsp"
+	   
+   }
+   
+   </script>
    
    
 

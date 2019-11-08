@@ -32,17 +32,18 @@ public class SelectLocationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("utf-8");
 		
 		String checkInDate = request.getParameter("date_start");
-		System.out.println(checkInDate);
-	
-		String NewcheckInDate = checkInDate.substring(8) + "/" + checkInDate.substring(3,5) + "/" + checkInDate.substring(0, 2);
-		System.out.println(NewcheckInDate);
 		String location = request.getParameter("location");
+		System.out.println(checkInDate);
+		System.out.println(location);
 		
-		ArrayList<CampInfo> cList = new CampService().selectLocationList(NewcheckInDate, location);
-		ArrayList<Attachment> aList = new CampService().selectLocationAttachmentList(NewcheckInDate, location);	
+		ArrayList<CampInfo> cList = new CampService().selectLocationList(checkInDate,location);
+		ArrayList<Attachment> aList = new CampService().selectLocationAttachmentList(checkInDate,location);	
+		System.out.println(cList);
+		System.out.println(aList);
+		
 		request.setAttribute("cList", cList);
 		request.setAttribute("aList", aList);
 		
