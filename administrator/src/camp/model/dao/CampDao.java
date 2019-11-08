@@ -335,11 +335,37 @@ public class CampDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, newcheckInDate);
-			pstmt.setString(2, location);
+			pstmt.setString(2, "%" + location + "%");
 			
+			rset = pstmt.executeQuery();
 			
+			while(rset.next()) {
+				
+				cList.add(new CampInfo(rset.getInt(1),
+										rset.getString(2),
+										rset.getString(3),
+										rset.getString(4),
+										rset.getString(5),
+										rset.getInt(6),
+										rset.getString(7),
+										rset.getString(8),
+										rset.getString(9),
+										rset.getString(10),
+										rset.getString(11),
+										rset.getString(12),
+										rset.getString(13),
+										rset.getString(14),
+										rset.getInt(15)));
+				
+				
+			}
+			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		

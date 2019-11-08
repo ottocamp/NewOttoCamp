@@ -200,7 +200,11 @@
                                                             <%} %>
                                                                 <div class="hover_wrap">
                                                                     <div class="link_wrap">
-                                                                        <a class="hover_link icon-right-open" href="<%= request.getContextPath() %>/views/mainPage/detail.jsp">상세보기</a>
+                                                                      <% if(loginUser != null){ %>
+                                                                        <a class="hover_link icon-right-open" href="<%= request.getContextPath() %>/checkFavorite?code=<%= ca.getcCode() %>">상세보기</a>
+                                                                        <%}else{ %>
+                                                                    <a class="hover_link icon-right-open" href="<%= request.getContextPath() %>/views/mainPage/NoUserDetail.jsp?code=<%= ca.getcCode() %>">상세보기</a>                
+                                                                         <%} %>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -209,7 +213,13 @@
                                                         
                                                         <div class="post_content isotope_item_content">
                                                             <h4 class="post_title">
-                                                            <a href="#"><%= ca.getcName() %></a>
+                                                            <% if(loginUser != null){ %>
+                                                            <a href="<%= request.getContextPath() %>/checkFavorite?code=<%= ca.getcCode() %>"><%= ca.getcName() %></a>
+                                                            <%}else{ %>
+                                                            <a href="<%= request.getContextPath() %>/views/mainPage/NoUserDetail.jsp?code=<%= ca.getcCode() %>"><%= ca.getcName() %></a>
+                                                            
+                                                            <%} %>
+                                                            
                                                             </h4>
                                                             <div class="tags_info">
                                                                 <a href="#">25,000</a>
@@ -223,7 +233,7 @@
                                                 
                                                  <%} %>
                                                  
-                                                 
+                                          </div>       
                                             <div id="viewmore" class="pagination_wrap pagination_viewmore">
                                                 <a href="#" id="viewmore_link" class="sc_button sc_button_style_filled1 sc_button_bg_custom sc_button_size_large theme_button viewmore_button">
                                                     <span class="icon-spin3 animate-spin viewmore_loading">

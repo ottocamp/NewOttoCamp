@@ -38,10 +38,11 @@ public class FavoriteCheckServlet extends HttpServlet {
 		int code =  Integer.parseInt(request.getParameter("code"));
 		
 		ArrayList<Integer> codeList = FavoriteService.selectCode(uno);
-
+		
+		request.setAttribute("code", code);
 		request.setAttribute("codeList", codeList);
-		request.getRequestDispatcher("views/user/detail"+code+".jsp").forward(request, response);
-
+		request.getRequestDispatcher("views/mainPage/detail.jsp").forward(request, response);
+		
 		
 	}
 

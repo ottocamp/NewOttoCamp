@@ -18,7 +18,7 @@ String from = "whqotjd@naver.com";
 String mTitle = request.getParameter("mTitle");
 String sumtext = request.getParameter("sumtext");
 String code = request.getParameter("mcCode");
-  
+int port = request.getLocalPort();
 Properties p = new Properties(); // 정보를 담을 객체
   
 p.put("mail.smtp.host","smtp.naver.com");
@@ -41,10 +41,10 @@ try{
     msg.setSubject(mTitle); //  제목
  
     StringBuffer buffer = new StringBuffer();
-    buffer.append(sumtext+"<br>");
-    buffer.append("<a href='http://localhost:9080/administrator/'><img src='https://i.imgur.com/ORIswqX.png'><a>");
+    buffer.append(sumtext +"<br>");
     if(code != null){
-    buffer.append("<img src='http://localhost:9080/administrator/resources/mail/"+ code +".png'>");
+    buffer.append("<a href='http://localhost:"+port +"/administrator/'><img src='https://i.imgur.com/ORIswqX.png'><a>");
+    buffer.append("<br><img src='http://localhost:"+port +"/administrator/resources/mail/"+ code +".png'>");
     }
     Address fromAddr = new InternetAddress(from);
     msg.setFrom(fromAddr); 
