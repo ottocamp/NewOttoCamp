@@ -59,6 +59,14 @@ public class UserLoginServlet extends HttpServlet {
 					return;
 				}
 				
+				if(loginUser.getStatus().equalsIgnoreCase("N")) {
+					PrintWriter out = response.getWriter();
+					out.print("withdraw");		
+					return;
+				}
+				
+				
+				
 				
 
 

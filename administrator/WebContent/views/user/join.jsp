@@ -62,6 +62,12 @@
         	left: 80%;
         }
         
+        .bg-image{
+        background: url('<%= request.getContextPath() %>/resources/user/assets/media/photos/asd.jpg') no-repeat;
+        background-size : 100%;
+         
+        }
+        
         
         </style>
         
@@ -126,7 +132,7 @@
             <main id="main-container">
 
                 <!-- Page Content -->
-                <div class="bg-image" style="background-image: url('<%= request.getContextPath() %>/resources/user/assets/media/photos/photo34@2x.jpg');">
+                <div class="bg-image" >
                     <div class="row mx-0 bg-earth-op">
 
                         <div class="hero-static col-md-6 col-xl-4 d-flex align-items-center bg-white" style="width: 10px">

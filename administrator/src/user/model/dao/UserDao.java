@@ -830,6 +830,98 @@ public class UserDao {
 
 
 
+	public int userWithdraw(Connection con, int uno) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		
+		String sql = prop.getProperty("userWithdraw");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, uno);
+			
+			result = pstmt.executeUpdate(); 
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+
+	public int pwdFindUser(Connection con, String uid, String uemail) {
+		
+		PreparedStatement pstmt = null;
+		int result =0;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("pwdFindUser");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, uid);
+			pstmt.setString(2, uemail);
+			
+			rset =  pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println(result);
+				
+		
+		return result;
+	}
+
+
+
+
+	public int resetPwd(Connection con, String uid, String pwd1) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		
+		String sql = prop.getProperty("resetPwd");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pwd1);
+			pstmt.setString(2, uid);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+
+		return result;
+	}
+
+
+
+
 
 
 }
