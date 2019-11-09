@@ -793,6 +793,43 @@ public class UserDao {
 
 
 
+	public int selectUserNo(Connection con, String uid) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int uno =0;
+		
+		String sql = prop.getProperty("selectUserNo");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, uid);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				uno = rset.getInt(1);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return uno;
+	}
+
+
+
+
 
 
 }

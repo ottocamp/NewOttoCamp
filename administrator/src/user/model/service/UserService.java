@@ -314,6 +314,16 @@ public class UserService {
 		
 		return result;
 	}
+
+	public int selectUserNo(String uid) {
+
+		Connection con = getConnection();
+		
+		int uno = new UserDao().selectUserNo(con,uid);
+		
+		
+		return uno;
+	}
 	
 	
 	
