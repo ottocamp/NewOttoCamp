@@ -96,16 +96,19 @@
                                  <a href="<%= request.getContextPath() %>/views/user/userUpdate.jsp">마이페이지</a>
                                  <ul class="sub-menu">
                                     <li class="menu-item">
-                                       <a href="">개인정보수정</a>
+                                       <a href="<%= request.getContextPath() %>/views/user/userUpdate.jsp">나의 정보</a>
                                     </li>
                                     <li class="menu-item">
-                                       <a href="">이용내역</a>
+                                       <a href="<%= request.getContextPath() %>/reservation.user">이용내역</a>
                                     </li>
                                     <li class="menu-item">
-                                       <a href="">로그인관리</a>
+                                       <a href="<%= request.getContextPath() %>/select.favorite">나의 관심 캠핑장</a>
                                     </li>
                                     <li class="menu-item">
-                                       <a href="">리뷰및메모</a>
+                                       <a href="<%= request.getContextPath() %>/ipinfo.user">로그인 관리</a>
+                                    </li>
+                                    <li class="menu-item">
+                                       <a href="<%= request.getContextPath() %>/coupon.user">쿠폰 관리</a>
                                     </li>
                                     </ul>   
                                     <li class="menu-item menu-item-has-children" id="businessMenu" hidden>

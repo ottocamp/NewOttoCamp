@@ -57,11 +57,14 @@ public class UserInsertServlet extends HttpServlet {
 		if(result>0) {
 			
 			//가입 성공시 상태를 R(ready로 하고)
-			//JOINCODE 테이블에 랜덤코드를 넣자
-			
-			//10개 대문자를 생성해서 아이디와 넣음
+			//JOINCODE 테이블에 랜덤코드를 넣자		
 			String rcode = new RandomCode().RandomCode(10);
 			new UserService().insertJoincode(uid,rcode);
+			
+			//uid로 uno을 얻어와 신규가입 쿠폰을 넣어주자
+			int uno = new UserService().selectUserNo(uid);
+			new UserService().insertCoupon(uno,"s1");
+			
 			
 			//이메일 발송을 하는 JSP(jsp로 가면 자동으로 메일 발송)
 			//uid , uemail, rcode를 보냄
@@ -71,8 +74,6 @@ public class UserInsertServlet extends HttpServlet {
 			request.getRequestDispatcher("views/joinmail/mailSend.jsp").forward(request, response);
 			
 			
-/*			request.setAttribute("msg", "가입성공");
-			request.getRequestDispatcher("views/user/login.jsp").forward(request, response);*/
 
 		}else {
 			request.setAttribute("msg", "가입실패");

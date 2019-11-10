@@ -4,6 +4,8 @@
 	String msg = (String)session.getAttribute("msg");
 		
 	ArrayList<Coupon> ucList = (ArrayList<Coupon>)request.getAttribute("ucList");
+	ArrayList<Coupon> cList = (ArrayList<Coupon>)request.getAttribute("cList");
+	
 	DecimalFormat formatter = new DecimalFormat("##,###,###");
 
 %>   
@@ -324,10 +326,10 @@
 
                     <div class="footer">
                         <div class="pull-right hidden-xs">
-                            Project Completed <strong class="text-custom">39%</strong>.
+                            
                         </div>
                         <div>
-                            <strong>Simple Admin</strong> - Copyright © 2017
+                            <strong>OH ! DDO</strong> - Copyright © 2019
                         </div>
                     </div> <!-- end footer -->
 
@@ -437,6 +439,8 @@
 		
 		function validate(){
 			
+			var grade = '<%= loginUser.getGrade() %>';
+			
 			if($("#inCode").val().trim() == ""){
 				alert("쿠폰코드를 작성해주세요");
 				
@@ -444,6 +448,22 @@
 				return false;
 				
 			}
+			
+			<% for(Coupon c : cList){ %>
+			
+			if($("#inCode").val() == '<%= c.getcCode() %>'){
+				
+				if(grade != '<%= c.getcGrade() %>' ){
+					alert("등급이 일치 하지 않아 쿠폰을 등록 할 수 없습니다.");
+					return false;
+				}
+
+			}
+	
+			<%}%>
+			
+			
+			
 			       
 			
 		}

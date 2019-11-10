@@ -12,6 +12,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	        <link href="<%= request.getContextPath() %>/resources/assets/css/bootstrap.min.css" rel="stylesheet">
+        <!-- MetisMenu CSS -->
+        <link href="<%= request.getContextPath() %>/resources/assets/css/metisMenu.min.css" rel="stylesheet">
+        <!-- Icons CSS -->
+        <link href="<%= request.getContextPath() %>/resources/assets/css/icons.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="<%= request.getContextPath() %>/resources/assets/css/style.css" rel="stylesheet">
+
+
+
+
+
+
 <script>
 	var msg = "<%= msg %>";
 	
@@ -28,14 +42,36 @@
 
 </head>
 <body>
-	전화번호 업데이트
+
 	
-	<form action="<%= request.getContextPath() %>/updateemail.user" method="post" onsubmit="return validate();">
-	
-	<input type="text" name="email" required="required">
-	<button>이메일 변경</button>
-	
-	</form>
+	                                <div class="account-content">
+                                    <form action="<%= request.getContextPath() %>/updateemail.user" method="post" onsubmit="return validate();">
+			
+                                        <div class="form-group m-b-20">
+                                            <div class="col-xs-12">
+                                                <label for="emailaddress">이메일 </label>
+                                                <input class="form-control" type="email"  name="email" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group m-b-30">
+                                            <div class="col-xs-12">
+                         
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group account-btn text-center m-t-10">
+                                            <div class="col-xs-12">
+                                                <button class="btn btn-lg btn-primary btn-block" type="submit">변경하기</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+                            
 	
 		<script>
 	

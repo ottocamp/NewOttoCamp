@@ -314,6 +314,60 @@ public class UserService {
 		
 		return result;
 	}
+
+	public int selectUserNo(String uid) {
+
+		Connection con = getConnection();
+		
+		int uno = new UserDao().selectUserNo(con,uid);
+		
+		
+		return uno;
+	}
+
+	public int userWithdraw(int uno) {
+
+		Connection con = getConnection();
+		
+		int result = new UserDao().userWithdraw(con, uno);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int pwdFindUser(String uid, String uemail) {
+
+		
+		Connection con = getConnection();
+		
+		//유저 수를 세는것이므로 커밋 롤백 할 필요 없음
+		int result = new UserDao().pwdFindUser(con, uid,uemail);
+		
+		
+		return result;
+	}
+
+	public int resetPwd(String uid, String pwd1) {
+		Connection con = getConnection();
+		
+		int result = new UserDao().resetPwd(con, uid,pwd1);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		
+		return result;
+	}
 	
 	
 	

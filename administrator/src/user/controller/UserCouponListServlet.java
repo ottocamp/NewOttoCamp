@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import coupon.model.service.CouponService;
 import coupon.model.vo.Coupon;
 import user.model.service.UserService;
 import user.model.vo.User;
@@ -39,9 +39,10 @@ public class UserCouponListServlet extends HttpServlet {
 		
 		
 		ArrayList<Coupon> ucList = new UserService().selectCouponList(uno);
+		ArrayList<Coupon> cList = new CouponService().selectList();
 		
-
 		
+		request.setAttribute("cList", cList);
 		request.setAttribute("ucList", ucList);
 		request.getRequestDispatcher("views/user/userCouponList.jsp").forward(request, response);
 	}

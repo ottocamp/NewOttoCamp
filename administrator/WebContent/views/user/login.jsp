@@ -48,6 +48,9 @@
 					background-size : cover;
 			
 			}
+			.text-dark m-l-5{
+				display: inline;	
+			}
 		
 		</style>
 
@@ -80,7 +83,7 @@
                                         <div class="form-group m-b-20">
                                             <div class="col-xs-12">
                                                 <label for="id" style="color: white;">아이디</label>
-                                                <input class="form-control" name="userId" type="text" id="id1" required="" placeholder="">
+                                                <input class="form-control" name="userId" type="text" id="id1" required="" placeholder="" autocomplete="off">
                                             </div>
                                         </div>
 
@@ -156,7 +159,11 @@
                                                			alert("외국에서 접근 불가능한 계정입니다.");
                                                		}else if(data=="ready"){
                                                			alert("이메일 인증을 하셔야 합니다");
+                                               		}else if(data=="withdraw"){
+                                               			alert("탈퇴한 회원 입니다.");
                                                		}
+                                               		
+                                               		
                                                 	
                                                 },
                                                 error:function(){
@@ -194,11 +201,14 @@
 
                             <div class="row m-t-50">
                                 <div class="col-sm-12 text-center">
-                                    <a href="<%= request.getContextPath() %>/views/user/join.jsp" class="text-dark m-l-5">회원가입</a></p>
+                                    <a href="<%= request.getContextPath() %>/views/user/join.jsp" class="text-dark m-l-5">회원가입</a>
+                                    <a class="text-dark m-l-5">|</a>
+                                    <a href="<%= request.getContextPath() %>/views/user/joinBusiness.jsp" class="text-dark m-l-5">사업자 회원가입</a></a>
+                                    <a class="text-dark m-l-5">|</a>
+                                    <a href="<%= request.getContextPath() %>/views/user/pwdfind.jsp" class="text-dark m-l-5">비밀번호 찾기</a>
                                 </div>
                                 <div class="col-sm-12 text-center">
-                                    <a href="<%= request.getContextPath() %>/views/user/joinBusiness.jsp" class="text-dark m-l-5">사업자 회원가입</a></p>
-                                </div>
+                                   
                             </div>
 
                         </div>

@@ -136,7 +136,7 @@
                                    	 다양한 회원 혜택을 누리세요
                                 </p>
                                 <p class="font-size-h5 text-white">
-                                    <i class="fa fa-angles-right"></i> 당신의 캠핑장을 널리 알리세요
+                                    <i class="fa fa-angles-right"></i>  캠핑장 관리를 편하게~!
                                 </p>
                                 <p class="font-italic text-white-op">
                                     Copyright 오또캠프 &copy; <span class="js-year-copy"></span>
