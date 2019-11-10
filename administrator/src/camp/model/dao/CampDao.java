@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import camp.model.vo.Attachment;
+import camp.model.vo.CampDetail;
 import camp.model.vo.CampInfo;
+import camp.model.vo.CampMinPrice;
 
 
 public class CampDao {
@@ -406,6 +408,84 @@ public class CampDao {
 		}
 			
 		return aList;
+	}
+
+
+	public ArrayList<CampMinPrice> selectMinPrice(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<CampMinPrice> cmpList = new ArrayList<CampMinPrice>();
+		
+		String sql = prop.getProperty("selectMinPrice");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				
+				cmpList.add(new CampMinPrice(rset.getInt(1),
+											rset.getInt(2)));
+				
+				
+				
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+
+		return cmpList;
+	}
+
+
+	public ArrayList<CampDetail> selectDetail(Connection conn) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<CampDetail> cdList = new ArrayList<CampDetail>();
+		
+		String sql = prop.getProperty("selectDetail");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				
+				cdList.add(new CampDetail(rset.getInt(1),
+										rset.getInt(2),
+										rset.getString(3),
+										rset.getString(4),
+										rset.getInt(5),
+										rset.getInt(6),
+										rset.getInt(7),
+										rset.getInt(8),
+										rset.getString(9)));
+
+			}
+			
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+
+		return cdList;
 	}
 
 

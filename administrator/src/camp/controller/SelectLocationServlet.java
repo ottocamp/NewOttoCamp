@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import camp.model.service.CampService;
 import camp.model.vo.Attachment;
+import camp.model.vo.CampDetail;
 import camp.model.vo.CampInfo;
+import camp.model.vo.CampMinPrice;
 
 /**
  * Servlet implementation class MainSelectServlet
@@ -41,11 +43,16 @@ public class SelectLocationServlet extends HttpServlet {
 		
 		ArrayList<CampInfo> cList = new CampService().selectLocationList(checkInDate,location);
 		ArrayList<Attachment> aList = new CampService().selectLocationAttachmentList(checkInDate,location);
+		ArrayList<CampMinPrice> cmpList = new CampService().selectMinPrice();
+		ArrayList<CampDetail> cdList = new CampService().selectDetail();
 		
+		System.out.println(cdList);
 		
 		request.getSession().setAttribute("cList", cList);
 		request.getSession().setAttribute("aList", aList);
-
+		request.getSession().setAttribute("cmpList", cmpList);
+		request.getSession().setAttribute("cdList", cdList);
+		
 		request.getRequestDispatcher("views/mainPage/mainPage2.jsp").forward(request, response);
 	}
 
