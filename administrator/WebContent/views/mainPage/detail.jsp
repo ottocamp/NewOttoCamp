@@ -5,8 +5,10 @@
 	int code = Integer.parseInt(request.getParameter("code"));
 	ArrayList<CampInfo> cList = (ArrayList<CampInfo>)request.getSession().getAttribute("cList");
 	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getSession().getAttribute("aList");
+	ArrayList<CampDetail> cdList = (ArrayList<CampDetail>)request.getSession().getAttribute("cdList");
 	
 	CampInfo ca = null;
+	ArrayList<CampDetail> thiscd = new ArrayList<CampDetail>();
 	
 	for(CampInfo c : cList){
 		if(code == c.getcCode()){		
@@ -14,6 +16,17 @@
 		}
 	}
 
+	for(CampDetail cdindex : cdList){
+		
+		if(code == cdindex.getdCode()){
+			
+			thiscd.add(cdindex);
+		}
+		
+	}
+	
+	
+	
 	ArrayList<Integer> codeList = (ArrayList<Integer>)request.getAttribute("codeList");
 	
 	String checkFlag = "";
@@ -611,12 +624,15 @@ button:hover:after{
 
             <main class="wrapper4">   
               <div class="element19 grid-box3"><h1>포함사항</h1>
-              <h2>내용</h2>
+              <% for(CampDetail cd : thiscd){ %>
+              <h2><%= cd.toString() %></h2>
+              <%} %>
+
             </div>
 
               <main class="wrapper5">
               <div class="element20 grid-box4"><h1>환불규정</h1>
-                <h2>내용</h2>
+                <h2><%= ca.getcRefundment() %></h2>
             </div>
             
             
