@@ -288,7 +288,7 @@
 			}else if(rNum==1){
 				$('.starRev span').eq(0).click();
 			}
-			//
+			
 
 		}
 		 
