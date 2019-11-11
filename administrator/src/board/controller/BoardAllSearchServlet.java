@@ -39,6 +39,7 @@ public class BoardAllSearchServlet extends HttpServlet {
 		String keyWord = (String)request.getParameter("keyWord");
 		User u = (User)request.getSession().getAttribute("loginUser");
 
+		System.out.println(keyWord);
 		
 		int listCount = new BoardService().searchAllCount(keyWord);
 		int currentPage;

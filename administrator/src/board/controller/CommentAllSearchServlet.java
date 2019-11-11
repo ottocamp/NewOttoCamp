@@ -12,21 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import board.model.vo.Board;
 import board.model.vo.Comment;
 import board.model.vo.PageInfo;
 import user.model.vo.User;
 
 /**
- * Servlet implementation class CommentAllListServlet
+ * Servlet implementation class CommentAllSearchServlet
  */
-@WebServlet("/allList.co")
-public class CommentAllListServlet extends HttpServlet {
+@WebServlet("/allSearch.co")
+public class CommentAllSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommentAllListServlet() {
+    public CommentAllSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,8 +37,11 @@ public class CommentAllListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		String keyWord = (String)request.getParameter("keyWord");
+		User u = (User)request.getSession().getAttribute("loginUser");
 
-		int listCount = new BoardService().getAllCommentCount();
+		
+		int listCount = new BoardService().searchAllCommentCount(keyWord);
 		int currentPage;
 		int startPage;
 		int endPage;
@@ -61,17 +65,18 @@ public class CommentAllListServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
-		ArrayList<Comment> clist = new BoardService().getAllListComment(currentPage, boardLimit);
+		ArrayList<Comment> clist = new BoardService().searchAllListComment(keyWord, currentPage, boardLimit);
 		HashMap bTitle = new BoardService().getbTitle(clist);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("clist", clist);
 		request.setAttribute("bTitle", bTitle);
+		request.setAttribute("keyWord", keyWord);
 		
 		RequestDispatcher view = request.getRequestDispatcher("/views/board/commentAllListView.jsp");
 		
 		view.forward(request, response);
-		
+	
 	}
 
 	/**
