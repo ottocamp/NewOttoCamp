@@ -8,6 +8,8 @@
 	ArrayList<CampSales> csList = (ArrayList<CampSales>)request.getAttribute("csList");
 	ArrayList<TopCampSales> tcsList = (ArrayList<TopCampSales>)request.getAttribute("tcsList");
 	ArrayList<TopMemberSales> tmsList = (ArrayList<TopMemberSales>)request.getAttribute("tmsList");
+	request.getSession().setAttribute("tmsList", tmsList);
+	request.getSession().setAttribute("tcsList", tcsList);
 	
 	DecimalFormat formatter = new DecimalFormat("#,###,###,###");
 	
@@ -357,8 +359,17 @@
                                                 
                                                 </div>
                                                 <div class="modal-body">
-                                                     <h4 class="modal-title" id="myModalLabel"><%= year %>년 사업장별 매출순위</h4>
-                                                   
+                                                     <span style="font-size: 20px; font-weight: bold; line-height: 35px;"><%= year %>년 사업장별 매출순위</span>
+                                                     
+                                                     <button type="button" class="btn btn-default" onclick="topBisinessMail();" style="float: right; margin-top: 2px;">메일쓰기</button>
+                                                   <select id="BCount" class="form-control" style="width: 20%; display: inline-block; float: right; margin-right: 2px; height: 34px; margin-top: 2px;">
+                                                        <option value='1'>TOP1</option>
+                                                        <option value='3'>TOP3</option>
+                                                        <option value='5'>TOP5</option>
+                                                        <option value='10'>TOP10</option>
+                                                        <option value='20'>TOP20</option>
+                                                    </select>
+                                                	<hr style="margin-top: 10px;">
                                                      <table class="table table table-hover m-0">
                                                 <thead>
                                                     <tr>
@@ -398,8 +409,18 @@
                                                 
                                                 </div>
                                                 <div class="modal-body">
-                                                     <h4 class="modal-title" id="myModalLabel"><%= year %>년 회원별 매출순위</h4>
-                                                   
+               
+                                                     <span style="font-size: 20px; font-weight: bold; line-height: 35px;"><%= year %>년 회원별 매출순위</span>
+                                                     
+                                                     <button type="button" class="btn btn-default" onclick="topUserMail();" style="float: right; margin-top: 2px;">메일쓰기</button>
+                                                   <select id="UserCount" class="form-control" style="width: 20%; display: inline-block; float: right; margin-right: 2px; height: 34px; margin-top: 2px;">
+                                                        <option value='1'>TOP1</option>
+                                                        <option value='3'>TOP3</option>
+                                                        <option value='5'>TOP5</option>
+                                                        <option value='10'>TOP10</option>
+                                                        <option value='20'>TOP20</option>
+                                                    </select>
+                                                	<hr style="margin-top: 10px;">
                                                      <table class="table table table-hover m-0">
                                                 <thead>
                                                     <tr>
@@ -423,7 +444,8 @@
                                             </table>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+                                                
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div><!-- /.modal-content -->
                                         </div><!-- /.modal-dialog -->
@@ -494,6 +516,30 @@
 	
 	
 	<script type="text/javascript">
+	
+	function topUserMail(){
+		
+		
+		 var count = $("#UserCount").val();
+		
+	
+		location.href="<%= request.getContextPath() %>/SaleTopMail.li?count=" + count + "," + <%= year %>; 
+		
+		
+		
+	}
+	
+	
+	function topBisinessMail(){
+		
+		var count = $("#BCount").val();
+		
+		location.href="<%= request.getContextPath() %>/SaleTopBMail.li?count=" + count + "," + <%= year %>;  
+		
+	}
+	
+	
+	
 	
 	function Sales(value){
 		

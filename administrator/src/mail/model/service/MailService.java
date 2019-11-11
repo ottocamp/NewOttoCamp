@@ -21,4 +21,26 @@ public class MailService {
 		return UserList;
 	}
 
+	public ArrayList<User> selectTopSaleUserList(int[] userArr) {
+
+		Connection conn = getConnection();
+		
+		ArrayList<User> UserList = new MailDao().selectTopSaleUserList(conn,userArr);
+		
+		close(conn);
+		
+		return UserList;
+	}
+
+	public ArrayList<User> selectTopSaleCampList(int[] userArr) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<User> UserList = new MailDao().selectTopSaleCampList(conn,userArr);
+		
+		close(conn);
+		
+		return UserList;
+	}
+
 }

@@ -86,4 +86,102 @@ public class MailDao {
 		return UserList;
 	}
 
+
+	public ArrayList<User> selectTopSaleUserList(Connection conn, int[] userArr) {
+		
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<User> UserList = new ArrayList<User>();
+		
+		String sql = prop.getProperty("selectTopSaleUserList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			for(int i : userArr) {
+			pstmt.setInt(1, i);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				UserList.add(new User(rset.getInt("USER_NO"),
+								rset.getString("USER_TYPE"),
+								rset.getString("USER_ID"),
+								rset.getString("USER_NAME"),
+								rset.getString("USER_PWD"),
+								rset.getString("PHONE"),
+								rset.getString("EMAIL"),
+								rset.getString("BIRTHDATE"),
+								rset.getString("GENDER"),
+								rset.getString("FORIGNYN"),
+								rset.getString("STATUS"),
+								rset.getString("GRADE"),
+								rset.getString("JOIN_DATE")
+						));
+				
+				
+			}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return UserList;
+	}
+
+
+	public ArrayList<User> selectTopSaleCampList(Connection conn, int[] userArr) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<User> UserList = new ArrayList<User>();
+		
+		String sql = prop.getProperty("selectTopSaleCampList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			for(int i : userArr) {
+			pstmt.setInt(1, i);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				UserList.add(new User(rset.getInt("USER_NO"),
+								rset.getString("USER_TYPE"),
+								rset.getString("USER_ID"),
+								rset.getString("USER_NAME"),
+								rset.getString("USER_PWD"),
+								rset.getString("PHONE"),
+								rset.getString("EMAIL"),
+								rset.getString("BIRTHDATE"),
+								rset.getString("GENDER"),
+								rset.getString("FORIGNYN"),
+								rset.getString("STATUS"),
+								rset.getString("GRADE"),
+								rset.getString("JOIN_DATE")
+						));
+				
+				
+			}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return UserList;
+	}
+
 }
