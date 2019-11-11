@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String msg = (String)request.getAttribute("msg");
-	
+   String msg = (String)request.getAttribute("msg");
+   
 %>       
 <!DOCTYPE html>
 <html>
@@ -10,20 +10,20 @@
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script>
-		var msg = "<%= msg %>";
-		$(function(){
-		if(msg != "null"){
-			
-			alert(msg);
-			<%-- <% session.removeAttribute("msg"); %> --%>
-		}
-		});
-		
-	</script>
-		<!-- jqury cdn -->
-		<script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
-		
+   <script>
+      var msg = "<%= msg %>";
+      $(function(){
+      if(msg != "null"){
+         
+         alert(msg);
+         <%-- <% session.removeAttribute("msg"); %> --%>
+      }
+      });
+      
+   </script>
+      <!-- jqury cdn -->
+      <script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
+      
         <meta charset="utf-8" />
         <title>SimpleAdmin - Responsive Admin Dashboard Template</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -42,17 +42,45 @@
         <!-- Custom styles for this template -->
         <link href="<%= request.getContextPath() %>/resources/assets/css/style2.css?after" rel="stylesheet">
 
-		<style>
-			body{
-					background: url('<%= request.getContextPath() %>/resources/user/images/loginback.jpg') no-repeat;
-					background-size : cover;
-			
-			}
-			.text-dark m-l-5{
-				display: inline;	
-			}
-		
-		</style>
+      <style>
+         body{
+               background: url('<%= request.getContextPath() %>/resources/user/images/loginback.jpg') no-repeat;
+               
+         }
+         
+         body::before { position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+         background: url('<%= request.getContextPath() %>/resources/user/images/loginback.jpg') no-repeat;
+         -webkit-filter: blur(5px); 
+         -moz-filter: blur(5px); 
+         -o-filter: blur(5px); 
+         -ms-filter: blur(5px); 
+         filter: blur(5px); z-index: -1; 
+         content: "";
+          }
+         
+         
+         .col-sm-12 text-center {
+         
+         
+         text-decoration-color: aliceblue;
+         }
+      
+      
+      .wrapper-page .card-box {
+           border: 3px solid white;
+  
+       }
+          
+               
+            .text-dark {
+                color: white !important;
+                
+            }
+
+      
+      
+      
+      </style>
 
 
     </head>
@@ -72,7 +100,7 @@
                                 <div class="text-center">
                                     <h2 class="text-uppercase m-t-0 m-b-30">
                                         <a href="<%= request.getContextPath() %>" class="text-success">
-                                            <span><img src="<%= request.getContextPath() %>/resources/assets/images/logo_dark.png" alt="" height="70" width="150"></span>
+                                            <span><img src="<%= request.getContextPath() %>/resources/main/images/11.png" alt="" height="70" width="150"></span>
                                         </a>
                                     </h2>
                                     <!--<h4 class="text-uppercase font-bold m-b-0">Sign In</h4>-->
@@ -110,77 +138,77 @@
                                                 <button class="btn btn-lg btn-primary btn-block" type="button" onclick="logoincheck();">로그인</button>
                                             </div>
                                         </div>
-											<input type="hidden" name="ip">
-											<input type="hidden" name="country">
-											<input type="hidden" name="ccode">
-											
-											
+                                 <input type="hidden" name="ip">
+                                 <input type="hidden" name="country">
+                                 <input type="hidden" name="ccode">
+                                 
+                                 
                                     </form>
                                     
                                     
                                     <script>
-                                    	var country = geoplugin_countryName();
-                                    	var ip = geoplugin_request(); 
-                                    	var ccode= geoplugin_countryCode()
-                                    	
-                                    	/* console.log(country);
-                                    	console.log(ip);
-                                    	console.log(ccode); */
-                                    	/*1*/
-                                    	
-                                    	$(function(){
-                                    		$("input[name=ip]").val(ip);
-                                    		$("input[name=country]").val(country);
-                                    		$("input[name=ccode]").val(ccode);
-                                    		
-                                    	});
-                                    	
+                                       var country = geoplugin_countryName();
+                                       var ip = geoplugin_request(); 
+                                       var ccode= geoplugin_countryCode()
+                                       
+                                       /* console.log(country);
+                                       console.log(ip);
+                                       console.log(ccode); */
+                                       /*1*/
+                                       
+                                       $(function(){
+                                          $("input[name=ip]").val(ip);
+                                          $("input[name=country]").val(country);
+                                          $("input[name=ccode]").val(ccode);
+                                          
+                                       });
+                                       
 
-                                    	
-                                    	
-                                    	function logoincheck(){
-                                    		
-                                        	var userId = $("#id1").val();
-                                        	var userPwd = $("#pwd1").val();
+                                       
+                                       
+                                       function logoincheck(){
+                                          
+                                           var userId = $("#id1").val();
+                                           var userPwd = $("#pwd1").val();
 
-                                        	
+                                           
                                             $.ajax({
                                                 url:"<%= request.getContextPath() %>/login.user",
                                                 data:{userId:userId,userPwd:userPwd,country:country,ip:ip,ccode:ccode},
                                                 type:"post",
                                                 success:function(data){
-                                               		if(data=="success"){
-                                               			location.href = "<%= request.getContextPath() %>";
-                                               		}else if (data=="pwdError"){
-                                               			alert("비밀번호 불일치");
-                                               		}else if (data=="noUser"){
-                                               			alert("그런 회원은 없습니다.");
-                                               		}else if(data=="block"){
-                                               			alert("외국에서 접근 불가능한 계정입니다.");
-                                               		}else if(data=="ready"){
-                                               			alert("이메일 인증을 하셔야 합니다");
-                                               		}else if(data=="withdraw"){
-                                               			alert("탈퇴한 회원 입니다.");
-                                               		}
-                                               		
-                                               		
-                                                	
+                                                     if(data=="success"){
+                                                        location.href = "<%= request.getContextPath() %>";
+                                                     }else if (data=="pwdError"){
+                                                        alert("비밀번호 불일치");
+                                                     }else if (data=="noUser"){
+                                                        alert("그런 회원은 없습니다.");
+                                                     }else if(data=="block"){
+                                                        alert("외국에서 접근 불가능한 계정입니다.");
+                                                     }else if(data=="ready"){
+                                                        alert("이메일 인증을 하셔야 합니다");
+                                                     }else if(data=="withdraw"){
+                                                        alert("탈퇴한 회원 입니다.");
+                                                     }
+                                                     
+                                                     
+                                                   
                                                 },
                                                 error:function(){
                                                  console.log("통신실패");
                                                 }
                                                });
-                                    		
-                                    		
-                                    		
-                                    	}
-                                    	
-                                    	
-                                    	
+                                          
+                                          
+                                          
+                                       }
+                                       
+                                       
+                                       
                                     
 
-                                    	
-                                    	
+                                       
+                                       
                                     
                                     
                                     </script>
