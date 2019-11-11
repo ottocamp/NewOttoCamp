@@ -49,7 +49,7 @@
 	
 	
 %>   
-    
+                   
     
 <!DOCTYPE html>
 <html>
@@ -89,7 +89,7 @@
 
             .wrapper1 {
             width: 1000px;
-            height: 500px;
+            height: 300px;
             margin: 5vh auto 5vh auto;
             display: grid;
             grid-template-rows: 100%;
@@ -539,23 +539,21 @@ button:hover:after{
 
             
             
-            <h1><%= ca.getcName() %></h1>
-            <br>
-            <br>
+           
+          
 
           </head>
-              <br>
-              <br>
+          
 
 
             <body>
-
+ 			<h1><%= ca.getcName() %></h1>
               <main class="wrapper">
                
             
                 <div class="element1 grid-box"> <img src="<%=request.getContextPath()%><%=  thisat.get(0).getFilePath() %><%= thisat.get(0).getChangeName() %>" width="512.5px" height="262.5px"></div>
                 <div class="element2 grid-box"><img src="<%=request.getContextPath()%><%=  thisat.get(1).getFilePath() %><%= thisat.get(1).getChangeName() %>" width="250px" height="125px"></div>
-                <div class="element3 grid-box"><img src="<%=request.getContextPath()%><%=  thisat.get(2).getFilePath() %><%= thisat.get(2).getChangeName() %>" width="250px" height="262.5px"></div>
+                <div class="element3 grid-box"><img src="<%=request.getContextPath()%><%=  thisat.get(2).getFilePath() %><%= thisat.get(2).getChangeName() %>?after" width="250px" height="262.5px"></div>
                 <div class="element4 grid-box"><img src="<%=request.getContextPath()%><%=  thisat.get(3).getFilePath() %><%= thisat.get(3).getChangeName() %>" width="250px" height="125px"></div>
                 <div class="element5 grid-box"><img src="<%=request.getContextPath()%><%=  thisat.get(4).getFilePath() %><%= thisat.get(4).getChangeName() %>" width="250px" height="125px"></div>
                 <div class="element6 grid-box"><img src="<%=request.getContextPath()%><%=  thisat.get(5).getFilePath() %><%= thisat.get(5).getChangeName() %>" width="250px" height="125px"></div>
@@ -568,8 +566,32 @@ button:hover:after{
 
         <main class="wrapper1">
             <div class="element11 grid-box1">
-              <h1>캠핑장 정보 </h1>
-               주소 : <%= ca.getcAddress() %> 전화번호 : <%= ca.getcPhone() %> 홈페이지 : <%= ca.getcUrl() %>
+                      <h1>캠핑장 정보 </h1>
+             <table border="1px solid black;" style="text-align: center; width: 100%;">
+         		<tr>
+         		<th>주소</th>
+         		<th>전화번호</th>
+         		<th>홈페이지주소</th>
+         		<th>테마</th>
+         		
+         		</tr>
+           
+         		<tr>
+         			<td><%= ca.getcAddress() %></td>
+         			<td><%= ca.getcPhone() %></td>
+         			<td><a href="#"><%= ca.getcUrl() %></a></td>
+			<% if(ca.getcTheme() == 1){ %>
+         			<td>산</td>
+         		<%}else if(ca.getcTheme() == 2){ %>
+         			<td>강</td>
+         		<%}else if(ca.getcTheme() == 3){%>
+         			<td>바다</td>
+         		<%}else{ %>
+         			<td>기타</td>
+         		<%} %>
+         		</tr>     	  	
+
+              	</table>
               
            
             </div>
@@ -591,7 +613,7 @@ button:hover:after{
  
 
             <main class="wrapper4">   
-              <div class="element19 grid-box3"><h1>포함사항</h1>
+              <div class="element19 grid-box3"><h1>가격</h1>
               <table border="1px solid black;" style="text-align: center; width: 100%;">
          		<tr>
          		<th>구분</th>
@@ -618,7 +640,32 @@ button:hover:after{
 
               <main class="wrapper5">
               <div class="element20 grid-box4"><h1>환불규정</h1>
-                <h2><%= ca.getcRefundment() %></h2>
+                <table border="1px solid black;" style="width: 100%; text-align: center;">
+               <tr>
+               <th>사용예정일기준(입실기준)</th>
+               <th>환불율</th>
+               </tr>
+               <tr>
+               <td>사용예정일 10일전까지 취소</td>
+               <td>100% 환불</td>
+               </tr>
+               <tr>
+               <td>사용예정일 7일전까지 취소</td>
+               <td>80% 환불</td>
+               </tr>
+               <tr>
+               <td>사용예정일 5일전까지 취소</td>
+               <td>60% 환불</td>
+               </tr>
+               <tr>
+               <td>사용예정일 3일전까지 취소</td>
+               <td>40% 환불</td>
+               </tr>
+               <tr>
+               <td>사용예정일 2일전부터  당일까지 취소</td>
+               <td>환불불가</td>
+               </tr>
+               </table>
                   
             </div>
             
@@ -648,7 +695,7 @@ button:hover:after{
             </div>
             
             
-            	<div style="text-align: center; margin-top: 200px;">
+            	<div style="text-align: center;">
             	<button type="button" onclick="reservation();">예약하기</button>
             	</div>
             
