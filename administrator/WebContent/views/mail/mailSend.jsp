@@ -9,6 +9,7 @@
 <%@page import="mail.controller.SMTPAuthenticatior"%>
 <%@page import="javax.mail.Authenticator"%>
 <%@page import="java.util.Properties"%>
+<%@page import="java.net.InetAddress"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("utf-8");
@@ -19,6 +20,7 @@ String mTitle = request.getParameter("mTitle");
 String sumtext = request.getParameter("sumtext");
 String code = request.getParameter("mcCode");
 int port = request.getLocalPort();
+String ip = InetAddress.getLocalHost().getHostAddress();
 Properties p = new Properties(); // 정보를 담을 객체
   
 p.put("mail.smtp.host","smtp.naver.com");
@@ -43,8 +45,8 @@ try{
     StringBuffer buffer = new StringBuffer();
     buffer.append(sumtext +"<br>");
     if(code != null){
-    buffer.append("<a href='http://localhost:"+port +"/administrator/'><img src='https://i.imgur.com/ORIswqX.png'><a>");
-    buffer.append("<br><img src='http://localhost:"+port +"/administrator/resources/mail/"+ code +".png'>");
+    buffer.append("<a href='http://"+ ip +":"+port +"/administrator/'><img src='https://i.imgur.com/ORIswqX.png'><a>");
+    buffer.append("<br><img src='http://" + ip +":"+port +"/administrator/resources/mail/"+ code +".png'>");
     }
     Address fromAddr = new InternetAddress(from);
     msg.setFrom(fromAddr); 
