@@ -211,9 +211,15 @@
                                                      <th>첨부사진</th>
                                                      <td colspan="3" id="picture"></td>
                                                     </tr>
-                       
+                                                    <tr hidden="">
+                                                    <td colspan="3"> <input type="text" id="ct"> </td>
+                                                    <td> <button type="button" id="hbt" onclick="test22();">숨긴버튼</button> </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
+                                                </div>
+                                                 <div align="right">
+                                                	<button type="button" class="btn btn-success" id="vbt" onclick="test11();">상세 페이지로 이동</button>
                                                 </div>
                                             </div><!-- /.modal-content -->
                                         </div><!-- /.modal-dialog -->
@@ -264,7 +270,7 @@
 		$("#code").val('');
 		
 
-		var cNo = $("#cCode").val();
+		var cNo = $(value).parent().children().eq(3).val();
 					
 		<% for(CampInfo ca : cList) {%>
 		
@@ -283,7 +289,7 @@
 				var $td9 = $("<td>").text("<%= ca.getcPosting() %>");
 				var $td10 = $("<td>").text("<%= ca.getcRefundment() %>");
 				var $td11 = $("<td>").text("<%= ca.getcEtc() %>");
-							
+				$("#ct").val("<%= ca.getcCode() %>");			
 				
 				<% for(int i = 0; i < aList.size(); i++) { %>
 				
@@ -317,12 +323,23 @@
 		<%} %>
 		
 		
-		
-		
-		
-		
 		$("#modal").click();
 	}
+	
+	
+	function() test11(){
+		$("#hbt").click();
+		
+	}
+	
+	function() test22(){
+		alert("가보자");
+	}
+	
+	
+	
+	
+	
 	
 	
 	</script>
