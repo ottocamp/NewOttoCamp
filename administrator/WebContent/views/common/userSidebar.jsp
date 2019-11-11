@@ -40,7 +40,7 @@
                                 <li><a href="<%= request.getContextPath() %>/views/user/userUpdate.jsp"> <i class="ti-paint-bucket"></i> 나의 정보 </a></li>
 
                                 <li>
-                                    <a href="<%= request.getContextPath() %>/reservation.user"><i class="ti-paint-bucket"></i> 이용내역</span></a>
+                                    <a href="<%= request.getContextPath() %>/reservation.user"><i class="ti-paint-bucket"></i> 이용내역</a>
 
                                 </li>
                                 
@@ -50,6 +50,8 @@
 									class="ti-spray"></i> 로그인 관리 </a></li>
   								<li><a href="<%= request.getContextPath() %>/coupon.user"><i
 									class="ti-spray"></i> 쿠폰 관리 </a></li>
+								<li><a href="<%= request.getContextPath() %>/selectreview.user"><i
+									class="ti-spray"></i> 리뷰 관리 </a></li>
   									
 <!--                                 <li>
                                     <a href="javascript: void(0);" aria-expanded="true"><i class="ti-pencil-alt"></i> 리뷰 및 메모</span></a>

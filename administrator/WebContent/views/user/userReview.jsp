@@ -1,30 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, user.model.vo.*, java.text.DecimalFormat"%>
+    pageEncoding="UTF-8" import="java.util.*, review.model.vo.*"%>
 <%
-	ArrayList<UserReservation> urList = (ArrayList<UserReservation>)request.getAttribute("urList");
-	DecimalFormat formatter = new DecimalFormat("##,###,###");
+	ArrayList<UserReview> userReviewList = (ArrayList<UserReview>)request.getAttribute("userReviewList");
 	String msg = (String)session.getAttribute("msg");
-	
-	for(UserReservation re : urList){
-			
-		switch(re.getReStatus()){
-		
-		case "1" : re.setReStatus("결제완료"); break;
-		case "2" : re.setReStatus("예약완료"); break;
-		case "3" : re.setReStatus("예약취소"); break;
-		case "4" : re.setReStatus("이용완료"); break;
-		case "5" : re.setReStatus("리뷰완료"); break;
-		
-		}
-		
-	}
-	
+
 %>      
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이용내역</title>
+<title>리뷰 관리 페이지</title>
 		<!-- jqury cdn -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		
@@ -71,11 +56,10 @@
 	</script>
 
 	<style type="text/css">
-#sa-success {
-	display: none;
-}
-
-textarea {
+		#sa-success{
+			display:none;
+		}
+	textarea {
 	resize: none;
 }
 
@@ -93,8 +77,16 @@ textarea {
 
 .starR.on {
 	background-position: 0 0;
-}
-</style>
+}	
+		
+		
+		
+		
+		
+		
+		
+		
+	</style>
 
 </head>
 <body>
@@ -141,48 +133,31 @@ textarea {
                                         <!--         -->
                                         
                                         	<th>예약번호</th>
-                                        	<td hidden="hidden">숨긴캠프코드</td>
                                         	<th>캠핑장명</th>
-                                        	<th>예약일자</th>
-                                        	<th id="ilsi">결제일시</th>
-                                        	<th>결제금액</th>
-                                        	<th>결제방식</th>
-                                        	<th>처리상태</th>
-                                        	<th style="width: 120px">확인/신청</th>
-                                        
-<!--                                             <th>결제일시</th>
-                                            <th>예약번호</th>
-                                            <th>회원이름</th>
-                                            <th>연락처</th>
-                                            <th>예약일자</th>
-                                            <th>결제금액</th>
-                                            <th>처리상태</th>
-                                            <th></th> -->
+                                        	<th>제목</th>
+                                        	<th>사용날짜</th>
+                                        	<th hidden="">숨긴내용</th>
+                                        	<th hidden="">숨긴별점</th>
+                                        	<th hidden="">숨긴 캠핑장코드</th>
+                                        	<th>확인/신청</th>
                                         </tr>
                                         </thead>
-
+	     
                                         <tbody>
-                                        <% for(UserReservation ure : urList){ %>
+                                        <% for(UserReview ure : userReviewList){ %>
 											<tr id="usergrade">
 												<td><%= ure.getReNo() %></td>
-												<td hidden="hidden"><%= ure.getCampCode() %></td>
-												<td><%= ure.getCampName() %></td>
+												<td><%= ure.getcName() %></td>
+												<td><%= ure.getrTitle() %></td>
 												<td><%= ure.getReDate() %></td>
-												<td><%= ure.getPaymentDate() %></td>
-												<td><%= ure.getReCost() %></td>
-												<td><%= ure.getPamentType() %></td>
-												<td><%= ure.getReStatus() %></td>
-												<td><%if(ure.getReStatus().equals("결제완료")) {%>
-													<button type="button" class="btn btn-primary btn-xs" onclick="resChange(this,3);">취소하기</button>
-												<%}else if(ure.getReStatus().equals("예약완료")){ %>
-													<button type="button" class="btn btn-primary btn-xs" onclick="resChange(this,4);">사용완료</button>
-													<button type="button" class="btn btn-primary btn-xs" onclick="resChange(this,3);">취소하기</button>
-												<%}else if(ure.getReStatus().equals("이용완료")) { %>	
-													<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" onclick="reviewInsert(this);">리뷰 남기기</button>
-												<%}else{ %>	
-													취소불가
-												<%} %>										
-												</td>	
+												<td hidden=""><%= ure.getrContent() %></td>
+												<td hidden=""><%= ure.getrNum() %></td>	
+												<td hidden=""><%= ure.getcCode() %></td>	
+												<td>
+													<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" onclick="revChange(this);">수정</button>
+													<button type="button" class="btn btn-primary btn-xs" onclick="revDelete(this);">삭제</button>
+												
+												</td>
 											</tr>
 										<%} %>
                                         </tbody>
@@ -193,30 +168,22 @@ textarea {
 							</div>
 						</div>
                         <!--end row -->
-
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                 <button class="btn btn-default waves-effect waves-light btn-sm" id="sa-success" >Click me</button>
-                            </div> <!-- end col -->
-
-                        </div> <!-- end row -->
                         
                         
-                       <form method="post" action="<%= request.getContextPath() %>/insert.review">
+                            <form method="post" action="<%= request.getContextPath() %>/insert.review">
                      	 			<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                    <h4>리뷰 남기기</h4>
+                                                    <h4>리뷰 수정하기</h4>
                                                 </div>
                                                 <div class="modal-body">
                                                	제목 : <input type="text" name="rTitle" id="rTitle" class="form-control" style="height: 36px; width: 200px; display: inline-block;">         
                                                 <br><hr>
                                            		     별점 
                                                  <div class="starRev">
-  														<span class="starR on">1</span>
+  														<span class="starR">1</span>
  												 		<span class="starR">2</span>
   														<span class="starR">3</span>
   														<span class="starR">4</span>
@@ -226,18 +193,18 @@ textarea {
                                                  
                                                  내용 <textarea class="form-control" rows="5" style="margin: 0px; width: 500px; height: 90px;" placeholder="내용을 입력해주세요" name="rContent" id="rContent"></textarea>
                                                  
-                                                     <input type="number" name="reNo2" id="reNo2" hidden="">
-													 <input type="number" name="cCode" id="cCode" hidden="">
-													 <input type="text" name="cName" id="cName" hidden="">
-													 <input type="text" name="reDate" id="reDate" hidden="">
-													 <input type="number" name="rNum" id="rNum" value="1" hidden="">
+                                                     <input type="number" name="reNo2" id="reNo2" >
+													 <input type="number" name="cCode" id="cCode" >
+													 <input type="text" name="cName" id="cName" >
+													 <input type="text" name="reDate" id="reDate" >
+													 <input type="number" name="rNum" id="rNum" value="1" >
                                                  
                                                  
                                                  
                                                  
                                                 </div>
                                                 <div class="modal-footer">
-                                               		<button type="submit" class="btn btn-primary ">제출하기</button>
+                                               		<button type="submit" class="btn btn-primary ">수정하기</button>
                                                     <button type="button" class="btn btn-default " data-dismiss="modal">닫기</button>
                                                 </div>
                                             </div><!-- /.modal-content -->
@@ -253,6 +220,15 @@ textarea {
                         
                         
                         
+                        
+
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                 <button class="btn btn-default waves-effect waves-light btn-sm" id="sa-success" >Click me</button>
+                            </div> <!-- end col -->
+
+                        </div> <!-- end row -->
 
 
                         <div class="row">
@@ -264,7 +240,6 @@ textarea {
 
                     </div>
                     <!-- end container -->
-
                     <div class="footer">
                         <div class="pull-right hidden-xs">
                             
@@ -283,22 +258,6 @@ textarea {
 
 		<script>
 		
-		function resChange(value,reStatus){
-			
-			var reNo = $(value).parent().parent().children().eq(0).text();
-			var reStatus = reStatus;
-		
-			location.href = "<%= request.getContextPath() %>/resChange.user?reNo="+reNo+"&reStatus="+reStatus;
-			
-		}
-		
-		$(function(){
-			$("#ilsi").click();
-			$("#ilsi").click();
-			
-			
-		});
-		
 		$('.starRev span').click(function(){
 			  $(this).parent().children('span').removeClass('on');
 			  $(this).addClass('on').prevAll('span').addClass('on');
@@ -307,22 +266,31 @@ textarea {
 			});
 		
 		
-		function reviewInsert(value){
+		
+		
+		 //예약번호 캠프네임 리뷰제목 예약날짜 리뷰내용 리뷰점수
+		function revChange(value){
 			
 			var reNo2 = $(value).parent().parent().children().eq(0).text();
-			var cCode = $(value).parent().parent().children().eq(1).text();
-			var cName = $(value).parent().parent().children().eq(2).text();
+			var cName = $(value).parent().parent().children().eq(1).text();
+			var rTitle = $(value).parent().parent().children().eq(2).text();
 			var reDate = $(value).parent().parent().children().eq(3).text();
-
+			var rContent = $(value).parent().parent().children().eq(4).text();
+			var rNum = $(value).parent().parent().children().eq(5).text();
+			var cCode = $(value).parent().parent().children().eq(6).text();
+			
+			$("#rTitle").val(rTitle);
+			$("#rContent").val(rContent);			
 			$("#reNo2").val(parseInt(reNo2));
 			$("#cCode").val(cCode);
 			$("#cName").val(cName);
 			$("#reDate").val(reDate);
+			$("#cCode").val(cCode);
 
 		}
 		
 		
-		
+	
 		
 		</script>
 
