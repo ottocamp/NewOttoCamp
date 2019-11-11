@@ -5,7 +5,10 @@ import java.util.ArrayList;
 
 import camp.model.dao.CampDao;
 import camp.model.vo.Attachment;
+import camp.model.vo.CampDetail;
 import camp.model.vo.CampInfo;
+import camp.model.vo.CampMinPrice;
+
 import static common.JDBCTemplate.*;
 
 public class CampService {
@@ -134,6 +137,28 @@ public class CampService {
 			close(conn);
 			
 			return aList;
+		}
+
+		public ArrayList<CampMinPrice> selectMinPrice() {
+
+			Connection conn = getConnection();
+			
+			ArrayList<CampMinPrice> cmpList = new CampDao().selectMinPrice(conn);
+			
+			close(conn);
+			
+			return cmpList;
+		}
+
+		public ArrayList<CampDetail> selectDetail() {
+			
+			Connection conn = getConnection();
+			
+			ArrayList<CampDetail> cdList = new CampDao().selectDetail(conn);
+			
+			close(conn);
+			
+			return cdList;
 		}
 
 		

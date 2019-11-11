@@ -11,7 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import camp.model.service.CampRefoService;
-import camp.model.vo.ReservationCamp;
+import camp.model.service.CampService;
+import camp.model.vo.Attachment;
+import camp.model.vo.CampInfo;
+import camp.model.vo.CampInfoReservation;
+import camp.model.vo.CampOptionReservation;
+import camp.model.vo.CampSiteReservation;
 
 /**
  * Servlet implementation class CampReservationServlet
@@ -32,22 +37,29 @@ public class CampReservationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("0");
 		
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
+		System.out.println(cNo);
 		
-		ReservationCamp rc = new CampRefoService().detailPageSend(cNo);
+		System.out.println("0");
+		ArrayList<CampInfoReservation> cList = new CampRefoService().selectCampList(cNo);
+		ArrayList<CampSiteReservation> sList = new CampRefoService().selectSiteList(cNo);
+		ArrayList<CampOptionReservation> oList = new CampRefoService().selectOptionList(cNo);
 		
-		if(rc != null) {
-			request.setAttribute("rc", rc);
-			request.getRequestDispatcher("views/reservation/reservationFormView.jsp").forward(request, response);
-			System.out.println("5" + rc);
-		}else {
-			System.out.println("6" + rc);
-		}
+		ArrayList<Attachment> aList = new CampService().selectMainAttachmentList();
 		
-	
-		System.out.println("7" + rc);
+		System.out.println(cList);
+		System.out.println(sList);
+		System.out.println(oList);
+		System.out.println(aList);
+			
+		request.setAttribute("cList", cList);
+		request.setAttribute("sList", sList);
+		request.setAttribute("oList", oList);
+		request.setAttribute("aList", aList);
+		
+		request.getRequestDispatcher("views/reservation/reservationFormView.jsp").forward(request, response);
+		
 	}
 
 	/**

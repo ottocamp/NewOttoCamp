@@ -10,18 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import question.model.service.QuestionService;
-import question.model.vo.*;
+import question.model.vo.PageInfo;
+import question.model.vo.Question;
 
 /**
- * Servlet implementation class QuestionFrequentListServlet
+ * Servlet implementation class QuestionFrequnetSearchServlet
  */
-@WebServlet("/freqList.qe")
-public class QuestionFrequentListServlet extends HttpServlet {
+@WebServlet("/searchPreqList.qe")
+public class QuestionFrequnetSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QuestionFrequentListServlet() {
+    public QuestionFrequnetSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,44 +33,53 @@ public class QuestionFrequentListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-
+		
+		String keyWord = (String)request.getParameter("keyWord");
+		
+		System.out.println("서블릿 : " + keyWord);
+		
 		int qTag = 999;
 		if(request.getParameter("q_tag") != null) {
 			qTag = Integer.parseInt(request.getParameter("q_tag"));
 		}
+
+		System.out.println("서블릿 : " + qTag);
 		
-		int qesCount = new QuestionService().getFreqQesCount(qTag);
+		int qesCount = new QuestionService().searchFreqCount(keyWord, qTag);
 		int currentPage;
 		int pageLimit;
 		int qesLimit;
-		int maxPage;
 		int startPage;
 		int endPage;
+		int maxPage;
 		
-		currentPage= 1;
-		// 게시판 전환 시 전달받은 현재 페이지가 있을 경우 해당 페이지를 currentPage로 적용
+		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		
-		
 		pageLimit = 5;
 		qesLimit = 10;
 		maxPage = (int)Math.ceil((double)qesCount / qesLimit);
-		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		startPage = (currentPage - 1) / pageLimit  * pageLimit + 1;
 		endPage = startPage + pageLimit - 1;
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
 		
-		PageInfo pi = new PageInfo(currentPage, qesCount, pageLimit, maxPage, startPage, endPage, qesLimit);		
-		ArrayList<Question> qlist = new QuestionService().gerFreqQesList(qTag, currentPage, qesLimit);
 		
-		request.setAttribute("pi", pi);
-		request.setAttribute("qlist", qlist);
-		request.setAttribute("q_tag", qTag);
+		
+		PageInfo pi = new PageInfo(currentPage, qesCount, pageLimit, maxPage, startPage, endPage, qesLimit);
+		System.out.println(pi);
+		ArrayList<Question> qlist = new QuestionService().searchFreqQuestion(keyWord, qTag, currentPage, qesLimit);
 
-		request.getRequestDispatcher("/views/question/preqQesListView.jsp").forward(request, response);
+		
+		request.setAttribute("qlist", qlist);
+		request.setAttribute("pi", pi);
+		request.setAttribute("keyWord", keyWord);
+		request.setAttribute("q_tag", qTag);
+		
+		
+		request.getRequestDispatcher("views/question/preqQesListView.jsp").forward(request, response);
 		
 	}
 

@@ -33,12 +33,10 @@ public class CouponListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<Coupon> cList = new CouponService().selectList();
-		
-		
+				
 		request.setAttribute("cList", cList);
 		request.getRequestDispatcher("views/coupon/couponListView.jsp").forward(request, response);
 		
-
 	}
 
 	/**

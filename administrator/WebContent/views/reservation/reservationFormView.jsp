@@ -2,7 +2,10 @@
 	pageEncoding="UTF-8" import="camp.model.vo.*, java.util.*"%>
 	
 <%
-	ArrayList<ReservationCamp> rclist = (ArrayList<ReservationCamp>)request.getAttribute("rclist");
+	ArrayList<CampInfoReservation> cList = (ArrayList<CampInfoReservation>)request.getAttribute("cList");
+	ArrayList<CampSiteReservation> sList = (ArrayList<CampSiteReservation>)request.getAttribute("sList");
+	ArrayList<CampOptionReservation> oList = (ArrayList<CampOptionReservation>)request.getAttribute("oList");
+	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getAttribute("aList");
 %>
 <!DOCTYPE html>
 <html>
@@ -47,11 +50,9 @@
 
 	<!-- main container start-->
 	<div class="container" id="main-container">
-		
 
 	<!-- block-1 -->
 	<div id="reInfo" style="background: green">캠핑장 정보
-	 	<% rclist.get(1); %>
 	</div>
 	<!-- block-1 end -->
 			
@@ -102,6 +103,7 @@
           		</tr>
           		</thead>
           		<tr>
+          		<% for(CampSiteReservation csr : sList) { %>
           		  	<td></td>
             		<td></td>
             		<td></td>
@@ -110,6 +112,7 @@
             		<td><select><option>1</option></select></td>
             		<td></td>
             		<td><input type="checkbox"></td>
+            	<% } %>
           		</tr>
         	</table>	
     	</div>

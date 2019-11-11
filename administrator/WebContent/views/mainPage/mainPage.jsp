@@ -213,7 +213,7 @@
     padding: 55px;
     width: 686px;
     height: 686px;">
-                           <form method="post" action="<%= request.getContextPath() %>/location.li" style="background-color: rgba(0, 0, 0, 0.2);
+                           <form method="post" onsubmit="return validate();" action="<%= request.getContextPath() %>/location.li" style="background-color: rgba(0, 0, 0, 0.2);
     border-radius: 100%;
     overflow: visible;
     height: 100%;
@@ -223,10 +223,10 @@
                                    <div class="date_time" style="padding-top: 160px;">
                                
 	
-                                       <input placeholder="체크인" class="" type="date" name="date_start" style="width: 30%; background: none; border: 3px solid #ffffff;
+                                       <input placeholder="체크인" class="" type="date" name="date_start" id="date_start" style="width: 30%; background: none; border: 3px solid #ffffff;
                                       color: #ffffff; font-size: 14px; height: 60px !important; box-sizing: border-box; margin: 0px 6px;" >
                                     
-                                       <input placeholder="체크아웃" class="" type="date" name="date_end" style="width: 30%; background: none; border: 3px solid #ffffff;
+                                       <input placeholder="체크아웃" class="" type="date" name="date_end" id="date_end" style="width: 30%; background: none; border: 3px solid #ffffff;
                                       color: #ffffff; font-size: 14px; height: 60px !important; box-sizing: border-box; margin: 0px 6px;">
                                  
                                  </div>
@@ -263,7 +263,76 @@
 				</div>
    
    <a href="#" class="scroll_to_top icon-up" title="Scroll to top"></a>
+   <script type="text/javascript">
+   function validate(){
+	   
+	   var destinations = $("#destinations").val();
+
+	   var today = new Date();
+	   var dd = today.getDate();
+	   var mm = today.getMonth()+1; //January is 0!
+	   var yyyy = today.getFullYear();
+
+	   if(dd<10) {
+	       dd='0'+dd
+	   } 
+
+	   if(mm<10) {
+	       mm='0'+mm
+	   } 
+
+	   today = yyyy + '-' +mm+ '-' +dd;
+	   
+	   var todayDateArr = today.split('-');
+	   
+	   var startDate = $("#date_start").val(); //2017-12-10
+       var startDateArr = startDate.split('-');
+        
+       var endDate = $("#date_end").val(); //2017-12-09
+       var endDateArr = endDate.split('-');
+                
+       var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
+       var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
+       var todayDateCompare = new Date(todayDateArr[0], parseInt(todayDateArr[1])-1, todayDateArr[2]);
+       
+       
+       if(startDate == ""){
+       	alert("시작날짜가 비어있습니다.");
+       	return false;
+       }
+       if(endDate == ""){
+       	alert("종료날짜가 비어있습니다.");
+       	return false;
+       }
+       
+       if(startDateCompare.getTime() > endDateCompare.getTime()) {
+            
+           alert("시작날짜와 종료날짜를 확인해 주세요.");
+            
+           return false;
+       }
+       
+       if(todayDateCompare.getTime() > startDateCompare.getTime()){
+    	   
+    	   alert("시작날짜가 오늘보다 작을수없습니다.");
+    	   
+    	   return false;
+       }
+	
+       if(destinations == null){
+    	   
+    	   alert("목적지를 선택하세요");
+    	   
+    	   return false;
+    	   
+       }
+       
+       
+       
+	   
+   }
    
+   </script>
 
    
    

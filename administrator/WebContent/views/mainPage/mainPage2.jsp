@@ -5,11 +5,11 @@
 	
 	User loginUser = (User)session.getAttribute("loginUser");
 
-	ArrayList<CampInfo> cList = (ArrayList<CampInfo>)request.getAttribute("cList");
-	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getAttribute("aList");
+	ArrayList<CampInfo> cList = (ArrayList<CampInfo>)request.getSession().getAttribute("cList");
+	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getSession().getAttribute("aList");
+	ArrayList<CampMinPrice> cmpList = (ArrayList<CampMinPrice>)request.getSession().getAttribute("cmpList");
 	
 	String cTheme = (String)request.getAttribute("cTheme");
-	
 	String msg = (String)session.getAttribute("msg");
 
 	
@@ -225,10 +225,16 @@
                                                             
                                                             </h4>
                                                             <div class="tags_info">
-                                                                <a href="#">25,000</a>
+                                                            
+                                                            <% for(CampMinPrice c : cmpList){ %>
+                                                               
+                                                               <% if(c.getcCode() == ca.getcCode()){ %>
+                                                                <a href="#"><%= c.getcMinPrice() %>원부터</a>
+           														<%} %> 
+                                                            <%} %>   
                                                             </div>
                                                             <div class="post_descr">
-                                                                <p>경치가 좋은...</p>
+                                                                <p><%= ca.getcAddress() %></p>
                                                             </div>
                                                         </div>
                                                     </article>

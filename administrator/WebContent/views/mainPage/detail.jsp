@@ -1,9 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*"%>
+    pageEncoding="UTF-8" import="user.model.vo.*, java.util.*, camp.model.vo.*"%>
     
 <%
 	int code = Integer.parseInt(request.getParameter("code"));
+	ArrayList<CampInfo> cList = (ArrayList<CampInfo>)request.getSession().getAttribute("cList");
+	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getSession().getAttribute("aList");
+	ArrayList<CampDetail> cdList = (ArrayList<CampDetail>)request.getSession().getAttribute("cdList");
+	
+	CampInfo ca = null;
+	ArrayList<CampDetail> thiscd = new ArrayList<CampDetail>();
+	
+	for(CampInfo c : cList){
+		if(code == c.getcCode()){		
+			ca = c;
+		}
+	}
 
+	for(CampDetail cdindex : cdList){
+		
+		if(code == cdindex.getdCode()){
+			
+			thiscd.add(cdindex);
+		}
+		
+	}
+	
+	
+	
 	ArrayList<Integer> codeList = (ArrayList<Integer>)request.getAttribute("codeList");
 	
 	String checkFlag = "";
@@ -515,7 +538,7 @@ button:hover:after{
 
             
             
-            <h1>쓰레기산캠핑장</h1>
+            <h1><%= ca.getcName() %></h1>
             <br>
             <br>
 
@@ -545,15 +568,7 @@ button:hover:after{
         <main class="wrapper1">
             <div class="element11 grid-box1">
               <h1>캠핑장 정보 </h1>
-               His friends loved his new bag.Soon, his bike bag was in great demand.Reich quit his job, and started his own business-Alchemy Goods.
-                At first, he depended on his friends for inner tubes.But business was good, and he quickly ran short of these tubes.
-                He needed a new supply.So he asked local bike stores to send him used inner tubes instead of throwing them away.
-                To date, he has used over 300,000 inner tubes.Having a good supply of these materials is a critical part of Reich's business.
-                Each bag uses as many recycled products as possible.The straps, for example, are old car seat belts.
-                Reich's goal is to use 100 percent recycled materials.This is not easy.
-                "It's hard to come up with a product that is endlessly recycled.We're a step ahead, but we're not perfect."
-                He wants to let his customers know about his goal, so each bag has a number above the company logo.
-                The number gives the percentage of recycled materials in that particular bag.
+              주소 : <%= ca.getcAddress() %> 전화번호 : <%= ca.getcPhone() %> 홈페이지 : <%= ca.getcUrl() %>
            
             </div>
        
@@ -609,12 +624,15 @@ button:hover:after{
 
             <main class="wrapper4">   
               <div class="element19 grid-box3"><h1>포함사항</h1>
-              <h2>내용</h2>
+              <% for(CampDetail cd : thiscd){ %>
+              <h2><%= cd.toString() %></h2>
+              <%} %>
+
             </div>
 
               <main class="wrapper5">
               <div class="element20 grid-box4"><h1>환불규정</h1>
-                <h2>내용</h2>
+                <h2><%= ca.getcRefundment() %></h2>
             </div>
             
             
@@ -629,7 +647,7 @@ button:hover:after{
 
                 <main class="wrapper9">
                   <div class="element23 grid-box8">
-                  <div class="button1"><div class="btn"><button type="button">예약하기</button></div>
+                  <div class="button1"><div class="btn"><button type="button" onclick="reservation();">예약하기</button></div>
                   </div>
                   
 
@@ -722,6 +740,13 @@ button:hover:after{
                              
  	
                         });
+                        
+                        
+                        function reservation(){
+                      	  
+                      	  location.href="<%= request.getContextPath() %>/campRe.re?cNo=<%= code %>";
+                      	  
+                        }
     
                         </script>    
        
