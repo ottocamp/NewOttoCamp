@@ -179,7 +179,7 @@
                                                     <h4>리뷰 수정하기</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                               	제목 : <input type="text" name="rTitle" id="rTitle" class="form-control" style="height: 36px; width: 200px; display: inline-block;">         
+                                               	제목 : <input type="text" name="rTitle" id="rTitle" class="form-control" style="height: 36px; width: 200px; display: inline-block;" autocomplete="nope">         
                                                 <br><hr>
                                            		     별점 
                                                  <div class="starRev">
@@ -193,11 +193,11 @@
                                                  
                                                  내용 <textarea class="form-control" rows="5" style="margin: 0px; width: 500px; height: 90px;" placeholder="내용을 입력해주세요" name="rContent" id="rContent"></textarea>
                                                  
-                                                     <input type="number" name="reNo2" id="reNo2" >
-													 <input type="number" name="cCode" id="cCode" >
-													 <input type="text" name="cName" id="cName" >
-													 <input type="text" name="reDate" id="reDate" >
-													 <input type="number" name="rNum" id="rNum" value="1" >
+                                                     <input type="number" name="reNo2" id="reNo2" hidden="">
+													 <input type="number" name="cCode" id="cCode" hidden="">
+													 <input type="text" name="cName" id="cName" hidden="">
+													 <input type="text" name="reDate" id="reDate" hidden="">
+													 <input type="number" name="rNum" id="rNum" value="1" hidden="">
                                                  
                                                  
                                                  
@@ -213,16 +213,6 @@
                        </form>
                         
                         
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-
-
                         <div class="row">
                             <div class="col-lg-6">
                                  <button class="btn btn-default waves-effect waves-light btn-sm" id="sa-success" >Click me</button>
@@ -286,8 +276,38 @@
 			$("#cName").val(cName);
 			$("#reDate").val(reDate);
 			$("#cCode").val(cCode);
+			
+			if(rNum==5){
+				$('.starRev span').eq(4).click();
+			}else if(rNum==4){
+				$('.starRev span').eq(3).click();
+			}else if(rNum==3){
+				$('.starRev span').eq(2).click();
+			}else if(rNum==2){
+				$('.starRev span').eq(1).click();
+			}else if(rNum==1){
+				$('.starRev span').eq(0).click();
+			}
+			
 
 		}
+		 
+		 
+		 function revDelete(value){
+			 var reNo3 = $(value).parent().parent().children().eq(0).text();
+			 
+			 if(confirm("정말 삭제하시겠습니까?")){
+				 
+				 location.href = '<%= request.getContextPath() %>/delete.review?reNo3='+reNo3;
+				 
+			 }
+			 
+			 
+			 
+		 }
+		 
+		 
+		 
 		
 		
 	
