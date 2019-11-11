@@ -34,225 +34,251 @@
 
 <script src="<%= request.getContextPath() %>/resources/assets/js/modernizr.min.js"></script>
 
- <style type="text/css">
- 	#main-container {
- 	 padding: 20px 15%;
- 	 
- 	}
- </style>
+<style>
+
+#page-contentbar {
+position: relative;
+}
+
+#col-main{
+margin: auto;
+position: absolute;
+left:0;
+right: 0;
+top: 0;
+bottom: 0;
+}
+
+</style>
+
 
 </head>
 <body>
-	<!-- menubar -->
-	
-	<%@ include file="../common/topnavbar.jsp" %>
+
+	<div id="page-wrapper">
+		<!-- Top Bar Start -->
 
 
-	<!-- main container start-->
-	<div class="container" id="main-container">
+		<!-- Top navbar -->
+		<%@ include file="../common/topnavbar.jsp"%>
+		<!-- Top Bar End -->
 
-	<!-- block-1 -->
-	<div id="reInfo" style="background: green">캠핑장 정보
-	</div>
-	<!-- block-1 end -->
+
+		<!-- Page content start -->
+		<div class="page-contentbar" id="page-contentbar">
+			
+			<div class="col-xs-10" id="col-main">
 			
 			
+			<!-- block-1 -->
+			<div>
+			캠핑장 사이트 전도.
+			</div>
+			<!-- block-1 end -->
 			
-	<!-- block-2 -->		
-	<form action="" method="post">
-	<div id="reCampInsert" class="border border-warning">
-		<div id="campMap" style="background: white">캠핑장 사이트 전도
-		<%-- <%= rclist.getcNo() %> --%>
-		</div>
+			<hr>
+			
+			<!-- block-2 -->
+			캠핑장 예약 폼	
+			<form action="" method="post">
+			<div>
+			날짜 선택 : <input type="date" name="entDate">
+			</div>
 
-		<hr>	
-		캠핑장 예약폼
-		<div id="campChoiceReservation" class="" >
-			<div class="">
-				<table class="table table-sm">
+			<hr>
+			
+			<div>
+				<table class="table m-0 table-bordered">
 					<tr>
-						<td>사이트1(인클루드)&nbsp;<input type="checkbox" id="st-ck1"></td>
-						<td>사이트2(인클루드)&nbsp;<input type="checkbox" id="st-ck2"></td>
-						<td>사이트3(인클루드)&nbsp;<input type="checkbox" id="st-ck3"></td>
+						<td>사이트1(인클루드)&nbsp;<input type="checkbox" name="st1" id="st-ck1"></td>
+						<td>사이트2(인클루드)&nbsp;<input type="checkbox" name="st2"  id="st-ck2"></td>
+						<td>사이트3(인클루드)&nbsp;<input type="checkbox" name="st3" id="st-ck3"></td>
 					</tr>
 				</table>
 			</div>
-		</div>
-
-<br>
-				
-		<div>
-			<input type="date">
-		</div>
-			
-		<div> <!-- 사이트 버튼 보관div -->	
+			<!-- 사이트 버튼 보관div -->
+			<div> 	
 			<p>
-			<button class="btn btn-outline-secondary btn-group btn-group-sm" type="button" data-toggle="collapse" data-target="#st1InsertReservation" aria-expanded="false" aria-controls="st1InsertReservation" id="st-btn1">사이트1 버튼</button>
-  			<button class="btn btn-outline-secondary btn-group btn-group-sm" type="button" data-toggle="collapse" data-target="#st2InsertReservation" aria-expanded="false" aria-controls="st2InsertReservation" id="st-btn2">사이트2 버튼</button>
-  			<button class="btn btn-outline-secondary btn-group btn-group-sm" type="button" data-toggle="collapse" data-target="#st3InsertReservation" aria-expanded="false" aria-controls="st3InsertReservation" id="st-btn3">사이트3 버튼</button>
+			<button class="btn btn-dark btn-rounded btn-hide" type="button" data-toggle="collapse" data-target="#st1InsertReservation" aria-expanded="false" aria-controls="st1InsertReservation" id="st-btn1">사이트1 버튼</button>
+  			<button class="btn btn-dark btn-rounded btn-hide" type="button" data-toggle="collapse" data-target="#st2InsertReservation" aria-expanded="false" aria-controls="st2InsertReservation" id="st-btn2">사이트2 버튼</button>
+  			<button class="btn btn-dark btn-rounded btn-hide" type="button" data-toggle="collapse" data-target="#st3InsertReservation" aria-expanded="false" aria-controls="st3InsertReservation" id="st-btn3">사이트3 버튼</button>
   			</p>
-  		</div> <!-- 사이트 버튼 보관div 끗 -->	
+  			</div> 
+  			<!-- 사이트 버튼 보관div 끗 -->	
   		
-		<div>
-  		<div class="collapse st-InsertReservation" id="st1InsertReservation">
-    	<div class="card card-body">
-        	<table class="table table-sm table-bordered">
-          		<thead class="thead-light">
-          		<tr>
-            		<th>사이트 테이블1</th><th>이용인원(기준/최대)</th><th>이용금액</th><th>추가인원</th><th>예약기간</th><th>예약인원</th><th>합계</th><th>선택</th>
-          		</tr>
-          		</thead>
-          		<tr>
-          		<% for(CampSiteReservation csr : sList) { %>
-          		  	<td></td>
-            		<td></td>
-            		<td></td>
-            		<td></td>
-            		<td><select><option>1</option></select></td>
-            		<td><select><option>1</option></select></td>
-            		<td></td>
-            		<td><input type="checkbox"></td>
-            	<% } %>
-          		</tr>
-        	</table>	
-    	</div>
-  		</div>
-  			
-  		<div class="collapse" id="st2InsertReservation">
-    	<div class="card card-body">
-        	<table class="table table-sm table-bordered">
-          		<thead class="thead-light">
-          		<tr>
-            		<th>사이트 테이블2</th><th>이용인원(기준/최대)</th><th>이용금액</th><th>추가인원</th><th>예약기간</th><th>예약인원</th><th>합계</th><th>선택</th>
-          		</tr>
-          		</thead>
-          		<tr>
-          		  	<td></td>
-            		<td></td>
-            		<td></td>
-            		<td><select><option>1</option></select></td>
-            		<td><select><option>1</option></select></td>
-            		<td></td>
-            		<td><input type="checkbox"></td>
-          		</tr>
+		<div><!-- 사이트 전체를 덮는 -->
+		
+  			<div class="collapse st-InsertReservation" id="st1InsertReservation">
+    		<div class="card card-body">
+        		<table class="table table-bordered">
+          			<tr class="success">
+            			<th>사이트 테이블1</th><th>이용인원(기준/최대)</th><th>이용금액</th><th>추가인원</th><th>예약기간</th><th>예약인원</th><th>합계</th><th>선택</th>
+          			</tr>
+          			<tr>
+          		  		<td></td>
+            			<td></td>
+            			<td></td>
+            			<td></td>
+            			<td><select><option>1</option></select></td>
+            			<td><select><option>1</option></select></td>
+            			<td></td>
+            			<td><input type="checkbox"></td>
+          			</tr>
         		</table>	
-    	</div>
-  		</div>
+    		</div>
+  			</div>
   			
-  		<div class="collapse" id="st3InsertReservation">
-    	<div class="card card-body">
-        	<table class="table table-sm table-bordered">
-          		<thead class="thead-light">
-          		<tr>
-            		<th>사이트 테이블 3</th><th>이용인원(기준/최대)</th><th>이용금액</th><th>추가인원</th><th>예약기간</th><th>예약인원</th><th>합계</th><th>선택</th>
-          		</tr>
-          		</thead>
-          		<tr>
-          		  	<td></td>
-            		<td></td>
-            		<td></td>
-            		<td></td>
-            		<td><select><option>1</option></select></td>
-            		<td><select><option>1</option></select></td>
-            		<td></td>
-            		<td><input type="checkbox"></td>
-          		</tr>
-        	</table>	
-    	</div>
-  	</div>
+  			<div class="collapse" id="st2InsertReservation">
+    		<div class="card card-body">
+        		<table class="table table-bordered">
+          			<tr class="success">
+            			<th>사이트 테이블2</th><th>이용인원(기준/최대)</th><th>이용금액</th><th>추가인원</th><th>예약기간</th><th>예약인원</th><th>합계</th><th>선택</th>
+          			</tr>
+          			<tr>
+          		  		<td></td>
+            			<td></td>
+            			<td></td>
+            			<td><select><option>1</option></select></td>
+            			<td><select><option>1</option></select></td>
+            			<td></td>
+            			<td><input type="checkbox"></td>
+          			</tr>
+        		</table>	
+    		</div>
+  			</div>
+  			
+  			<div class="collapse" id="st3InsertReservation">
+    		<div class="card card-body">
+        		<table class="table table-bordered">
+          			<tr class="success">
+            			<th>사이트 테이블 3</th><th>이용인원(기준/최대)</th><th>이용금액</th><th>추가인원</th><th>예약기간</th><th>예약인원</th><th>합계</th><th>선택</th>
+          			</tr>
+          			<tr>
+          		  		<td></td>
+            			<td></td>
+            			<td></td>
+            			<td></td>
+            			<td><select><option>1</option></select></td>
+            			<td><select><option>1</option></select></td>
+            			<td></td>
+            			<td><input type="checkbox"></td>
+          			</tr>
+        		</table>	
+    		</div>
+  			</div>
 				
 
-				<br>
+			<hr>
 
-				<div id="campEtcReservation">
-					<table class="table table-sm">
-						<tr>
-							<td>옵션1(인클루드)<input type="checkbox" id="op-ck1"></td>
-							<td>옵션2(인클루드)<input type="checkbox" id="op-ck2"></td>
-						</tr>
-					</table>
-					</div>
-					
-				<div> <!-- 옵션 버튼 보관div -->	
-					<p>
-					<button class="btn btn-outline-secondary btn-group btn-group-sm" type="button" data-toggle="collapse" data-target="#op1InsertReservation" aria-expanded="false" aria-controls="op1InsertReservation" id="op-btn1">옵션1 버튼</button>
-  					<button class="btn btn-outline-secondary btn-group btn-group-sm" type="button" data-toggle="collapse" data-target="#op2InsertReservation" aria-expanded="false" aria-controls="op2InsertReservation" id="op-btn2">옵션2 버튼</button>
-  					</p>
-  				</div> <!-- 옵션 버튼 보관div 끗 -->	
-					
-						<div class="collapse" id="op1InsertReservation">
-						<table class="table table-sm table-bordered">
-						<thead class="thead-light">
-						<tr>
-							<th>옵션이름</th>
-							<th>가격</th>
-							<th>기간</th>
-							<th>소모수</th>
-							<th>합계</th>
-							<th>선택</th>
-						</tr>
-						</thead>
-						<br>
-						<tr>
-							<td>옵션1(인클루드)</td>
-							<td></td>
-							<td><select><option>1</option></select></td>
-							<td><select><option>1</option></select></td>
-							<td></td>
-							<td><input type="checkbox"></td>
-						</tr>
-					</table>
-				</div>
-				
-					<div class="collapse" id="op2InsertReservation">
-				<table class="table table-sm table-bordered">
-						<thead class="thead-light">
-						<tr>
-							<th>옵션이름</th>
-							<th>가격</th>
-							<th>기간</th>
-							<th>소모수</th>
-							<th>합계</th>
-							<th>선택</th>
-						</tr>
-						</thead>
-						<br>
-						<tr>
-							<td>옵션2(인클루드)</td>
-							<td></td>
-							<td><select><option>1</option></select></td>
-							<td><select><option>1</option></select></td>
-							<td></td>
-							<td><input type="checkbox"></td>
-						</tr>
-					</table>
-				</div>
-
-				<br>
-
-				<div id="ReservationTotalPayment">
-					<table class="table table-sm table-bordered">
-						<tr>
-							<td>총 결제금액.</td>
-							<td>(체크된 합계금액을 땡겨오는 역할)</td>
-						</tr>
-					</table>
-				</div>
+			<div id="campEtcReservation">
+				<table class="table table-bordered">
+					<tr>
+						<td>옵션1(인클루드)<input type="checkbox" name="op1" id="op-ck1"></td>
+						<td>옵션2(인클루드)<input type="checkbox" name="op2" id="op-ck2"></td>
+					</tr>
+				</table>
 			</div>
+					
+			<!-- 옵션 버튼 보관div -->	
+			<div> 
+			<p>
+			<button class="btn btn-dark btn-rounded btn-hide" type="button" data-toggle="collapse" data-target="#op1InsertReservation" aria-expanded="false" aria-controls="op1InsertReservation" id="op-btn1">옵션1 버튼</button>
+  			<button class="btn btn-dark btn-rounded btn-hide" type="button" data-toggle="collapse" data-target="#op2InsertReservation" aria-expanded="false" aria-controls="op2InsertReservation" id="op-btn2">옵션2 버튼</button>
+  			</p>
+  			</div> 
+  			<!-- 옵션 버튼 보관div 끗 -->	
+					
+			<div class="collapse" id="op1InsertReservation">
+				<table class="table table-bordered">
+					<tr class="success">
+						<th>옵션이름</th>
+						<th>가격</th>
+						<th>기간</th>
+						<th>소모수</th>
+						<th>합계</th>
+						<th>선택</th>
+					</tr>
+					<tr>
+						<td>옵션1(인클루드)</td>
+						<td></td>
+						<td><select><option>1</option></select></td>
+						<td><select><option>1</option></select></td>
+						<td></td>
+						<td><input type="checkbox"></td>
+					</tr>
+				</table>
+			</div>
+				
+			<div class="collapse" id="op2InsertReservation">
+				<table class="table table-bordered">
+					<tr class="success">
+						<th>옵션이름</th>
+						<th>가격</th>
+						<th>기간</th>
+						<th>소모수</th>
+						<th>합계</th>
+						<th>선택</th>
+					</tr>
+					<tr>
+						<td>옵션2(인클루드)</td>
+						<td></td>
+						<td><select><option>1</option></select></td>
+						<td><select><option>1</option></select></td>
+						<td></td>
+						<td><input type="checkbox"></td>						
+					</tr>
+				</table>
+			</div>
+
+			<hr>
+			
+			<div>
+				<table class="table table-bordered">
+					<tr class="success">
+						<th>쿠폰</th>
+						<th>감액가격</th>
+						<th>보유쿠폰</th>
+						<th>합계</th>
+						<th>선택</th>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td><select><option>1</option></select></td>
+						<td></td>
+						<td><input type="checkbox"></td>						
+					</tr>
+				</table>
+			</div>
+			
+
+			<div id="ReservationTotalPayment">
+				<table class="table table-sm table-bordered">
+					<tr>
+						<td>총 결제금액.</td>
+						<td>(체크된 합계금액을 땡겨오는 역할)</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div><!-- 사이트 전체를 덮는 -->
 			<!-- block-2 end -->
 			
+			
 			<!-- block-3 -->
-			<div id="rePrecautions" style="background: pink">
+			<div id="rePrecautions" style="background: white">
 				캠핑장 주의사항
-				<div id="campPrecautions">3</div>
+				<div id="campPrecautions"></div>
 			</div>
 			<!-- block-3 end -->
 
+<hr>
+
 			<!-- block-4 -->
-			<div id="rePrivateInsert" style="background: skyblue">
+			<div id="rePrivateInsert" style="background: white;">
 				개인정보 제출
 				<div id="submitForm">
-				<table class="table table-sm table-bordered">
+				<table class="table table-bordered">
 					<tr>
 						<th>이름</th>
 						<td><input type="text" name="name"></td>
@@ -297,79 +323,113 @@
 			</div>
 			<!-- block-4 end -->
 
-		<button type="submit" class="btn btn-primary">예약</button>
+		<button type="submit" class="btn btn-dark btn-lg" style="float: right;" onclick="IMP.request_pay">예약</button>
 		</form>
 
-	</div>
+
 			
 			</div>
-		</form>
-	</div>
 
-	<!-- main container end-->
+
+			<!-- START PAGE CONTENT -->
+			<div class="footer"></div>
+			<!-- end footer -->
+
+
+		</div>
+		<!-- end .page-contentbar -->
+	</div>
+	<!-- End #page-wrapper -->
 
 
 
 	<!-- script -->
 	<script>
-	
-	// 사이트 체크시 리스트 버튼 숨김/드러냄
-    $(function() {
-        $(".btn-outline-secondary").hide();
-    });
-    
-    /* $(function() {
-        $(".st-InsertReservation").hide();
-        
-    }) */
+		// 사이트 체크시 리스트 버튼 숨김/드러냄
+		$(function() {
+			$(".btn-hide").hide();
+		});
 
-    $("#st-ck1").change(function() {
-        if ($("#st-ck1").prop("checked")) {
-            $("#st-btn1").eq(0).show();
-        } else {
-            $("#st-btn1").eq(0).hide();
-            //$("#st1InsertReservation").eq(0).hide();
-        }
-    });
+		/* $(function() {
+		    $(".st-InsertReservation").hide();
+		    
+		}) */
 
-    $("#st-ck2").change(function() {
-        if ($("#st-ck2").prop("checked")) {
-            $("#st-btn2").eq(0).show();
-        } else {
-            $("#st-btn2").eq(0).hide();
-        }
-    });
-    
-    $("#st-ck3").change(function() {
-        if ($("#st-ck3").prop("checked")) {
-            $("#st-btn3").eq(0).show();
-        } else {
-            $("#st-btn3").eq(0).hide();
-        }
-    });
-    
-    // 사이트 체크시 리스트 버튼 숨김/드러냄 종료
-    
-    // 옵션 체크시 리스트 버튼 숨김/드러냄
-    
-    $("#op-ck1").change(function() {
-        if ($("#op-ck1").prop("checked")) {
-            $("#op-btn1").eq(0).show();
-        } else {
-            $("#op-btn1").eq(0).hide();
-        }
-    });
-    
-    $("#op-ck2").change(function() {
-        if ($("#op-ck2").prop("checked")) {
-            $("#op-btn2").eq(0).show();
-        } else {
-            $("#op-btn2").eq(0).hide();
-        }
-    });
-    
-    // 옵션 체크시 리스트 버튼 숨김/드러냄 종료
-	
+		$("#st-ck1").change(function() {
+			if ($("#st-ck1").prop("checked")) {
+				$("#st-btn1").eq(0).show();
+			} else {
+				$("#st-btn1").eq(0).hide();
+				//$("#st1InsertReservation").eq(0).hide();
+			}
+		});
+
+		$("#st-ck2").change(function() {
+			if ($("#st-ck2").prop("checked")) {
+				$("#st-btn2").eq(0).show();
+			} else {
+				$("#st-btn2").eq(0).hide();
+			}
+		});
+
+		$("#st-ck3").change(function() {
+			if ($("#st-ck3").prop("checked")) {
+				$("#st-btn3").eq(0).show();
+			} else {
+				$("#st-btn3").eq(0).hide();
+			}
+		});
+
+		// 사이트 체크시 리스트 버튼 숨김/드러냄 종료
+
+		// 옵션 체크시 리스트 버튼 숨김/드러냄
+
+		$("#op-ck1").change(function() {
+			if ($("#op-ck1").prop("checked")) {
+				$("#op-btn1").eq(0).show();
+			} else {
+				$("#op-btn1").eq(0).hide();
+			}
+		});
+
+		$("#op-ck2").change(function() {
+			if ($("#op-ck2").prop("checked")) {
+				$("#op-btn2").eq(0).show();
+			} else {
+				$("#op-btn2").eq(0).hide();
+			}
+		});
+
+		// 옵션 체크시 리스트 버튼 숨김/드러냄 종료
+		
+		//아임포트 결제
+		
+		
+		IMP.request_pay({
+			pg : 'inicis', // version 1.1.0부터 지원.
+			pay_method : 'card',
+			merchant_uid : 'merchant_' + new Date().getTime(),
+			name : '주문명:결제테스트',
+			amount : 14000,
+			buyer_email : 'iamport@siot.do',
+			buyer_name : '구매자이름',
+			buyer_tel : '010-1234-5678',
+			buyer_addr : '서울특별시 강남구 삼성동',
+			buyer_postcode : '123-456',
+			m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+		}, function(rsp) {
+			if (rsp.success) {
+				var msg = '결제가 완료되었습니다.';
+				msg += '고유ID : ' + rsp.imp_uid;
+				msg += '상점 거래ID : ' + rsp.merchant_uid;
+				msg += '결제 금액 : ' + rsp.paid_amount;
+				msg += '카드 승인번호 : ' + rsp.apply_num;
+			} else {
+				var msg = '결제에 실패하였습니다.';
+				msg += '에러내용 : ' + rsp.error_msg;
+			}
+			alert(msg);
+		});
 	</script>	
 	<!-- script end -->
 	
@@ -388,5 +448,8 @@
 <script src="<%= request.getContextPath() %>/resources/assets/js/jquery.core.js"></script>
 <script src="<%= request.getContextPath() %>/resources/assets/js/jquery.app.js"></script>
 
+<!-- 아임포트 라이브러리 -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </body>
 </html>

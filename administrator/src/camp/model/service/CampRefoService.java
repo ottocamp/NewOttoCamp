@@ -9,40 +9,19 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import camp.model.dao.CampRefoDao;
-import camp.model.vo.CampInfoReservation;
-import camp.model.vo.CampOptionReservation;
-import camp.model.vo.CampSiteReservation;
+import camp.model.vo.CampRefoEnter;
 
 public class CampRefoService {
 
-	public ArrayList<CampInfoReservation> selectCampList(int cNo) {
+	public ArrayList<CampRefoEnter> selectCampList(int cNo) {
 		Connection conn = getConnection();
 		
-		ArrayList<CampInfoReservation> cList = new CampRefoDao().selectCampReList(conn, cNo);
+		ArrayList<CampRefoEnter> eList = new CampRefoDao().selectCampReList(conn, cNo);
 		
 		close(conn);
 		
-		return cList;
+		return eList;
 	}
 
-	public ArrayList<CampSiteReservation> selectSiteList(int cNo) {
-		Connection conn = getConnection();
-		
-		ArrayList<CampSiteReservation> sList = new CampRefoDao().selectSiteList(conn, cNo);
-		
-		close(conn);
-		
-		return sList;
-	}
-
-	public ArrayList<CampOptionReservation> selectOptionList(int cNo) {
-		Connection conn = getConnection();
-		
-		ArrayList<CampOptionReservation> oList = new CampRefoDao().selectOptionList(conn, cNo);
-		
-		close(conn);
-		
-		return oList;
-	}
 
 }

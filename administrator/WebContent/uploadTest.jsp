@@ -28,9 +28,19 @@
 <body>	
 
 	
+<h3>screen 객체</h3>
+        <p>웹 브라우저 화면이 아닌 운영체제 화면의 속성을 가지는 객체이다</p>
+        <button onclick="test6();">실행확인</button>
+        <script>
+            function test6() {
 
-	
+                var popupX = (window.screen.width / 2) - (800 / 2);
+                var popupY= (window.screen.height / 2) - (800 / 2);
 
+                 window.open("<%= request.getContextPath() %>/views/reservation/reservationSimpleSearchView.jsp", '', 'height=800, width=800, left='+ popupX + ', top='+ popupY);
+
+            }
+		</script>
 
 
 </body>
