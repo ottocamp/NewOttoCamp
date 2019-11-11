@@ -14,6 +14,7 @@ import camp.model.vo.Attachment;
 import camp.model.vo.CampDetail;
 import camp.model.vo.CampInfo;
 import camp.model.vo.CampMinPrice;
+import camp.model.vo.CampReview;
 
 /**
  * Servlet implementation class MainSelectServlet
@@ -45,13 +46,13 @@ public class SelectLocationServlet extends HttpServlet {
 		ArrayList<Attachment> aList = new CampService().selectLocationAttachmentList(checkInDate,location);
 		ArrayList<CampMinPrice> cmpList = new CampService().selectMinPrice();
 		ArrayList<CampDetail> cdList = new CampService().selectDetail();
-		
-		System.out.println(cdList);
+		ArrayList<CampReview> crList = new CampService().selectReview();
 		
 		request.getSession().setAttribute("cList", cList);
 		request.getSession().setAttribute("aList", aList);
 		request.getSession().setAttribute("cmpList", cmpList);
 		request.getSession().setAttribute("cdList", cdList);
+		request.getSession().setAttribute("crList", crList);
 		
 		request.getRequestDispatcher("views/mainPage/mainPage2.jsp").forward(request, response);
 	}

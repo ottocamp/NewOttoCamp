@@ -8,6 +8,7 @@ import camp.model.vo.Attachment;
 import camp.model.vo.CampDetail;
 import camp.model.vo.CampInfo;
 import camp.model.vo.CampMinPrice;
+import camp.model.vo.CampReview;
 
 import static common.JDBCTemplate.*;
 
@@ -159,6 +160,18 @@ public class CampService {
 			close(conn);
 			
 			return cdList;
+		}
+
+		public ArrayList<CampReview> selectReview() {
+			
+			Connection conn = getConnection();
+			
+			ArrayList<CampReview> crList = new CampDao().selectReview(conn);
+			
+			close(conn);
+			
+			return crList;
+		
 		}
 
 		
