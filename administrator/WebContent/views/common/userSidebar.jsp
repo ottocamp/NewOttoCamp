@@ -66,12 +66,13 @@
 	                                </ul>
 	                            </li >
 	                            
-	                            <% if(!loginUser.getUserType().equals("U")) { %>
-	                            <li class="qes-side">
-	                                <a href="<%= request.getContextPath() %>/ans.qe" aria-expanded="true"><i class="mdi mdi-book-open"></i> 답변하기 </a>
-	                            </li >
+	                            
+	                            <% if(loginUser.getUserType().equals("B")) { %>   
+		                            <li class="qes-side">
+	                            		<a href="<%= request.getContextPath() %>/list.an" target="_self"><i class="mdi mdi-pencil-box"></i> 답변하기 </a>                           
+		                            </li>
+	                            	
 	                            <% } %>
-										
 												
 								
   									

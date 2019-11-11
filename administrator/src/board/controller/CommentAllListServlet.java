@@ -1,11 +1,20 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import board.model.service.BoardService;
+import board.model.vo.Comment;
+import board.model.vo.PageInfo;
+import user.model.vo.User;
 
 /**
  * Servlet implementation class CommentAllListServlet
@@ -26,8 +35,43 @@ public class CommentAllListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 
-		response.sendRedirect("views/board/commentListView.jsp");
+		request.setCharacterEncoding("utf-8");
+
+		int listCount = new BoardService().getAllCommentCount();
+		int currentPage;
+		int startPage;
+		int endPage;
+		int maxPage;
+		int pageLimit;
+		int boardLimit;
+		
+		currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));			
+		}
+		
+		pageLimit = 5;
+		boardLimit = 8;
+
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		endPage = startPage + pageLimit - 1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
+		ArrayList<Comment> clist = new BoardService().getMyComment(userNo, currentPage, boardLimit);
+		HashMap bTitle = new BoardService().getbTitle(clist);
+		
+		request.setAttribute("pi", pi);
+		request.setAttribute("clist", clist);
+		request.setAttribute("bTitle", bTitle);
+		
+		RequestDispatcher view = request.getRequestDispatcher("/views/board/commentMyListView.jsp");
+		
+		view.forward(request, response);
+		
 	}
 
 	/**
