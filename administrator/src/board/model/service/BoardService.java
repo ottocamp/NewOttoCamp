@@ -430,6 +430,59 @@ public class BoardService {
 		return blist;
 	}
 
+	public int getAllCommentCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDao().getAllCommentCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Comment> getAllListComment(int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Comment> clist = new BoardDao().getAllListComment(conn, currentPage, boardLimit);
+		
+		close(conn);
+		
+		return clist;
+	}
+
+	public int deleteComment2(int bNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteComment2(conn, bNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int searchAllCommentCount(String keyWord) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().searchAllCommentCount(conn, keyWord);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public ArrayList<Comment> searchAllListComment(String keyWord, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Comment> clist = new BoardDao().searchAllListComment(conn, keyWord, currentPage, boardLimit);
+		
+		close(conn);
+		
+		return clist;
+	}
+
 
 
 

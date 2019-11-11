@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import user.model.vo.User;
 
 /**
  * Servlet implementation class CommentDeleteServlet
@@ -29,7 +30,9 @@ public class CommentDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+		User u = (User)request.getSession().getAttribute("loginUser");
+				
 		int cNo = Integer.parseInt(request.getParameter("c_no"));
 		int bNo = 0;
 		
@@ -51,8 +54,13 @@ public class CommentDeleteServlet extends HttpServlet {
 		if(bNo != 0) {	
 			response.sendRedirect(request.getContextPath() + "/detail.bo?b_no=" + bNo);		
 		}else {
-			response.sendRedirect(request.getContextPath() + "/myList.co");		
+			if(u.getUserType().equals("A")) {
+				response.sendRedirect(request.getContextPath() + "/allList.co");
+			}else {
+				response.sendRedirect(request.getContextPath() + "/myList.co");						
+			}
 		}
+		
 		
 	}
 

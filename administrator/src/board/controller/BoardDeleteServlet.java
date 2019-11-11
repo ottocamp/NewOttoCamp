@@ -44,6 +44,7 @@ public class BoardDeleteServlet extends HttpServlet {
 		
 		
 		if(result > 0) {
+			int result2 = new BoardService().deleteComment2(bNo);
 			request.getSession().setAttribute("msg", "게시글이 삭제되었습니다");
 		}else {
 			request.getSession().setAttribute("msg", "게시글 삭제에 실패하였습니다");
@@ -53,7 +54,7 @@ public class BoardDeleteServlet extends HttpServlet {
 		if(bTag != 9999) {
 			response.sendRedirect(request.getContextPath() + "/list.bo?b_tag=" + bTag);			
 		}else {
-			if(u.getUserType().contentEquals("A")) {
+			if(u.getUserType().equals("A")) {
 				response.sendRedirect(request.getContextPath() + "/allList.bo");
 			}else {
 				response.sendRedirect(request.getContextPath() + "/myList.bo");

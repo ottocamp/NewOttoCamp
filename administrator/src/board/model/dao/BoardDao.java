@@ -1240,6 +1240,8 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, keyWord);
 			pstmt.setString(2, keyWord);
+			pstmt.setString(3, keyWord);
+			pstmt.setString(4, keyWord);
 			
 			rset = pstmt.executeQuery();
 			
@@ -1272,8 +1274,10 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, keyWord);
 			pstmt.setString(2, keyWord);
-			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
+			pstmt.setString(3, keyWord);
+			pstmt.setString(4, keyWord);
+			pstmt.setInt(5, startRow);
+			pstmt.setInt(6, endRow);
 			
 			rset = pstmt.executeQuery();
 
@@ -1305,6 +1309,172 @@ public class BoardDao {
 		
 		
 		return blist;
+	}
+
+	public int getAllCommentCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String sql = prop.getProperty("allCommentCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+				
+			
+		return listCount;
+	}
+
+	public ArrayList<Comment> getAllListComment(Connection conn, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Comment> clist = new ArrayList<>();
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+		
+		String sql = prop.getProperty("allComment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Comment c = new Comment();
+				c.setcNo(rset.getInt("c_no"));
+				c.setcContent(rset.getString("c_content"));
+				c.setUpdateDate(rset.getDate("update_date"));
+				c.setbNo(rset.getInt("b_no"));			
+				
+				if(rset.getInt("comment_writer") == 9999) {
+					c.setcWriter(rset.getString("dispo_id"));
+				}else {
+					c.setcWriter(rset.getString("user_name"));
+				}		
+				
+				clist.add(c);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		
+		
+		return clist;
+	}
+
+	public int deleteComment2(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("boardCommentDelete");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int searchAllCommentCount(Connection conn, String keyWord) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String sql = prop.getProperty("allSearchCommentCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyWord);
+			pstmt.setString(2, keyWord);
+			pstmt.setString(3, keyWord);
+			
+			rset = pstmt.executeQuery();			
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+			
+		return listCount;
+	}
+
+	public ArrayList<Comment> searchAllListComment(Connection conn, String keyWord, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Comment> clist = new ArrayList<>();
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+		
+		String sql = prop.getProperty("allSearchComment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyWord);
+			pstmt.setString(2, keyWord);
+			pstmt.setString(3, keyWord);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Comment c = new Comment();
+				c.setcNo(rset.getInt("c_no"));
+				c.setcContent(rset.getString("c_content"));
+				c.setUpdateDate(rset.getDate("update_date"));
+				c.setbNo(rset.getInt("b_no"));			
+				
+				if(rset.getInt("comment_writer") == 9999) {
+					c.setcWriter(rset.getString("dispo_id"));
+				}else {
+					c.setcWriter(rset.getString("user_name"));
+				}		
+				
+				clist.add(c);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return clist;
 	}
 
 

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="board.model.vo.*, java.util.ArrayList, java.util.HashMap" %>
 <%
-	ArrayList<Board> blist = (ArrayList<Board>)request.getAttribute("blist");
+	ArrayList<Comment> clist = (ArrayList<Comment>)request.getAttribute("clist");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	HashMap cCount = (HashMap)request.getAttribute("cCount");	
+	HashMap bTitle = (HashMap)request.getAttribute("bTitle");	
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -16,6 +16,7 @@
 	if(request.getAttribute("keyWord") != null) {
 		keyWord = (String)request.getAttribute("keyWord");
 	}
+	
 	
 	String msg = (String)session.getAttribute("msg");
 %>    
@@ -71,6 +72,10 @@
                 margin: 0 auto;
 
                 background-color: white;
+            } 
+            
+            h2 a{
+                color: gray;
             }
 
             .searchArea{
@@ -180,32 +185,25 @@
                 color: darkblue;
 			}
 
+
+
+
             #titleArea{
                 width: 95%;
                 margin-right: 0;
             }
 
             #boardTitle{
-                width: 50%;
-            }
-
-            #boardTitle a:first-of-type{
-                margin-right: 8px;
+                width: 15%;
+                margin-right: 20px;
             }
 
             #boardTitle a{
+                width: 100%;
                 color: gray;
+
             }
 
-            #boardWriter{
-                display: inline-block;
-                width: 20%;
-                margin: 0 10px;
-            }
-
-            #boardCount{
-                margin: 0 15px;
-            }
 
             #deleteBoard{
                 border: none;
@@ -218,27 +216,23 @@
                 margin: 0;
             }
 
-
-
-            
-            #boardTitle a:first-of-type{
-                display: inline-block;
-                width: auto;
-            }
-
-            
-            #boardTitle > i:hover{
-                color: brown;
-                cursor: pointer;
+            #boardComment{
+                width: 55%;
+                margin-right: 20px;                
             }
             
-            
-           	h2 a{
+
+            #boardComment a:first-of-type{
+                margin-right: 8px;
+            }
+
+            #boardComment a{
                 color: gray;
+                overflow: hidden;
             }
-            
-            
-            
+
+
+
             .contentText{
                 white-space: pre-line;
             }
@@ -266,13 +260,17 @@
             .textCenter{
                 text-align: center;
             }
-        
-        
-           	.box{
+
+            .box{
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
+            
+            .overflow-fixed{
+                position: fixed;
+            }
+
         </style>
 		
 	</head>
@@ -309,62 +307,50 @@
                     
 						<div class="board-wrapper">
                         
-	                        <h2><a href="<%= request.getContextPath() %>/allList.bo">게시글 관리</a></h2>
+	                        <h2><a href="<%= request.getContextPath() %>/allList.co">댓글 관리</a></h2>
 	                        <br>
 
 	                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-	                        	<% if(blist.isEmpty()) { %>
+	                        	<% if(clist.isEmpty()) { %>
 		                        	
 		                            <div class="panel panel-default boardList textCenter">
 		                                <div class="panel-heading " role="tab" id="heading1">
 		                                    <h4 class="panel-title text-align">
-		                                    	게시글이 없습니다
+		                                    	등록된 댓글이 없습니다
 		                                    </h4>
 		                                </div>
 		                              
 		                            </div>
 		                            
 	                        	<% }else {%>
-	                        		<% for(Board b : blist) { %>
-	                        		<% 
-	                        			String title = "";
-	                        		
-		                    			int count = 0;
-		                    			if(cCount.get(b.getbNo()) != null) {
-		                    				count = (int)cCount.get(b.getbNo());
-		                    			}
-		                    			
-		                    			title = b.getbTitle() + " [" + count + "]";
-	                        		
-	                        		%>
-	                        		
+	                        		<% for(Comment c : clist) { %>
 	                        		
 			                            <div class="panel panel-default display-inline-block boardList" id="titleArea">
 			                                <div class="panel-heading" role="tab" id="heading1">
 			                                    <h4 class="panel-title">
 			
-			                                        <div class="display-inline-block" id="boardTitle">
-			                                            <a href="<%= request.getContextPath() %>/detail.bo?b_no=<%= b.getbNo() %>"><%= title %></a>
-			                                            <i class="mdi mdi-checkbox-multiple-blank-outline" style="font-size: 12px" onclick="window.open('<%= request.getContextPath() %>/detail.bo?b_no=<%= b.getbNo() %>')"></i>
-                            		
+			                                        <div class="display-inline-block box" id="boardTitle">
+			                                                <%= bTitle.get(c.getcNo()) %>
 			                                        </div>
 			                                        
-			                                        <div class="display-inline" id="boardWriter">
-			                                            작성자 : <%= b.getbWriter() %>
+			                                        <div class="display-inline-block box" id="boardComment">
+			                                            <a href="<%= request.getContextPath() %>/detail.bo?b_no=<%= c.getbNo() %>"><%= c.getcContent() %></a>			               
+			                                        </div>
+
+			                                        <div class="display-inline-block box" id="boardWriter">
+			                                            작성자 : <%= c.getcWriter() %>
 			                                        </div>
 			                                        
-			                                        <div class="display-inline-block" id="boardCount">
-			                                            조회수 : <%= b.getbCount() %>
-			                                        </div>
 			                                        <div class="display-inline-block float-right" id="qesDate">
-			                                            작성일 : <%= b.getUpdateDate() %>
+			                                            작성일 : <%= c.getUpdateDate() %>
 			                                        </div>
 			                                    </h4>
 			                                </div>
 			                            </div>
 	                        
+	                        
 			                            <div class="panel panel-default display-inline-block textCenter" id="deleteBoard">
-			                                <a href="<%= request.getContextPath() %>/delete.bo?b_no=<%= b.getbNo() %>"><i class="mdi mdi-delete" style="font-size: 25px;"></i></a>
+			                                <a href="<%= request.getContextPath() %>/delete.co?c_no=<%= c.getcNo() %>"><i class="mdi mdi-delete" style="font-size: 25px;"></i></a>
 			                            </div>
 	                        		<% } %>
 	                        	<% } %>
@@ -373,7 +359,7 @@
 	                        <br>
 		
 	                        <div class="searchArea">
-                                <form class="searchForm" role="search" method="post" action="<%= request.getContextPath() %>/allSearch.bo" onsubmit="return checkKeyword();">
+                                <form class="searchForm" role="search" method="post" action="<%= request.getContextPath() %>/allSearch.co" onsubmit="return checkKeyword();">
 
                                     <div id="searchText">
                                     	<% if(keyWord.equals("")) { %>
@@ -397,27 +383,27 @@
 	                                
 	                                <% if(keyWord.equals("")) { %>
 		                                
-	                                	<% if(!blist.isEmpty() && listCount > 8) { %>
+	                                	<% if(!clist.isEmpty() && listCount > 8) { %>
 		                            
 				                                <div id="buttonArea">          
 				                                	<% if(currentPage - 1 <= 0)  { %>
 				                               			<button class="boardBtn" disabled style="color:gray">이전</button>
 				                                	<% }else { %>
-				                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/allList.bo?currentPage=<%= currentPage - 1 %>'">이전</button>
+				                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/allList.co?currentPage=<%= currentPage - 1 %>'">이전</button>
 				                                	<% } %>  
 				                                	
 				                                	<% for(int i = startPage; i <= endPage; i++) { %>
 				                                		<% if(i == currentPage) { %>
 				                                			<button class="boardBtn" disabled style="color:blue"><%= i %></button>
 				                                		<% }else { %>
-				                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/allList.bo?currentPage=<%= i %>'"><%= i %></button>
+				                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/allList.co?currentPage=<%= i %>'"><%= i %></button>
 				                                		<% } %>                                                           
 				                                	<% } %>
 				                                      
 				                                	<% if(currentPage == maxPage)  { %>
 				                                		<button class="boardBtn" disabled style="color:gray">다음</button>
 				                                	<% }else { %>
-				                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/allList.bo?currentPage=<%= currentPage + 1 %>'">다음</button>
+				                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/allList.co?currentPage=<%= currentPage + 1 %>'">다음</button>
 				                                	<% } %>
 				                                </div>
 		                                	
@@ -425,26 +411,26 @@
 		                                
 	                                <% }else { %>
 		                                
-	                                	<% if(!blist.isEmpty() && listCount > 8) { %>
+	                                	<% if(!clist.isEmpty() && listCount > 8) { %>
 			                                <div id="buttonArea">          
 			                                	<% if(currentPage - 1 <= 0)  { %>
 			                               			<button class="boardBtn" disabled style="color:gray">이전</button>
 			                                	<% }else { %>
-			                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/allSearch.bo?currentPage=<%= currentPage - 1 %>&keyWord=<%= keyWord %>'">이전</button>
+			                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/allSearch.co?currentPage=<%= currentPage - 1 %>&keyWord=<%= keyWord %>'">이전</button>
 			                                	<% } %>  
 			                                	
 			                                	<% for(int i = startPage; i <= endPage; i++) { %>
 			                                		<% if(i == currentPage) { %>
 			                                			<button class="boardBtn" disabled style="color:blue"><%= i %></button>
 			                                		<% }else { %>
-			                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/allSearch.bo?currentPage=<%= i %>&keyWord=<%= keyWord %>'"><%= i %></button>
+			                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/allSearch.co?currentPage=<%= i %>&keyWord=<%= keyWord %>'"><%= i %></button>
 			                                		<% } %>                                                           
 			                                	<% } %>
 			                                      
 			                                	<% if(currentPage == maxPage)  { %>
 			                                		<button class="boardBtn" disabled style="color:gray">다음</button>
 			                                	<% }else { %>
-			                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/allSearch.bo?currentPage=<%= currentPage + 1 %>&keyWord=<%= keyWord %>'">다음</button>
+			                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/allSearch.co?currentPage=<%= currentPage + 1 %>&keyWord=<%= keyWord %>'">다음</button>
 			                                	<% } %>
 			                                </div>
 		                                	
