@@ -73,6 +73,17 @@ public class CouponService {
 		
 	}
 
+	public ArrayList<Coupon> selectAbleList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Coupon> cList = new CouponDao().selectAbleList(conn);
+		
+		close(conn);
+		
+		return cList;
+	}
+
 
 
 }

@@ -53,7 +53,7 @@ public class MailListServlet extends HttpServlet {
 		}
 		
 		ArrayList<User> UserList = new MailService().selectMailList(sqlType,sqlGrade,startDay,endDay);
-		ArrayList<Coupon> cList = new CouponService().selectList();
+		ArrayList<Coupon> cList = new CouponService().selectAbleList();
 		
 		
 		request.setAttribute("UserList", UserList);

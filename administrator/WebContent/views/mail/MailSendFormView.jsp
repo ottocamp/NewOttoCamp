@@ -13,6 +13,34 @@
 
 	session.setAttribute("mailList", mailList);
 	
+	
+	for(User ug : UserList){
+		
+		switch(ug.getGrade()){
+		
+		case "A" : ug.setGrade("MVP"); break;
+		case "B" : ug.setGrade("VIP"); break;
+		case "C" : ug.setGrade("FAMILY"); break;
+		case "D" : ug.setGrade("WELCOME"); break;
+		
+		}
+
+	}
+	
+	for(Coupon cc : cList){
+		
+		switch(cc.getcGrade()){
+		
+		case "A" : cc.setcGrade("MVP"); break;
+		case "B" : cc.setcGrade("VIP"); break;
+		case "C" : cc.setcGrade("FAMILY"); break;
+		case "D" : cc.setcGrade("WELCOME"); break;
+		
+		}
+
+	}
+	
+	
 %>   
 <!DOCTYPE html>
 <html>
@@ -195,7 +223,22 @@
                                                 		<td><%= UserList.get(i).getEmail() %></td>
                                                 		
                                                 		<% if(UserList.get(i).getUserType().equalsIgnoreCase("U")) {%>
-                                                		<td><%= UserList.get(i).getGrade() %></td>
+                                                		
+                                                		<% if(UserList.get(i).getGrade().equals("WELCOME")){ %>
+														<td ><%= UserList.get(i).getGrade() %></td>
+														<%} %>
+														<% if(UserList.get(i).getGrade().equals("FAMILY")){ %>
+														<td class="text-custom"><%= UserList.get(i).getGrade() %></td>
+														<%} %>
+														<% if(UserList.get(i).getGrade().equals("VIP")){ %>
+														<td class="text-info"><%= UserList.get(i).getGrade() %></td>
+														<%} %>
+														<% if(UserList.get(i).getGrade().equals("MVP")){ %>
+														<td class="text-danger"><%= UserList.get(i).getGrade() %></td>
+														<%} %>
+                                                		
+         
+                                                		
                                                 		<%}else{ %>
                                                 		<td>없음</td>
                                                 		<%} %>
@@ -271,7 +314,21 @@
                                                 		<td><%= u.getUserName() %></td>
                                                 		<td><%= u.getEmail() %></td>
                                                 		<% if(u.getUserType().equalsIgnoreCase("U")) {%>
-                                                		<td><%= u.getGrade() %></td>
+                                                		
+                                                		<% if(u.getGrade().equals("WELCOME")){ %>
+														<td ><%= u.getGrade() %></td>
+														<%} %>
+														<% if(u.getGrade().equals("FAMILY")){ %>
+														<td class="text-custom"><%= u.getGrade() %></td>
+														<%} %>
+														<% if(u.getGrade().equals("VIP")){ %>
+														<td class="text-info"><%= u.getGrade() %></td>
+														<%} %>
+														<% if(u.getGrade().equals("MVP")){ %>
+														<td class="text-danger"><%= u.getGrade() %></td>
+														<%} %>
+                                                		
+                                                		
                                                 		<%}else{ %>
                                                 		<td>없음</td>
                                                 		<%} %>
@@ -302,7 +359,7 @@
                                                 <thead>
                                                     <tr>
                                                     	
-                                                        <th>쿠폰이름</th>
+                                                        <th style="padding: 8px 30px;">쿠폰이름</th>
                                                         <th>할인금액</th>
                                                         <th>시작일</th>
                                                       	<th>종료일</th>
@@ -319,10 +376,23 @@
                                                             <%= c.getcName() %>
                                                         </label>
                                                     </div></th>
-                                                		<td style="padding: 20px 0px;"><%= formatter.format(c.getcDiscount()) %>원</td>
+                                                		<td style="padding: 20px 8px;"><%= formatter.format(c.getcDiscount()) %>원</td>
                                                 		<td style="padding: 20px 0px;"><%= c.getcStartDay().substring(0,10) %></td>
                                                 		<td style="padding: 20px 0px;"><%= c.getcEndDay().substring(0,10) %></td>
-                                                		<td style="padding: 20px 0px;"><%= c.getcGrade() %></td>
+                                                		
+                                                		<% if(c.getcGrade().equals("WELCOME")){ %>
+														<td style="padding: 20px 0px;"><%= c.getcGrade() %></td>
+														<%} %>
+														<% if(c.getcGrade().equals("FAMILY")){ %>
+														<td class="text-custom" style="padding: 20px 0px;"><%= c.getcGrade() %></td>
+														<%} %>
+														<% if(c.getcGrade().equals("VIP")){ %>
+														<td class="text-info" style="padding: 20px 8px;"><%= c.getcGrade() %></td>
+														<%} %>
+														<% if(c.getcGrade().equals("MVP")){ %>
+														<td class="text-danger" style="padding: 20px 8px;"><%= c.getcGrade() %></td>
+														<%} %>
+             	
                                                 	</tr>
                                                 <%} %>	
 

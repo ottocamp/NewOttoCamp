@@ -165,6 +165,49 @@ public class CouponDao {
 	}
 
 
+	public ArrayList<Coupon> selectAbleList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Coupon> cList = new ArrayList<Coupon>();
+		
+		String sql = prop.getProperty("selectAbleList");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				
+				cList.add(new Coupon(rset.getString(1),
+									rset.getString(2),
+									rset.getInt(3),
+									rset.getString(4),
+									rset.getString(5),
+									rset.getString(6),
+									rset.getString(7),
+									rset.getInt(8),
+									rset.getInt(9),
+									rset.getInt(10),
+									rset.getDouble(11)));
+				
+		
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+
+		
+		return cList;
+	}
+
+
 	
 
 }
