@@ -368,6 +368,16 @@ public class UserService {
 		
 		return result;
 	}
+
+	public ArrayList<Integer> checkReviewCode(int uNo) {
+		Connection con = getConnection();
+		
+		ArrayList<Integer> checkReview = new UserDao().checkReviewCode(con,uNo);
+		
+		close(con);
+		
+		return checkReview;
+	}
 	
 	
 	

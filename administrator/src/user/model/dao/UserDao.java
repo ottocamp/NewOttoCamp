@@ -922,6 +922,43 @@ public class UserDao {
 
 
 
+	public ArrayList<Integer> checkReviewCode(Connection con, int uNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Integer> checkReview = new ArrayList<Integer>();
+		
+		String sql = prop.getProperty("checkReview");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, uNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				int code = rset.getInt(1); 
+				
+				checkReview.add(code);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+
+		
+		return checkReview;
+	}
+
+
+
+
 
 
 }
