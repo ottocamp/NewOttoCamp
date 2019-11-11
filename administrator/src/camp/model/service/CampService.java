@@ -174,6 +174,16 @@ public class CampService {
 		
 		}
 
+		public ArrayList<CampInfo> getName() {
+			Connection conn = getConnection();
+			
+			ArrayList<CampInfo> ci = new CampDao().getName(conn);
+			
+			close(conn);
+			
+			return ci;
+		}
+
 		
 
 }

@@ -68,7 +68,7 @@
                             
                             <% if(!loginUser.getUserType().equals("U")) { %>
                             <li class="qes-side">
-                                <a href="<%= request.getContextPath() %>/ans.qe" aria-expanded="true"><i class="mdi mdi-book-open"></i> 답변하기 </a>
+                                <a href="<%= request.getContextPath() %>/list.an" aria-expanded="true"><i class="mdi mdi-book-open"></i> 답변하기 </a>
                             </li >
                             <% } %>
 										

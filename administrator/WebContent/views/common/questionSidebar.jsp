@@ -54,7 +54,7 @@
                             <li class="qes-side">
                             	<% if(!userType.equals("A")) { %>
                             	
-                            		<a href="<%= request.getContextPath() %>/views/question/questionInsertForm.jsp" target="_self"><i class="mdi mdi-comment-question-outline"></i> 문의하기 </a><i class="mdi mdi-checkbox-multiple-blank-outline" style="font-size: 12px" onclick="window.open('my-admin.html')"></i>
+                            		<a href="<%= request.getContextPath() %>/getName.ca" target="_self"><i class="mdi mdi-comment-question-outline"></i> 문의하기 </a><i class="mdi mdi-checkbox-multiple-blank-outline" style="font-size: 12px" onclick="<%= request.getContextPath() %>/getName.ca"></i>
                                 
                             	<% } %>
                                 
