@@ -63,7 +63,8 @@
 		$(function(){
 		if(msg != "null"){
 			
-			$("#sa-success").click();
+			alert(msg);
+			/* $("#sa-success").click(); */
 			<% session.removeAttribute("msg"); %>
 		}
 		});
@@ -212,7 +213,7 @@ textarea {
                                                     <h4>리뷰 남기기</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                               	제목 : <input type="text" name="rTitle" id="rTitle" class="form-control" style="height: 36px; width: 200px; display: inline-block;">         
+                                               	제목 : <input type="text" name="rTitle" id="rTitle" class="form-control" style="height: 36px; width: 200px; display: inline-block;" autocomplete="off">         
                                                 <br><hr>
                                            		     별점 
                                                  <div class="starRev">

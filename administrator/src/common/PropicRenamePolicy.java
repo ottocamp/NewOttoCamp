@@ -32,7 +32,7 @@ public class PropicRenamePolicy implements FileRenamePolicy{
 				}
 				
 				// 최종적으로 수정할 파일명
-				String fileName = uid + ext;
+				String fileName = uid.toLowerCase() + ext.toLowerCase();
 				
 				// 파일을 변경된 파일명으로 생성
 				File newFile = new File(originFile.getParent(), fileName);

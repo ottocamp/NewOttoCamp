@@ -38,4 +38,20 @@ public class ReviewService {
 		return userReviewList;
 	}
 
+	public int deleteReview(int reNo3) {
+		Connection con = getConnection();
+		
+		int result = new ReviewDao().deleteReview(con,reNo3);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+				
+
+		return result;
+	}
+
 }

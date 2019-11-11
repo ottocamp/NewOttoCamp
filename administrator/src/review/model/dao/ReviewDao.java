@@ -121,4 +121,28 @@ public class ReviewDao {
 		return userReviewList;
 	}
 
+	public int deleteReview(Connection con, int reNo3) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql =  prop.getProperty("deleteReview");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, reNo3);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+			
+	
+		return result;
+	}
+
 }

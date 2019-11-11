@@ -79,8 +79,8 @@
 						success : function(data){	
 							
 							var uno = data.userNo;
-							var oname = data.originName;
-							var cname = data.changeName;
+							var oname = data.originName.toLowerCase();
+							var cname = data.changeName.toLowerCase();
 
 							$(".propicArea").attr("src","<%= request.getContextPath() %>/resources/userpropic/"+cname+"?after");
 							

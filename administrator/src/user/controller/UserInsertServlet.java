@@ -61,9 +61,9 @@ public class UserInsertServlet extends HttpServlet {
 			String rcode = new RandomCode().RandomCode(10);
 			new UserService().insertJoincode(uid,rcode);
 			
-			//uid로 uno을 얻어와 신규가입 쿠폰을 넣어주자
+			//uid로 uno을 얻어와 신규가입 쿠폰을 넣어주자(신규 가입 쿠폰 코드FE18GDFE)
 			int uno = new UserService().selectUserNo(uid);
-			new UserService().insertCoupon(uno,"s1");
+			new UserService().insertCoupon(uno,"FE18GDFE");
 			
 			
 			//이메일 발송을 하는 JSP(jsp로 가면 자동으로 메일 발송)
