@@ -354,7 +354,7 @@
                                	 <table class="table table-bordered m-0" style="text-align: center;">
 												<input type="hidden" value="" id="code">
                                                 <thead>
-                                                    <tr >
+                                                    <tr>
                                                         <th style="text-align: center;">캠핑장명</th>
                                                         <td id="campName" style="text-align: center;" colspan="2"></td>
                                                 		<th style="text-align: center;">전화번호</th>
@@ -508,7 +508,7 @@
 																</div>
 															</td>
 														</tr>
-                                                     
+                                                     <tr>
                                                     </tr>
                                                     <tr id="refund">
                                                      <th rowspan="6" style="text-align: center;">환불규정</th>

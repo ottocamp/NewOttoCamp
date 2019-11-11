@@ -387,7 +387,7 @@
 														<td class="text-custom" style="padding: 20px 0px;"><%= c.getcGrade() %></td>
 														<%} %>
 														<% if(c.getcGrade().equals("VIP")){ %>
-														<td class="text-info" style="padding: 20px 0px;"><%= c.getcGrade() %></td>
+														<td class="text-info" style="padding: 20px 8px;"><%= c.getcGrade() %></td>
 														<%} %>
 														<% if(c.getcGrade().equals("MVP")){ %>
 														<td class="text-danger" style="padding: 20px 8px;"><%= c.getcGrade() %></td>
