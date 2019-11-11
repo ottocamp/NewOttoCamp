@@ -6,10 +6,12 @@
 	ArrayList<CampInfo> cList = (ArrayList<CampInfo>)request.getSession().getAttribute("cList");
 	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getSession().getAttribute("aList");
 	ArrayList<CampDetail> cdList = (ArrayList<CampDetail>)request.getSession().getAttribute("cdList");
+	ArrayList<CampReview> crList = (ArrayList<CampReview>)request.getSession().getAttribute("crList");
 	
 	CampInfo ca = null;
 	ArrayList<CampDetail> thiscd = new ArrayList<CampDetail>();
-	
+	ArrayList<CampReview> thiscr = new ArrayList<CampReview>();
+
 	for(CampInfo c : cList){
 		if(code == c.getcCode()){		
 			ca = c;
@@ -25,6 +27,14 @@
 		
 	}
 	
+	for(CampReview crindex : crList){
+		
+		if(code == crindex.getcCampCode()){
+			
+			thiscr.add(crindex);
+		}
+		
+	}
 	
 	
 	ArrayList<Integer> codeList = (ArrayList<Integer>)request.getAttribute("codeList");
@@ -454,14 +464,7 @@ background-color: #fe0f42;
 
 /* 버튼 */
 
-button { 
 
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-margin-top:3700px;
-}
 
 button{
   background: none;
@@ -535,20 +538,11 @@ button:hover:after{
 
 
             </style>
-
-            
-            
-            <h1><%= ca.getcName() %></h1>
-            <br>
-            <br>
-
           </head>
-              <br>
-              <br>
-
 
             <body>
 
+   				<h1><%= ca.getcName() %></h1>
               <main class="wrapper">
                
                
@@ -571,6 +565,10 @@ button:hover:after{
               주소 : <%= ca.getcAddress() %> 전화번호 : <%= ca.getcPhone() %> 홈페이지 : <%= ca.getcUrl() %>
            
             </div>
+            
+            </div>
+       		<div style="text-align: center;"><input type="checkbox" id="fav">
+       		</div>
        
            
             <main class="wrapper2">  
@@ -586,48 +584,33 @@ button:hover:after{
             </div>
               
               
-              <main class="wrapper3">    
-              <div class="element18 grid-box2"> <div class="slidershow middle">
-                <div class="slides">
-                  <input type="radio" name="r" id="r1" checked>
-                  <input type="radio" name="r" id="r2">
-                  <input type="radio" name="r" id="r3">
-                  <input type="radio" name="r" id="r4">
-                  <input type="radio" name="r" id="r5">
-                  <div class="slide s1">
-                    <img src="<%= request.getContextPath() %>/resources/main/images/r1.jpg" alt="">
-                  </div>
-                  <div class="slide">
-                   <img src="<%= request.getContextPath() %>/resources/main/images/r2.jpg" alt="">
-                  </div>
-                  <div class="slide">
-                   <img src="<%= request.getContextPath() %>/resources/main/images/r3.jpg" alt="">
-                  </div>
-                  <div class="slide">
-                  <img src="<%= request.getContextPath() %>/resources/main/images/r4.jpg" alt="">
-                  </div>
-                  <div class="slide">
-                   <img src="<%= request.getContextPath() %>/resources/main/images/r5.jpg" alt="">
-                  </div>
-                </div>
-          
-                <div class="navigation">
-                  <label for="r1" class="bar"></label>
-                  <label for="r2" class="bar"></label>
-                  <label for="r3" class="bar"></label>
-                  <label for="r4" class="bar"></label>
-                  <label for="r5" class="bar"></label>
-                </div>
-              </div> 
-            </div></div>
+             
     
 
-            <main class="wrapper4">   
+           <main class="wrapper4">   
               <div class="element19 grid-box3"><h1>포함사항</h1>
+              <table border="1px solid black;" style="text-align: center; width: 100%;">
+         		<tr>
+         		<th>구분</th>
+         		<th>가격</th>
+         		<th>추가인원요금</th>
+         		<th>최대숙박기간</th>
+         		<th>최대숙박인원</th>
+         		
+         		</tr>
               <% for(CampDetail cd : thiscd){ %>
-              <h2><%= cd.toString() %></h2>
-              <%} %>
+         		
 
+         		<tr>
+         			<td><%= cd.getdSite() %></td>
+         			<td><%= cd.getdPrice() %>원</td>
+         			<td><%= cd.getdAddPirce() %>원</td>
+         			<td><%= cd.getdDateMax() %>일</td>
+         			<td><%= cd.getdStayMax() %>명</td>
+         		</tr>     	  	
+              <%} %>
+              
+              	</table>
             </div>
 
               <main class="wrapper5">
@@ -635,39 +618,39 @@ button:hover:after{
                 <h2><%= ca.getcRefundment() %></h2>
             </div>
             
-            
-            <main class="wrapper6">
-              <div class="element21 grid-box5"><h1>맵API</h1></div>
-                
-                  
-              <main class="wrapper7">
-                <div class="element22 grid-box6"><h1>지도 API</h1></div>
-
-
-
-                <main class="wrapper9">
-                  <div class="element23 grid-box8">
-                  <div class="button1"><div class="btn"><button type="button" onclick="reservation();">예약하기</button></div>
-                  </div>
-                  
-
-
-                  </div>
-
-
-                  </div>
-
-
-                  </div>
-                 
-                 
-                  <main class="wrapper8">
-                  <div class="element24 grid-box8">
-                    <div class="container">
-                    <input type="checkbox" <%= checkFlag %> id="fav">
-                  </div>
+         		<main class="wrapper6">
+              <div class="element20 grid-box5" style="margin-top: 100px;"><h1>리뷰</h1>
+               
+               <table border="1px solid black;" style="text-align: center; width: 100%;">
+         		<tr>
+         		<th>예약번호</th>
+         		<th>점수</th>
+         		<th>내용</th>
+         		<th>회원아이디</th>
+         		</tr>
+         	<% for(CampReview cr : thiscr){ %>
+         		<tr>
+         			<td><%= cr.getcReNo() %></td>
+         			<td><%= cr.getcRNum() %></td>
+         			<td><%= cr.getcRContent() %></td>
+         			<td><%= cr.getcUserId() %></td>
+         		</tr>     	  	
+        
+             <%} %> 
+              	</table>
+               
+               
+               
             </div>
-          </div>
+            
+      
+               <div style="text-align: center; margin-top: 200px;">
+            	<button type="button" onclick="reservation();">예약하기</button>
+            	</div>
+            
+                 
+                 
+           
 
 		</body>
                      
@@ -726,7 +709,7 @@ button:hover:after{
                      					}
                      				});
                              		
-                             		
+                             	 	
                              		
                              		
                              	}

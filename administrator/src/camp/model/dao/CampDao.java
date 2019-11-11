@@ -16,6 +16,7 @@ import camp.model.vo.Attachment;
 import camp.model.vo.CampDetail;
 import camp.model.vo.CampInfo;
 import camp.model.vo.CampMinPrice;
+import camp.model.vo.CampReview;
 
 
 public class CampDao {
@@ -486,6 +487,50 @@ public class CampDao {
 		
 
 		return cdList;
+	}
+
+
+	public ArrayList<CampReview> selectReview(Connection conn) {
+
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<CampReview> crList = new ArrayList<CampReview>();
+		
+		String sql = prop.getProperty("selectReview");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				
+				crList.add(new CampReview(rset.getInt(1),
+										rset.getInt(2),
+										rset.getString(3),
+										rset.getInt(4),
+										rset.getString(5),
+										rset.getString(6),
+										rset.getString(7),
+										rset.getString(8),
+										rset.getInt(9)));
+				
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		
+		
+		return crList;
 	}
 
 
