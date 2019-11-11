@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import user.model.vo.User;
 
 /**
  * Servlet implementation class BoardDeleteServlet
@@ -29,8 +30,15 @@ public class BoardDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bTag = Integer.parseInt(request.getParameter("bTag"));
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
+
+		User u = (User)request.getSession().getAttribute("loginUser");
+				
+		int bTag = 9999;
+		int bNo = Integer.parseInt(request.getParameter("b_no"));
+		if(request.getParameter("bTag") != null) {
+			bTag = Integer.parseInt(request.getParameter("bTag"));
+		}
+		
 		
 		int result = new BoardService().deleteList(bNo);
 		
@@ -42,7 +50,15 @@ public class BoardDeleteServlet extends HttpServlet {
 		}
 		
 
-		response.sendRedirect(request.getContextPath() + "/list.bo?b_tag=" + bTag);
+		if(bTag != 9999) {
+			response.sendRedirect(request.getContextPath() + "/list.bo?b_tag=" + bTag);			
+		}else {
+			if(u.getUserType().contentEquals("A")) {
+				response.sendRedirect(request.getContextPath() + "/allList.bo");
+			}else {
+				response.sendRedirect(request.getContextPath() + "/myList.bo");
+			}
+		}
 		
 	}
 

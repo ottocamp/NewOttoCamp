@@ -30,11 +30,17 @@ public class CommentDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int cNo = Integer.parseInt(request.getParameter("cNo"));
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
+		int cNo = Integer.parseInt(request.getParameter("c_no"));
+		int bNo = 0;
+		
+		if(request.getParameter("bNo") != null) {
+			bNo = Integer.parseInt(request.getParameter("bNo"));
+		}
+		
 		
 		int result = new BoardService().deleteComment(cNo);
 		
+		System.out.println(cNo);
 		
 		if(result > 0) {
 			request.getSession().setAttribute("msg", "댓글이 삭제되었습니다");
@@ -42,7 +48,11 @@ public class CommentDeleteServlet extends HttpServlet {
 			request.getSession().setAttribute("msg", "댓글 삭제에 실패하였습니다");
 		}
 		
-		request.getRequestDispatcher("/detail.bo?b_no=" + bNo).forward(request, response);
+		if(bNo != 0) {	
+			response.sendRedirect(request.getContextPath() + "/detail.bo?b_no=" + bNo);		
+		}else {
+			response.sendRedirect(request.getContextPath() + "/myList.co");		
+		}
 		
 	}
 

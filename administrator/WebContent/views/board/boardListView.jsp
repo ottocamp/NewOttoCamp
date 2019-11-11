@@ -280,7 +280,12 @@
                 <!-- START PAGE CONTENT -->
                 <div id="page-right-content">
 
-                    <div class="container">                                
+                    <div class="container">          
+						
+                        
+                        <div class="board-wrapper">
+                        
+                                              
 						<% if(bTag == 0) { %>
                         	<h2><a href="<%= request.getContextPath() %>/list.bo?b_tag=0">공지사항</a></h2>
 						<% }else if(bTag == 1) { %>
@@ -288,10 +293,8 @@
 						<% }else { %>
                         	<h2><a href="<%= request.getContextPath() %>/list.bo?b_tag=2">잡담(자유)</a></h2>
 						<% } %>
-						
-						
-                        <br>
-                        <div class="board-wrapper">
+						<br>
+                        
                             <div class="boardArea">
                                 <table class="boardList">
                                     <thead class="thead-light">
@@ -380,10 +383,10 @@
 
                             <div id="insertBtn" class="fontBorder">
                             	<% if(bTag != 0) {%>                             	                  
-                                		<button type="button" class="boardBtn insertBtn" onclick="location.href='views/board/boardInsertForm.jsp'">글쓰기</button>                            	                  
+                                		<button type="button" class="btn btn-primary boardBtn insertBtn fontBorder" onclick="location.href='views/board/boardInsertForm.jsp'">글쓰기</button>                            	                  
                                 <% }else { %>
                                 	<% if(userType.equals("A")) { %>                 
-                                		<button type="button" class="boardBtn insertBtn" onclick="location.href='views/board/noticeInsertForm.jsp'">공지 작성</button>  
+                                		<button type="button" class="btn btn-primary boardBtn insertBtn fontBorder" onclick="location.href='views/board/noticeInsertForm.jsp'">공지 작성</button>  
                                 	<% } %>
                                 <% } %>
                             </div>

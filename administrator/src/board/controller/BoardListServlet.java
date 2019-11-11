@@ -35,7 +35,6 @@ public class BoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int bTag = Integer.parseInt(request.getParameter("b_tag"));
-		
 		BoardService boardService = new BoardService();
 		
 		// 태그가 공지사항(0)인 게시글의 총 수 

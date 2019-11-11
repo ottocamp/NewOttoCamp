@@ -1,11 +1,20 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import board.model.service.BoardService;
+import board.model.vo.Board;
+import board.model.vo.PageInfo;
+import user.model.vo.User;
 
 /**
  * Servlet implementation class BoardAllListServlet
@@ -26,9 +35,47 @@ public class BoardAllListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
 		
-		response.sendRedirect("/views/board/listManaView.jsp");
+		int listCount = new BoardService().getAllListCount();
+		int currentPage;
+		int startPage;
+		int endPage;
+		int maxPage;
+		int pageLimit;
+		int boardLimit;
+		
+		currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));			
+		}
+		
+		pageLimit = 5;
+		boardLimit = 8;
+
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
+		endPage = startPage + pageLimit - 1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, boardLimit);
+		System.out.println(pi);
+		ArrayList<Board> blist = new BoardService().getAllListBoard(currentPage, boardLimit);
+		System.out.println(blist);
+		HashMap cCount = new BoardService().getcCount(blist);
+		System.out.println(cCount);
+		
+		request.setAttribute("pi", pi);
+		request.setAttribute("blist", blist);
+		request.setAttribute("cCount", cCount);
+		
+		RequestDispatcher view = request.getRequestDispatcher("/views/board/boardAllListView.jsp");
+		
+		view.forward(request, response);
+		
+		
 	}
 
 	/**

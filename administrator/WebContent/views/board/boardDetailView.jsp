@@ -350,6 +350,12 @@
             }
 
 
+			#toMainBtn{
+				margin: 0;
+				padding: 0;
+			
+			}
+
         </style>
 
 </head>
@@ -408,7 +414,7 @@
                         <div id="controll-wrapper">
                             <div id="controllArea">
                                 <div id="btnDiv" class="fontBorder btns">
-                                    <button class="btn btn-primary" id="toMainBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=<%= bTag %>'">목록으로</button>
+                                    <button type="button" class="btn btn-primary fontBorder" id="toMainBtn" onclick="location.href='<%= request.getContextPath() %>/list.bo?b_tag=<%= bTag %>'">목록으로</button>
                                 </div>
 
                                 <div id="listDiv">
@@ -426,19 +432,19 @@
 							
 									<% if(userType.equals("A")) { %>
 									
-									<button type="button" class="btn btn-primary fontBorder "data-toggle="modal" data-target="#deleteBoardModal">
+									<button type="button" class="btn btn-primary fontBorder" data-toggle="modal" data-target="#deleteBoardModal">
 										삭제
 									</button>
 									
 									<% }else if(writerNo == 9999) { %>
 									
-									<button type="button" class="btn btn-primary fontBorder " data-toggle="modal" data-target="#checkPwdModal">
+									<button type="button" class="btn btn-primary fontBorder" data-toggle="modal" data-target="#checkPwdModal">
 										삭제
 									</button>
 									
 									<% }else if(writerNo == userNo) { %>
 									
-									<button type="button" class="btn btn-primary fontBorder "data-toggle="modal" data-target="#deleteBoardModal">
+									<button type="button" class="btn btn-primary fontBorder" data-toggle="modal" data-target="#deleteBoardModal">
 										삭제
 									</button>
 									
@@ -466,7 +472,7 @@
 							            <label for="boardPwd">게시글을 삭제합니다.</label>
     									<input type="password" class="form-control" name="pwd" id="boardPwd" placeholder="임시 비밀번호를 입력하세요">
     									
-							            <input type="hidden" name="bNo" value="<%= bNo %>">
+							            <input type="hidden" name="b_no" value="<%= bNo %>">
 							            <input type="hidden" name="bTag" value="<%= bTag %>">
 							      </div>
 							      <div class="modal-footer">
@@ -497,7 +503,7 @@
 							      <div class="modal-body">
 								      정말로 삭제하시겠습니까?
 		    									
-							          <input type="hidden" name="bNo" value="<%= bNo %>">
+							          <input type="hidden" name="b_no" value="<%= bNo %>">
 							          <input type="hidden" name="bTag" value="<%= bTag %>">
 							      </div>
 							      <div class="modal-footer">
@@ -541,7 +547,7 @@
 											
 											<button type="button" class="btn btn-secondary fontBorder deleteCommentBtn" data-toggle="modal" data-target="#deleteCommentModel">
 												삭제 
-												<input type="hidden" name="cNo" value="<%= c.getcNo() %>">
+												<input type="hidden" name="c_no" value="<%= c.getcNo() %>">
 												<input type="hidden" name="bNo" value="<%= bNo %>">
 											</button> 
 											
@@ -549,7 +555,7 @@
 											
 											<button type="button" class="btn btn-secondary fontBorder deleteCommentBtn" data-toggle="modal" data-target="#commentPwdCheckModal">
 												삭제 
-												<input type="hidden" name="cNo" value="<%= c.getcNo() %>">
+												<input type="hidden" name="c_no" value="<%= c.getcNo() %>">
 												<input type="hidden" name="bNo" value="<%= bNo %>">
 											</button> 
 											
@@ -557,7 +563,7 @@
 											
 											<button type="button" class="btn btn-secondary fontBorder deleteCommentBtn" data-toggle="modal" data-target="#deleteCommentModel">
 												삭제 
-												<input type="hidden" name="cNo" value="<%= c.getcNo() %>">
+												<input type="hidden" name="c_no" value="<%= c.getcNo() %>">
 												<input type="hidden" name="bNo" value="<%= bNo %>">
 											</button> 
 											
@@ -593,7 +599,7 @@
 							      <div class="modal-body commentPwd">
 							            <label>댓글을 삭제합니다.</label>
     									<input type="password" class="form-control" name="pwd" placeholder="임시 비밀번호를 입력하세요">
-    									<input type="hidden" name="cNo">
+    									<input type="hidden" name="c_no">
 							            <input type="hidden" name="bNo">
 							      </div>
 							      <div class="modal-footer">
@@ -625,7 +631,7 @@
 							      <div class="modal-body commentPwd">
 							          <label>정말로 삭제하시겠습니까?</label>
 		    									
-									  <input type="hidden" name="cNo">
+									  <input type="hidden" name="c_no">
 						              <input type="hidden" name="bNo">
 							      </div>
 							      <div class="modal-footer">
@@ -735,13 +741,13 @@
 			}		
 
 			$(document).on('click', '.deleteCommentBtn', function(){ 
-    			var cNo = $(this).children("input[name='cNo']").val();
+    			var cNo = $(this).children("input[name='c_no']").val();
     			var bNo = $(this).children("input[name='bNo']").val();
     			
-    			$(".commentPwd").children("input[name='cNo']").val(cNo);
+    			$(".commentPwd").children("input[name='c_no']").val(cNo);
     			$(".commentPwd").children("input[name='bNo']").val(bNo);
     			
-    			console.log($(".commentPwd").children("input[name='cNo']").val());			        			
+    			console.log($(".commentPwd").children("input[name='c_no']").val());			        			
     			console.log($(".commentPwd").children("input[name='bNo']").val());       
     			
     		});   
@@ -817,183 +823,206 @@
 					var commentContent = $("#commentContent").val();
 					var bNo = <%= bNo %>;
 					
-					$.ajax({
-						url : "insertComment.bo",
-						data : {dispoId:dispoId, dispoPwd:dispoPwd, commentContent:commentContent, bNo:bNo},
-						type : "post",
-						dataType : "json",
-						success : function(data){
-							$commentArea = $("#commentArea");
-							$commentArea.text("");
-							
-							for(var key in data) {
-								// <table>선언
-								var $input = $("<input>").attr("type", "hidden").attr("id", "userNoInput").val(data[key].userNo);
-								var $table = $("<table>").attr("id", "commentTable");
-								$table.append($input);
-								
-								
-								// 작성자 명 <tr>선언
-								var $tr = $("<tr>").addClass("commentTr");
-								
-								var $nameTd = $("<td>").addClass("userName");
-								var $nameDiv = $("<div>").addClass("user_wrapper fontBorder").text(data[key].cWriter);
+					if(dispoId == "" || dispoPwd == "") {
+						
+						alert("임시ID 또는 비밀번호를 입력하세요");
+						
+					}else if(commentContent == "") {
+						
+						alert("내용을 입력하세요");
+						
+					}else {
 
-								if(data[key].userNo == 9999) {
-									var $sub = $("<sub>").text("(비회원)");
+						/* ajax시작 */
+						$.ajax({
+							url : "insertComment.bo",
+							data : {dispoId:dispoId, dispoPwd:dispoPwd, commentContent:commentContent, bNo:bNo},
+							type : "post",
+							dataType : "json",
+							success : function(data){
+								$commentArea = $("#commentArea");
+								$commentArea.text("");
+								
+								for(var key in data) {
+									// <table>선언
+									var $input = $("<input>").attr("type", "hidden").attr("id", "userNoInput").val(data[key].userNo);
+									var $table = $("<table>").attr("id", "commentTable");
+									$table.append($input);
 									
-									$nameDiv.append($sub);
-								}
-								
-								$nameTd.append($nameDiv);
-								
-								
-								// 댓글내용 <tr>선언
-								var $contentTd = $("<td>").addClass("commentContent");
-								var $contentDiv = $("<div>").addClass("text_wrapper");
-								var $contentSpan = $("<span>").addClass("contentText").text(data[key].cContent);
-								
-								$contentDiv.append($contentSpan);
-								$contentTd.append($contentDiv);
-								
-								
-								// 버튼내용 <tr>선언
-								var $btnTd = $("<td>").addClass("btns");
+									
+									// 작성자 명 <tr>선언
+									var $tr = $("<tr>").addClass("commentTr");
+									
+									var $nameTd = $("<td>").addClass("userName");
+									var $nameDiv = $("<div>").addClass("user_wrapper fontBorder").text(data[key].cWriter);
 
-								var $button = $("<button>").addClass("btn btn-secondary fontBorder deleteCommentBtn").attr({"type":"button", "data-toggle":"modal"}).text("삭제");
-								var $cNoInput = $("<input>").attr({"type":"hidden", "name":"cNo"}).val(data[key].cNo);;
-								var $bNoInput = $("<input>").attr({"type":"hidden", "name":"bNo"}).val(data[key].bNo);;
+									if(data[key].userNo == 9999) {
+										var $sub = $("<sub>").text("(비회원)");
+										
+										$nameDiv.append($sub);
+									}
+									
+									$nameTd.append($nameDiv);
+									
+									
+									// 댓글내용 <tr>선언
+									var $contentTd = $("<td>").addClass("commentContent");
+									var $contentDiv = $("<div>").addClass("text_wrapper");
+									var $contentSpan = $("<span>").addClass("contentText").text(data[key].cContent);
+									
+									$contentDiv.append($contentSpan);
+									$contentTd.append($contentDiv);
+									
+									
+									// 버튼내용 <tr>선언
+									var $btnTd = $("<td>").addClass("btns");
 
-								if(<%= userType.equals("A") %>) {
-									$button.attr("data-target", "#deleteCommentModel");	
-								}else if(data[key].userNo == 9999) {
-									$button.attr("data-target", "#commentPwdCheckModal");	
-								}else if(data[key].userNo == <%= userNo %>) {
-									$button.attr("data-target", "#deleteCommentModel");	
-								}
+									var $button = $("<button>").addClass("btn btn-secondary fontBorder deleteCommentBtn").attr({"type":"button", "data-toggle":"modal"}).text("삭제");
+									var $cNoInput = $("<input>").attr({"type":"hidden", "name":"c_no"}).val(data[key].cNo);;
+									var $bNoInput = $("<input>").attr({"type":"hidden", "name":"bNo"}).val(data[key].bNo);;
 
-								$button.append($cNoInput);
-								$button.append($bNoInput);
-								$btnTd.append($button);
+									if(<%= userType.equals("A") %>) {
+										$button.attr("data-target", "#deleteCommentModel");	
+									}else if(data[key].userNo == 9999) {
+										$button.attr("data-target", "#commentPwdCheckModal");	
+									}else if(data[key].userNo == <%= userNo %>) {
+										$button.attr("data-target", "#deleteCommentModel");	
+									}
+
+									$button.append($cNoInput);
+									$button.append($bNoInput);
+									$btnTd.append($button);
+									
+									
+									
+									$tr.append($nameTd);
+									$tr.append($contentTd);
+									$tr.append($btnTd);
+									
+									$table.append($tr);
+									$commentArea.append($table);
+								}	
 								
+	               
 								
+								$("#memberId").val("");
+								$("#memberPwd").val("");
+								$("#commentContent").val("");
 								
-								$tr.append($nameTd);
-								$tr.append($contentTd);
-								$tr.append($btnTd);
-								
-								$table.append($tr);
-								$commentArea.append($table);
-							}	
-							
-               
-							
-							$("#memberId").val("");
-							$("#memberPwd").val("");
-							$("#commentContent").val("");
-							
-						},
-						error : function(){
-							console.log("통신 실패");
-						}
+							},
+							error : function(){
+								console.log("통신 실패");
+							}							
+						});
+					/* ajax끝 */
 						
-						
-					});
+					}
 					
 					
 				});
+				
+				
+				
 				
 				$("#memberCommentInsertBtn").click(function(){
 					var commentContent = $("#commentContent").val();
-					var bNo = <%= bNo %>;
+					var bNo = <%= bNo %>;					
 					
-					$.ajax({
-						url : "insertMemberComment.bo",
-						data : {commentContent:commentContent, userNo:<%= userNo %>, bNo:bNo},
-						type : "post",
-						dataType : "json",
-						success : function(data){
-							$commentArea = $("#commentArea");
-							$commentArea.text("");
-							
-							for(var key in data) {
-								// <table>선언
-								var $input = $("<input>").attr("type", "hidden").attr("id", "userNoInput").val(data[key].userNo);
-								var $table = $("<table>").attr("id", "commentTable");
-								$table.append($input);
+					if(commentContent == "") {
+						
+						alert("내용을 입력하세요");
+						
+					}else{
+						
+						/* ajax시작 */
+						$.ajax({
+							url : "insertMemberComment.bo",
+							data : {commentContent:commentContent, userNo:<%= userNo %>, bNo:bNo},
+							type : "post",
+							dataType : "json",
+							success : function(data){
+								$commentArea = $("#commentArea");
+								$commentArea.text("");
 								
-								
-								// 작성자 명 <tr>선언
-								var $tr = $("<tr>").addClass("commentTr");
-								
-								var $nameTd = $("<td>").addClass("userName");
-								var $nameDiv = $("<div>").addClass("user_wrapper fontBorder").text(data[key].cWriter);
-
-								if(data[key].userNo == 9999) {
-									var $sub = $("<sub>").text("(비회원)");
+								for(var key in data) {
+									// <table>선언
+									var $input = $("<input>").attr("type", "hidden").attr("id", "userNoInput").val(data[key].userNo);
+									var $table = $("<table>").attr("id", "commentTable");
+									$table.append($input);
 									
-									$nameDiv.append($sub);
-								}
-								
-								$nameTd.append($nameDiv);
-								
-								
-								// 댓글내용 <tr>선언
-								var $contentTd = $("<td>").addClass("commentContent");
-								var $contentDiv = $("<div>").addClass("text_wrapper");
-								var $contentSpan = $("<span>").addClass("contentText").text(data[key].cContent);
-								
-								$contentDiv.append($contentSpan);
-								$contentTd.append($contentDiv);
-								
-								
-								// 버튼내용 <tr>선언
-								var $btnTd = $("<td>").addClass("btns");
+									
+									// 작성자 명 <tr>선언
+									var $tr = $("<tr>").addClass("commentTr");
+									
+									var $nameTd = $("<td>").addClass("userName");
+									var $nameDiv = $("<div>").addClass("user_wrapper fontBorder").text(data[key].cWriter);
 
-								var $button = $("<button>").addClass("btn btn-secondary fontBorder deleteCommentBtn").attr({"type":"button", "data-toggle":"modal"}).text("삭제");
-								var $cNoInput = $("<input>").attr({"type":"hidden", "name":"cNo"}).val(data[key].cNo);;
-								var $bNoInput = $("<input>").attr({"type":"hidden", "name":"bNo"}).val(data[key].bNo);;
+									if(data[key].userNo == 9999) {
+										var $sub = $("<sub>").text("(비회원)");
+										
+										$nameDiv.append($sub);
+									}
+									
+									$nameTd.append($nameDiv);
+									
+									
+									// 댓글내용 <tr>선언
+									var $contentTd = $("<td>").addClass("commentContent");
+									var $contentDiv = $("<div>").addClass("text_wrapper");
+									var $contentSpan = $("<span>").addClass("contentText").text(data[key].cContent);
+									
+									$contentDiv.append($contentSpan);
+									$contentTd.append($contentDiv);
+									
+									
+									// 버튼내용 <tr>선언
+									var $btnTd = $("<td>").addClass("btns");
 
-								if(<%= userType.equals("A") %>) {
-									$button.attr("data-target", "#deleteCommentModel");	
-								}else if(data[key].userNo == 9999) {
-									$button.attr("data-target", "#commentPwdCheckModal");	
-								}else if(data[key].userNo == <%= userNo %>) {
-									$button.attr("data-target", "#deleteCommentModel");	
-								}
+									var $button = $("<button>").addClass("btn btn-secondary fontBorder deleteCommentBtn").attr({"type":"button", "data-toggle":"modal"}).text("삭제");
+									var $cNoInput = $("<input>").attr({"type":"hidden", "name":"c_no"}).val(data[key].cNo);;
+									var $bNoInput = $("<input>").attr({"type":"hidden", "name":"bNo"}).val(data[key].bNo);;
 
-								$button.append($cNoInput);
-								$button.append($bNoInput);
-								$btnTd.append($button);
+									if(<%= userType.equals("A") %>) {
+										$button.attr("data-target", "#deleteCommentModel");	
+									}else if(data[key].userNo == 9999) {
+										$button.attr("data-target", "#commentPwdCheckModal");	
+									}else if(data[key].userNo == <%= userNo %>) {
+										$button.attr("data-target", "#deleteCommentModel");	
+									}
+
+									$button.append($cNoInput);
+									$button.append($bNoInput);
+									$btnTd.append($button);
+									
+									
+									
+									$tr.append($nameTd);
+									$tr.append($contentTd);
+									$tr.append($btnTd);
+									
+									$table.append($tr);
+									$commentArea.append($table);
+								}	
 								
+
 								
+								$("#memberId").val("");
+								$("#memberPwd").val("");
+								$("#commentContent").val("");
 								
-								$tr.append($nameTd);
-								$tr.append($contentTd);
-								$tr.append($btnTd);
-								
-								$table.append($tr);
-								$commentArea.append($table);
-							}	
+							},
+							error : function(){
+								console.log("통신 실패");
+							}
 							
-
 							
-							$("#memberId").val("");
-							$("#memberPwd").val("");
-							$("#commentContent").val("");
-							
-						},
-						error : function(){
-							console.log("통신 실패");
-						}
+						});
+						/* ajax끝 */
 						
-						
-					});
+					}
+					
 					
 				});
-				
-				
-					
 				
 			});
 			

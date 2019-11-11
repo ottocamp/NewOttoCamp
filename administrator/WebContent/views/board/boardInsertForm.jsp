@@ -137,7 +137,7 @@
 
                     <div class="container">
                             <div id="outer">
-                                <form method="post" action="<%= request.getContextPath() %>/insert.bo">
+                                <form method="post" action="<%= request.getContextPath() %>/insert.bo" onsubmit="return checkText();">
                                 	<input type="hidden" name="userNo" value="<%= userNo %>">
                                     <div id="tagArea">
                                         <label>분류</label>
@@ -168,7 +168,7 @@
                                     <hr>
                                     <div id="contentArea">
                                         <label>내용</label>
-                                        <textarea class="summernote" name="content">
+                                        <textarea class="summernote" name="content" id="content">
                                         		
                                         </textarea>
                                     </div>
@@ -261,6 +261,38 @@
         			$("select[name='regionTag']").show();
         		}
         	}
+        	
+        	
+        	function checkText(){
+				var title = $("#bTitle").val()
+				var dispoId = $("#memName").val();
+				var dispoPwd = $("#memPwd").val();
+				var content = $("#content").text();
+				
+				console.log(content);
+				
+				if(title == "") {
+					
+					alert("제목을 입력하세요")
+					
+					return false;
+				}else if(dispoId == "" || dispoPwd == "") {
+					
+					alert("임시ID 또는 비밀번호를 입력하세요");
+					
+					return false;
+					
+				}else if(content == "") {
+					
+					alert("내용을 입력하세요");
+					
+					return false;
+				}
+				
+				return true;
+				
+        	}
+        	
         </script>
 
 		

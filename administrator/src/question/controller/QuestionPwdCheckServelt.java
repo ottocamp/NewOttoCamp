@@ -1,4 +1,4 @@
-package board.controller;
+package question.controller;
 
 import java.io.IOException;
 
@@ -8,19 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.service.BoardService;
+import question.model.service.QuestionService;
+import question.model.vo.Question;
 
 /**
- * Servlet implementation class CommentPwdCheckServlet
+ * Servlet implementation class QuestionPwdCheckServelt
  */
-@WebServlet("/pwdCheck.co")
-public class CommentPwdCheckServlet extends HttpServlet {
+@WebServlet("/checkPwd.qe")
+public class QuestionPwdCheckServelt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommentPwdCheckServlet() {
+    public QuestionPwdCheckServelt() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,25 +31,23 @@ public class CommentPwdCheckServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("dd");
-		int cNo = Integer.parseInt(request.getParameter("c_no"));
-		System.out.println(cNo);
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		System.out.println(bNo);
-
-		String pwd = (String)request.getParameter("pwd");		
-		System.out.println(pwd);
-
+		request.setCharacterEncoding("UTF-8");
+		String memId = (String)request.getParameter("memId");
+		System.out.println(memId);
+		String memPwd = (String)request.getParameter("memPwd");
+		System.out.println(memPwd);
 		
-		String checkPwd = new BoardService().checkCommentPwd(cNo);
+		Question q = new QuestionService().getNoMemQuestion(memId, memPwd);
 		
-		if(pwd.equals(checkPwd)) {
-			request.setAttribute("cNo", cNo);
-			request.setAttribute("bNo", bNo);
-			request.getRequestDispatcher("/delete.co").forward(request, response);
+		
+		response.setCharacterEncoding("utf-8");
+		if(q != null) {
+			request.setAttribute("q", q);			
+			request.getRequestDispatcher("/views/question/questionNoMemListView.jsp").forward(request, response);
 		}else {
-			request.getSession().setAttribute("msg", "잘못된 비밀번호입니다");
-			response.sendRedirect(request.getContextPath() + "/detail.bo?b_no=" + bNo);
-		}
+			request.getSession().setAttribute("msg", "입력된 정보가 올바르지 않습니다");
+			request.getRequestDispatcher("/views/question/questionPwdCheckForm.jsp").forward(request, response);
+		}		
 		
 		
 	}

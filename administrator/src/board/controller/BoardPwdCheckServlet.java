@@ -29,9 +29,15 @@ public class BoardPwdCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("dddd");
+		
 		String pwd = (String)request.getParameter("pwd");
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
+		System.out.println(pwd);
+		int bNo = Integer.parseInt(request.getParameter("b_no"));
+		System.out.println(bNo);
 		int bTag = Integer.parseInt(request.getParameter("bTag"));
+		System.out.println(bTag);
 
 		String checkPwd = new BoardService().selectPwd(bNo);
 		

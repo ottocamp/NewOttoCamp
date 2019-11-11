@@ -26,7 +26,8 @@
                                 <li><a href="<%= request.getContextPath() %>/list.bo?b_tag=0"><i class="mdi mdi-clipboard-text"></i> 공지사항 </a></li>
 
                                 <li>
-                                    <a aria-expanded="true"><i class="mdi mdi-forum"></i> 정보 공유 </a>
+                                    <a aria-expanded="true"><i class="mdi mdi-forum"></i> 정보 공유 <span
+									class="fa arrow"></span></a>
                                     <ul class="nav-second-level nav collapse" aria-expanded="false">
                                         <li><a href="<%= request.getContextPath() %>/regionList.bo?b_region=1">서울</a></li>
                                         <li><a href="<%= request.getContextPath() %>/regionList.bo?b_region=2">경기도</a></li>

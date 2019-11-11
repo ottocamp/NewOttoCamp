@@ -24,23 +24,50 @@
 						<!-- Left Menu Start -->
 
                         <ul class="metisMenu nav" id="side-menu">
-                            <li>
-                                <a href="#" aria-expanded="true"><i class="mdi mdi-book-open"></i> 자주 묻는 질문 </a>
+                            <li class="qes-side">
+                                <a href="#" aria-expanded="true"><i class="mdi mdi-book-open"></i> 자주 묻는 질문 <span
+									class="fa arrow"></span></a>
                                 <ul class="nav-second-level nav collapse" aria-expanded="false">
                                     <li><a href="<%= request.getContextPath() %>/freqList.qe?q_tag=0">결제</a></li>
                                     <li><a href="<%= request.getContextPath() %>/freqList.qe?q_tag=1">예약</a></li>
                                     <li><a href="<%= request.getContextPath() %>/freqList.qe?q_tag=2">설비</a></li>
                                     <li><a href="<%= request.getContextPath() %>/freqList.qe?q_tag=3">기타</a></li>
-                        
                                 </ul>
                             </li >
-                            <br><br><br><br><br><br><br><br><br><hr>
-                            <li class="qes-side">
-                                <a href="my-admin.html" target="_self"><i class="mdi mdi-comment-text"></i> 내 문의</a><i class="mdi mdi-checkbox-multiple-blank-outline" style="font-size: 12px" onclick="window.open('my-admin.html')"></i>                                    
+                            <br><br><br><br><br><br><br><br><br>
+                            <li class="qes-side"> 
+                            	<% if(!userType.equals("A")) { %>
+                            		<hr>
+                            		<% if(userNo != 9999) { %>
+                            		
+                            			<a href="<%= request.getContextPath() %>/myList.qe" target="_self"><i class="mdi mdi-comment-text"></i> 내 문의</a><i class="mdi mdi-checkbox-multiple-blank-outline" style="font-size: 12px" onclick="window.open('<%= request.getContextPath() %>/myList.qe')"></i>                                    
+                            		
+                            		<% }else { %>
+                            		
+                            			<a href="<%= request.getContextPath() %>/views/question/questionPwdCheckForm.jsp" target="_self"><i class="mdi mdi-comment-text"></i> 내 문의</a><i class="mdi mdi-checkbox-multiple-blank-outline" style="font-size: 12px" onclick="window.open('<%= request.getContextPath() %>/views/question/questionPwdCheckForm.jsp')"></i>                                    
+                            	
+                            		<% } %>
+                            	
+                            	<% } %>
+                            	
                             </li>
                             <li class="qes-side">
-                                <a href="my-admin.html" target="_self"><i class="mdi mdi-pencil-box"></i> 문의하기 </a><i class="mdi mdi-checkbox-multiple-blank-outline" style="font-size: 12px" onclick="window.open('my-admin.html')"></i>
+                            	<% if(!userType.equals("A")) { %>
+                            	
+                            		<a href="<%= request.getContextPath() %>/views/question/questionInsertForm.jsp" target="_self"><i class="mdi mdi-comment-question-outline"></i> 문의하기 </a><i class="mdi mdi-checkbox-multiple-blank-outline" style="font-size: 12px" onclick="window.open('my-admin.html')"></i>
+                                
+                            	<% } %>
+                                
                             </li>
+                            
+                            <% if(userType.equals("A") || userType.equals("B")) { %>                            
+                            	<hr>
+	                            <li class="qes-side">
+                            		<a href="<%= request.getContextPath() %>/list.an" target="_self"><i class="mdi mdi-pencil-box"></i> 답변하기 </a><i class="mdi mdi-checkbox-multiple-blank-outline" style="font-size: 12px" onclick="window.open('<%= request.getContextPath() %>/list.an')"></i>                            
+	                            </li>
+                            	
+                            <% } %>
+                            
                         </ul>
 					</div>
 				</div>

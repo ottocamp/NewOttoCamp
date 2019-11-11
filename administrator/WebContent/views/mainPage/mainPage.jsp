@@ -3,8 +3,14 @@
 <%
 	
 	User loginUser = (User)session.getAttribute("loginUser");
-	
-	
+			 
+		int userNo = 9999;
+		String userType = "";
+		if(loginUser != null) {
+			userNo = loginUser.getUserNo();
+			userType = loginUser.getUserType();					
+		}			
+
 %>    
     
 <!DOCTYPE html>
@@ -84,31 +90,49 @@
                               <li class="menu-item">
                                  <a href="<%= request.getContextPath() %>/freqList.qe">자주 묻는 문의</a>
                               </li>
-                              <li class="menu-item">
-                                 <a href="">내 문의</a>
-                              </li>
-                              <li class="menu-item">
-                                 <a href="">문의하기</a>
-                              </li>
+                              
+                            	<% if(userType.equals("A")) { %>
+                             		<li class="menu-item">
+                            			<a href="<%= request.getContextPath() %>/list.an" target="_self"><i class="mdi mdi-comment-check"></i> 답변하기</a>                        
+                            	    </li>                 	
+                            	<% }else if(userNo != 9999) { %> 
+                            		
+                              		<li class="menu-item">
+                            			<a href="<%= request.getContextPath() %>/myList.qe" target="_self"><i class="mdi mdi-comment-text"></i> 내 문의</a>                                    
+                            		</li>
+			                        <li class="menu-item">
+			                        	<a href="">문의하기</a>
+			                        </li>
+			                        <% if(userType.equals("B")) { %>
+	                             		<li class="menu-item">
+	                            			<a href="<%= request.getContextPath() %>/list.an" target="_self"><i class="mdi mdi-comment-check"></i> 답변하기</a>                        
+	                            	    </li>   
+			                        <% } %>
+			                        
+                            	<% }else { %>
+                              		<li class="menu-item">
+                            			<a href="<%= request.getContextPath() %>/views/question/questionPwdCheckForm.jsp" target="_self"><i class="mdi mdi-comment-text"></i> 내 문의</a>                                    
+                            		</li>
+			                        <li class="menu-item">
+			                        	<a href="">문의하기</a>
+			                        </li>
+                            	<% } %>
                               </ul>
 
                               <li class="menu-item menu-item-has-children" id="userMenu" hidden>
                                  <a href="<%= request.getContextPath() %>/views/user/userUpdate.jsp">마이페이지</a>
                                  <ul class="sub-menu">
                                     <li class="menu-item">
-                                       <a href="<%= request.getContextPath() %>/views/user/userUpdate.jsp">나의 정보</a>
+                                       <a href="">개인정보수정</a>
                                     </li>
                                     <li class="menu-item">
-                                       <a href="<%= request.getContextPath() %>/reservation.user">이용내역</a>
+                                       <a href="">이용내역</a>
                                     </li>
                                     <li class="menu-item">
-                                       <a href="<%= request.getContextPath() %>/select.favorite">나의 관심 캠핑장</a>
+                                       <a href="">로그인관리</a>
                                     </li>
                                     <li class="menu-item">
-                                       <a href="<%= request.getContextPath() %>/ipinfo.user">로그인 관리</a>
-                                    </li>
-                                    <li class="menu-item">
-                                       <a href="<%= request.getContextPath() %>/coupon.user">쿠폰 관리</a>
+                                       <a href="">리뷰및메모</a>
                                     </li>
                                     </ul>   
                                     <li class="menu-item menu-item-has-children" id="businessMenu" hidden>

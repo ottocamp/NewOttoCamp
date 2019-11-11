@@ -7,6 +7,7 @@ import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import board.model.dao.BoardDao;
 import board.model.vo.Board;
@@ -290,6 +291,146 @@ public class BoardService {
 		
 		return blist;
 	}
+
+	public int getMyBoardCount(int userNo) {
+		Connection conn = getConnection();
+		
+		int myBoardCount = new BoardDao().getMyBoardCount(conn, userNo);
+		
+		close(conn);
+		
+		return myBoardCount;
+	}
+
+	public ArrayList<Board> getMyBoard(int userNo, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> blist = new BoardDao().getMyBoard(conn, userNo, currentPage, boardLimit);
+		
+		close(conn);
+		
+		return blist;
+	}
+
+	public HashMap getcCount(ArrayList<Board> blist) {
+		Connection conn = getConnection();
+		
+		HashMap cCount = new BoardDao().getcCount(conn, blist);
+		
+		close(conn);
+		
+		return cCount;
+	}
+
+	public int searchMyCount(int userNo, String keyWord) {
+		Connection conn = getConnection();
+		
+		int myBoardCount = new BoardDao().searchMyCount(conn, userNo, keyWord);
+		
+		close(conn);
+
+		return myBoardCount;
+	}
+
+	public ArrayList<Board> searchMyBoard(int userNo, String keyWord, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> blist = new BoardDao().searchMyBoard(conn, userNo, keyWord, currentPage, boardLimit);
+		
+		close(conn);
+		
+		return blist;
+	}
+
+	public int getMyCommentCount(int userNo) {
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDao().getMyCommentCount(conn, userNo);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Comment> getMyComment(int userNo, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Comment> clist = new BoardDao().getMyComment(conn, userNo, currentPage, boardLimit);
+		
+		close(conn);
+		
+		return clist;
+	}
+
+	public HashMap getbTitle(ArrayList<Comment> clist) {
+		Connection conn = getConnection();
+		
+		HashMap bTitle = new BoardDao().getbTitle(conn, clist);
+		
+		close(conn);
+		
+		return bTitle;
+	}
+
+	public int searchMyCommentCount(int userNo, String keyWord) {
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDao().searchMyCommentCount(conn, userNo, keyWord);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Comment> searchMyComment(int userNo, String keyWord, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Comment> clist = new BoardDao().searchMyComment(conn, userNo, keyWord, currentPage, boardLimit);
+		
+		close(conn);
+		
+		return clist;
+	}
+
+	public int getAllListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDao().getAllListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> getAllListBoard(int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> blist = new BoardDao().getAllListBoard(conn, currentPage, boardLimit);
+			
+		return blist;
+	}
+
+	public int searchAllCount(String keyWord) {
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDao().searchAllCount(conn, keyWord);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> searchAllBoard(String keyWord, int currentPage, int boardLimit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> blist = new BoardDao().searchAllBoard(conn, keyWord, currentPage, boardLimit);
+		
+		close(conn);
+		
+		return blist;
+	}
+
+
 
 
 

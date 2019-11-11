@@ -40,7 +40,7 @@
                                 <li><a href="<%= request.getContextPath() %>/views/user/userUpdate.jsp"> <i class="ti-paint-bucket"></i> 나의 정보 </a></li>
 
                                 <li>
-                                    <a href="<%= request.getContextPath() %>/reservation.user"><i class="ti-paint-bucket"></i> 이용내역</a>
+                                    <a href="<%= request.getContextPath() %>/reservation.user"><i class="ti-paint-bucket"></i> 이용내역</span></a>
 
                                 </li>
                                 
@@ -50,8 +50,30 @@
 									class="ti-spray"></i> 로그인 관리 </a></li>
   								<li><a href="<%= request.getContextPath() %>/coupon.user"><i
 									class="ti-spray"></i> 쿠폰 관리 </a></li>
-								<li><a href="<%= request.getContextPath() %>/selectreview.user"><i
-									class="ti-spray"></i> 리뷰 관리 </a></li>
+									
+									
+								<!-- 김상인 2019/11/10일 추가 / 위치 변경 필요 -->	
+	                            <li class="qes-side">
+	                                <a href="#" aria-expanded="true"><i class="mdi mdi-book-open"></i> 내가 쓴 글 <span
+									class="fa arrow"></span></a>
+	                                <ul class="nav-second-level nav collapse" aria-expanded="false">
+	                                    <li><a href="<%= request.getContextPath() %>/myList.bo">내 게시글</a></li>
+	                                    <li><a href="<%= request.getContextPath() %>/myList.co">내 댓글</a></li>
+	                                    
+	                                    <% if(!loginUser.getUserType().equals("A")) { %>
+	                                    <li><a href="<%= request.getContextPath() %>/myList.qe">내 문의</a></li>
+	                                    <% } %>
+	                                </ul>
+	                            </li >
+	                            
+	                            <% if(!loginUser.getUserType().equals("U")) { %>
+	                            <li class="qes-side">
+	                                <a href="<%= request.getContextPath() %>/ans.qe" aria-expanded="true"><i class="mdi mdi-book-open"></i> 답변하기 </a>
+	                            </li >
+	                            <% } %>
+										
+												
+								
   									
 <!--                                 <li>
                                     <a href="javascript: void(0);" aria-expanded="true"><i class="ti-pencil-alt"></i> 리뷰 및 메모</span></a>
@@ -79,8 +101,8 @@
 						success : function(data){	
 							
 							var uno = data.userNo;
-							var oname = data.originName.toLowerCase();
-							var cname = data.changeName.toLowerCase();
+							var oname = data.originName;
+							var cname = data.changeName;
 
 							$(".propicArea").attr("src","<%= request.getContextPath() %>/resources/userpropic/"+cname+"?after");
 							

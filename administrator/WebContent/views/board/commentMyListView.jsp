@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, question.model.vo.*"%>
-    
+    pageEncoding="UTF-8" import="board.model.vo.*, java.util.ArrayList, java.util.HashMap" %>
 <%
-	ArrayList<Question> qlist = (ArrayList<Question>)request.getAttribute("qlist");
+	ArrayList<Comment> clist = (ArrayList<Comment>)request.getAttribute("clist");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	HashMap bTitle = (HashMap)request.getAttribute("bTitle");	
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -17,21 +17,14 @@
 		keyWord = (String)request.getAttribute("keyWord");
 	}
 	
-	int boardTag = 999;
-	if(request.getAttribute("q_tag") != null) {
-		boardTag = (int)(request.getAttribute("q_tag"));
-	}
 	
 	String msg = (String)session.getAttribute("msg");
-	
-%>
+%>    
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>자주 묻는 질문</title>
-		<!-- jqury cdn -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<head>
+		<meta charset="UTF-8">
+		<title>Atto</title>
 		<script>
 			var msg = "<%= msg %>";
 			
@@ -59,108 +52,35 @@
         <link href="<%= request.getContextPath() %>/resources/assets/css/icons.css" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="<%= request.getContextPath() %>/resources/assets/css/style.css" rel="stylesheet">
-
-
+		
+		
         <style>
             .board-wrapper{
                 width: 90%;
                 margin: 0 auto;
                 /* border: 1px solid purple; */
             }
-            
+
             .boardArea{
                 margin: 10px 0;
                 
                 /* border: 1px solid red; */
             }
-            
+
             .boardList{
                 width: 95%;
                 margin: 0 auto;
-            }
-        
 
-            .boardBtn{                                
-                display: inline-block;
-                width: 12%;
-
-                background-color: gainsboro;
-                border-radius: 5px;
-                border: 1px solid rgb(197, 197, 243);
-
-                color: darkblue;
-            }
-            
-            #insertBtn{
-                float: right;
-                margin: 10px 20px;
-                height: 45px;
-                width: 20%;
-            }
-
-            .insertBtn{
-                float: right;
-                width: 50%;
-                height: 100%;
-
-                background-color: darkblue;
-                color: aliceblue;
-                float: right;
-            }        
-        
-            .pagingArea{
-                width: 100%;
-
-                text-align: center;
-            }
-
-            #buttonArea{
-                display: inline-block;
-
-                text-align: center;
-            }
-            
-
-
-            #buttonArea button{
-                float: left;
-                position:relative;
-                width: 36px;
-                height: 36px;
-                margin: 0 auto;
-                padding: 0;
-                
-                border-radius: 0;
                 background-color: white;
-                border: 1px solid rgb(197, 197, 243);
-
-                color: darkblue;
+            } 
+            
+            h2 a{
+                color: gray;
             }
-
-            #buttonArea button:first-of-type{
-                width: 50px;
-
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-            }
-
-            #buttonArea button:last-of-type{
-                width: 50px;
-
-                border-top-right-radius: 5px;
-                border-bottom-right-radius: 5px;
-            }
-
 
             .searchArea{
                 display: inline-block;
                 width: 60%;
-                
-                margin: 0 20px;                
-            }
-
-            .searchArea *{
-                border-radius: 3px;
             }
             
             .searchHeight{
@@ -182,6 +102,77 @@
                 width: 30%;
             }
 
+            
+
+            button{                                
+                display: inline-block;
+                width: 12%;
+
+                background-color: gainsboro;
+                border-radius: 5px;
+                border: 1px solid rgb(197, 197, 243);
+
+                color: darkblue;
+            }
+            
+            #insertBtn{
+                float: right;
+                margin: 10px 20px;
+                height: 45px;
+                width: 20%;
+            }
+
+            button[type='button']{
+                float: right;
+                width: 50%;
+                height: 100%;
+
+                background-color: darkblue;
+                color: aliceblue;
+                float: right;
+            }
+
+
+            .pagingArea{
+                width: 100%;
+
+                text-align: center;
+            }
+
+            #buttonArea{
+                display: inline-block;
+
+                text-align: center;
+            }
+            
+            #buttonArea button{
+                float: left;
+                position:relative;
+                width: 36px;
+                height: 36px;
+                margin: 0 auto;
+                padding: 0;
+                
+                border-radius: 0;
+                background-color: white;
+            }
+
+            #buttonArea button:first-of-type{
+                width: 50px;
+
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            #buttonArea button:last-of-type{
+                width: 50px;
+
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+
+
+
             button{
 				height:30px;
                 width:80px;
@@ -193,43 +184,97 @@
 
                 color: darkblue;
 			}
+
+
+
+
+            #titleArea{
+                width: 95%;
+                margin-right: 0;
+            }
+
+            #boardTitle{
+                width: 15%;
+                margin-right: 20px;
+            }
+
+            #boardTitle a{
+                width: 100%;
+                color: gray;
+
+            }
+
+
+            #deleteBoard{
+                border: none;
+                width: 4%;
+                margin: 0;
+            }
+
+            #deleteBoard a{
+                color: gray;
+                margin: 0;
+            }
+
+            #boardComment{
+                width: 55%;
+            }
             
+
+            #boardComment a:first-of-type{
+                margin-right: 8px;
+            }
+
+            #boardComment a{
+                color: gray;
+                overflow: hidden;
+            }
+
+
+
+            .contentText{
+                white-space: pre-line;
+            }
+
             .fontBorder{
                 font-weight: bolder;
             }
-
-            .panel-title a:first-of-type{
-                margin: 0 10px;
+            
+            .float-left{
+                float: left;
             }
 
-            h2 a{
-                color: gray;
+            .float-right{
+                float: right;
+            }
+            
+            .display-inline{
+                display: inline;
             }
 
-            .qes-side a:first-of-type{
+            .display-inline-block{
                 display: inline-block;
-                width: auto;
+            }
+        
+            .textCenter{
+                text-align: center;
             }
 
-            
-            .qes-side > i:hover{
-                color: brown;
-                cursor: pointer;
+            .box{
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
             
-            .text-align{
-            	text-align: center;
+            .overflow-fixed{
+                position: fixed;
             }
-            
-            .listMargin{
-                margin: 10px 0;
-            }
+
         </style>
-
-</head>
-<body>
-
-<div id="page-wrapper">
+		
+	</head>
+	<body>
+		<div id="page-wrapper">
 
             <!-- Top Bar Start -->
             <%@ include file="../common/topnavbar.jsp" %>
@@ -243,145 +288,122 @@
 					userType = loginUser.getUserType();					
 				}				
 			%>
-
-            <!-- Page content start -->
+			
+			
+           	<!-- Page content start -->
             <div class="page-contentbar">
+		
 
                 <!--left navigation start-->
-				<%@ include file="../common/questionSidebar.jsp" %>
+                <% if(userType.equals("B")) { %>
+				<%@ include file="../common/campSidebar.jsp" %>                
+                <% }else{ %>
+				<%@ include file="../common/userSidebar.jsp" %>
+                <% } %>
                 <!--left navigation end-->
+		
 
                 <!-- START PAGE CONTENT -->
                 <div id="page-right-content">
 
-                    <div class="container">    
+                    <div class="container">
+                    
 						<div class="board-wrapper">
-						                            
+                        
+	                        <h2><a href="<%= request.getContextPath() %>/myList.co">내 댓글</a></h2>
+	                        <br>
 
-                        <h2><a href="<%= request.getContextPath() %>/freqList.qe">자주 묻는 질문</a></h2>
-                        <br>
-						
-						
-							<div class="panel-group boardArea" id="accordion" role="tablist" aria-multiselectable="true">
-	                        
-	                        	<% if(qlist.isEmpty()) { %>
-	                        	
-	                            <div class="panel panel-default boardList">
-	                                <div class="panel-heading " role="tab" id="heading1">
-	                                    <h4 class="panel-title text-align">
-	                                    	등록된 Q&A가 없습니다
-	                                    </h4>
-	                                </div>
-	                              
-	                            </div>
-	                            
-	                        	<% }else {%>
-	                        		<% for(Question q : qlist) { %>
-	                        			<% 
-	                        			int qTag = q.getqTag();
-	                        			String tag = "";
-	                        			
-	                        			switch (qTag){
-	                        			case 0:
-	                        				tag = "[결제]";
-	                        				break;
-	                        			case 1:
-	                        				tag = "[예약]";
-	                        				break;
-	                        			case 2:
-	                        				tag = "[설비]";
-	                        				break;
-	                        			case 3:
-	                        				tag = "[기타]";
-	                        				break;
-	                        			}
-	                        			
-	                        			String panelId = "heading" + q.getqNo();
-	                        			String targetId = "collpase" + q.getqNo();
-	                        			
-	                        			%>
-	                        			
-	                        		
-		
-		                            <div class="panel panel-default boardList">
-		                                <div class="panel-heading" role="tab" id="<%= panelId %>">
-		                                    <h4 class="panel-title">
-		                                        <a href="<%= request.getContextPath() %>/freqList.qe?q_tag=<%= qTag %>"><%= tag %></a>
-		                                        <a data-toggle="collapse" data-parent="#accordion" href="#<%= targetId %>" aria-expanded="false" aria-controls="<%= targetId %>">
-		                                            <%= q.getqTitle() %>
-		                                        </a>
+	                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	                        	<% if(clist.isEmpty()) { %>
+		                        	
+		                            <div class="panel panel-default boardList textCenter">
+		                                <div class="panel-heading " role="tab" id="heading1">
+		                                    <h4 class="panel-title text-align">
+		                                    	내 댓글이 없습니다
 		                                    </h4>
 		                                </div>
-		                                <div id="<%= targetId %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="<%= panelId %>">
-		                                    <!-- class="in" 일 시 열려 있는 상태-->
-		                                    <div class="panel-body">
-		                                        <%= q.getqContent() %>
-		                                    </div>
-		                                </div>
+		                              
 		                            </div>
+		                            
+	                        	<% }else {%>
+	                        		<% for(Comment c : clist) { %>
+	                        		
+			                            <div class="panel panel-default display-inline-block boardList" id="titleArea">
+			                                <div class="panel-heading" role="tab" id="heading1">
+			                                    <h4 class="panel-title">
+			
+			                                        <div class="display-inline-block box" id="boardTitle">
+			                                                <%= bTitle.get(c.getcNo()) %>
+			                                        </div>
+			                                        
+			                                        <div class="display-inline-block box" id="boardComment">
+			                                            <a href="<%= request.getContextPath() %>/detail.bo?b_no=<%= c.getbNo() %>"><%= c.getcContent() %></a>
+			                                            <i class="mdi mdi-checkbox-multiple-blank-outline" style="font-size: 12px" onclick="window.open('<%= request.getContextPath() %>/detail.bo?b_no=<%= c.getbNo() %>')"></i>
+                            		
+			                                        </div>
+			                                        <div class="display-inline-block float-right" id="qesDate">
+			                                            작성일 : <%= c.getUpdateDate() %>
+			                                        </div>
+			                                    </h4>
+			                                </div>
+			                            </div>
+	                        
+	                        
+			                            <div class="panel panel-default display-inline-block textCenter" id="deleteBoard">
+			                                <a href="<%= request.getContextPath() %>/delete.co?c_no=<%= c.getcNo() %>"><i class="mdi mdi-delete" style="font-size: 25px;"></i></a>
+			                            </div>
 	                        		<% } %>
 	                        	<% } %>
-		
-	                            
 	                        </div>
-	                        
+	
 	                        <br>
-	
+		
 	                        <div class="searchArea">
-	                            <form class="searchForm" role="search" method="post" action="<%= request.getContextPath() %>/searchPreqList.qe" onsubmit="return checkKeyword();">
-	                            	<% if(keyWord.equals("")) { %>
-	                            	
-	                                <div id="searchText">
-	                                	<input type="text" name="keyWord" class="searchHeight" placeholder="키워드를 입력하세요">
-	                                	<input type="hidden" name="q_tag" value="<%= boardTag %>">
-	                                </div>
-	                            	
-	                            	<% }else { %>
-	                            	
-	                                <div id="searchText">
-	                                	<input type="text" name="keyWord" class="searchHeight" value="<%= keyWord %>">
-	                                	<input type="hidden" name="q_tag" value="<%= boardTag %>">
-	                                </div>
-	                            		
-	                            	
-	                            	<% } %>
-	
-	                                <button class="searchHeight fontBorder" type="submit">검색하기</button>
+                                <form class="searchForm" role="search" method="post" action="<%= request.getContextPath() %>/mySearch.co" onsubmit="return checkKeyword();">
+
+                                    <div id="searchText">
+                                    	<% if(keyWord.equals("")) { %>
+                                        <input type="text" name="keyWord" class="searchHeight" placeholder="키워드를 입력하세요">
+                                        
+                                    	<% }else { %>
+                                    	
+                                        <input type="text" name="keyWord" class="searchHeight" value="<%= keyWord %>">
+                                    	
+                                    	<% } %>
+                                    
+                                    </div>
+
+                                    <button class="searchHeight fontBorder boardBtn" type="submit">검색하기</button>
 	                            </form>
 	                        </div>
 	
-                            <div id="insertBtn" class="fontBorder">
-                               	<% if(userType.equals("A")) { %>                 
-                               		<button type="button" class="btn btn-primary boardBtn insertBtn fontBorder" onclick="location.href='views/board/noticeInsertForm.jsp'">등 록</button>  
-                               	<% } %>
-                            </div>
-							<br><br>
+	                        <br><br>
 	
 							<div class="pagingArea fontBorder">
 	                                
 	                                <% if(keyWord.equals("")) { %>
 		                                
-	                                	<% if(!qlist.isEmpty() && listCount > 8) { %>
+	                                	<% if(!clist.isEmpty() && listCount > 8) { %>
 		                            
 				                                <div id="buttonArea">          
 				                                	<% if(currentPage - 1 <= 0)  { %>
 				                               			<button class="boardBtn" disabled style="color:gray">이전</button>
 				                                	<% }else { %>
-				                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/freqList.qe?currentPage=<%= currentPage - 1 %>&q_tag=<%= boardTag %>'">이전</button>
+				                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/myList.co?currentPage=<%= currentPage - 1 %>'">이전</button>
 				                                	<% } %>  
 				                                	
 				                                	<% for(int i = startPage; i <= endPage; i++) { %>
 				                                		<% if(i == currentPage) { %>
 				                                			<button class="boardBtn" disabled style="color:blue"><%= i %></button>
 				                                		<% }else { %>
-				                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/freqList.qe?currentPage=<%= i %>&q_tag=<%= boardTag %>'"><%= i %></button>
+				                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/myList.co?currentPage=<%= i %>'"><%= i %></button>
 				                                		<% } %>                                                           
 				                                	<% } %>
 				                                      
 				                                	<% if(currentPage == maxPage)  { %>
 				                                		<button class="boardBtn" disabled style="color:gray">다음</button>
 				                                	<% }else { %>
-				                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/freqList.qe?currentPage=<%= currentPage + 1 %>&q_tag=<%= boardTag %>'">다음</button>
+				                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/myList.co?currentPage=<%= currentPage + 1 %>'">다음</button>
 				                                	<% } %>
 				                                </div>
 		                                	
@@ -389,38 +411,40 @@
 		                                
 	                                <% }else { %>
 		                                
-	                                	<% if(!qlist.isEmpty() && listCount > 8) { %>
+	                                	<% if(!clist.isEmpty() && listCount > 8) { %>
 			                                <div id="buttonArea">          
 			                                	<% if(currentPage - 1 <= 0)  { %>
 			                               			<button class="boardBtn" disabled style="color:gray">이전</button>
 			                                	<% }else { %>
-			                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/searchPreqList.qe?currentPage=<%= currentPage - 1 %>&keyWord=<%= keyWord %>&q_tag=<%= boardTag %>'">이전</button>
+			                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/mySearch.co?currentPage=<%= currentPage - 1 %>&keyWord=<%= keyWord %>'">이전</button>
 			                                	<% } %>  
 			                                	
 			                                	<% for(int i = startPage; i <= endPage; i++) { %>
 			                                		<% if(i == currentPage) { %>
 			                                			<button class="boardBtn" disabled style="color:blue"><%= i %></button>
 			                                		<% }else { %>
-			                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/searchPreqList.qe?currentPage=<%= i %>&keyWord=<%= keyWord %>&q_tag=<%= boardTag %>'"><%= i %></button>
+			                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/mySearch.co?currentPage=<%= i %>&keyWord=<%= keyWord %>'"><%= i %></button>
 			                                		<% } %>                                                           
 			                                	<% } %>
 			                                      
 			                                	<% if(currentPage == maxPage)  { %>
 			                                		<button class="boardBtn" disabled style="color:gray">다음</button>
 			                                	<% }else { %>
-			                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/searchPreqList.qe?currentPage=<%= currentPage + 1 %>&keyWord=<%= keyWord %>&q_tag=<%= boardTag %>'">다음</button>
+			                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/mySearch.co?currentPage=<%= currentPage + 1 %>&keyWord=<%= keyWord %>'">다음</button>
 			                                	<% } %>
 			                                </div>
 		                                	
 		                                <% } %>
 	                                
 	                                <% } %>
+							
+							
 	                        </div>
 							
+		                        
+	                        
+	                        
 						</div>
-						
-                        
-
                     </div>
                     <!-- end container -->
 
@@ -432,19 +456,18 @@
                             <strong>Simple Admin</strong> - Copyright © 2017
                         </div>
                     </div> <!-- end footer -->
-
-                </div>
+			
+				</div>
                 <!-- End #page-right-content -->
-
-            </div>
+				
+			</div>
             <!-- end .page-contentbar -->
-        </div>
+		</div>
+	
 
-        
-        <script>
-
+		<script>
 	        function checkKeyword(){
-	        	var keyword = $("#searchText").children("input[type='text']").val();
+	        	var keyword = $("#searchText").children("input").val();
 	        	
 	        	if(keyword == ""){
 					alert("키워드를 입력하세요")
@@ -458,6 +481,9 @@
 	        
         </script>
 
+
+
+
         <!-- js placed at the end of the document so the pages load faster -->
         <script src="<%= request.getContextPath() %>/resources/assets/js/jquery-2.1.4.min.js"></script>
         <script src="<%= request.getContextPath() %>/resources/assets/js/bootstrap.min.js"></script>
@@ -466,9 +492,6 @@
 
         <!-- App Js -->
         <script src="<%= request.getContextPath() %>/resources/assets/js/jquery.app.js"></script>
-
-		
-		
-
-</body>
+	
+	</body>
 </html>

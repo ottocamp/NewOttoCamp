@@ -47,6 +47,7 @@ public class BoardInsertServlet extends HttpServlet {
 		String pwd = (String)request.getParameter("memPwd");
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 	
+
 		
 		Board b = new Board();
 		b.setbTag(tag);
