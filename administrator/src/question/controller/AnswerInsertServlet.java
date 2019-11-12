@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import question.model.service.QuestionService;
 
 /**
@@ -30,16 +32,15 @@ public class AnswerInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
-		System.out.println("dd");
 		String answer = (String)request.getParameter("answer");
 		int qNo = Integer.parseInt(request.getParameter("q_no"));
 		
-		System.out.println(answer);
-		System.out.println(qNo);
 		
 		int result = new QuestionService().insertAnswer(answer, qNo);
 		
+		response.setContentType("application/json; charset=utf-8");
+		
+		new Gson().toJson(result, response.getWriter());
 		
 	}
 
