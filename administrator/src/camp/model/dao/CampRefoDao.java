@@ -2,8 +2,6 @@ package camp.model.dao;
 
 import static common.JDBCTemplate.close;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-
-import camp.model.vo.CampRefoEnter;
+import camp.model.vo.ReservationCamp;
 
 public class CampRefoDao {
 
@@ -21,43 +18,39 @@ public class CampRefoDao {
 	
 	public CampRefoDao() {
 		
-		String fileName = CampDao.class.getResource("/sql/camp/campReSelect-query.properties").getPath();
-		
-		try {
-			prop.load(new FileReader(fileName));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// 안에서 다른것을 옮겨 넣을것,.
 		
 	}
-	// 구문의 전체적인 stmt 수정. 어태치먼트를 참고할것
-	public ArrayList<CampRefoEnter> selectCampReList(Connection conn, int cNo) {
-		PreparedStatement pstmt =null;
-		ResultSet rset = null;
-		ArrayList<CampRefoEnter> eList = null;
 
-			//쿼리 수정해야함.
-		String sql = prop.getProperty("selectCampReList");
+	public ReservationCamp datailPageSend(Connection conn, int cNo) {
+		System.out.println("2");
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ReservationCamp rc = null;
+		
+		String sql = prop.getProperty("campReservationSend");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, cNo);
-			
 			rset = pstmt.executeQuery();
 			
-		} catch (SQLException e) {
+			if(rset.next()) {
+				rc = new ReservationCamp(rset.getInt("cNo"));
+			}
 			
+			
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		return eList;
+
+		System.out.println("3" + rc);
+		return rc;
 	}
+	
+	
 
 }
-	
-	
-
