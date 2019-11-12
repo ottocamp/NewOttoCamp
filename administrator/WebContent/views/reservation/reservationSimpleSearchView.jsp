@@ -64,7 +64,6 @@
 
 
 
-
 	<!-- js placed at the end of the document so the pages load faster -->
         <script src="<%= request.getContextPath() %>/resources/assets/js/jquery-2.1.4.min.js"></script>
         <script src="<%= request.getContextPath() %>/resources/assets/js/bootstrap.min.js"></script>

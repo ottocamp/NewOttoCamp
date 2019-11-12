@@ -3,8 +3,6 @@
 	
 <%
 	ArrayList<CampInfoReservation> cList = (ArrayList<CampInfoReservation>)request.getAttribute("cList");
-	ArrayList<CampSiteReservation> sList = (ArrayList<CampSiteReservation>)request.getAttribute("sList");
-	ArrayList<CampOptionReservation> oList = (ArrayList<CampOptionReservation>)request.getAttribute("oList");
 	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getAttribute("aList");
 %>
 <!DOCTYPE html>
