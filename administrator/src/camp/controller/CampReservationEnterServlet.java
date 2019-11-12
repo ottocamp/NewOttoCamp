@@ -13,22 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 import camp.model.service.CampRefoService;
 import camp.model.service.CampService;
 import camp.model.vo.Attachment;
-import camp.model.vo.CampInfo;
-import camp.model.vo.CampInfoReservation;
-import camp.model.vo.CampOptionReservation;
-import camp.model.vo.CampSiteReservation;
+import camp.model.vo.CampRefoEnter;
 
 /**
  * Servlet implementation class CampReservationServlet
  */
 @WebServlet("/campRe.re")
-public class CampReservationServlet extends HttpServlet {
+public class CampReservationEnterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CampReservationServlet() {
+    public CampReservationEnterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,20 +39,16 @@ public class CampReservationServlet extends HttpServlet {
 		System.out.println(cNo);
 		
 		System.out.println("0");
-		ArrayList<CampInfoReservation> cList = new CampRefoService().selectCampList(cNo);
-		ArrayList<CampSiteReservation> sList = new CampRefoService().selectSiteList(cNo);
-		ArrayList<CampOptionReservation> oList = new CampRefoService().selectOptionList(cNo);
+		ArrayList<CampRefoEnter> eList = new CampRefoService().selectCampList(cNo);
+
 		
 		ArrayList<Attachment> aList = new CampService().selectMainAttachmentList();
 		
-		System.out.println(cList);
-		System.out.println(sList);
-		System.out.println(oList);
+		System.out.println(eList);
+
 		System.out.println(aList);
 			
-		request.setAttribute("cList", cList);
-		request.setAttribute("sList", sList);
-		request.setAttribute("oList", oList);
+		request.setAttribute("eList", eList);
 		request.setAttribute("aList", aList);
 		
 		request.getRequestDispatcher("views/reservation/reservationFormView.jsp").forward(request, response);
