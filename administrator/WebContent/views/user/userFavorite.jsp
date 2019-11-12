@@ -212,7 +212,7 @@
                                                      <td colspan="3" id="picture"></td>
                                                     </tr>
                                                     <tr hidden="">
-                                                    <td colspan="3"> <input type="text" id="ct"> </td>
+                                                    <td colspan="3"> <input type="text" id="ct"> <input type="text" id="ct2"> </td>
                                                     <td> <button type="button" id="hbt" onclick="test22();">숨긴버튼</button> </td>
                                                     </tr>
                                                 </tbody>
@@ -289,7 +289,8 @@
 				var $td9 = $("<td>").text("<%= ca.getcPosting() %>");
 				var $td10 = $("<td>").text("<%= ca.getcRefundment() %>");
 				var $td11 = $("<td>").text("<%= ca.getcEtc() %>");
-				$("#ct").val("<%= ca.getcCode() %>");			
+				$("#ct").val("<%= ca.getcCode() %>");
+				$("#ct2").val("<%= ca.getcAddress().substring(0,2) %>");
 				
 				<% for(int i = 0; i < aList.size(); i++) { %>
 				
@@ -326,23 +327,25 @@
 		$("#modal").click();
 	}
 	
-	
-	function() test11(){
-		$("#hbt").click();
-		
-	}
-	
-	function() test22(){
-		alert("가보자");
-	}
-	
-	
-	
-	
-	
-	
-	
 	</script>
+	
+	<script type="text/javascript">
+			
+		function test11(){
+			$("#hbt").click()
+		}		
+		
+		function test22(){
+			var dcode = $("#ct").val();
+			var dlocation = $("#ct2").val();
+			
+			location.href="<%= request.getContextPath() %>/FtoD.user?code="+dcode+"&location="+dlocation;
+			
+		}
+		
+		
+	</script>
+	
 
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script
