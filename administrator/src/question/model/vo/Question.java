@@ -14,13 +14,14 @@ public class Question {
 	private String pwd;
 	private String aWriter;
 	private String freq;
+	private int userNo;
 	
 	public Question() {
 		
 	}
 
 	public Question(int qNo, String qTitle, String qContent, Date updateDate, int qTag, String ansYN, String ans,
-			String qWriter, String pwd, String aWriter, String freq) {
+			String qWriter, String pwd, String aWriter, String freq, int userNo) {
 		super();
 		this.qNo = qNo;
 		this.qTitle = qTitle;
@@ -33,6 +34,7 @@ public class Question {
 		this.pwd = pwd;
 		this.aWriter = aWriter;
 		this.freq = freq;
+		this.userNo = userNo;
 	}
 
 	public int getqNo() {
@@ -123,14 +125,20 @@ public class Question {
 		this.freq = freq;
 	}
 
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
 	@Override
 	public String toString() {
 		return "Question [qNo=" + qNo + ", qTitle=" + qTitle + ", qContent=" + qContent + ", updateDate=" + updateDate
 				+ ", qTag=" + qTag + ", ansYN=" + ansYN + ", ans=" + ans + ", qWriter=" + qWriter + ", pwd=" + pwd
-				+ ", aWriter=" + aWriter + ", freq=" + freq + "]";
+				+ ", aWriter=" + aWriter + ", freq=" + freq + ", userNo=" + userNo + "]";
 	}
-	
-	
 	
 	
 }

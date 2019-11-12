@@ -452,7 +452,7 @@ public class QuestionDao {
 		ResultSet rset = null;
 		int listCount = 0;
 		
-		String sql = prop.getProperty("adminListCount");
+		String sql = prop.getProperty("adminAnswerListCount");
 		
 		try {
 			stmt = conn.createStatement();
@@ -470,7 +470,6 @@ public class QuestionDao {
 			close(stmt);
 		}
 		
-		System.out.println(listCount);
 		
 		return listCount;
 	}
@@ -481,7 +480,7 @@ public class QuestionDao {
 		ResultSet rset = null;
 		ArrayList<Question> qlist = new ArrayList<>();
 		
-		String sql = prop.getProperty("adminList");
+		String sql = prop.getProperty("adminAnswerList");
 		int startRow = (currentPage - 1) * boardLimit + 1;
 		int endRow = startRow + boardLimit - 1;
 		
@@ -499,16 +498,326 @@ public class QuestionDao {
 				q.setUpdateDate(rset.getDate("update_date"));
 				q.setAns(rset.getString("ans"));
 				q.setAnsYN(rset.getString("ans_yn"));
+				q.setqNo(rset.getInt("q_no"));
 				
+				qlist.add(q);
 			}			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return qlist;
+	}
+
+
+	public String getQesWriter(Connection conn, int getqNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String qesWriter = "";
+		
+		String sql = prop.getProperty("getQesWriter");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, getqNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				if(rset.getInt("user_no") == 9999) {
+					qesWriter = rset.getString("dispo_id");
+				}else {
+					qesWriter = rset.getString("user_name");
+				}
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		
+		return qesWriter;
+	}
+
+
+	public int getListCount(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String sql = prop.getProperty("answerListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		
+		return listCount;
+	}
+
+
+	public ArrayList<Question> getAnswerList(Connection conn, int userNo, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Question> qlist = new ArrayList<>();
 		
-		return null;
+		String sql = prop.getProperty("answerList");
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Question q = new Question();
+				q.setqTitle(rset.getString("q_title"));
+				q.setqContent(rset.getString("q_content"));
+				q.setUpdateDate(rset.getDate("update_date"));
+				q.setAns(rset.getString("ans"));
+				q.setAnsYN(rset.getString("ans_yn"));
+				q.setqNo(rset.getInt("q_no"));
+				
+				qlist.add(q);
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return qlist;
+	}
+
+
+	public int searchAdminListCount(Connection conn, String keyWord) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String sql = prop.getProperty("searchAdminCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyWord);
+			pstmt.setString(2, keyWord);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return listCount;
+	}
+
+
+	public int searchListCount(Connection conn, int userNo, String keyWord) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String sql = prop.getProperty("searchListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, keyWord);
+			pstmt.setString(3, keyWord);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return listCount;
+	}
+
+
+	public ArrayList<Question> searchAdminList(Connection conn, String keyWord, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Question> qlist = new ArrayList<>();
+		
+		String sql = prop.getProperty("searchAdminList");
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, keyWord);
+			pstmt.setString(2, keyWord);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Question q = new Question();
+				q.setqTitle(rset.getString("q_title"));
+				q.setqContent(rset.getString("q_content"));
+				q.setUpdateDate(rset.getDate("update_date"));
+				q.setAns(rset.getString("ans"));
+				q.setAnsYN(rset.getString("ans_yn"));
+				q.setqNo(rset.getInt("q_no"));
+				
+				qlist.add(q);
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return qlist;
+	}
+
+
+	public ArrayList<Question> searchAnswerList(Connection conn, int userNo, String keyWord, int currentPage, int boardLimit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Question> qlist = new ArrayList<>();
+		
+		String sql = prop.getProperty("searchAnswerList");
+		int startRow = (currentPage - 1) * boardLimit + 1;
+		int endRow = startRow + boardLimit - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, keyWord);
+			pstmt.setString(3, keyWord);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Question q = new Question();
+				q.setqTitle(rset.getString("q_title"));
+				q.setqContent(rset.getString("q_content"));
+				q.setUpdateDate(rset.getDate("update_date"));
+				q.setAns(rset.getString("ans"));
+				q.setAnsYN(rset.getString("ans_yn"));
+				q.setqNo(rset.getInt("q_no"));
+				
+				qlist.add(q);
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return qlist;
+	}
+
+
+	public int insertAnswer(Connection conn, String answer, int qNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertAnswer");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, answer);
+			pstmt.setInt(2, qNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int insertQuestion(Connection conn, Question q) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertQuestion");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, q.getqTitle());
+			pstmt.setString(2, q.getqContent());
+			if(q.getUserNo() == 9999) {
+				pstmt.setString(3, q.getqWriter());
+				pstmt.setString(4, q.getPwd());
+			}else {
+				pstmt.setString(3, "---");
+				pstmt.setString(4, "---");
+			}
+			
+			pstmt.setInt(5, q.getUserNo());
+			pstmt.setInt(6, Integer.parseInt(q.getaWriter()));
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return result;
 	}
 	
 

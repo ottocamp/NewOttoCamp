@@ -4,7 +4,6 @@
 	ArrayList<Question> qlist = (ArrayList<Question>)request.getAttribute("qlist");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
-	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
@@ -17,7 +16,6 @@
 		keyWord = (String)request.getAttribute("keyWord");
 	}
 	
-
 	String msg = (String)session.getAttribute("msg");
 %>    
 <!DOCTYPE html>
@@ -54,7 +52,6 @@
         <link href="<%= request.getContextPath() %>/resources/assets/css/style.css" rel="stylesheet">
 		
 		
-
         <style>
             .board-wrapper{
                 width: 90%;
@@ -75,20 +72,10 @@
                 background-color: white;
             }
 
-
-
-
             .searchArea{
                 display: inline-block;
                 width: 60%;
-                
-                margin: 0 20px;    
             }
-
-            .searchArea *{
-                border-radius: 3px;
-            }
-            
             
             .searchHeight{
                 height: 36px;
@@ -137,7 +124,6 @@
                 background-color: darkblue;
                 color: aliceblue;
                 float: right;
-                border-radius: 5px;
             }
 
 
@@ -193,17 +179,90 @@
                 color: darkblue;
 			}
 
-            .panel-title a{
-                display: inline-block;
-                width: 70%;
-
+            #titleArea{
+                width: 95%;
+                margin-right: 0;
             }
 
+            #boardTitle{
+                width: 65%;
+            }
 
-            h2 a{
+            #boardTitle a:first-of-type{
+                margin-right: 8px;
+            }
+
+            #boardTitle a{
                 color: gray;
             }
 
+            #boardWriter{
+                display: inline-block;
+                width: 15%;
+                margin: 0 10px;
+            }
+
+            #boardCount{
+                margin: 0 15px;
+            }
+
+            #deleteBoard{
+                border: none;
+                width: 4%;
+                margin: 0;
+            }
+
+            #deleteBoard a{
+                color: gray;
+                margin: 0;
+            }
+
+
+
+            
+            #boardTitle a:first-of-type{
+                display: inline-block;
+                width: auto;
+            }
+
+            
+            #boardTitle > i:hover{
+                color: brown;
+                cursor: pointer;
+            }
+            
+            
+           	h2 a{
+                color: gray;
+            }
+            
+            
+             
+            #answerForm{
+                width: 100%;
+                height: 100%;
+            }
+
+            #answerText{
+                width: 100%;
+                height: 200px;
+            }
+
+            #answerContent{
+                width: 100%;
+                height: 100%;
+
+                border: 1px solid rgb(224, 224, 224);           
+            }
+
+            #answerSubmit{
+                margin-top: 20px;
+                float: right;
+            }
+            
+            
+            
+            
             .contentText{
                 white-space: pre-line;
             }
@@ -223,22 +282,22 @@
             .display-inline{
                 display: inline;
             }
-        
-            #qesWriter{
-                margin: 0 15px;
-            }
 
-            .qes-side a:first-of-type{
+            .display-inline-block{
                 display: inline-block;
-                width: auto;
             }
-            
-            .text-align{
-            	text-align: center;
+        
+            .textCenter{
+                text-align: center;
             }
-            
+        
+        
+           	.box{
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
         </style>
-		
 		
 	</head>
 	<body>
@@ -263,11 +322,7 @@
 		
 
                 <!--left navigation start-->
-                <% if(userType.equals("B")) { %>
-				<%@ include file="../common/campSidebar.jsp" %>                
-                <% }else{ %>
-				<%@ include file="../common/userSidebar.jsp" %>
-                <% } %>
+                <%@ include file="../common/adminSidebar.jsp" %>
                 <!--left navigation end-->
 		
 
@@ -278,78 +333,95 @@
                     
 						<div class="board-wrapper">
                         
-	                        <h2><a href="<%= request.getContextPath() %>/myList.qe">내 문의</a></h2>
+	                        <h2><a href="<%= request.getContextPath() %>/list.an">답변하기</a></h2>
 	                        <br>
-	                        <div class="panel-group boardArea" id="accordion" role="tablist" aria-multiselectable="true">
-	                            
+
+	                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 	                        	<% if(qlist.isEmpty()) { %>
-	                        	
-	                            <div class="panel panel-default boardList">
-	                                <div class="panel-heading " role="tab" id="heading1">
-	                                    <h4 class="panel-title text-align">
-	                                    	내 문의가 없습니다
-	                                    </h4>
-	                                </div>
-	                              
-	                            </div>
-	                            
+		                        	
+		                            <div class="panel panel-default boardList textCenter">
+		                                <div class="panel-heading " role="tab" id="heading1">
+		                                    <h4 class="panel-title text-align">
+		                                    	게시글이 없습니다
+		                                    </h4>
+		                                </div>
+		                              
+		                            </div>
+		                            
 	                        	<% }else {%>
 	                        		<% for(Question q : qlist) { %>
-	                        			<% 
-	                        			
-	                        			String title = q.getqTitle() + " [" + q.getAnsYN() + "]";
-	                        			
-	                        			String panelId = "heading" + q.getqNo();
-	                        			String targetId = "collpase" + q.getqNo();
-	                        			
+	                        		
+	                        			<%
+	                        				String head = "heading" + q.getqNo();
+	                        				String coll = "collapsed" + q.getqNo();
 	                        			%>
-			
-			                            <div class="panel panel-default boardList">
-			                                <div class="panel-heading" role="tab" id="<%= panelId %>">
+	                        		
+	                        		
+			                            <div class="panel panel-default">
+			                                <div class="panel-heading" role="tab" id="<%= head %>">
 			                                    <h4 class="panel-title">
-			                                        <a data-toggle="collapse" data-parent="#accordion" href="#<%= targetId %>" aria-expanded="false" aria-controls="<%= targetId %>">
-			                                            <div class="display-inline" id="questionTitle">
-			                                                <%= title %>
-			                                            </div>
+			                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#<%= coll %>" aria-expanded="false" aria-controls="<%= coll %>">                                          			                                        
+				                                        <div class="display-inline-block box" id="boardTitle">
+				                                            <%= q.getqTitle() %> [<%= q.getAnsYN() %>]
+	                            		
+				                                        </div>
 			                                        </a>
-			                                        <div class="display-inline" id="qesWriter">
-			                                            <%= q.getaWriter() %>
-			                                        </div>
-			                                        <div class="display-inline float-right" id="qesDate">
-			                                            <%= q.getUpdateDate() %>
-			                                        </div>
+				                                        <div class="display-inline box" id="boardWriter">
+				                                            작성자 : <%= q.getqWriter() %>
+				                                        </div>
+				                                        <div class="display-inline-block float-right" id="qesDate">
+				                                            작성일 : <%= q.getUpdateDate() %>
+				                                        </div>
+			                                        
 			                                    </h4>
 			                                </div>
-			                                <div id="<%= targetId %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="<%= panelId %>">
-			                                    <!-- class="in" 일 시 열려 있는 상태-->
+			                                <div id="<%= coll %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="<%= head %>">
 			                                    <div class="panel-body">
-			                                        <div id="contentArea" class="contentText"><span class="contentText">
-			                                        <%= q.getqContent() %>
-			                                        </span>
+			                                        <div id="contentArea" class="contentText"><span class="contentText"><%= q.getqContent() %></span>
+			
 			                                        </div>
 			
 			                                        <br><hr>
 			
 			                                        <h4>답변</h4>
-			                                        <div id="contentArea" class="contentText"><span class="contentText">
-			                                        <%= q.getAns() %>
-			                                        
-			                                        </span>
-			                                        </div> 
+			                                        <div id="contentArea" class="contentText"><span class="contentText"><%= q.getAns() %></span>
+			                                            
+			                                        </div>
+			
+			                                        <br><br>
+			
+			                                        <div id="answerForm<%= q.getqNo() %>">			                                       
+			                                        	<input type="hidden" name="q_no" value="<%= q.getqNo() %>">
+		                                            	<% if(q.getAns().equals("답변이 없습니다")) { %>
+				                                            <div id="answerText">
+				                                                <textarea id="answerContent" name="answer" style="resize: none" placeholder="내용을 입력하세요"></textarea>
+				                                            </div>
+				                                            <div id="answerSubmit">
+				                                                <button class="submitBtn fontBorder" id="btn<%= q.getqNo() %>" type="submit">등록하기</button>
+				                                            </div>
+				                                        <% }else { %>
+				                                            <div id="answerText">
+				                                                <textarea id="answerContent" name="answer" style="resize: none" placeholder="수정할 내용을 입력하세요"></textarea>
+				                                            </div>
+				                                            <div id="answerSubmit">
+				                                                <button class="submitBtn fontBorder" id="btn<%= q.getqNo() %>" type="submit">수정하기</button>
+				                                            </div>
+				                                        <% } %>    
+			                                        </div>    
 			                                    </div>
 			                                </div>
 			                            </div>
-			                        			
+			                            
+			                            
+			                     
 	                        		<% } %>
-	                           
-	                            <% } %>
-	                            
+	                        	<% } %>
 	                        </div>
 	
 	                        <br>
 		
 	                        <div class="searchArea">
-                                <form class="searchForm" role="search" method="post" action="<%= request.getContextPath() %>/search.qe" onsubmit="return checkKeyword();">
+                                <form class="searchForm" role="search" method="post" action="<%= request.getContextPath() %>/search.an" onsubmit="return checkKeyword();">
 
                                     <div id="searchText">
                                     	<% if(keyWord.equals("")) { %>
@@ -367,10 +439,6 @@
 	                            </form>
 	                        </div>
 	
-	                        <div id="insertBtn" class="fontBorder">
-	                            <button type="button" class="btn btn-primary fontBorder" onclick="location.href='<%= request.getContextPath() %>/getName.ca'">문의하기</button>
-	                        </div>
-	
 	                        <br><br>
 	
 							<div class="pagingArea fontBorder">
@@ -383,21 +451,21 @@
 				                                	<% if(currentPage - 1 <= 0)  { %>
 				                               			<button class="boardBtn" disabled style="color:gray">이전</button>
 				                                	<% }else { %>
-				                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/myList.qe?currentPage=<%= currentPage - 1 %>'">이전</button>
+				                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/list.an?currentPage=<%= currentPage - 1 %>'">이전</button>
 				                                	<% } %>  
 				                                	
 				                                	<% for(int i = startPage; i <= endPage; i++) { %>
 				                                		<% if(i == currentPage) { %>
 				                                			<button class="boardBtn" disabled style="color:blue"><%= i %></button>
 				                                		<% }else { %>
-				                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/myList.qe?currentPage=<%= i %>'"><%= i %></button>
+				                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/list.an?currentPage=<%= i %>'"><%= i %></button>
 				                                		<% } %>                                                           
 				                                	<% } %>
 				                                      
 				                                	<% if(currentPage == maxPage)  { %>
 				                                		<button class="boardBtn" disabled style="color:gray">다음</button>
 				                                	<% }else { %>
-				                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/myList.qe?currentPage=<%= currentPage + 1 %>'">다음</button>
+				                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/list.an?currentPage=<%= currentPage + 1 %>'">다음</button>
 				                                	<% } %>
 				                                </div>
 		                                	
@@ -410,21 +478,21 @@
 			                                	<% if(currentPage - 1 <= 0)  { %>
 			                               			<button class="boardBtn" disabled style="color:gray">이전</button>
 			                                	<% }else { %>
-			                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/search.qe?currentPage=<%= currentPage - 1 %>&keyWord=<%= keyWord %>'">이전</button>
+			                                   		<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/search.an?currentPage=<%= currentPage - 1 %>&keyWord=<%= keyWord %>'">이전</button>
 			                                	<% } %>  
 			                                	
 			                                	<% for(int i = startPage; i <= endPage; i++) { %>
 			                                		<% if(i == currentPage) { %>
 			                                			<button class="boardBtn" disabled style="color:blue"><%= i %></button>
 			                                		<% }else { %>
-			                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/search.qe?currentPage=<%= i %>&keyWord=<%= keyWord %>'"><%= i %></button>
+			                                			<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/search.an?currentPage=<%= i %>&keyWord=<%= keyWord %>'"><%= i %></button>
 			                                		<% } %>                                                           
 			                                	<% } %>
 			                                      
 			                                	<% if(currentPage == maxPage)  { %>
 			                                		<button class="boardBtn" disabled style="color:gray">다음</button>
 			                                	<% }else { %>
-			                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/search.qe?currentPage=<%= currentPage + 1 %>&keyWord=<%= keyWord %>'">다음</button>
+			                                    	<button class="boardBtn" onclick="location.href='<%= request.getContextPath() %>/search.an?currentPage=<%= currentPage + 1 %>&keyWord=<%= keyWord %>'">다음</button>
 			                                	<% } %>
 			                                </div>
 		                                	
@@ -435,6 +503,9 @@
 							
 	                        </div>
 							
+		                        
+	                        
+	                        
 						</div>
                     </div>
                     <!-- end container -->
@@ -454,9 +525,9 @@
 			</div>
             <!-- end .page-contentbar -->
 		</div>
-        
-        <script>
+	
 
+		<script>
 	        function checkKeyword(){
 	        	var keyword = $("#searchText").children("input").val();
 	        	
@@ -468,9 +539,17 @@
 					return true;
 				}
 	        }
-        
 	        
+	        $(function(){
+	        	$("button[id^='btn']").click(function(){
+	        		console.log("dfa");
+	        	});
+	        	
+	        });
+
         </script>
+
+
 
 
         <!-- js placed at the end of the document so the pages load faster -->
@@ -481,7 +560,6 @@
 
         <!-- App Js -->
         <script src="<%= request.getContextPath() %>/resources/assets/js/jquery.app.js"></script>
-		
-		
+	
 	</body>
 </html>

@@ -101,7 +101,7 @@
                             			<a href="<%= request.getContextPath() %>/myList.qe" target="_self"><i class="mdi mdi-comment-text"></i> 내 문의</a>                                    
                             		</li>
 			                        <li class="menu-item">
-			                        	<a href="">문의하기</a>
+			                        	<a href="<%= request.getContextPath() %>/getName.ca">문의하기</a>
 			                        </li>
 			                        <% if(userType.equals("B")) { %>
 	                             		<li class="menu-item">
@@ -114,7 +114,7 @@
                             			<a href="<%= request.getContextPath() %>/views/question/questionPwdCheckForm.jsp" target="_self"><i class="mdi mdi-comment-text"></i> 내 문의</a>                                    
                             		</li>
 			                        <li class="menu-item">
-			                        	<a href="">문의하기</a>
+			                        	<a href="<%= request.getContextPath() %>/getName.ca">문의하기</a>
 			                        </li>
                             	<% } %>
                               </ul>

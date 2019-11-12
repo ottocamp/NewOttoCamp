@@ -534,5 +534,37 @@ public class CampDao {
 	}
 
 
+	public ArrayList<CampInfo> getName(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;		
+		ArrayList<CampInfo> ci = new ArrayList<>();
+		
+		String sql = prop.getProperty("getName");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				CampInfo c = new CampInfo();
+				
+				c.setcName(rset.getString("camp_name"));
+				c.setcUserNo(rset.getInt("user_no"));
+				
+				ci.add(c);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);			
+		}
+		
+		return ci;
+	}
+
+
 	
 }

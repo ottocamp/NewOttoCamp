@@ -70,7 +70,7 @@
                                 <ul class="nav-second-level nav collapse" aria-expanded="false">
                                     <li><a href="<%= request.getContextPath() %>/allList.bo">게시글 관리</a></li>
                                     <li><a href="<%= request.getContextPath() %>/allList.co">댓글 관리</a></li>
-                                    <li><a href="<%= request.getContextPath() %>/allList.qe">문의 답변</a></li>
+                                    <li><a href="<%= request.getContextPath() %>/list.an">답변하기</a></li>
                                 </ul>
                             </li >
                             <!-- 김상인 추가 끝 -->
