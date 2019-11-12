@@ -34,23 +34,26 @@
 
 						<!-- Left Menu Start -->
 						<ul class="metisMenu nav" id="side-menu">
-							<li><a href="<%=request.getContextPath()%>/reservation.ca"><i
+							<li><a href="<%=request.getContextPath()%>/views/reservation/reservationCampListView.jsp"><i
 									class="ti-home"></i> 사업자 메인 </a></li>
 
-							<li><a href="<%=request.getContextPath()%>/reservation.ca"><span
-									class="label label-custom pull-right">11</span> <i
-									class="ti-paint-bucket"></i> 예약내역 </a></li>
+							<li><a href="javascript: void(0);" aria-expanded="true"><i
+									class="mdi mdi-calendar-clock"></i>예약 내역 <span class="fa arrow"></span></a> 
+									<ul class="nav-second-level nav collapse" aria-expanded="false">
+									<li><a href="<%=request.getContextPath()%>/views/reservation/reservationCampListView.jsp">예약내역 조회</a></li>
+                                    </ul></li>
 
-							<li class=""><a href="javascript: void(0);"
-								aria-expanded="false"><i class="ti-menu-alt"></i> 매출내역확인 <span
-									class="fa arrow"></span></a> <ul class="nav-second-level nav collapse" aria-expanded="false" style="height: 0px;">
+							<li class=""><a href="javascript: void(0);" aria-expanded="true"><i
+									class="text fas fa-won-sign"></i>매출 내역 <span class="fa arrow"></span></a> 
+									<ul class="nav-second-level nav collapse" aria-expanded="false">
+									<li><a href="<%=request.getContextPath()%>/saleslist.ca">매출내역 조회</a></li>
                                     </ul></li>
 
 							<li><a href="javascript: void(0);" aria-expanded="true"><i
-									class="ti-light-bulb"></i> 정보등록/수정 <span class="fa arrow"></span></a>
+									class="mdi mdi-account"></i>정보등록관리 <span class="fa arrow"></span></a>
 								<ul class="nav-second-level nav collapse" aria-expanded="false">
-									<li><a href="<%=request.getContextPath()%>/views/camp/campInsertView.jsp"">정보 등록</a></li>
-									<!-- <li><a href="components-alerts.html">정보 수정</a></li>  -->
+									<li><a href="<%=request.getContextPath()%>/views/camp/campInsertView.jsp">정보 등록</a></li>
+									<li><a href="<%=request.getContextPath()%>/submitresult.ca">등록 현황</a></li>
 
 								</ul></li>
 

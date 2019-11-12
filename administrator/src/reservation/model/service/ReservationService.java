@@ -84,7 +84,7 @@ public class ReservationService {
 	public ArrayList<Reservation> SelectCampList(int uNo) {
 		Connection conn = getConnection();
 		
-		ArrayList<Reservation> rList = new ReservationDao().SelectCampList(conn,uNo);
+		ArrayList<Reservation> rList = new ReservationDao().SelectCampList(conn, uNo);
 		
 		close(conn);
 		

@@ -112,13 +112,13 @@
                                         <a href="#">사업자관리페이지</a>
                                         <ul class="sub-menu">
                                            <li class="menu-item">
-                                              <a href="<%=request.getContextPath()%>/reservation.ca">예약내역</a>
+                                              <a href="<%=request.getContextPath()%>/views/reservation/reservationCampListView.jsp">예약내역</a>
                                            </li>
                                            <li class="menu-item">
-                                              <a href="">매출내역</a>
+                                              <a href="<%=request.getContextPath()%>/views/camp/campSalesListView.jsp">매출내역</a>
                                            </li>
                                            <li class="menu-item">
-                                              <a href="<%=request.getContextPath()%>/views/camp/campInsertView.jsp">정보등록/수정</a>
+                                              <a href="<%=request.getContextPath()%>/submitresult.ca">정보등록관리</a>
                                            </li>
                                            <li class="menu-item">
                                               <a href="">문의답변</a>

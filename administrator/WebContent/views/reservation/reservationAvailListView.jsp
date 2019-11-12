@@ -3,7 +3,7 @@
 <%
 	ArrayList<Reservation> rList = (ArrayList<Reservation>)request.getAttribute("rList");
 	DecimalFormat formatter = new DecimalFormat("##,###,###");
-	String msg = (String)session.getAttribute("msg");
+	/* String msg = (String)session.getAttribute("msg"); */
 	
 	for(Reservation re : rList){
 		
@@ -56,7 +56,7 @@
 		 <!-- Sweet Alert -->
         <link href="<%= request.getContextPath() %>/resources/assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 		
-		<script>
+		<%-- <script>
 		var msg = "<%= msg %>";
 		$(function(){
 		if(msg != "null"){
@@ -66,7 +66,7 @@
 		}
 		});
 		
-	</script>
+	</script> --%>
 
 	<style type="text/css">
 		#sa-success{

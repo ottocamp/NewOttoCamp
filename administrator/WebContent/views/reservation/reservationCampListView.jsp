@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, reservation.model.vo.*, java.text.*"%>
+    pageEncoding="UTF-8" import="java.util.*, reservation.model.vo.*, java.text.DecimalFormat"%>
 <%
 	ArrayList<Reservation> rList = (ArrayList<Reservation>)request.getAttribute("rList");
-	// DecimalFormat formatter = new DecimalFormat("##,###,###");
-	String msg = (String)session.getAttribute("msg");
+
 	
 	for(Reservation re : rList){
 		
@@ -58,17 +57,7 @@
 		 <!-- Sweet Alert -->
         <link href="<%= request.getContextPath() %>/resources/assets/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 		
-		<script>
-		var msg = "<%= msg %>";
-		$(function(){
-		if(msg != "null"){
-			
-			$("#sa-success").click();
-			<% session.removeAttribute("msg"); %>
-		}
-		});
-		
-	</script>
+
 
 	<style type="text/css">
 		#sa-success{
@@ -126,7 +115,7 @@
                                             <th>결제금액</th>
                                             <th>처리상태</th>
                                             <th>승인</th>
-                                            <th>상세보기</th>
+                                            <th>상세내역</th>
                                         </tr>
                                         </thead>
 
@@ -141,20 +130,42 @@
 												<td><%= re.getReCost() %></td>
 												<td><%= re.getReStatus() %></td>
 												<td><%if(re.getReStatus().equals("결제완료")) {%>
-													<button type="button" class="btn btn-primary btn-xs" onclick="delete1(this);">승인</button>
+													<button type="button" class="btn btn-primary btn-xs" onclick="approval(this);">승인</button>
+												<%}else if (re.getReStatus().equals("예약완료")){ %>
+													<button type="button" class="btn btn-primary btn-xs" onclick="delete(this);">예약취소</button>
 												<%}else{ %>
-													예약완료
+													취소불가
 												<%} %>												
 												</td>
 												<td>
-													<button type="button" class="btn btn-primary btn-xs" id="detail">상세보기</button>
-												</td>		
+													<button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">상세보기</button>						
+												</td>	
 											</tr>
-										<%} %>
+						
                                         </tbody>
                                     </table>
                                 </div>
                                 
+                                <!-- Modal -->
+								<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="exampleModalLabel">예약 상세 내역</h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body">
+								        	여기다가 상세정보 출력해야 됨
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+						
+								      </div>
+								    </div>
+								  </div>
+								</div>
                                 
 							</div>
 						</div>
@@ -195,6 +206,7 @@
             <!-- end .page-contentbar -->
         </div>
 
+		
 
 
 
