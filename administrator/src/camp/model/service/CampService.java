@@ -183,7 +183,18 @@ public class CampService {
 			
 			return ci;
 		}
-
 		
+		public ArrayList<CampInfo> selectSubmitResult(int uNo) {
+			Connection conn = getConnection();
+			
+			ArrayList<CampInfo> clList = new CampDao().selectSubmitResult(conn, uNo);
+			
+			
+			close(conn);
+		
+			return clList;
+		}
+
+		/*aa*/
 
 }

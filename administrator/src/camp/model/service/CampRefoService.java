@@ -9,19 +9,19 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import camp.model.dao.CampRefoDao;
-import camp.model.vo.CampRefoEnter;
+import camp.model.vo.ReservationCamp;
 
 public class CampRefoService {
 
-	public ArrayList<CampRefoEnter> selectCampList(int cNo) {
+	public ReservationCamp detailPageSend(int cNo) {
+		System.out.println("1");
 		Connection conn = getConnection();
 		
-		ArrayList<CampRefoEnter> eList = new CampRefoDao().selectCampReList(conn, cNo);
+		ReservationCamp rc = new CampRefoDao().datailPageSend(conn, cNo);
 		
 		close(conn);
-		
-		return eList;
+
+		System.out.println("4" + rc);
+		return rc;
 	}
-
-
 }

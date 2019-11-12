@@ -9,7 +9,7 @@
 	ArrayList<MainJoinCount> mjcList = (ArrayList<MainJoinCount>)request.getAttribute("mjcList");
 	
 	DecimalFormat formatter = new DecimalFormat("#,###,###,###");
-
+	/**/
 
 %>	
 	
