@@ -9,12 +9,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
-<<<<<<< HEAD
         <meta http-equiv="X-UA
         -Compatible" content="IE=edge" />
-=======
+
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
->>>>>>> refs/remotes/origin/imhyeok
+
 
         <link rel="shortcut icon" href="assets/images/favicon.ico">
 
