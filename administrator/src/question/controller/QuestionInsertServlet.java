@@ -42,30 +42,75 @@ public class QuestionInsertServlet extends HttpServlet {
 		String title = (String)request.getParameter("bTitle");
 		String content = (String)request.getParameter("content");
 		String writer = (String)request.getParameter("memName");
-		String pwd = (String)request.getParameter("memPwd");
+		String pwd = (String)request.getParameter("memPwd");		
+		int result = 0;
+		
 		
 		Question q = new Question();
 		
-		q.setqTitle(title);
-		q.setqContent(content);
-		q.setqWriter(writer);
-		q.setPwd(pwd);
-		q.setUserNo(userNo);
-		q.setaWriter(camNo);
-		
-		int result = new QuestionService().insertQuestion(q);
+		if(writer != null) {
+			
+			int checkIdPwd = new QuestionService().checkIdPwd(writer);
+			if(checkIdPwd > 0) {
+				request.getSession().setAttribute("msg", "사용할 수 없는 임시ID입니다");
+				
+				System.out.println(checkIdPwd);
 
-		
-		if(result > 0) {
-			request.getSession().setAttribute("msg", "문의가 작성되었습니다");
+				response.sendRedirect(request.getContextPath() + "/getName.ca");
+			}else {
+				
+				q.setqTitle(title);
+				q.setqContent(content);
+				q.setqWriter(writer);
+				q.setPwd(pwd);
+				q.setUserNo(userNo);
+				q.setaWriter(camNo);
+				
+				result = new QuestionService().insertQuestion(q);
+
+				
+				if(result > 0) {
+					request.getSession().setAttribute("msg", "문의가 작성되었습니다");
+				}else {
+					request.getSession().setAttribute("msg", "문의 작성에 실패하였습니다");
+				}
+
+				
+				
+				if(userNo != 9999) {
+					response.sendRedirect(request.getContextPath() + "/myList.qe");
+				}else {
+					response.sendRedirect(request.getContextPath() + "/freqList.qe");
+				}
+			}
+			
+			
 		}else {
-			request.getSession().setAttribute("msg", "문의 작성에 실패하였습니다");
-		}
-		
-		if(userNo != 9999) {
-			response.sendRedirect(request.getContextPath() + "/myList.qe");
-		}else {
-			response.sendRedirect(request.getContextPath() + "/freqList.qe");
+
+			q.setqTitle(title);
+			q.setqContent(content);
+			q.setqWriter(writer);
+			q.setPwd(pwd);
+			q.setUserNo(userNo);
+			q.setaWriter(camNo);
+			
+			result = new QuestionService().insertQuestion(q);
+
+			
+			if(result > 0) {
+				request.getSession().setAttribute("msg", "문의가 작성되었습니다");
+			}else {
+				request.getSession().setAttribute("msg", "문의 작성에 실패하였습니다");
+			}
+
+			
+			
+			if(userNo != 9999) {
+				response.sendRedirect(request.getContextPath() + "/myList.qe");
+			}else {
+				response.sendRedirect(request.getContextPath() + "/freqList.qe");
+			}
+			
 		}
 	}
 

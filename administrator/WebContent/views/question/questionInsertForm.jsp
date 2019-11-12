@@ -2,6 +2,9 @@
     pageEncoding="UTF-8" import="camp.model.vo.*, java.util.*"%>
 <%
 	ArrayList<CampInfo> ci = (ArrayList<CampInfo>)request.getAttribute("ci");
+
+
+	String msg = (String)session.getAttribute("msg");
 %>
 
 <!DOCTYPE html>
@@ -14,6 +17,17 @@
 		
         <meta charset="utf-8" />
         <title>SimpleAdmin - Responsive Admin Dashboard Template</title>
+		<script>
+			var msg = "<%= msg %>";
+			
+			$(function(){
+				if(msg != "null"){
+					alert(msg);
+					<% session.removeAttribute("msg"); %>
+				}
+			})
+		
+		</script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />

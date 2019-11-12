@@ -238,6 +238,17 @@ public class QuestionService {
 	}
 
 
+	public int checkIdPwd(String writer) {
+		Connection conn = getConnection();
+		
+		int result = new QuestionDao().checkIdPwd(conn, writer);
+		
+		close(conn);
+		
+		return result;
+	}
+
+
 
 
 	

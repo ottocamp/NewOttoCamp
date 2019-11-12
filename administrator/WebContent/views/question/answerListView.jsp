@@ -390,21 +390,22 @@
 			
 			                                        <br><br>
 			
-			                                        <div id="answerForm<%= q.getqNo() %>">			                                       
-			                                        	<input type="hidden" name="q_no" value="<%= q.getqNo() %>">
+			                                        <div id="answerForm<%= q.getqNo() %>">			                
 		                                            	<% if(q.getAns().equals("답변이 없습니다")) { %>
 				                                            <div id="answerText">
-				                                                <textarea id="answerContent" name="answer" style="resize: none" placeholder="내용을 입력하세요"></textarea>
+				                                                <textarea id="answerContent" name="answer" style="resize: none" placeholder="내용을 입력하세요"></textarea>                       
+			                                        			<input type="hidden" name="q_no" value="<%= q.getqNo() %>">
 				                                            </div>
 				                                            <div id="answerSubmit">
-				                                                <button class="submitBtn fontBorder" id="btn<%= q.getqNo() %>" type="submit">등록하기</button>
+				                                                <button class="submitBtn fontBorder" id="btn<%= q.getqNo() %>" type="submit" onclick="insertAnswer(this);">등록하기</button>
 				                                            </div>
 				                                        <% }else { %>
 				                                            <div id="answerText">
 				                                                <textarea id="answerContent" name="answer" style="resize: none" placeholder="수정할 내용을 입력하세요"></textarea>
+				                                                <input type="hidden" name="q_no" value="<%= q.getqNo() %>">
 				                                            </div>
 				                                            <div id="answerSubmit">
-				                                                <button class="submitBtn fontBorder" id="btn<%= q.getqNo() %>" type="submit">수정하기</button>
+				                                                <button class="submitBtn fontBorder" id="btn<%= q.getqNo() %>" type="submit" onclick="insertAnswer(this);">수정하기</button>
 				                                            </div>
 				                                        <% } %>    
 			                                        </div>    
@@ -540,13 +541,34 @@
 				}
 	        }
 	        
-	        $(function(){
-	        	$("button[id^='btn']").click(function(){
-	        		console.log("dfa");
-	        	});
+	        
+	        function insertAnswer(e){
+	        	var ans = $(e).parent().prev().children("textarea").val();
+	        	var qno = $(e).parent().prev().children("input").val();
+	        	console.log(ans);
+	        	console.log(qno);
 	        	
-	        });
-
+	        	
+	        	$.ajax({
+					url : "insert.an",
+					data : {answer:ans, q_no:qno},
+					type : "post",
+					dataType : "json",
+					success : function(data){
+						console.log(data)	
+						alert("입력되었습니다");	
+						location.href = location.href;
+					},
+					error : function(){
+						console.log("통신 실패");
+						alert("입력에 실패하였습니다");
+					}
+					
+					
+				});
+	        	
+	        }
+	        
         </script>
 
 
