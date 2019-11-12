@@ -50,6 +50,8 @@
 									class="ti-spray"></i> 로그인 관리 </a></li>
   								<li><a href="<%= request.getContextPath() %>/coupon.user"><i
 									class="ti-spray"></i> 쿠폰 관리 </a></li>
+								<li><a href="<%= request.getContextPath() %>/selectreview.user"><i
+									class="ti-spray"></i> 리뷰 관리 </a></li>	
 									
 									
 								<!-- 김상인 2019/11/10일 추가 / 위치 변경 필요 -->	
