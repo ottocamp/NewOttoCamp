@@ -2,8 +2,13 @@
 	pageEncoding="UTF-8" import="camp.model.vo.*, java.util.*"%>
 	
 <%
-	ArrayList<CampInfoReservation> cList = (ArrayList<CampInfoReservation>)request.getAttribute("cList");
-	ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getAttribute("aList");
+	ArrayList<CampRefoSiteEnter> sList = (ArrayList<CampRefoSiteEnter>)request.getAttribute("sList");
+	ArrayList<CampRefoOptionEnter> oList = (ArrayList<CampRefoOptionEnter>)request.getAttribute("sList");
+	//ArrayList<Attachment> aList = (ArrayList<Attachment>)request.getAttribute("aList");
+	
+	int sindex1 = sList.get(0).getDateMAx();
+	int sindex2 = sList.get(0).getStayMAx();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -70,8 +75,18 @@ bottom: 0;
 			
 			<!-- block-1 -->
 			<div>
-			캠핑장 사이트 전도.
+<%-- 			<select>
+            			
+            			<!-- <option>1</option> -->
+            			<%for(int i = 1; i <= index; i++) { %>
+            			<option>
+            				<%= i %>
+            			</option>
+            			<% } %>
+            			
+            </select> --%>
 			</div>
+			
 			<!-- block-1 end -->
 			
 			<hr>
@@ -88,9 +103,11 @@ bottom: 0;
 			<div>
 				<table class="table m-0 table-bordered">
 					<tr>
-						<td>사이트1(인클루드)&nbsp;<input type="checkbox" name="st1" id="st-ck1"></td>
-						<td>사이트2(인클루드)&nbsp;<input type="checkbox" name="st2"  id="st-ck2"></td>
-						<td>사이트3(인클루드)&nbsp;<input type="checkbox" name="st3" id="st-ck3"></td>
+						<% for(CampRefoSiteEnter crse : sList) { %>
+						<td><%= crse.getsType() %>&nbsp;<input type="checkbox" name="st1" id="st-ck1"></td>
+						<% } %>
+						<!-- <td>사이트2(인클루드)&nbsp;<input type="checkbox" name="st2"  id="st-ck2"></td>
+						<td>사이트3(인클루드)&nbsp;<input type="checkbox" name="st3" id="st-ck3"></td> -->
 					</tr>
 				</table>
 			</div>
@@ -98,8 +115,8 @@ bottom: 0;
 			<div> 	
 			<p>
 			<button class="btn btn-dark btn-rounded btn-hide" type="button" data-toggle="collapse" data-target="#st1InsertReservation" aria-expanded="false" aria-controls="st1InsertReservation" id="st-btn1">사이트1 버튼</button>
-  			<button class="btn btn-dark btn-rounded btn-hide" type="button" data-toggle="collapse" data-target="#st2InsertReservation" aria-expanded="false" aria-controls="st2InsertReservation" id="st-btn2">사이트2 버튼</button>
-  			<button class="btn btn-dark btn-rounded btn-hide" type="button" data-toggle="collapse" data-target="#st3InsertReservation" aria-expanded="false" aria-controls="st3InsertReservation" id="st-btn3">사이트3 버튼</button>
+  			<!-- <button class="btn btn-dark btn-rounded btn-hide" type="button" data-toggle="collapse" data-target="#st2InsertReservation" aria-expanded="false" aria-controls="st2InsertReservation" id="st-btn2">사이트2 버튼</button>
+  			<button class="btn btn-dark btn-rounded btn-hide" type="button" data-toggle="collapse" data-target="#st3InsertReservation" aria-expanded="false" aria-controls="st3InsertReservation" id="st-btn3">사이트3 버튼</button> -->
   			</p>
   			</div> 
   			<!-- 사이트 버튼 보관div 끗 -->	
@@ -110,61 +127,39 @@ bottom: 0;
     		<div class="card card-body">
         		<table class="table table-bordered">
           			<tr class="success">
-            			<th>사이트 테이블1</th><th>이용인원(기준/최대)</th><th>이용금액</th><th>추가인원</th><th>예약기간</th><th>예약인원</th><th>합계</th><th>선택</th>
+            			<th>사이트 테이블1</th><th>이용금액</th><th>추가인원</th><th>예약기간</th><th>예약인원</th><th>합계</th><th>선택</th>
           			</tr>
+          			<% for(CampRefoSiteEnter crse : sList) { %>
           			<tr>
-          		  		<td></td>
-            			<td></td>
-            			<td></td>
-            			<td></td>
-            			<td><select><option>1</option></select></td>
-            			<td><select><option>1</option></select></td>
+          		  		<td><%= crse.getReSiType() %></td>
+            			<td><%= crse.getsPrice() %></td>
+            			<td><%= crse.getAddPrice() %></td>
+            			<td>
+            			<select>
+            			<%for(int i = 1; i < sindex1; i++) { %>
+            			<option>
+            				<%= i %>박 <%= i+1 %>일
+            			</option>
+            			<% } %>
+            			</select>
+            			</td>
+            			<td>
+            			<select>
+            			<%for(int i = 1; i <= sindex2; i++) { %>
+            			<option>
+            				<%= i %>명
+            			</option>
+            			<% } %>
+            			</select>
+            			</td>
             			<td></td>
             			<td><input type="checkbox"></td>
           			</tr>
+          			<% } %>
         		</table>	
     		</div>
   			</div>
-  			
-  			<div class="collapse" id="st2InsertReservation">
-    		<div class="card card-body">
-        		<table class="table table-bordered">
-          			<tr class="success">
-            			<th>사이트 테이블2</th><th>이용인원(기준/최대)</th><th>이용금액</th><th>추가인원</th><th>예약기간</th><th>예약인원</th><th>합계</th><th>선택</th>
-          			</tr>
-          			<tr>
-          		  		<td></td>
-            			<td></td>
-            			<td></td>
-            			<td><select><option>1</option></select></td>
-            			<td><select><option>1</option></select></td>
-            			<td></td>
-            			<td><input type="checkbox"></td>
-          			</tr>
-        		</table>	
-    		</div>
-  			</div>
-  			
-  			<div class="collapse" id="st3InsertReservation">
-    		<div class="card card-body">
-        		<table class="table table-bordered">
-          			<tr class="success">
-            			<th>사이트 테이블 3</th><th>이용인원(기준/최대)</th><th>이용금액</th><th>추가인원</th><th>예약기간</th><th>예약인원</th><th>합계</th><th>선택</th>
-          			</tr>
-          			<tr>
-          		  		<td></td>
-            			<td></td>
-            			<td></td>
-            			<td></td>
-            			<td><select><option>1</option></select></td>
-            			<td><select><option>1</option></select></td>
-            			<td></td>
-            			<td><input type="checkbox"></td>
-          			</tr>
-        		</table>	
-    		</div>
-  			</div>
-				
+
 
 			<hr>
 
@@ -262,14 +257,14 @@ bottom: 0;
 		</div><!-- 사이트 전체를 덮는 -->
 			<!-- block-2 end -->
 			
-			
-			<!-- block-3 -->
+			<!-- <div>
+			block-3
 			<div id="rePrecautions" style="background: white">
 				캠핑장 주의사항
 				<div id="campPrecautions"></div>
 			</div>
-			<!-- block-3 end -->
-
+			block-3 end
+			</div> -->
 <hr>
 
 			<!-- block-4 -->
